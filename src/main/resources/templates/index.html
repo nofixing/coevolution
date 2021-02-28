@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-10">
+            <div th:if="${not #strings.isEmpty(userName)}">
+                <div style="display: inline-block;" th:if="${not #strings.isEmpty(userImg)}">
+                    <img style="width:45px; height:45px" src="/image/unnamed.png" th:src="${userImg}"
+                         class="rounded-circle img-thumbnail img-responsive">
+                </div>
+                <span id="login-user" th:text="${userName}">사용자</span> 님, 안녕하세요.
+                    <a href="/logout" class="btn btn-sm btn-info active" role="button">Logout</a>
+                </span>
+            </div>
+            <div th:if="${#strings.isEmpty(userName)}">
+                <!-- 스프링 시큐리티에서 기본 제공하는 URL - 별도 컨트롤러 작성 필요 없음 -->
+                <a href="/oauth2/authorization/google" class="btn btn-secondary active" role="button">Google Login</a>
+                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+                <a href="/oauth2/authorization/facebook" class="btn btn-secondary active" role="button">Facebook Login</a>
+                <a href="/oauth2/authorization/kakao" class="btn btn-secondary active" role="button">Kakao Login</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

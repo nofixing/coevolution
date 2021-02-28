@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.coevolution.vr.email.domain.EvMailSndRepository">
+    <select id="S01" parameterType="kr.coevolution.vr.email.dto.EvMailSndRequestDto" resultType="kr.coevolution.vr.email.dto.EvMailSndResposeDto">
+
+        select mail_id
+             , cust_id
+             , snd_dt
+             , rcv_email_id
+             , rcv_title_nm
+             , rcv_email_conts
+             , rcv_snd_yn
+             , rcv_snd_msg
+          from ev_mail_snd
+
+        <where>
+            <if test="mail_id != null and mail_id != ''">
+                and mail_id = #{mail_id}
+            </if>
+        </where>
+
+    </select>
+
+    <insert id="I01" parameterType="kr.coevolution.vr.email.dto.EvMailSndRequestDto">
+        INSERT INTO ev_mail_snd
+        (
+            MAIL_ID, CUST_ID, SND_DT, RCV_EMAIL_ID, RCV_TITLE_NM, RCV_EMAIL_CONTS, RCV_SND_YN, RCV_SND_MSG, INS_USER, INS_DTM
+        ) VALUES (
+            NULL, #{cust_id}, CURRENT_DATE(), #{rcv_email_id}, #{rcv_title_nm}, #{rcv_email_conts}, #{rcv_snd_yn}, #{rcv_snd_msg}, #{user_id}, NOW()
+        )
+    </insert>
+
+</mapper>

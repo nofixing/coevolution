@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/common.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        $(document).ready( function() {
+            $("#testButtton").on("click", function() {
+                /* form값 global 변수에 입력 */
+                gfnGetFormJSON();
+
+                /* global 변수 json으로 변환 */
+                var pParamJson = gfnGetJson();
+
+                /*
+                var pParamJson = {
+                    mail_id: $("#mail_id").val(),
+                    cust_id: $("#cust_id").val(),
+                    snd_dt: $("#snd_dt").val(),
+                    rcv_email_id: $("#rcv_email_id").val(),
+                    rcv_title_nm: $("#rcv_title_nm").val(),
+                    rcv_email_contss: ""
+                };
+
+                var pParamJson = JSON.stringify(pParamJson);
+
+                */ 
+                
+                if(pParamJson.substring(0,1) == "[") {
+                    pParamJson = pParamJson.substring(1, (pParamJson.length-1));
+                }
+
+                console.log(pParamJson);
+
+                sendForm("POST", "/mail/search", "application/json; charset=utf-8", "json", pParamJson, function(message){
+                    console.log(message);
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+        <input type="text" id="mail_id" name="mail_id" placeholder="mail_id">
+        <input type="text" id="cust_id" name="cust_id" placeholder="cust_id">
+        <input type="text" id="snd_dt" name="snd_dt" placeholder="snd_dt">
+        <input type="text" id="rcv_email_id" name="rcv_email_id" placeholder="rcv_email_id">
+        <input type="text" id="rcv_title_nm" name="rcv_title_nm" placeholder="rcv_title_nm">
+        <input type="text" id="rcv_email_conts" name="rcv_email_conts" placeholder="rcv_email_conts">
+        <input type="text" id="rcv_snd_yn" name="rcv_snd_yn" placeholder="rcv_snd_yn">
+        <input type="text" id="rcv_snd_msg" name="rcv_snd_msg" placeholder="rcv_snd_msg">
+        <input type="text" id="ins_user" name="ins_user" placeholder="ins_user">
+
+        <input type="button" id="testButtton" name="testButtton" value="버튼">
+    </form>
+</body>
+</html>
