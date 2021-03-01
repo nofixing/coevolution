@@ -38,4 +38,3 @@ out/
 
 /src/main/resources/application.properties
 /src/main/resources/application-oauth.properties
-/src/main/resources/log4jdbc.log4j2.properties
