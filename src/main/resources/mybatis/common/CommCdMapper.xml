@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.coevolution.vr.comm.domain.EvCommCodeMapper">
+
+    <select id="S01_COMM_CD" parameterType="kr.coevolution.vr.comm.dto.EvCommCodeRequestDto" resultType="kr.coevolution.vr.comm.dto.EvCommCodeResponseDto">
+
+        select cd_id, cd_nm, upper_cd_id, cd_val1, cd_val2, cd_val3, cd_val4, cd_val5, priority, use_yn
+        from ev_comm_code
+
+        <where>
+
+            <if test="cd_id != null and cd_id != ''">
+                and cd_id = #{cd_id}
+            </if>
+
+            <if test="upper_cd_id != null and upper_cd_id != ''">
+                and upper_cd_id = #{upper_cd_id}
+            </if>
+
+            <if test="use_yn != null and use_yn != ''">
+                and use_yn = #{use_yn}
+            </if>
+
+        </where>
+
+        order by priority asc, cd_id asc
+
+
+    </select>
+
+</mapper>

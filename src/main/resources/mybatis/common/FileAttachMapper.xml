@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.coevolution.vr.comm.domain.EvFileAttachMapper">
+
+    <insert id="I01_FILE" parameterType="kr.coevolution.vr.comm.dto.EvFileAttachRequestDto">
+
+        <selectKey resultType="int"  keyProperty="board_seq" order="BEFORE">
+            select nvl(MAX(board_seq), 0) + 1 AS board_seq from ev_file_attach where board_id = #{board_id}
+        </selectKey>
+
+        INSERT INTO ev_file_attach
+        (
+            attach_id
+            , board_id
+            , board_seq
+            , file_clsf_cd
+            , file_clsf_dtl_cd
+            , file_name
+            , org_file_name
+            , file_size
+            , file_path
+            , ins_user
+            , ins_dtm
+        ) VALUES (
+            NULL
+            , #{board_id}
+            , #{board_seq}
+            , #{file_clsf_cd}
+            , #{file_clsf_dtl_cd}
+            , #{file_name}
+            , #{org_file_name}
+            , #{file_size}
+            , #{file_path}
+            , #{user_id}
+            , NOW()
+        )
+    </insert>
+
+</mapper>

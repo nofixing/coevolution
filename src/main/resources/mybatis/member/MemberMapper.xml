@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.coevolution.vr.member.domain.EvMemberMapper">
+
+    <select id="S01_CUST" parameterType="kr.coevolution.vr.member.dto.EvMemberSearchDto" resultType="kr.coevolution.vr.member.dto.EvMemberResposeDto">
+
+        /* 회원중복체크 */
+        SELECT COUNT(*) AS CNT
+          FROM ev_cust_mst
+         where cust_id = #{cust_id}
+
+    </select>
+
+    <select id="S02_CUST" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberLoginInfoDto">
+
+        /* 로그인 회원정보 조회 */
+        SELECT cust_seq
+             , cust_id as cust_id
+             , cust_id as user_id
+             , cust_nm
+             , email_id
+             , cust_clsf_cd
+        FROM ev_cust_mst
+        where cust_id = #{user_id}
+          and cust_pw = #{user_pw}
+
+    </select>
+
+    <insert id="I01_CUST" parameterType="map" useGeneratedKeys="true">
+        <selectKey resultType="Long" keyProperty="cust_seq" order="AFTER">
+            SELECT LAST_INSERT_ID() as cust_seq
+        </selectKey>
+
+        /* 회원등록 */
+        INSERT INTO ev_cust_mst
+        (
+              cust_seq, cust_id, cust_pw, cust_clsf_cd, cust_nm
+            , company_nm, dept_nm, rep_nm, posn_nm, gender_cd
+            , age_cd, hp_no, tel_no, email_id, country_cd
+            , zip_code, addr_1, addr_2
+            , city_nm, visit_pups_cd, rcmder_cust_id, agree_1, agree_dtm_1
+            , agree_2, agree_dtm_2, agree_3, agree_dtm_3, ins_user
+            , ins_dtm, mod_user, mod_dtm
+        ) VALUES (
+              NULL, #{cust_id}, #{cust_pw}, #{cust_clsf_cd}, #{cust_nm}
+            , #{company_nm}, #{dept_nm}, #{rep_nm}, #{posn_nm}, #{gender_cd}
+            , #{age_cd}, #{hp_no}, #{tel_no}, #{email_id}, #{country_cd}
+            , #{zip_code}, #{addr_1}, #{addr_2}
+            , #{city_nm}, #{visit_pups_cd}, #{rcmder_cust_id}, #{agree_1}, NOW()
+            , #{agree_2}, NOW(), #{agree_3}, NOW(), #{user_id}
+            , NOW(), #{user_id}, NOW()
+        )
+
+    </insert>
+
+    <insert id="I02_CUST" parameterType="map">
+
+        /* 회원관심사항 입력 */
+        INSERT INTO ev_cust_intrst
+        (
+            intrst_id, cust_id, intrst_cd, del_yn, ins_user, ins_dtm, mod_user, mod_dtm
+        ) VALUES (
+            NULL, #{cust_id}, #{intrst_cd}, 'N', #{user_id}, NOW(), #{user_id}, NOW()
+        )
+
+    </insert>
+
+    <update id="U01_CUST" parameterType="map">
+
+        /* 회원정보수정 */
+        UPDATE ev_cust_mst
+           SET company_nm       = #{company_nm}
+             , dept_nm          = #{dept_nm}
+             , rep_nm           = #{rep_nm}
+             , posn_nm          = #{posn_nm}
+             , gender_cd        = #{gender_cd}
+             , age_cd           = #{age_cd}
+             , hp_no            = #{hp_no}
+             , tel_no           = #{tel_no}
+             , email_id         = #{email_id}
+             , country_cd       = #{country_cd}
+             , zip_code         = #{zip_code}
+             , addr_1           = #{addr_1}
+             , addr_2           = #{addr_2}
+             , city_nm          = #{city_nm}
+             , visit_pups_cd    = #{visit_pups_cd}
+             , mod_user         = #{user_id}
+             , mod_dtm          = NOW()
+         WHERE cust_seq         = #{cust_seq}
+    </update>
+
+    <update id="U02_CUST" parameterType="map">
+
+        /* 회원관심사항 삭제처리 */
+        UPDATE ev_cust_intrst
+          SET del_yn    = 'Y'
+            , mod_user  = #{user_id}
+            , mod_dtm   =  NOW()
+        WHERE cust_id   = #{cust_id}
+
+    </update>
+
+    <update id="U03_CUST" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto">
+
+        /* 회원비빌번호 변경 */
+        UPDATE ev_cust_mst
+           SET cust_pw  = #{user_change_pw1}
+             , mod_user = #{user_id}
+             , mod_dtm  = NOW()
+         WHERE cust_id  = #{cust_id}
+
+    </update>
+
+</mapper>

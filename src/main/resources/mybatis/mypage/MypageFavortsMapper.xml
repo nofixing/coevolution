@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coevolution.vr.mypage.domain.EvMypageFavoritsMapper">
+
+    <select id="S01_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto">
+
+        /* 마이페이지 개인 부스 즐겨찾기*/
+        SELECT ROW_NUMBER() OVER() as RN
+             , a.favorts_id
+             , a.cust_id
+             , a.favorts_cust_id
+             , CONCAT('관정보> ', (SELECT cust_nm FROM ev_cust_mst WHERE cust_id = a.cust_id)) AS favorts_cust_nm
+             , '#' as shortcut_url /* 바로가기 */
+          FROM ev_cust_favorts a
+         WHERE a.del_yn = 'N'
+           AND a.cust_id = #{cust_id}
+         ORDER BY a.ins_dtm DESC
+         LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S02_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto">
+
+        /* 마이페이지 개인 부스 즐겨찾기 총 건수 */
+        SELECT COUNT(*) AS row_count
+        FROM ev_cust_favorts a
+        WHERE a.del_yn = 'N'
+        AND a.cust_id = #{cust_id}
+
+    </select>
+
+    <select id="S03_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto">
+
+        /* VR 기업정보 즐겨찾기 조회 - 값이 있으면 체크 없으면 언체크 */
+        SELECT a.favorts_id
+        , a.cust_id
+        , a.favorts_cust_id
+        FROM ev_cust_favorts a
+        WHERE a.del_yn = 'N'
+        AND a.cust_id = #{cust_id}
+        AND a.favorts_cust_id = #{favorts_cust_id}
+
+    </select>
+
+    <insert id="I01_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto">
+
+        /* 즐거찾기 클릭 시 삭제 후 입력 */
+        INSERT INTO ev_cust_favorts (
+            favorts_id, cust_id, favorts_cust_id, del_yn, ins_user, ins_dtm, mod_user, mod_dtm
+        ) VALUES (
+            NULL, #{cust_id}, #{favorts_cust_id}, 'N', #{user_id}, NOW(), #{user_id}, NOW()
+        )
+    </insert>
+
+    <insert id="U01_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto">
+
+        /* 즐겨찾기 되어있는 내역을 삭제처리한다. */
+        UPDATE ev_cust_favorts
+           SET del_yn   = 'Y'
+             , mod_user = #{user_id}
+             , mod_dtm  = NOW()
+         WHERE cust_id = #{cust_id}
+           AND favorts_cust_id = #{favorts_cust_id}
+           AND del_yn = 'N'
+    </insert>
+
+
+</mapper>

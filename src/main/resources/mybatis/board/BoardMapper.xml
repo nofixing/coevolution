@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.coevolution.vr.board.domain.EvBoardMapper">
+
+    <insert id="I01_BOARD" parameterType="kr.coevolution.vr.board.dto.EvBoardRequestDto" useGeneratedKeys="true" >
+
+        <selectKey resultType="Long" keyProperty="board_id" order="AFTER">
+            SELECT LAST_INSERT_ID() as board_id
+        </selectKey>
+
+        INSERT INTO ev_board
+        (
+            board_id
+            , board_res_id
+            , board_clsf_cd
+            , board_clsf_dtl_cd
+            , reg_dt
+            , board_subject
+            , board_content
+            , ref_url
+            , evnt_pticpt
+            , evnt_target
+            , evnt_place
+            , req_fr_dt
+            , req_fr_hhmm
+            , req_to_dt
+            , req_to_hhmm
+            , use_yn
+            , del_yn
+            , board_stat_cd
+            , reg_user_id
+            , conslt_cust_id
+            , conslt_user_id
+            , ins_user
+            , ins_dtm
+            , mod_user
+            , mod_dtm
+        ) VALUES (
+            NULL
+            , nvl(#{board_res_id},0) /* 최초등록 0, 답변 : board_id */
+            , #{board_clsf_cd}
+            , #{board_clsf_dtl_cd}
+            , nvl(#{reg_dt}, CURRENT_DATE())
+            , #{board_subject}
+            , #{board_content}
+            , #{ref_url}
+            , #{evnt_pticpt}
+            , #{evnt_target}
+            , #{evnt_place}
+            , #{req_fr_dt}
+            , #{req_fr_hhmm}
+            , #{req_to_dt}
+            , #{req_to_hhmm}
+            , 'Y'
+            , 'N'
+            , #{board_stat_cd}
+            , #{reg_user_id}
+            , #{conslt_cust_id}
+            , #{conslt_user_id}
+            , #{user_id}
+            , NOW()
+            , #{user_id}
+            , NOW()
+        )
+    </insert>
+
+    <update id="U01_BOARD" parameterType="kr.coevolution.vr.board.dto.EvBoardRequestDto">
+
+        UPDATE ev_board
+            SET board_subject = #{board_subject}
+              , board_content = #{board_content}
+              , ref_url       = #{ref_url}
+              , evnt_pticpt   = #{evnt_pticpt}
+              , evnt_target   = #{evnt_target}
+              , evnt_place    = #{evnt_place}
+              , req_fr_dt     = #{req_fr_dt}
+              , req_fr_hhmm   = #{req_fr_hhmm}
+              , req_to_dt     = #{req_to_dt}
+              , req_to_hhmm   = #{req_to_hhmm}
+              , conslt_user_id= #{conslt_user_id}
+              , mod_user      = #{user_id}
+              , mod_dtm       = NOW()
+        WHERE board_id = #{board_id}
+
+    </update>
+
+    <update id="U02_BOARD" parameterType="kr.coevolution.vr.board.dto.EvBoardRequestDto">
+
+        UPDATE ev_board
+           SET del_yn       = 'Y'
+             , mod_user     = #{user_id}
+             , mod_dtm      = NOW()
+         WHERE board_id = #{board_id}
+
+    </update>
+
+    <update id="U03_BOARD" parameterType="kr.coevolution.vr.board.dto.EvBoardRequestDto">
+
+        UPDATE ev_board
+        SET board_stat_cd   = #{board_stat_cd}
+        , mod_user          = #{user_id}
+        , mod_dtm           = NOW()
+        WHERE board_id = #{board_id}
+
+    </update>
+
+    <select id="S01_CONSLT_LIST" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto"
+            resultType="kr.coevolution.vr.board.dto.EvBoardConsltResponseDto">
+
+        SELECT ROW_NUMBER() OVER(ORDER BY a.ins_dtm DESC) as RN
+             , a.board_id
+             , a.board_subject
+             , a.conslt_cust_id
+             , (select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id) as conslt_cust_nm
+             , a.reg_dt
+             , a.board_stat_cd
+             , (select cd_nm from ev_comm_code where cd_id = a.board_stat_cd) as board_stat_nm
+          FROM ev_board A
+         WHERE A.board_clsf_cd = '101002' /* 1:1 문의 */
+           AND a.del_yn = 'N'
+           AND a.board_res_id = 0
+
+        <if test="reg_user_id != null and reg_user_id != ''">
+            /* 참관로그인 */
+            AND a.reg_user_id = #{reg_user_id}
+        </if>
+
+        <if test="conslt_cust_id != null and conslt_cust_id != ''">
+            /* 참가로그인 */
+            AND a.conslt_cust_id = #{conslt_cust_id}
+        </if>
+
+        <if test="keyword_clsf_cd == 'subject'">
+            and board_subject like concat('%',#{board_subject},'%')
+        </if>
+
+        <if test="keyword_clsf_cd == 'content'">
+            and board_content like concat('%',#{board_content},'%')
+        </if>
+
+        <if test="board_stat_cd != null and board_stat_cd != ''">
+            and board_stat_cd = #{board_stat_cd}
+        </if>
+
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S02_CONSLT_LIST_CNT" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto"
+            resultType="kr.coevolution.vr.board.dto.EvBoardConsltResponseDto">
+
+        SELECT COUNT(*) AS row_count
+        FROM ev_board A
+        WHERE A.board_clsf_cd = '101002' /* 1:1 문의 */
+        AND a.del_yn = 'N'
+        AND a.board_res_id = 0
+
+        <if test="reg_user_id != null and reg_user_id != ''">
+            /* 참관로그인 */
+            AND a.reg_user_id = #{reg_user_id}
+        </if>
+
+        <if test="conslt_cust_id != null and conslt_cust_id != ''">
+            /* 참가로그인 */
+            AND a.conslt_cust_id = #{conslt_cust_id}
+        </if>
+
+        <if test="keyword_clsf_cd == 'subject'">
+            and board_subject like concat('%',#{board_subject},'%')
+        </if>
+
+        <if test="keyword_clsf_cd == 'content'">
+            and board_content like concat('%',#{board_content},'%')
+        </if>
+
+        <if test="board_stat_cd != null and board_stat_cd != ''">
+            and board_stat_cd = #{board_stat_cd}
+        </if>
+
+
+    </select>
+
+    <select id="S03_CONSLT_DTL" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto"
+            resultType="kr.coevolution.vr.board.dto.EvBoardConsltResponseDto">
+
+        SELECT  a.board_id
+             , a.board_subject
+             , a.board_content
+             , a.conslt_cust_id
+             , (select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id) as conslt_cust_nm
+             , (select board_content from ev_board where board_res_id = a.board_id and del_yn = 'N') as board_reply_content
+             , (select date_format(ins_dtm,'%Y%m%d %H:%i:%S') from ev_board where board_res_id = a.board_id and del_yn = 'N') as board_reply_ins_dtm
+             , a.reg_dt
+             , a.board_stat_cd
+             , (select cd_nm from ev_comm_code where cd_id = a.board_stat_cd) as board_stat_nm
+        FROM ev_board A
+        WHERE A.board_clsf_cd = '101002' /* 1:1 문의 */
+        AND a.del_yn = 'N'
+        and a.board_id = #{board_id}
+
+    </select>
+
+    <select id="S04_BOARD_ALL" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="map">
+        SELECT *
+          FROM ev_board
+         WHERE board_id = #{board_id}
+    </select>
+
+</mapper>

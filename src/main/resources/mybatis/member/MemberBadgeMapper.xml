@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.coevolution.vr.member.domain.EvMemberMapper">
+
+    <insert id="I01_BADGE" parameterType="kr.coevolution.vr.member.dto.EvMemberBadgeRequestDto" useGeneratedKeys="true">
+
+        <selectKey resultType="Long" keyProperty="badge_id" order="AFTER">
+            SELECT LAST_INSERT_ID() as badge_id
+        </selectKey>
+
+        /* 뱃지등록 */
+        INSERT INTO ev_cust_badge (
+            badge_id, cust_id, give_cust_id, badge_clsf_cd, badge_cnt, ins_user, ins_dtm
+        ) VALUES (
+            NULL, #{cust_id}, #{give_cust_id}, #{badge_clsf_cd}, #{badge_cnt}, #{user_id}, NOW()
+        )
+
+    </insert>
+
+    <select id="S01_BADGE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        SELECT a.badge_id
+            , a.cust_id
+            , a.give_cust_id
+            , (select cd_nm from ev_comm_code where cd_id = a.badge_clsf_cd) AS badge_clsf_nm
+            , '내용' AS badge_conts
+            , case when a.badge_clsf_cd IN ('211001','211002','211004') then a.badge_cnt ELSE 0 END AS badge_recv_cnt
+            , case when a.badge_clsf_cd IN ('211003') then a.badge_cnt ELSE 0 END AS badge_use_cnt
+            , date_format(ins_dtm,'%Y-%m-%d') AS ins_dt
+        FROM ev_cust_badge a
+        WHERE a.cust_id = #{cust_id}
+        AND date_format(ins_dtm,'%Y%m%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        ORDER BY a.ins_dtm DESC
+
+    </select>
+
+    <select id="S02_BADGE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        SELECT count(*) as row_count
+             , (SELECT SUM(x.badge_cnt)
+                  FROM ev_cust_badge x
+                 WHERE x.cust_id = #{cust_id}) as tot_badge
+        FROM ev_cust_badge a
+        WHERE a.cust_id = #{cust_id}
+        AND date_format(ins_dtm,'%Y%m%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+
+    </select>
+
+    <select id="S03_BADGE" parameterType="kr.coevolution.vr.member.dto.EvMemberBadgeRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        /* VR 기업정보 뱃지 조회 - 값이 0보다 크면 체크, 0 언체크 */
+        SELECT a.cust_id
+             , a.give_cust_id
+             , sum(a.badge_cnt) as sum_badge_cnt
+          FROM ev_cust_badge a
+         WHERE a.cust_id = #{cust_id}
+           AND a.badge_clsf_cd IN ('211003','211004') /* 뱃지사용,회수 */
+           AND a.give_cust_id = #{give_cust_id}
+         GROUP BY a.cust_id, a.give_cust_id
+
+    </select>
+
+</mapper>
