@@ -19,7 +19,7 @@ public class IndexController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping("/")
+    @GetMapping("/login_user")
     public String index(Model model, @LoginUser SessionUser user) {
         // .............
 
