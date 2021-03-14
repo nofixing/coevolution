@@ -9,6 +9,8 @@ import kr.coevolution.vr.member.dto.EvMemberSearchDto;
 import kr.coevolution.vr.member.service.EvMemberService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +28,8 @@ public class EvMemberController {
 
     @Autowired
     private EvMemberService evMemberService;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 회원중복체크
@@ -112,13 +116,19 @@ public class EvMemberController {
     public Map<String,Object> member_login(@RequestBody EvMemberLoginRequestDto evMemberLoginRequestDto, HttpSession session) {
         Map resposeResult = new HashMap();
 
+        logger.info("member_login post start");
+
         try {
             /* 패스워드를 암호화하여 비교한다. */
             String userPw = evMemberLoginRequestDto.getUser_pw();
             userPw = SecureUtils.getSecurePassword(userPw);
             evMemberLoginRequestDto.setUser_pw(userPw);
 
+            logger.info("member_login password secure end");
+
             List<EvMemberLoginInfoDto> evMemberLoginInfoDtoList = evMemberService.search_login(evMemberLoginRequestDto);
+
+            logger.info("member_login search_login end");
 
             if(evMemberLoginInfoDtoList.size() == 1) {
 
