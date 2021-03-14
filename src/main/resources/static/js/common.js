@@ -90,26 +90,30 @@ function setValue(pId, pValue)
 *   pParamJson  : Parameter
 **/
 function sendForm(pMethod, pUrl, pcontentType, pDataType, pParamJson, callback) {
-  
-  var request = $.ajax({   
-    url: pUrl,   
-    type: pMethod,  
-    contentType: pcontentType, 
-    data: pParamJson,   
-    dataType: pDataType 
-  });   
-   
-  request.done(function(msg) {   
+
+  if(pParamJson.substring(0,1) == "[") {
+    pParamJson = pParamJson.substring(1, (pParamJson.length-1));
+  }
+
+  var request = $.ajax({
+    url: pUrl,
+    type: pMethod,
+    contentType: pcontentType,
+    data: pParamJson,
+    dataType: pDataType
+  });
+
+  request.done(function(msg) {
     if(typeof callback === "function") {
       callback(msg);
     }
-  });   
-   
-  request.fail(function(jqXHR, textStatus) {   
+  });
+
+  request.fail(function(jqXHR, textStatus) {
     if(typeof callback === "function") {
       callback(textStatus);
-    }   
-  }); 
+    }
+  });
 
 }
 
@@ -130,48 +134,54 @@ function gfnAlert (pType, pTitle, pContents, callback) {
       if(document.getElementById("showModal")) {
         $("showModal").remove();
       }
-  
+
       rtnValue = false;
 
       var modlContents = "";
       modlContents += '<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-      modlContents += '  <div class="modal-dialog">';
+      modlContents += '  <div class="modal-dialog modal-dialog-centered modal-dialog-video modal-lg" role="document">';
       modlContents += '    <div class="modal-content">';
       modlContents += '      <div class="modal-header">';
-      modlContents += '        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-      modlContents += '        <h4 class="modal-title" id="myModalLabel">'+pTitle+'</h4>';
+      modlContents += '         <h4 class="modal-title text-white" id="myModalLabel">'+pTitle+'</h4>';
+      modlContents += '         <button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+      modlContents += '           <span aria-hidden="true">&times;</span>';
+      modlContents += '         </button>';
       modlContents += '      </div>';
       modlContents += '      <div class="modal-body">';
       modlContents += pContents
       modlContents += '      </div>';
       modlContents += '      <div class="modal-footer" id="showFooter">';
-  
+
       if(pType.toUpperCase() == "CONFIRM") {
         modlContents += '        <button type="button" class="btn btn-primary" id="showModalOK">확인</button>';
       }
-      
-      modlContents += '        <button type="button" class="btn btn-default" data-dismiss="modal" id="showModalClose">닫기</button>';
+
+      if(pType.toUpperCase() == "CONFIRM" || pType.toUpperCase() == "ALERT") {
+        modlContents += '        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="showModalClose">닫기</button>';
+      }
+
       modlContents += '      </div>';
       modlContents += '    </div>';
       modlContents += '  </div>';
       modlContents += '</div>';
-  
+
+
       document.getElementById("mainBody").insertAdjacentHTML("afterend", modlContents);
 
       $("#showModalOK").click(function() {
         $("#showModal").modal("hide");
         if(typeof callback === "function") {
           callback(true);
-        }   
-      });  
-      
+        }
+      });
+
       $("#showModalClose").click(function() {
         $("#showModal").modal("hide");
         if(typeof callback === "function") {
           callback(false);
-        }   
-      }); 
-  
+        }
+      });
+
       $("#showModal").modal();
   }
 
@@ -211,7 +221,7 @@ var gDataObjectPutGet;
 var gDataArrayPutGet;
 
 /**
- * gfnClearObj() 
+ * gfnClearObj()
  * global 변수 초기화
  **/
 function gfnClearObj() {
@@ -221,21 +231,39 @@ function gfnClearObj() {
 
 /**
  * object 변수에 값을 입력한다.
- * @param {*} pKey 
- * @param {*} pValue 
+ * @param {*} pKey
+ * @param {*} pValue
  */
 function gfnPutObj(pKey, pValue) {
 
   if(typeof gDataObjectPutGet == "undefined" || gDataObjectPutGet == null) {
     this.gDataObjectPutGet = new Object();
   }
-  
+
   this.gDataObjectPutGet[pKey] = pValue;
+}
+
+function lfnPutObj(pDataObjectPutGet, pKey, pValue) {
+  pDataObjectPutGet[pKey] = pValue;
+}
+
+function lfnGetObj(pDataObjectPutGet, pKey) {
+
+  var returnValue = "";
+
+  if(typeof eval("pDataObjectPutGet."+pKey) == "undefined" || eval("pDataObjectPutGet."+pKey) == null) {
+    returnValue = "";
+  } else {
+	returnValue = eval("pDataObjectPutGet."+pKey);
+  }
+
+  return returnValue;
+
 }
 
 /**
  * array를 json 형태로 변환한다.
- * @param {*} pArray 
+ * @param {*} pArray
  */
 function gfnGetJson(pArray) {
 
@@ -260,7 +288,7 @@ function gfnGetJson(pArray) {
 
 /**
  * object 값을 return한다.
- * @param {} pKey 
+ * @param {} pKey
  */
 function gfnGetObj(pKey) {
   var returnValue = "";
@@ -283,26 +311,26 @@ function gfnGetFormJSON() {
   $(':input').each(function(index) {
     if($(this).get(0).type == "radio") {
       if($(this).get(0).checked) {
-        gfnPutObj($(this).get(0).name, $(this).get(0).value);	
+        gfnPutObj($(this).get(0).name, $(this).get(0).value);
       }
     } else if($(this).get(0).type == "checkbox") {
       if($(this).get(0).checked) {
-        gfnPutObj($(this).get(0).name, $(this).get(0).value);	
+        gfnPutObj($(this).get(0).name, $(this).get(0).value);
       } else {
-        gfnPutObj($(this).get(0).name, "");	
+        gfnPutObj($(this).get(0).name, "");
       }
     } else if($(this).get(0).type == "button" || $(this).get(0).type == "submit") {
     } else {
       gfnPutObj($(this).get(0).id, $(this).get(0).value);
-    } 
+    }
   });
 }
 
 /**
  * 쿠키를 저장한다
- * @param {*} cname 
- * @param {*} cvalue 
- * @param {*} exdays 
+ * @param {*} cname
+ * @param {*} cvalue
+ * @param {*} exdays
  */
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -313,7 +341,7 @@ function setCookie(cname, cvalue, exdays) {
 
 /**
  * 쿠키를 읽어온다.
- * @param {*} cname 
+ * @param {*} cname
  */
 function getCookie(cname) {
   var name = cname + "=";
@@ -332,17 +360,17 @@ function getCookie(cname) {
 
 /**
  * 현재날짜를 리턴한다 (2020-01-01)
- * @param {*} pParam 
+ * @param {*} pParam
  */
 var gfnNowDate;
-gfnComm = function(){   
+gfnComm = function(){
   this.gfnNowDate =  new Date();
-}; 
+};
 
 gfnComm.prototype = {
   /* 당일일자 리턴 */
   getToday : function(pParam) {
-    return this.gfnNowDate.getFullYear() 
+    return this.gfnNowDate.getFullYear()
           + pParam + (Number(this.gfnNowDate.getMonth())+1 < 10 ? "0"+(Number(this.gfnNowDate.getMonth())+1) : (Number(this.gfnNowDate.getMonth())+1))
           + pParam + (Number(this.gfnNowDate.getDate()) < 10 ? "0"+(Number(this.gfnNowDate.getDate())) : (Number(this.gfnNowDate.getDate())));
   },
@@ -353,7 +381,7 @@ gfnComm.prototype = {
   },
 
   /* 치환하기 */
-  replaceAll : function (strTemp, strValue1, strValue2) { 
+  replaceAll : function (strTemp, strValue1, strValue2) {
 
     while(1) {
         if( strTemp.indexOf(strValue1) != -1 )
@@ -387,9 +415,9 @@ gfnComm.prototype = {
 
   /**
    * css를 변경한다.
-   * @param {*} pId 
-   * @param {*} pReMoveClass 
-   * @param {*} pAddClass 
+   * @param {*} pId
+   * @param {*} pReMoveClass
+   * @param {*} pAddClass
    */
   setCssChange : function (pId, pReMoveClass, pAddClass) {
     $("#"+pId).removeClass(pReMoveClass);
@@ -406,12 +434,12 @@ gfnComm.prototype = {
 
   /**
    * 전화번호 체크
-   * @param {*} pTelNo 
+   * @param {*} pTelNo
    */
   chkTelNo : function (pTelNo) {
 		var myRe = new RegExp('[0-9]{3}-[0-9]{4}-[0-9]{4}', 'g');
 		var myArray = myRe.exec(pTelNo);
-    
+
     if(pTelNo.length < 11 || pTelNo.length > 13) {
       return false;
     }
@@ -427,7 +455,7 @@ gfnComm.prototype = {
 				myArray = myRe.exec(pTelNo);
 			}
     }
-    
+
     if(this.isNull(myArray)) {
       return false;
     } else {
@@ -437,10 +465,10 @@ gfnComm.prototype = {
 
   /**
    * 전화번호
-   * @param {*} pValue 
+   * @param {*} pValue
    */
   setTelNoFormat : function (pValue) {
-    
+
     pValue = pValue.replaceAll("-","");
 
     if(pValue.length >= 2) {
@@ -451,13 +479,13 @@ gfnComm.prototype = {
           pValue = pValue.substring(0,2) + "-" + pValue.substring(2,5) + "-"+ pValue.substring(5,pValue.length);
         } else if(pValue.length == 10) {
           pValue = pValue.substring(0,2) + "-" + pValue.substring(2,6) + "-"+ pValue.substring(6,pValue.length);
-        } 
+        }
       } else {
         if(pValue.length >= 3 && pValue.length <= 7) {
           pValue = pValue.substring(0,3) + "-" + pValue.substring(3,pValue.length)
         } else if(pValue.length >= 8 && pValue.length <= 11) {
           pValue = pValue.substring(0,3) + "-" + pValue.substring(3,7) + "-"+ pValue.substring(7,pValue.length);
-        } 
+        }
       }
     }
 
@@ -467,16 +495,16 @@ gfnComm.prototype = {
 
   /**
    * 포커스 이동
-   * @param {*} pId 
+   * @param {*} pId
    */
   setFocus: function (pId) {
     $("#"+pId).focus();
   }
-  , 
+  ,
 
   /**
    * 필수항목체크
-   * @param {*} pRequiredItems 
+   * @param {*} pRequiredItems
    */
   fnRequiredItems : function (pRequiredItems) {
 
@@ -486,6 +514,21 @@ gfnComm.prototype = {
         this.setFocus(pRequiredItems[irow].id);
         return false;
       }
+    }
+
+    return true;
+  }
+  ,
+  fnRequiredItemsChkRdo : function (pRequiredItems) {
+
+    for(var irow in pRequiredItems) {
+
+      if(!checked(pRequiredItems[irow].id)) {
+        alert(pRequiredItems[irow].name + " 은(는) 필수 항목입니다.");
+        this.setFocus(pRequiredItems[irow].id);
+        return false;
+      }
+
     }
 
     return true;
