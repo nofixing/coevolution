@@ -35,6 +35,50 @@ public class EvHomeController {
     }
 
     /**
+     * 아이디찾기
+     * @param model
+     * @return
+     */
+    @RequestMapping("/member/id_sh_form1")
+    public String id_sh_form1(Model model) {
+
+        return "/member/id_sh_form1";
+    }
+
+    /**
+     * 아이디찾기결과
+     * @param model
+     * @return
+     */
+    @RequestMapping("/member/id_sh_form2")
+    public String id_sh_form2(Model model) {
+
+        return "/member/id_sh_form2";
+    }
+
+    /**
+     * 패스워드찾기
+     * @param model
+     * @return
+     */
+    @RequestMapping("/member/pw_sh_form1")
+    public String pw_sh_form1(Model model) {
+
+        return "/member/pw_sh_form1";
+    }
+
+    /**
+     * 패스워드찾기결과
+     * @param model
+     * @return
+     */
+    @RequestMapping("/member/pw_sh_form2")
+    public String pw_sh_form2(Model model) {
+
+        return "/member/pw_sh_form2";
+    }
+
+    /**
      * 참관등록
      * @param model
      * @return
@@ -118,4 +162,194 @@ public class EvHomeController {
             return "/member/join_form5";
         }
     }
+
+    /**
+     * VR 기업정보
+     * @param model
+     * @return
+     */
+    @RequestMapping("/vr/vr_corp_form")
+    public String vr_corp_form(Model model) {
+
+        return "/vr/vr_corp_form";
+    }
+
+    /**
+     * VR 기업정보 조회
+     * @param model
+     * @return
+     */
+    @RequestMapping("/vr/vr_corp_sh")
+    public String vr_corp_sh(Model model) {
+
+        return "/vr/vr_corp_sh";
+    }
+    
+
+    /**
+     * PDF Viewer
+     * @param model
+     * @return
+     */
+    @RequestMapping("/js/pdfjs/viewer")
+    public String viewer(Model model) {
+
+        return "/js/pdfjs/viewer";
+    }
+
+    /**
+     * VR 로그인
+     * @param model
+     * @return
+     */
+    @RequestMapping("/vr/vr_login_form")
+    public String vr_login_form(Model model) {
+
+        return "/vr/vr_login_form";
+    }
+
+    /**
+     * VR상담
+     * @param model
+     * @return
+     */
+    @RequestMapping("/vr/vr_coslt_form")
+    public String vr_coslt_form(Model model) {
+
+        return "/vr/vr_coslt_form";
+    }
+
+    /**
+     * 마이페이지 - 참관 - 즐겨찾기
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp01")
+    public String myp01(Model model) {
+
+        return "/mypage/myp01";
+    }
+
+    /**
+     * 관심 뱃지 내역
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp02")
+    public String myp02(Model model) {
+
+        return "/mypage/myp02";
+    }
+
+    /**
+     * 삼담문의 내역
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp03")
+    public String myp03(Model model) {
+
+        return "/mypage/myp03";
+    }
+
+    /**
+     * 삼담문의 내역 상세
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp031")
+    public String myp031(Model model) {
+
+        return "/mypage/myp031";
+    }    
+
+    /**
+     * 정보수정
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp04")
+    public String myp04(Model model) {
+
+        return "/mypage/myp04";
+    }
+
+    /**
+     * 비밀번호변경
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp05")
+    public String myp05(Model model) {
+
+        return "/mypage/myp05";
+    }
+
+    /**
+     * 개인정보 재동의
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp06")
+    public String myp06(Model model) {
+
+        return "/mypage/myp06";
+    }
+
+    /**
+     * 회원탈퇴
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp07")
+    public String myp07(Model model) {
+
+        return "/mypage/myp07";
+    }
+
+    /**
+     * 마이페이지 - 참가 내부스정보등록
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc01")
+    public String myc01(Model model) {
+
+        return "/mypage/myc01";
+    }
+
+    /**
+     * 마이페이지 - 참가 즐겨찾기내역
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc02")
+    public String myc02(Model model) {
+
+        return "/mypage/myc02";
+    }
+
+    /**
+     * 마이페이지 - 참가 상담문의 내역
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc03")
+    public String myc03(Model model) {
+
+        return "/mypage/myc03";
+    }
+
+    /**
+     * 마이페이지 - 참가 상담문의 내역 상세
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc031")
+    public String myc031(Model model) {
+
+        return "/mypage/myc031";
+    }
+
+
 }

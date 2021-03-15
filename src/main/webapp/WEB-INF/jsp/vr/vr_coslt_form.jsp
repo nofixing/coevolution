@@ -11,12 +11,12 @@
 
     <!-- FULLPAGE
     ================================================== -->
-    <section class="section section-full section-top bg-light pb-0 pt-0">
+    <section class="section section-full section-top bg-light pb-3 pt-3">
 
       <!-- Content -->
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-sm-8 col-md-6 pb-1">
+          <div class="col-sm-12">
 
             <!-- Form -->
             <form class="form-styled bg-white pt-2 pb-2">

@@ -14,12 +14,12 @@
     
     <!-- FULLPAGE
     ================================================== -->
-    <section class="section section-full section-top bg-light">
+    <section class="section section-full section-top bg-light pt-0 pb-0">
 
       <!-- Content -->
       <div class="container">
         <div class="justify-content-center text-center">
-          <img src="/image/virtual_main.png" style="object-fit: cover; width:40%"/>
+          <img src="/image/virtual_main.png" style="object-fit: cover; "/>
         </div> <!-- / .row -->
       </div> <!-- / .container -->
       

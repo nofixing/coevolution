@@ -2,7 +2,7 @@
 
 <!-- FOOTER
 ================================================== -->
-<footer class="section bg-dark">
+<footer class="section bg-dark pt-3 pb-3">
 
     <!-- Triangles -->
     <div class="bg-triangle bg-triangle-light bg-triangle-bottom bg-triangle-left"></div>
@@ -16,36 +16,42 @@
         <!-- Brand -->
         <p>
             <a href="#" class="footer-brand text-white">
-            <svg class="footer-brand-svg" viewBox="0 0 235 80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path d="M0 0 L 20 10 L 0 20 Z" class="text-primary" fill="currentColor"></path>
-                <path d="M0 30 L 20 40 L 0 50 Z M20 45 L 0 55 L 20 65 Z M0 60 L 20 70 L 0 80 Z" fill="currentColor"></path>
-                <text x="40" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold" letter-spacing="-.025em" fill="currentColor">incline.</text>
-            </svg>
+                <img src="/image/expo.png"/>
             </a>
         </p>
     
         </div>
         <div class="col-md">
     
-        <!-- Links -->
-        <ul class="list-unstyled list-inline text-md-right">
-            <li class="list-inline-item mr-2">
-            <a href="#" class="text-white">
-                Terms and conditions
-            </a>
-            </li>
-            <li class="list-inline-item mr-2">
-            <a href="#" class="text-white">
-                Privacy policy
-            </a>
-            </li>
-            <li class="list-inline-item">
-            <a href="#" class="text-white">
-                Contact us
-            </a>
-            </li>
-        </ul>
-
+            <!-- Links -->
+            <ul class="list-unstyled list-inline text-md-left">
+                <li class="list-inline-item mr-2">
+                    <span class="text-white text-muted small">
+                        개인정보처리방침    이용약관     찾아오시는 길        
+                    </span>
+                </li>
+            </ul>
+            <ul class="list-unstyled list-inline text-md-left mb-0">
+                <li class="list-inline-item mr-2">
+                    <span class="text-white text-muted small">
+                        (우) 63309 제주특별자치도 제주시 첨단로 213-3,215호 국제전기자동차엑스포(영평동, 스마트빌딩)
+                    </span>
+                </li>
+            </ul>   
+            <ul class="list-unstyled list-inline text-md-left mb-0">
+                <li class="list-inline-item mr-2">
+                    <span class="text-white text-muted small">
+                        국제전기자동차엑스포 사업자등록번호 : 136-82-03165 대표자 : 김대환
+                    </span>
+                </li>
+            </ul>            
+            <ul class="list-unstyled list-inline text-md-left">
+                <li class="list-inline-item mr-2">
+                    <span class="text-white text-muted small">
+                        TEL：064-702-1580 Fax : 064-702-1576 E-mail：ieve@ievexpo.org
+                    </span>
+                </li>
+            </ul>
         </div>
     </div> <!-- / .row -->
     <div class="row align-items-center">
@@ -54,7 +60,7 @@
         <!-- Copyright -->
         <p class="text-white text-muted">
             <small>
-            &copy; Copyright <span class="current-year"></span> Simpleqode. All rights reserved.
+            &copy; Copyright <span class="current-year"></span> ⓒ IEVE. ALL RIGHTS RESERVED.
             </small>
         </p>
 

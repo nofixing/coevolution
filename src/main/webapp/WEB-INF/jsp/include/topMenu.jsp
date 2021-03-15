@@ -23,6 +23,31 @@
           <!-- Links -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item ">
+              <a href="javascript:vrLoginPopup()" class="nav-link">
+                <strong>(VR로그인폼)</strong>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a href="javascript:vrCoSltPopup()" class="nav-link">
+                <strong>(VR상담)</strong>
+              </a> 
+            </li>  
+            <li class="nav-item ">          
+              <a href="javascript:vrCorpPopup()" class="nav-link">
+                <strong>(VR기업정보)</strong>
+              </a>                            
+            </li>
+            <li class="nav-item ">          
+              <a href="/mypage/myp01" class="nav-link">
+                <strong>(참관)</strong>
+              </a>                            
+            </li>
+            <li class="nav-item ">          
+              <a href="/mypage/myc02" class="nav-link">
+                <strong>(참가)</strong>
+              </a>                            
+            </li>            
+            <li class="nav-item ">
               <a href="#" class="nav-link">
                 <strong>관람가이드</strong>
               </a>
@@ -50,7 +75,7 @@
               </a>
             </li>
             <li class="nav-item ">
-              <a href="#" class="nav-link">
+              <a href="javascript:modalCorpSh()" class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
@@ -79,7 +104,31 @@
 <script> 
 
 function modalMenu() {
-  gfnAlert ("alert", "ajax error", "관람가이드관람가이드관람가이드관람가이드관람가이드관람가이드관람가이드관람가이드", function(rtnValue){
+  gfnAlert ("", "", gTxtMenuHtml , function(rtnValue){
+  });
+}
+
+/* VR로그인 테스트 */
+function vrLoginPopup() {
+  gfnAlert ("", "", "vr_login_form" , function(rtnValue){
+  });
+}
+
+/* VR상담 테스트 */
+function vrCoSltPopup() {
+  gfnAlert ("", "", "vr_coslt_form" , function(rtnValue){
+  });
+}
+
+/* VR기업 테스트 */
+function vrCorpPopup() {
+  gfnAlert ("", "", "vr_corp_form" , function(rtnValue){
+  });
+}
+
+/* VR기업 테스트 */
+function modalCorpSh() {
+  gfnAlert ("", "", "vr_corp_sh" , function(rtnValue){
   });
 }
 

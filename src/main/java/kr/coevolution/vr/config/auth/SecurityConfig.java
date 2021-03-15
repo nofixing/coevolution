@@ -28,6 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/css/**", "/images/**", "/image/**", "/js/**", "/h2/**", "/h2-console/**", "/assets/**", "/member/**").permitAll()
+                .antMatchers("/vr/vr_login_form").permitAll()
+                .antMatchers("/vr/vr_corp_sh").permitAll()
+                .antMatchers("/vr/vr_coslt_form","/vr/vr_corp_form").permitAll() /* 테스트 후 삭제하기 */
+                .antMatchers("/mypage/**").permitAll() /* 테스트 후 삭제하기 */
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name())
                 .anyRequest().authenticated()
 

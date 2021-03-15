@@ -146,7 +146,7 @@
               <!-- Link -->
               <p class="text-center text-muted mt-3 mb-0">
                 <small>
-                   <a href="04.회원가입.html">회원가입</a> | <a href="02.아이디찾기.html">아이디 찾기</a> | <a href="03.비밀번호찾기.html">비밀번호 찾기</a>
+                   <a href="/member/join_form1">회원가입</a> | <a href="/member/id_sh_form1">아이디 찾기</a> | <a href="/member/pw_sh_form1">비밀번호 찾기</a>
                 </small>
               </p>
 

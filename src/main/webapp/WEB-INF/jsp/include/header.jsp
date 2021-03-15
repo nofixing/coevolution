@@ -26,4 +26,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="/assets/css/theme.min.css">
 
+    <!-- 전체메뉴팝업 -->
+    <script src="/js/popMenuHtml.js"></script>
+
     <title>국제전기자동차엑스포</title>

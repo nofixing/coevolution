@@ -24,9 +24,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new CoevolutionLoginInterceptor())
                 .addPathPatterns("/mypage/**") // 해당 경로에 접근하기 전에 인터셉터가 가로챈다. /member/*
-                .addPathPatterns("/vr/**")
+                //.addPathPatterns("/vr/**")
                 .excludePathPatterns("/member/login") // 해당 경로는 인터셉터가 가로채지 않는다.
                 .excludePathPatterns("/member/dup")
+                .excludePathPatterns("/vr/vr_login_form")
+                .excludePathPatterns("/mypage/*")
         ;
     }
 }
