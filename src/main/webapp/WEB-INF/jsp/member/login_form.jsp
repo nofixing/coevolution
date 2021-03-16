@@ -97,49 +97,57 @@
 
               <!-- 소셜로그인 -->
                 <div class="form-row align-items-center mt-3">
-                  <div class="col-md-3">
+                  <a href="/oauth2/authorization/naver">
+                    <div class="col-md-3">
 
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
-                      <label class="extended-radio-label text-xs" for="sizeInputOne">
-                        네이버
-                      </label>
+                      <div class="extended-radio">
+                        <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
+                        <label class="extended-radio-label text-xs" for="sizeInputOne">
+                          네이버
+                        </label>
+                      </div>
+
                     </div>
+                  </a>
 
-                  </div>
+                  <a href="/oauth2/authorization/kakao">
+                    <div class="col-md-3">
 
-                  <div class="col-md-3">
+                      <div class="extended-radio">
+                        <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
+                        <label class="extended-radio-label text-xs" for="sizeInputOne">
+                          카카오
+                        </label>
+                      </div>
 
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
-                      <label class="extended-radio-label text-xs" for="sizeInputOne">
-                        카카오
-                      </label>
                     </div>
-
-                  </div>
+                  </a>
                     
-                  <div class="col-md-3">
+                  <a href="/oauth2/authorization/google">
+                    <div class="col-md-3">
 
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
-                      <label class="extended-radio-label text-xs" for="sizeInputOne">
-                        구글
-                      </label>
+                      <div class="extended-radio">
+                        <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
+                        <label class="extended-radio-label text-xs" for="sizeInputOne">
+                          구글
+                        </label>
+                      </div>
+
                     </div>
-                    
-                  </div>
+                  </a>
 
-                  <div class="col-md-3">
+                  <a href="/oauth2/authorization/facebook">
+                    <div class="col-md-3">
 
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
-                      <label class="extended-radio-label text-xs" for="sizeInputOne">
-                        페이스북
-                      </label>
-                    </div>   
+                      <div class="extended-radio">
+                        <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
+                        <label class="extended-radio-label text-xs" for="sizeInputOne">
+                          페이스북
+                        </label>
+                      </div>   
 
-                  </div>
+                    </div>
+                  </a>
 
               </div> <!-- / .form-row -->              
 
