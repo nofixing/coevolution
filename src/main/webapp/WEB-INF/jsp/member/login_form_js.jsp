@@ -49,6 +49,38 @@ $(document).ready(function() {
 
 	});
 
+    //social login google
+    $('#google_login').on('click', function () {
+
+        console.log("google_login click");
+        document.location.href = "/oauth2/authorization/google";
+
+    });
+
+    //social login facebook
+    $('#facebook_login').on('click', function () {
+
+        console.log("facebook_login click");
+        document.location.href = "/oauth2/authorization/facebook";
+
+    });
+
+    //social login naver
+    $('#naver_login').on('click', function () {
+
+        console.log("naver_login click");
+        document.location.href = "/oauth2/authorization/naver";
+
+    });
+
+    //social login kakao
+    $('#kakao_login').on('click', function () {
+
+        console.log("kakao_login click");
+        document.location.href = "/oauth2/authorization/kakao";
+
+    });
+
 	/* 회원가입 */
 	$('#btnJoin').on('click', function () {
 		document.location.href="/member/join_form1"
