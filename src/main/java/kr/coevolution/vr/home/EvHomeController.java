@@ -1,5 +1,7 @@
 package kr.coevolution.vr.home;
 
+import kr.coevolution.vr.config.auth.LoginUser;
+import kr.coevolution.vr.config.auth.dto.SessionUser;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.home.dto.EvMemberJoinForm3;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +18,15 @@ public class EvHomeController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping({"/", "/index"})
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
 
-        logger.info("we are here on root path!");
+        if(user != null) {
+            logger.info("userName:"+user.getName());
+            model.addAttribute("userName", user.getName());
+            model.addAttribute("userImg", user.getPicture());
+        } else {
+            logger.info("user is null");
+        }
 
         return "index";
     }
