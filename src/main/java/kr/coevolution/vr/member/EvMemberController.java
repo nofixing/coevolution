@@ -116,6 +116,10 @@ public class EvMemberController {
     public Map<String,Object> member_login(@RequestBody EvMemberLoginRequestDto evMemberLoginRequestDto, HttpSession session) {
         Map resposeResult = new HashMap();
 
+        /*
+            (개발) 로그인 후 접속 시 제어 필요
+         */
+
         logger.info("member_login post start");
 
         try {

@@ -589,7 +589,7 @@ function setTable(pParentId, pTableId, pTableInfo, pTableData) {
   for(var i = 0; i < column_cnt; i++) {
 
     if(pTableInfo.column[i].col_style != "") {
-      theadTr.append($('<th style="'+pTableInfo.column[i].col_style+'">'+pTableInfo.column[i].col_name+'</th>'));
+      theadTr.append($('<th '+pTableInfo.column[i].col_style+'>'+pTableInfo.column[i].col_name+'</th>'));
     } else {
       theadTr.append($('<th>'+pTableInfo.column[i].col_name+'</th>'));
     }
@@ -615,7 +615,13 @@ function setTable(pParentId, pTableId, pTableInfo, pTableData) {
   
     for(var j = 0; j < column_cnt; j++) {
 
-      var colValue = unescape(comm.replaceAll(eval("pTableData[i]."+pTableInfo.column[j].id), "\\", "%"));
+      var colValue = "";
+      if(pTableInfo.column[j].body_fixVal != "" && pTableInfo.column[j].body_fixVal != undefined) {
+        colValue = pTableInfo.column[j].body_fixVal;
+      } else {
+        //colValue = unescape(comm.replaceAll(eval("pTableData[i]."+pTableInfo.column[j].id), "\\", "%"));  
+        colValue = eval("pTableData[i]."+pTableInfo.column[j].id);  
+      }
 
       /* 콤마표시 */
       if(pTableInfo.column[j].number_comma == "Y") {
@@ -623,7 +629,7 @@ function setTable(pParentId, pTableId, pTableInfo, pTableData) {
       }
 
       if(pTableInfo.column[j].body_style != "") {
-        trTr.append($('<td style="'+pTableInfo.column[j].body_style+'">'+colValue+'</td>'));
+        trTr.append($('<td '+pTableInfo.column[j].body_style+'>'+colValue+'</td>'));
       } else {
         trTr.append($('<td>'+colValue+'</td>'));
       }

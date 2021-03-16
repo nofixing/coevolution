@@ -7,15 +7,28 @@ import kr.coevolution.vr.home.dto.EvMemberJoinForm3;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.context.MessageSource;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 @Slf4j
 @Controller
 public class EvHomeController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    MessageSource messageSource;
+
+    @Autowired
+    LocaleResolver localeResolver;
 
     @RequestMapping({"/", "/index"})
     public String index(Model model, @LoginUser SessionUser user) {
@@ -359,5 +372,32 @@ public class EvHomeController {
         return "/mypage/myc031";
     }
 
+    @RequestMapping("/m.do")
+    public String mgny_log(Model model) {
+
+        return "/mgnt/login";
+    }
+
+    /**
+     * 다국어 변경
+     * @param locale
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/index/lang", method = RequestMethod.GET)
+    public String lang(Locale locale, HttpServletRequest request, Model model) {
+
+        // RequestMapingHandler로 부터 받은 Locale 객체를 출력해 봅니다.
+        model.addAttribute("clientLocale", locale);
+
+        // localeResolver 로부터 Locale 을 출력해 봅니다.
+        model.addAttribute("sessionLocale", localeResolver.resolveLocale(request));
+
+        // JSP 페이지에서 EL 을 사용해서 arguments 를 넣을 수 있도록 값을 보낸다.
+        //model.addAttribute("siteCount", messageSource.getMessage("msg.first", null, locale));
+
+        return "index";
+    }
 
 }

@@ -6,7 +6,7 @@
             resultType="kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto">
 
         /* 마이페이지 개인 부스 즐겨찾기*/
-        SELECT ROW_NUMBER() OVER() as RN
+        SELECT ROW_NUMBER() OVER() as rn
              , a.favorts_id
              , a.cust_id
              , a.favorts_cust_id

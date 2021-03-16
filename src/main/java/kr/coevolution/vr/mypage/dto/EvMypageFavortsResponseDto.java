@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class EvMypageFavortsResponseDto {
     public Long favorts_id;
+    public Long rn;
     private String cust_id;
     private String favorts_cust_id;
     private String favorts_cust_nm;
