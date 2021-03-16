@@ -1,0 +1,5 @@
+spring security login redirect 참조
+https://stackoverflow.com/questions/36243352/how-to-set-redirection-after-successful-login
+
+다국어
+https://offbyone.tistory.com/408
