@@ -128,7 +128,9 @@ public class EvHomeController {
 
         SessionUser user = (SessionUser)session.getAttribute("user");
 
-        logger.info("user email:"+user.getEmail());
+        if(user != null) {
+            logger.info("user email:" + user.getEmail());
+        }
 
         return "/member/join_form2";
     }
