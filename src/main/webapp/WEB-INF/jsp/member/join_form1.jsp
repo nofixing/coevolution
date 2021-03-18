@@ -100,52 +100,53 @@
               </div>
 
               <!-- 소셜로그인 -->
-                <div class="form-row align-items-center mt-3">
-                  <div class="col-md-3">
+              <div class="form-row align-items-center mt-3">
 
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
-                      <label class="extended-radio-label text-xs" for="sizeInputOne">
-                        <img src="/image/naver.png" width="50px"/>
-                      </label>
-                    </div>
+                <div class="col-md-3">
 
+                  <div class="extended-radio">
+                    <input class="extended-radio-input" id="naver_login" type="radio" name="naver_login">
+                    <label class="extended-radio-label text-xs" for="naver_login">
+                      네이버
+                    </label>
                   </div>
 
-                  <div class="col-md-3">
+                </div>
 
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
-                      <label class="extended-radio-label text-xs" for="sizeInputOne">
-                        <img src="/image/kakao.png" width="50px"/>
-                      </label>
-                    </div>
+                <div class="col-md-3">
 
-                  </div>
-                    
-                  <div class="col-md-3">
-
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
-                      <label class="extended-radio-label text-xs" for="sizeInputOne">
-                        <img src="/image/google.png" width="50px"/>
-                      </label>
-                    </div>
-                    
+                  <div class="extended-radio">
+                    <input class="extended-radio-input" id="kakao_login" type="radio" name="kakao_login">
+                    <label class="extended-radio-label text-xs" for="kakao_login">
+                      카카오
+                    </label>
                   </div>
 
-                  <div class="col-md-3">
+                </div>
 
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="sizeInputOne" type="radio" name="sizeInput">
-                      <label class="extended-radio-label text-xs" for="sizeInputOne">
-                        <img src="/image/facebook.png" width="50px"/>
-                      </label>
-                    </div>   
+                <div class="col-md-3">
 
+                  <div class="extended-radio">
+                    <input class="extended-radio-input" id="google_login" type="radio" name="google_login">
+                    <label class="extended-radio-label text-xs" for="google_login">
+                      구글
+                    </label>
                   </div>
 
-              </div> <!-- / .form-row -->              
+                </div>
+
+                <div class="col-md-3">
+
+                  <div class="extended-radio">
+                    <input class="extended-radio-input" id="facebook_login" type="radio" name="facebook_login">
+                    <label class="extended-radio-label text-xs" for="facebook_login">
+                      페이스북
+                    </label>
+                  </div>
+
+                </div>
+
+              </div> <!-- / .form-row -->
 
             </form>
             
@@ -156,6 +157,7 @@
     </section>
 
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+  <jsp:include page="join_form1_js.jsp"></jsp:include>
 
   </body>
 </html>

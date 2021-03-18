@@ -1,21 +1,24 @@
 package kr.coevolution.vr.home;
 
+import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.LoginUser;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
-import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.home.dto.EvMemberJoinForm3;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.context.MessageSource;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 @Slf4j
@@ -105,7 +108,9 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/member/join_form1")
-    public String join_form1(Model model) {
+    public String join_form1(Model model, HttpServletRequest request) {
+
+        request.getSession().setAttribute("url_prior_login", "/member/join_form2");
 
         return "/member/join_form1";
     }
@@ -117,6 +122,13 @@ public class EvHomeController {
      */
     @RequestMapping("/member/join_form2")
     public String join_form2(Model model) {
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+
+        SessionUser user = (SessionUser)session.getAttribute("user");
+
+        logger.info("user email:"+user.getEmail());
 
         return "/member/join_form2";
     }
