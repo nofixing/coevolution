@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
@@ -70,7 +73,7 @@
                 </div>
                 <div class="col-sm-12"> 
                   <span class="small">버추얼 전시관 홈페이지는 개인정보 보호법에 따른 2년주기 개인정보 재동의 절차를 시행합니다.</span><br>
-                  <span class="small">홍길동 님께서는 2022년 05월 02일 까지 재동의 하지 않을 경우 자동으로 회원 탈퇴 처리됨을 알려드립니다.</span>
+                  <span class="small"><span id="cust_nm"></span> 님께서는 <span id="agree1_dt_end"></span> 까지 재동의 하지 않을 경우 자동으로 회원 탈퇴 처리됨을 알려드립니다.</span>
                 </div>
               </div>
               
@@ -79,40 +82,34 @@
                 <div class="form-group">
                   <!-- 개인정보 재동의 내용 -->
                   <div class="input-group">
-                    <span class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" id="basic-addon3">주요내용</span>
-                    <span class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">
-                      2021년 05월 02일까지 정보제공 재동의 하지 않은 경우 회원 개인정보 삭제 및 자동 탈퇴처리
+                    <span class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >주요내용</span>
+                    <span class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <span id="agree1_dt_end2"></span>까지 정보제공 재동의 하지 않은 경우 회원 개인정보 삭제 및 자동 탈퇴처리
                     </span>
                   </div>   
                   <div class="input-group">
-                    <span class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">
+                    <span class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
                       개인정보 파기 및 탈퇴 처리 시행일자
                     </span>
-                    <span class="col-sm-8 input-group-text border-0 bg-white "  style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">
+                    <span class="col-sm-8 input-group-text border-0 bg-white "  style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="agree1_dt_expr">
                       2021년 05월 03일
                     </span>
                   </div>     
                   <div class="input-group">
-                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">제목</span>
-                    <span class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">
-                      제목입니다.
-                    </span>
-                  </div>     
-                  <div class="input-group">
-                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">
+                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
                       파기 대상 개인정보 항목
                     </span>
-                    <span class="col-sm-8 input-group-text border-0 bg-white text-left" style="white-space:normal;border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">
+                    <span class="col-sm-8 input-group-text border-0 bg-white text-left" style="white-space:normal;border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
                       회원가입 시 입력한 모든 정보는 삭제 처리되고 아이디는 재사용 및 복구 불가능합니다.<br>
                       제③항 정책고객, 홈페이지회원 등의 홍보 및 대국민서비스 목적의 외부고객 명부는 특별한 경우를 제외하고는 2년을 주기로 정보주체의 재동의 절차를 거쳐 동의한 경우에만 계속하여 보유할 수 있다.
                     </span>
                   </div>    
                   <div class="input-group mb-3">
-                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; border-bottom:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">
+                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; border-bottom:1px solid rgba(0,0,0,.1)!important; font-size: small" >
                       동의 일시
                     </span>
-                    <span class="col-sm-8 input-group-text border-0 bg-white text-left" style="white-space:normal;border-top:1px solid rgba(0,0,0,.1)!important; border-bottom:1px solid rgba(0,0,0,.1)!important; font-size: small" id="basic-addon3">
-                      2021-05-03 00:00:00
+                    <span class="col-sm-8 input-group-text border-0 bg-white text-left" style="white-space:normal;border-top:1px solid rgba(0,0,0,.1)!important; border-bottom:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <span id="agree1_dtm_fm"></span>
                     </span>
                   </div>                      
 
@@ -128,8 +125,8 @@
 
                         <!-- Checkbox -->
                         <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                          <input type="checkbox" class="custom-control-input" id="sign-in-checkbox">
-                          <label class="custom-control-label" for="sign-in-checkbox">
+                          <input type="checkbox" class="custom-control-input" value="Y" name="agree_1" id="agree_1">
+                          <label class="custom-control-label" for="agree_1">
                             이용약관 (필수)
                           </label>
                         </div>
@@ -149,8 +146,8 @@
 
                         <!-- Checkbox -->
                         <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                          <input type="checkbox" class="custom-control-input" id="sign-in-checkbox">
-                          <label class="custom-control-label" for="sign-in-checkbox">
+                          <input type="checkbox" class="custom-control-input" value="Y" name="agree_2" id="agree_2">
+                          <label class="custom-control-label" for="agree_2">
                             개인정보처리방침에 동의합니다. (필수)
                           </label>
                         </div>
@@ -162,7 +159,7 @@
   
                     <!-- Button -->
                     <div class="text-center text-md-right p-1">
-                      <button type="button" class="btn btn-outline-primary" style="width:7rem">
+                      <button type="button" class="btn btn-outline-primary" style="width:7rem" id="btnAgree">
                         재동의 하기
                       </button>
                     </div>
@@ -173,7 +170,6 @@
 
 
               </form>
-
          
 
           </div>
@@ -182,6 +178,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+    <jsp:include page="myp06_js.jsp"></jsp:include>
 
   </body>
 </html>

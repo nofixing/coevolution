@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class EvBoardConsltResponseDto {
 
-    private Long rn;    /* 번호 */
+    private String rn;    /* 번호 */
     private Long board_id;  /* 게시판ID */
     private Long board_res_id; /* 게시판ID_답변 */
     private String board_clsf_cd; /* 게시판구분(이벤트관리,1:1문의,공지사항, FAQ, 갤러리,개인정보처리방침,이용약관) */

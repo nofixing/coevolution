@@ -9,9 +9,9 @@ import kr.coevolution.vr.mypage.service.EvMypageBoardConsltService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Slf4j
 @NoArgsConstructor
-@RestController
+@Controller
 public class EvMypageConsltController {
 
     @Autowired
@@ -41,9 +41,8 @@ public class EvMypageConsltController {
      * @param request
      * @return
      */
-    @PostMapping("/mypage/conslt_list")
-    public Map<String,Object> mypage_conslt_list (@RequestBody EvBoardSearchDto evBoardSearchDto, HttpServletRequest request) {
-        Map resposeResult = new HashMap();
+    @RequestMapping("/mypage/conslt_list")
+    public String mypage_conslt_list (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
 
         try {
             /* 로그인정보 */
@@ -78,22 +77,27 @@ public class EvMypageConsltController {
             Long page_priv = StringUtils.page_priv(evBoardSearchDto.getPage_current());
             Long page_end = StringUtils.page_next(evBoardSearchDto.getPage_current(), row_count, "Y");
 
-            resposeResult.put("data", list);
-            resposeResult.put("row_count", row_count);
-            resposeResult.put("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
-            resposeResult.put("page_next", String.valueOf(page_next));  /* 다음페이지 */
-            resposeResult.put("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
-            resposeResult.put("page_end", String.valueOf(page_end));   /* 마지막페이지 */
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count);
+            model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
+            model.addAttribute("page_next", String.valueOf(page_next));  /* 다음페이지 */
+            model.addAttribute("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
+            model.addAttribute("page_end", String.valueOf(page_end));   /* 마지막페이지 */
+            
+            /* 검색조건 */
+            model.addAttribute("board_stat_cd", evBoardSearchDto.getBoard_stat_cd());
+            model.addAttribute("keyword_clsf_cd", evBoardSearchDto.getKeyword_clsf_cd());
+            model.addAttribute("keyword", evBoardSearchDto.getKeyword());
 
         } catch (Exception e) {
 
-            resposeResult.put("result_code", "-99");
-            resposeResult.put("result_msg", "조회실패!!");
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
 
             e.printStackTrace();
         }
 
-        return resposeResult;
+        return "/mypage/myp03";
     }
 
     /**
@@ -102,7 +106,8 @@ public class EvMypageConsltController {
      * @param request
      * @return
      */
-    @PostMapping("/mypage/conslt_dtl")
+    @ResponseBody
+    @RequestMapping("/mypage/conslt_dtl")
     public Map<String,Object> mypage_conslt_dtl (@RequestBody EvBoardSearchDto evBoardSearchDto, HttpServletRequest request) {
         Map resposeResult = new HashMap();
 
@@ -113,6 +118,9 @@ public class EvMypageConsltController {
 
             List<EvBoardConsltResponseDto> list = evMypageBoardConsltService.mypage_conslt_dtl(evBoardSearchDto);
             resposeResult.put("data", list);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
 
         } catch (Exception e) {
 
@@ -131,6 +139,7 @@ public class EvMypageConsltController {
      * @param request
      * @return
      */
+    @ResponseBody
     @PostMapping("/vr/conslt/insert")
     public Map<String,Object> vr_conslt_insert (@RequestBody EvBoardRequestDto evBoardRequestDto, HttpServletRequest request) {
         Map resposeResult = new HashMap();
@@ -161,6 +170,7 @@ public class EvMypageConsltController {
         return resposeResult;
     }
 
+    @ResponseBody
     @PostMapping("/vr/conslt/reply")
     public Map<String,Object> vr_conslt_reply (@RequestBody EvBoardRequestDto evBoardRequestDto, HttpServletRequest request) {
         Map resposeResult = new HashMap();
@@ -197,6 +207,7 @@ public class EvMypageConsltController {
         return resposeResult;
     }
 
+    @ResponseBody
     @PostMapping("/vr/conslt/delete")
     public Map<String,Object> vr_conslt_delete (@RequestBody EvBoardRequestDto evBoardRequestDto, HttpServletRequest request) {
         Map resposeResult = new HashMap();

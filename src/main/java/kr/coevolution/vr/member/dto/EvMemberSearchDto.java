@@ -10,4 +10,6 @@ public class EvMemberSearchDto {
     private String cust_id;
     /* 패스워드 */
     private String cust_pw;
+
+    private String user_id;
 }

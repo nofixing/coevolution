@@ -8,6 +8,7 @@ import lombok.Setter;
 public class EvMemberResposeDto {
     private Long cust_seq;
     private String cust_id;
+    private String user_id;
     private String cust_pw;
     private String cust_clsf_cd;
     private String cust_nm;
@@ -25,7 +26,13 @@ public class EvMemberResposeDto {
     private String visit_pups_cd;
     private String rcmder_cust_id;
     private String agree_1;
+    private String agree_dtm_1;
+    private String agree1_dtm_fm;
+    private String agree1_dt_end;
+    private String agree1_dt_expr;
     private String agree_2;
+    private String agree_dtm_2;
     private String agree_3;
+    private String agree_dtm_3;
     private int cnt;
 }

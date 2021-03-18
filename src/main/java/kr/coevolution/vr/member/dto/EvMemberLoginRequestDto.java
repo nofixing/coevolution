@@ -12,4 +12,7 @@ public class EvMemberLoginRequestDto {
     private String user_current_pw;
     private String user_change_pw1;
     private String user_change_pw2;
+    private String agree_1;
+    private String agree_2;
+    private String member_wdrwl_rsn;
 }

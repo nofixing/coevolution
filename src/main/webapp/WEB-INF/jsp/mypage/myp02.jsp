@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
   </head>
@@ -70,7 +73,7 @@
                 <!-- Subheading -->
                 <div class="text-center border p-4">
                   <h4 class="text-muted m-0">
-                    <img src="/image/medal.png".png" width="16rem" /> 관심뱃지 <strong>12</strong>개
+                    <img src="/image/medal.png" width="16rem" /> 관심뱃지 <strong><span id="badgeCnt">${tot_badge}</span></strong>개
                   </h4>
                 </div>
 
@@ -79,21 +82,21 @@
                 <form class="pt-4 pb-3">
                   <div class="form-row align-items-center">
                     <div class="col-auto">
-                      <input type="date" class="form-control form-control-sm mb-2" id="inlineFormInput" >
+                      <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_fr" name="ins_dt_fr" value="${ins_dt_fr}">
                     </div>
                     <div class="col-auto">
-                      <input type="date" class="form-control form-control-sm mb-2" id="inlineFormInput" >
+                      <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
                     </div>
                     <div class="col-auto">
-                      <select class="form-control form-control-sm mb-2" style="width: 6rem;" id="inlineFormCustomSelect">
-                        <option selected>전체</option>
-                        <option value="1">부여</option>
-                        <option value="2">회수</option>
-                        <option value="3">사용</option>
+                      <select class="form-control form-control-sm mb-2" style="width: 6rem;" id="slt_badge_clsf" name="slt_badge_clsf">
+                        <option value="" <c:if test="${slt_badge_clsf eq ''}">selected</c:if>>전체</option>
+                        <option value="211001" <c:if test="${slt_badge_clsf eq '211001'}">selected</c:if>>부여</option>  <!-- 회원가입 211001, 추천인 211002 -->
+                        <option value="211004" <c:if test="${slt_badge_clsf eq '211004'}">selected</c:if>>회수</option>  <!-- 뱃지회수 211004 -->
+                        <option value="211003" <c:if test="${slt_badge_clsf eq '211003'}">selected</c:if>>사용</option>  <!-- 뱃지사용 211003 -->
                       </select>
                     </div>
                     <div class="col-auto">
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;">조회</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
                     </div>
                   </div>
                 </form>            
@@ -109,96 +112,22 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <c:forEach var="list" items="${list}">
                     <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
+                      <th scope="row" class="text-center">${list.rn}</th>
+                      <td class="text-center">${list.ins_dt}</td>
                       <td class="text-center">
-                        <div class="text-danger">회수</div>
+                        <div class="text-danger">${list.badge_clsf_nm}</div>
                       </td>
-                      <td class="text-center">+1</td>
-                      <td class="text-center"></td>
-                    </tr>        
+                      <td class="text-center">${list.badge_recv_cnt}</td>
+                      <td class="text-center">${list.badge_use_cnt}</td>
+                    </tr>                                                                                                                                                                                                         
+                    </c:forEach>
+                    <c:if test="${null eq list}">
                     <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center"></td>
-                      <td class="text-center">-1</td>
-                    </tr>    
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center">+1</td>
-                      <td class="text-center"></td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center"></td>
-                      <td class="text-center">-1</td>
+                      <th scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</th>
                     </tr>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center">+1</td>
-                      <td class="text-center"></td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center"></td>
-                      <td class="text-center">-1</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center">+1</td>
-                      <td class="text-center"></td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center"></td>
-                      <td class="text-center">-1</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center">+1</td>
-                      <td class="text-center"></td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-center">2021.04.01</td>
-                      <td class="text-center">
-                        <div class="text-danger">회수</div>
-                      </td>
-                      <td class="text-center"></td>
-                      <td class="text-center">-1</td>
-                    </tr>                                                                                                                                                                                                             
+                    </c:if>
                   </tbody>
                 </table>
 
@@ -236,6 +165,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+    <jsp:include page="myp02_js.jsp"></jsp:include>
 
   </body>
 </html>

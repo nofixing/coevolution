@@ -28,12 +28,31 @@ public class EvMemberService {
     @Autowired
     private EvCommCodeMapper evCommCodeMapper;
 
+    /**
+     * id중복체크
+     * @param evMemberSearchDto
+     * @return
+     */
     public List<EvMemberResposeDto> search_dup(EvMemberSearchDto evMemberSearchDto) {
         return evMemberMapper.S01_CUST(evMemberSearchDto);
     }
 
+    /**
+     * 로그인정보조회
+     * @param evMemberLoginRequestDto
+     * @return
+     */
     public List<EvMemberLoginInfoDto> search_login(EvMemberLoginRequestDto evMemberLoginRequestDto) {
         return evMemberMapper.S02_CUST(evMemberLoginRequestDto);
+    }
+
+    /**
+     * 회원정보조회
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberResposeDto> search_cust_info(EvMemberSearchDto evMemberSearchDto) {
+        return evMemberMapper.S03_CUST(evMemberSearchDto);
     }
 
     /**
@@ -175,6 +194,38 @@ public class EvMemberService {
         /* 비밃번호 변경 */
         evMemberMapper.U03_CUST(evMemberLoginRequestDto);
         
+        return return_code;
+    }
+
+    /**
+     * 재동의
+     * @param evMemberLoginRequestDto
+     * @return
+     * @throws Exception
+     */
+    public int member_agree(EvMemberLoginRequestDto evMemberLoginRequestDto) throws Exception {
+
+        int return_code = 0;
+
+        /* 재동의 */
+        evMemberMapper.U04_AGREE(evMemberLoginRequestDto);
+
+        return return_code;
+    }
+
+    /**
+     * 회원탈퇴
+     * @param evMemberLoginRequestDto
+     * @return
+     * @throws Exception
+     */
+    public int member_wdral(EvMemberLoginRequestDto evMemberLoginRequestDto) throws Exception {
+
+        int return_code = 0;
+
+        /* 재동의 */
+        evMemberMapper.U05_WDRAL(evMemberLoginRequestDto);
+
         return return_code;
     }
 }

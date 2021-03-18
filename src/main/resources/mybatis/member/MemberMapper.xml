@@ -27,6 +27,29 @@
 
     </select>
 
+    <select id="S03_CUST" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberResposeDto">
+
+        /* 회원정보 조회 */
+        SELECT cust_seq
+            , cust_id as cust_id
+            , cust_id as user_id
+            , cust_nm
+            , email_id
+            , cust_clsf_cd
+            , agree_1
+            , agree_dtm_1
+            , date_format(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH),'%Y-%m-%d %H:%i:%s')   as agree1_dtm_fm
+            , date_format(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH),'%Y년%m월%d일')         as agree1_dt_end
+            , date_format(DATE_ADD(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH), INTERVAL 1 DAY),'%Y년%m월%d일')  as agree1_dt_expr
+            , agree_2
+            , agree_dtm_2
+            , agree_3
+            , agree_dtm_3
+        FROM ev_cust_mst
+        where cust_id = #{user_id}
+
+    </select>
+
     <insert id="I01_CUST" parameterType="map" useGeneratedKeys="true">
         <selectKey resultType="Long" keyProperty="cust_seq" order="AFTER">
             SELECT LAST_INSERT_ID() as cust_seq
@@ -41,7 +64,7 @@
             , zip_code, addr_1, addr_2
             , city_nm, visit_pups_cd, rcmder_cust_id, agree_1, agree_dtm_1
             , agree_2, agree_dtm_2, agree_3, agree_dtm_3, ins_user
-            , ins_dtm, mod_user, mod_dtm
+            , ins_dtm, mod_user, mod_dtm, cust_sts_cd
         ) VALUES (
               NULL, #{cust_id}, #{cust_pw}, #{cust_clsf_cd}, #{cust_nm}
             , #{company_nm}, #{dept_nm}, #{rep_nm}, #{posn_nm}, #{gender_cd}
@@ -49,7 +72,7 @@
             , #{zip_code}, #{addr_1}, #{addr_2}
             , #{city_nm}, #{visit_pups_cd}, #{rcmder_cust_id}, #{agree_1}, NOW()
             , #{agree_2}, NOW(), #{agree_3}, NOW(), #{user_id}
-            , NOW(), #{user_id}, NOW()
+            , NOW(), #{user_id}, NOW(), '105001'
         )
 
     </insert>
@@ -109,6 +132,54 @@
              , mod_user = #{user_id}
              , mod_dtm  = NOW()
          WHERE cust_id  = #{cust_id}
+
+    </update>
+
+    <update id="U04_AGREE" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto">
+
+        /* 재동의 */
+        UPDATE ev_cust_mst
+        SET agree_1  = #{agree_1}
+          , agree_dtm_1 = NOW()
+          , agree_2  = #{agree_2}
+          , agree_dtm_2 = NOW()
+          , mod_user = #{user_id}
+          , mod_dtm  = NOW()
+        WHERE cust_id  = #{cust_id}
+
+    </update>
+
+    <update id="U05_WDRAL" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto">
+
+        /* 회원탈퇴 */
+        UPDATE ev_cust_mst
+        SET cust_sts_cd = '105003'
+        , company_nm = ''
+        , dept_nm = ''
+        , rep_nm = ''
+        , posn_nm = ''
+        , gender_cd = ''
+        , age_cd = ''
+        , hp_no = ' '
+        , tel_no = ''
+        , email_id = ''
+        , country_cd = ''
+        , city_nm = ''
+        , zip_code = ''
+        , addr_1 = ''
+        , addr_2 = ''
+        , visit_pups_cd = ''
+        , rcmder_cust_id = ''
+        , agree_1 = ''
+        , agree_dtm_1 = null
+        , agree_2 = ''
+        , agree_dtm_2 = null
+        , agree_3 = ''
+        , agree_dtm_3 = null
+        , member_wdrwl_rsn  = #{member_wdrwl_rsn}
+        , mod_user = #{user_id}
+        , mod_dtm  = NOW()
+        WHERE cust_id  = #{cust_id}
 
     </update>
 

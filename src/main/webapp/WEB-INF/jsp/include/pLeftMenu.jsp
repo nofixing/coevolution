@@ -22,10 +22,10 @@
       <a href="/mypage/myp01"><strong>부스 즐겨찾기 내역</strong></a>
     </li>
     <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/myp02"><strong>관심 뱃지 내역</strong></a>
+      <a href="/mypage/badge"><strong>관심 뱃지 내역</strong></a>
     </li>
     <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/myp03"><strong>삼담문의 내역</strong></a>
+      <a href="/mypage/conslt_list"><strong>삼담문의 내역</strong></a>
     </li>
 
     <li class="text-xs text-uppercase mb-2">

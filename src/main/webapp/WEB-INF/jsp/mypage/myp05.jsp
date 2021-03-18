@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
@@ -20,7 +23,7 @@
           <div class="col">
             
             <!-- Heading -->
-            <h5 class="breadcrumb-heading">
+            <h5 class="breadcrumb-heading" >
               비밀번호 변경
             </h5>
 
@@ -29,7 +32,7 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="#">Home</a>
+              <a href="/">Home</a>
             </span>
             <span class="breadcrumb-item active">
               마이페이지
@@ -77,7 +80,7 @@
 
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="password" class="form-control order-1" placeholder="현재 비밀번호">
+                    <input type="password" class="form-control order-1" placeholder="현재 비밀번호" id="user_current_pw">
                     <div class="input-group-append order-0">
                       <div class="input-group-text">
                         <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -90,7 +93,7 @@
 
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="password" class="form-control order-1" placeholder="새 비밀번호">
+                    <input type="password" class="form-control order-1" placeholder="새 비밀번호" id="user_change_pw1">
                     <div class="input-group-append order-0">
                       <div class="input-group-text">
                         <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -103,7 +106,7 @@
 
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="password" class="form-control order-1" placeholder="새 비밀번호 확인">
+                    <input type="password" class="form-control order-1" placeholder="새 비밀번호 확인" id="user_change_pw2">
                     <div class="input-group-append order-0">
                       <div class="input-group-text">
                         <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -131,7 +134,7 @@
   
                     <!-- Button -->
                     <div class="text-center text-md-right p-1">
-                      <button type="button" class="btn btn-outline-primary" style="width:7rem">
+                      <button type="button" class="btn btn-outline-primary" style="width:7rem" id="btnChange">
                         변경하기
                       </button>
                     </div>
@@ -149,6 +152,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+    <jsp:include page="myp05_js.jsp"></jsp:include>
 
   </body>
 </html>

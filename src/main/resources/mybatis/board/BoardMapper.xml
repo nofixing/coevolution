@@ -108,7 +108,7 @@
     <select id="S01_CONSLT_LIST" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto"
             resultType="kr.coevolution.vr.board.dto.EvBoardConsltResponseDto">
 
-        SELECT ROW_NUMBER() OVER(ORDER BY a.ins_dtm DESC) as RN
+        SELECT ROW_NUMBER() OVER(ORDER BY a.ins_dtm DESC) as rn
              , a.board_id
              , a.board_subject
              , a.conslt_cust_id
@@ -131,12 +131,16 @@
             AND a.conslt_cust_id = #{conslt_cust_id}
         </if>
 
-        <if test="keyword_clsf_cd == 'subject'">
-            and board_subject like concat('%',#{board_subject},'%')
+        <if test='keyword_clsf_cd == "subject"'>
+            and board_subject like concat('%',#{keyword},'%')
         </if>
 
-        <if test="keyword_clsf_cd == 'content'">
-            and board_content like concat('%',#{board_content},'%')
+        <if test='keyword_clsf_cd == "content"'>
+            and board_content like concat('%',#{keyword},'%')
+        </if>
+
+        <if test='keyword != null and keyword != "" and (keyword_clsf_cd == null or keyword_clsf_cd == "")'>
+            and (board_subject like concat('%',#{keyword},'%') or board_content like concat('%',#{keyword},'%'))
         </if>
 
         <if test="board_stat_cd != null and board_stat_cd != ''">
@@ -166,12 +170,16 @@
             AND a.conslt_cust_id = #{conslt_cust_id}
         </if>
 
-        <if test="keyword_clsf_cd == 'subject'">
-            and board_subject like concat('%',#{board_subject},'%')
+        <if test='keyword_clsf_cd == "subject"'>
+            and board_subject like concat('%',#{keyword},'%')
         </if>
 
-        <if test="keyword_clsf_cd == 'content'">
-            and board_content like concat('%',#{board_content},'%')
+        <if test='keyword_clsf_cd == "content"'>
+            and board_content like concat('%',#{keyword},'%')
+        </if>
+
+        <if test='keyword != null and keyword != "" and (keyword_clsf_cd == null or keyword_clsf_cd == "")'>
+            and (board_subject like concat('%',#{keyword},'%') or board_content like concat('%',#{keyword},'%'))
         </if>
 
         <if test="board_stat_cd != null and board_stat_cd != ''">
@@ -190,7 +198,7 @@
              , a.conslt_cust_id
              , (select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id) as conslt_cust_nm
              , (select board_content from ev_board where board_res_id = a.board_id and del_yn = 'N') as board_reply_content
-             , (select date_format(ins_dtm,'%Y%m%d %H:%i:%S') from ev_board where board_res_id = a.board_id and del_yn = 'N') as board_reply_ins_dtm
+             , (select date_format(ins_dtm,'%Y-%m-%d %H:%i:%S') from ev_board where board_res_id = a.board_id and del_yn = 'N') as board_reply_ins_dtm
              , a.reg_dt
              , a.board_stat_cd
              , (select cd_nm from ev_comm_code where cd_id = a.board_stat_cd) as board_stat_nm

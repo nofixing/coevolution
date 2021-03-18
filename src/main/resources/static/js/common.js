@@ -381,6 +381,15 @@ gfnComm.prototype = {
           + pParam + (Number(this.gfnNowDate.getDate()) < 10 ? "0"+(Number(this.gfnNowDate.getDate())) : (Number(this.gfnNowDate.getDate())));
   },
 
+  addDays(date, days, pParam) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+
+    return result.getFullYear() 
+          + pParam + (Number(result.getMonth())+1 < 10 ? "0"+(Number(result.getMonth())+1) : (Number(result.getMonth())+1))
+          + pParam + (Number(result.getDate()) < 10 ? "0"+(Number(result.getDate())) : (Number(result.getDate())));    
+  },
+
   /* 숫자 콤마 */
   setNumberComma : function(pParam) {
     return pParam.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -692,7 +701,15 @@ function getValue(pId) {
  * @param {*} pValue 
  */
 function setValue(pId, pValue) {
-  $('#'+pId).val(pValue);
+  
+  var tagNm = $('#'+pId).prop('tagName');
+
+  if(tagNm.toUpperCase() == "SPAN" || tagNm.toUpperCase() == "DIV") {
+    $('#'+pId).text(pValue);
+  } else {
+    $('#'+pId).val(pValue);
+  }
+
 }
 
 /**
@@ -730,16 +747,13 @@ function gfnCommCode(pUpperCd) {
 
 /**
  * Form ID를 기준으로 데이터를 셋팅한다.
- * @param {*} pJsonData field에 입력할 데이터 [{"d":"d","n":"n"}]
+ * @param {*} pJsonData field에 입력할 데이터 {"d":"d","n":"n"}
  */
 
-function gfnSetField(pJsonData) {
+function gfnSetField(pJsonData, pFieldArry) {
 
-  var row_cnt = pJsonData[0].length;
-
-  for(var i = 0; i < row_cnt; i++) {
-
-    
+  for(var i = 0; i < pFieldArry.length; i++) {
+    setValue(pFieldArry[i], eval("pJsonData."+pFieldArry[i]));
   }
 }
 

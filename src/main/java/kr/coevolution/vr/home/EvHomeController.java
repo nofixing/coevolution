@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.context.MessageSource;
 
@@ -279,7 +280,9 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/mypage/myp031")
-    public String myp031(Model model) {
+    public String myp031(@RequestParam("board_id") String board_id, Model model) {
+
+        model.addAttribute("board_id", board_id);
 
         return "/mypage/myp031";
     }    

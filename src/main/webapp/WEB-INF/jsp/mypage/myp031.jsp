@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
   </head>
@@ -65,24 +68,23 @@
               </h3>
 
               <form class="form-styled">
+                <input type="hidden" id="board_id"/>
                 <div class="form-row col-sm-12 border-bottom pt-2 pl-2">
-                  <div class="col-sm-12"> <span>입력된 제목이 표시됩니다.</span> </div>
+                  <div class="col-sm-12"> <span id="board_subject"></span> </div>
                 </div>
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
-                  <div class="col-sm-6 small">부스명 | <span>주제 색션 A</span> </div>
-                  <div class="col-sm-3 small">등록일 | <span>2021-04-01</span></div>
-                  <div class="col-sm-3 small">상태 | <span>답변완료</span></div>
+                  <div class="col-sm-6 small">부스명 | <span id="conslt_cust_nm"></span> </div>
+                  <div class="col-sm-3 small">등록일 | <span id="reg_dt"></span></div>
+                  <div class="col-sm-3 small">상태 | <span id="board_stat_nm"></span></div>
                 </div>
 
-                <div class="form-row col-sm-12 border-bottom p-2">
-                    Lorem ipsum dolor sit amet.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium minima soluta delectus hic odio, eos quisquam corrupti iste! Magnam aliquam iure quidem atque dolore ratione doloribus nemo vero optio eum est, voluptas excepturi minus, consequatur nam? Accusamus reiciendis dolorem harum alias maiores aliquid explicabo nesciunt, voluptatem reprehenderit magnam consectetur minus sapiente eligendi quasi tempore perspiciatis fuga ad dicta ipsa neque officia et. Veniam excepturi nostrum, doloribus assumenda sunt tempore quam ipsa, ducimus aliquid aspernatur praesentium voluptatum error voluptates! Veritatis dolor blanditiis esse dolore sed numquam inventore, sit maiores porro, quis cumque exercitationem quae? Sunt a ea et qui, temporibus error.
+                <div class="form-row col-sm-12 border-bottom p-2" id="board_content">
                 </div>              
 
                 <div class="form-row col-sm-12 pt-3 justify-content-between">
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;">목록</button>
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;">삭제</button>
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList">목록</button>
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnDtl">삭제</button>
                 </div>
                 
                 <div class="form-row col-sm-12 border-bottom pt-3 pl-2">
@@ -90,12 +92,10 @@
                 </div>  
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
-                  <div class="col-sm-3 small">답변일자 | <span>2021-04-01</span></div>
+                  <div class="col-sm-5 small">답변일자 | <span id="board_reply_ins_dtm"></span></div>
                 </div>    
                 
-                <div class="form-row col-sm-12 border-bottom p-2">
-                  Lorem ipsum dolor sit amet.
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium minima soluta delectus hic odio, eos quisquam corrupti iste! Magnam aliquam iure quidem atque dolore ratione doloribus nemo vero optio eum est, voluptas excepturi minus, consequatur nam? Accusamus reiciendis dolorem harum alias maiores aliquid explicabo nesciunt, voluptatem reprehenderit magnam consectetur minus sapiente eligendi quasi tempore perspiciatis fuga ad dicta ipsa neque officia et. Veniam excepturi nostrum, doloribus assumenda sunt tempore quam ipsa, ducimus aliquid aspernatur praesentium voluptatum error voluptates! Veritatis dolor blanditiis esse dolore sed numquam inventore, sit maiores porro, quis cumque exercitationem quae? Sunt a ea et qui, temporibus error.
+                <div class="form-row col-sm-12 border-bottom p-2" id="board_reply_content">
                 </div>               
 
               </div>
@@ -108,6 +108,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+    <jsp:include page="myp031_js.jsp"></jsp:include>
 
   </body>
 </html>

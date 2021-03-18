@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
@@ -71,143 +74,88 @@
                 <form class="pt-4 pb-3">
                   <div class="form-row align-items-center">
                     <div class="col-sm-2">
-                      <select class="form-control form-control-sm mb-2" id="inlineFormCustomSelect">
-                        <option selected>진행상태</option>
-                        <option value="1">답변대기</option>
-                        <option value="2">답변완료</option>
+                      <select class="form-control form-control-sm mb-2" id="board_stat_cd" name="board_stat_cd">
+                        <option value="" <c:if test="${board_stat_cd eq ''}">selected</c:if>>진행상태</option>
+                        <option value="104001" <c:if test="${board_stat_cd eq '104001'}">selected</c:if>>답변대기</option>
+                        <option value="104002" <c:if test="${board_stat_cd eq '104002'}">selected</c:if>>답변완료</option>
                       </select>
                     </div>
 
                     <div class="col-sm-2">
-                      <select class="form-control form-control-sm mb-2" id="inlineFormCustomSelect">
-                        <option selected>전체</option>
-                        <option value="1">제목</option>
-                        <option value="2">내용</option>
+                      <select class="form-control form-control-sm mb-2" id="keyword_clsf_cd" name="keyword_clsf_cd">
+                        <option value="" <c:if test="${keyword_clsf_cd eq ''}">selected</c:if>>전체</option>
+                        <option value="subject" <c:if test="${keyword_clsf_cd eq 'subject'}">selected</c:if>>제목</option>
+                        <option value="content" <c:if test="${keyword_clsf_cd eq 'content'}">selected</c:if>>내용</option>
                       </select>
                     </div>
 
                     <div class="col-sm-6">
-                      <input type="text" class="form-control form-control-sm mb-2" id="inlineFormInput" >
+                      <input type="text" class="form-control form-control-sm mb-2" id="keyword" name="keyword" value="${keyword}">
                     </div>
 
                     <div class="col-sm-2">
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2">조회</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" id="btnSearch">조회</button>
                     </div>
                   </div>
-                </form>            
+                         
 
-                <!-- 총건수 -->
-                <span class="text-muted small">
-                  (총 1,000 건)
-                </span>
-                <table class="table table-striped table-hover table-sm border-bottom" onClick="document.location.href='/mypage/myp031'">
-                  <thead class="table-light">
+                  <!-- 총건수 -->
+                  <span class="text-muted small">
+                    (총 ${row_count} 건)
+                  </span>
+                  <table class="table table-striped table-hover table-sm border-bottom">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col" width="10%" class="text-center">번호</th>
+                        <th scope="col" width="40%" class="text-left">제목</th>
+                        <th scope="col" width="20%" class="text-center">부스명</th>
+                        <th scope="col" width="15%" class="text-center">등록일</th>
+                        <th scope="col" width="15%" class="text-center">진행상태</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <c:forEach var="list" items="${list}">
+                      <tr>
+                        <th scope="row" class="text-center">${list.rn}</th>
+                        <td class="text-left"><a href="javascript:doDetail('${list.board_id}')">${list.board_subject}</a></td>
+                        <td class="text-center">${list.conslt_cust_nm}</td>
+                        <td class="text-center">${list.reg_dt}</td>
+                        <td class="text-center">${list.board_stat_nm}</td>
+                      </tr>                                                                                                                                                                                                                                                                               
+                    </tbody>
+                    </c:forEach>
+                    <c:if test="${fn:length(list) == 0}">
                     <tr>
-                      <th scope="col" width="10%" class="text-center">번호</th>
-                      <th scope="col" width="40%" class="text-left">제목</th>
-                      <th scope="col" width="20%" class="text-center">부스명</th>
-                      <th scope="col" width="15%" class="text-center">등록일</th>
-                      <th scope="col" width="15%" class="text-center">진행상태</th>
+                      <th scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>  
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>  
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>  
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>  
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>        
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">상담문의 내용입니다.</td>
-                      <td class="text-center">주제 색션 A</td>
-                      <td class="text-center">2021-04-01</td>
-                      <td class="text-center">답변대기</td>
-                    </tr>                                                                                                                                                                                                                                                                                
-                  </tbody>
-                </table>
+                    </c:if>
+                  </table>
 
 
-                <!-- paging -->
-                <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3">
-                      <li class="page-item">
-                        <a class="page-link" href="#">Previous</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              
+                  <!-- paging -->
+                  <div class="table-responsive d-flex justify-content-center">
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination pt-3">
+                        <li class="page-item">
+                          <a class="page-link" href="#">Previous</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+
+                </form>   
               
               </div>
               
@@ -219,6 +167,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+    <jsp:include page="myp03_js.jsp"></jsp:include>
 
   </body>
 </html>

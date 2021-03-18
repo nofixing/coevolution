@@ -21,7 +21,8 @@
     <select id="S01_BADGE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
             resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
 
-        SELECT a.badge_id
+        SELECT ROW_NUMBER() OVER() as rn
+             , a.badge_id
             , a.cust_id
             , a.give_cust_id
             , (select cd_nm from ev_comm_code where cd_id = a.badge_clsf_cd) AS badge_clsf_nm
@@ -31,8 +32,21 @@
             , date_format(ins_dtm,'%Y-%m-%d') AS ins_dt
         FROM ev_cust_badge a
         WHERE a.cust_id = #{cust_id}
-        AND date_format(ins_dtm,'%Y%m%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        AND date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+
+        <if test="slt_badge_clsf != null and slt_badge_clsf != ''">
+            <choose>
+                <when test="slt_badge_clsf == '211001'">
+                    and a.badge_clsf_cd in ('211001','211002')
+                </when>
+                <otherwise>
+                    and a.badge_clsf_cd = #{slt_badge_clsf}
+                </otherwise>
+            </choose>
+        </if>
+
         ORDER BY a.ins_dtm DESC
+        LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>
 
@@ -45,7 +59,18 @@
                  WHERE x.cust_id = #{cust_id}) as tot_badge
         FROM ev_cust_badge a
         WHERE a.cust_id = #{cust_id}
-        AND date_format(ins_dtm,'%Y%m%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        AND date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+
+        <if test="slt_badge_clsf != null and slt_badge_clsf != ''">
+            <choose>
+                <when test="slt_badge_clsf == '211001'">
+                    and a.badge_clsf_cd in ('211001','211002')
+                </when>
+                <otherwise>
+                    and a.badge_clsf_cd = #{slt_badge_clsf}
+                </otherwise>
+            </choose>
+        </if>
 
     </select>
 

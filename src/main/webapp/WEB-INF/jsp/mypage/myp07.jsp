@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
@@ -76,14 +79,14 @@
                 <div class="form-group">
                   <!-- 회원 탈퇴 내용 -->
                   <div class="input-group">
-                    <input type="text" class="form-control form-control-sm mb-4" id="inlineFormInput" placeholder="최대 100자 까지 입력 가능합니다.">
+                    <input type="text" class="form-control form-control-sm mb-4" id="member_wdrwl_rsn" maxlength="100" placeholder="최대 100자 까지 입력 가능합니다.">
                   </div>   
 
                   <div class="form-row justify-content-center">
   
                     <!-- Button -->
                     <div class="text-center text-md-right p-1">
-                      <button type="button" class="btn btn-outline-primary" style="width:7rem">
+                      <button type="button" class="btn btn-outline-primary" style="width:7rem" id="btnWdrwl">
                         탈퇴하기
                       </button>
                     </div>
@@ -103,6 +106,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+    <jsp:include page="myp07_js.jsp"></jsp:include>
 
   </body>
 </html>

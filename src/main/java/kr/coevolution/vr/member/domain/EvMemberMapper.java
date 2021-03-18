@@ -25,6 +25,13 @@ public interface EvMemberMapper {
     public List<EvMemberLoginInfoDto> S02_CUST(EvMemberLoginRequestDto param);
 
     /**
+     * 회원정보조회
+     * @param param
+     * @return
+     */
+    public List<EvMemberResposeDto> S03_CUST(EvMemberSearchDto param);
+    
+    /**
      * 회원정보를 입력한다.
      * @param param
      * @return
@@ -58,6 +65,20 @@ public interface EvMemberMapper {
      * @return
      */
     public int U03_CUST(EvMemberLoginRequestDto evMemberLoginRequestDto);
+
+    /**
+     * 재동의
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    public int U04_AGREE(EvMemberLoginRequestDto evMemberLoginRequestDto);
+
+    /**
+     * 회원탈퇴
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    public int U05_WDRAL(EvMemberLoginRequestDto evMemberLoginRequestDto);
 
     /**
      * 회원뱃지입력
