@@ -1,5 +1,8 @@
 spring security login redirect 참조
 https://stackoverflow.com/questions/36243352/how-to-set-redirection-after-successful-login
+https://stackoverflow.com/questions/14573654/spring-security-redirect-to-previous-page-after-successful-login
 
 다국어
 https://offbyone.tistory.com/408
+
+
