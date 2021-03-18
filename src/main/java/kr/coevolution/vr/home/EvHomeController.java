@@ -293,11 +293,12 @@ public class EvHomeController {
      * @param model
      * @return
      */
-    @RequestMapping("/mypage/myp031")
-    public String myp031(Model model) {
+    public String myp031(@RequestParam("board_id") String board_id, Model model) {
+
+        model.addAttribute("board_id", board_id);
 
         return "/mypage/myp031";
-    }    
+    }
 
     /**
      * 정보수정
