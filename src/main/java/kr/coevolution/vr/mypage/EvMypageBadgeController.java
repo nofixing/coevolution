@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.Utilities;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -86,10 +87,15 @@ public class EvMypageBadgeController {
             Long page_priv = StringUtils.page_priv(evMypageBadgeRequestDto.getPage_current());
             Long page_end = StringUtils.page_next(evMypageBadgeRequestDto.getPage_current(), row_count, "Y");
 
+            if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getPage_current(),""))) {
+                evMypageBadgeRequestDto.setPage_current(1L);
+            }
+
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count);
             model.addAttribute("tot_badge", tot_badge); /* 관심뱃지 총 개수 */
             model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
+            model.addAttribute("page_current", String.valueOf(evMypageBadgeRequestDto.getPage_current()));  /* 현재페이지 */
             model.addAttribute("page_next", String.valueOf(page_next));  /* 다음페이지 */
             model.addAttribute("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
             model.addAttribute("page_end", String.valueOf(page_end));   /* 마지막페이지 */

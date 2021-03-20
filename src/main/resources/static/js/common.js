@@ -67,7 +67,16 @@
     };
 
     var pTableData = [{"ACCOUNT_CD_ID":"100250","PART_CD_NM":"\\ud1b5\\uc7a5","ACCOUNT_NM":"\\uac10\\uc0ac\\ud5cc\\uae08","INC_AMT":"520000","SPT_AMT":"0"}];
-  *
+ *
+
+/**
+ * 페이징 처리를 진행한다.
+ * @param {*} pPagingViewCnt  페이징 건수 (한번에 표시할 페이지)
+ * @param {*} pTotalCnt  총건수
+ * @param {*} pCurrentPage  현재페이지
+ *
+ function setPaging(pPagingViewCnt, pTotalCnt, pCurrentPage) {
+
  * 값을 조회한다.
  * @param {*} pId 
 function getValue(pId) 
@@ -684,6 +693,82 @@ function setTable(pParentId, pTableId, pTableInfo, pTableData) {
 
   $('#'+pParentId).append(tableMain);
 }
+
+/**
+ * 페이징 처리를 진행한다.
+ * @param {*} pTotalCnt  총건수
+ * @param {*} pCurrentPage  현재페이지
+ */
+function setPaging(pTotalCnt, pCurrentPage) {
+
+  //페이징건수 (한번에 표시할 페이지)
+  var vPagingViewCnt = 10;
+
+  //총건수
+  var vRowTotCnt = pTotalCnt;
+
+  //현재페이지
+  var currentPage = pCurrentPage;
+
+  //다음페이지
+  var nextPage = currentPage + 1;
+
+  //이전페이지
+  var privPage = currentPage - 1;
+
+  //총페이지 수 계산
+  var pageCnt = Math.floor(vRowTotCnt / vPagingViewCnt);
+
+  var rminPageCnt = vRowTotCnt % vPagingViewCnt;
+  
+  //나머지값이 있으면 페이지 추가
+  if(rminPageCnt > 0) {
+    pageCnt += 1;
+  }
+
+  //다음페이지 총페이지수보다 클 경우 총페이지로 셋팅
+  if(nextPage > pageCnt) nextPage = pageCnt;
+
+  //이전페이지가 1페이지 보다 작을 경우 1페이지로 셋팅
+  if(privPage < 1) privPage = 1;
+
+  //시작페이지 계산
+  var startPage = 1;
+  // 1 ~ 10 page, 11 ~ 20 page
+  var pagingGrp = Math.floor(currentPage / vPagingViewCnt);
+  var pagingGrpRmin = currentPage % vPagingViewCnt;
+
+  if(pagingGrpRmin > 0) {
+    pagingGrp += 1;
+  }
+
+  var pagingList = "";
+  var lastPage = (pagingGrp * vPagingViewCnt);
+
+  if(lastPage > pageCnt) {
+    lastPage = pageCnt;
+  }
+
+  //시작페이지
+  startPage = (pagingGrp * vPagingViewCnt) - vPagingViewCnt + 1;
+
+  for(var i = startPage; i <= lastPage; i++) {
+    if(i == currentPage) {
+      pagingList += "<li class='page-item page-link'>"+i+"</li>"
+    } else {
+      pagingList += "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+i+")'>"+i+"</li>"
+    }
+  }
+
+  //처음/이전/이후/마지막
+  //pagingList = "[처음 1]" + "[이전 "+privPage+"]" + pagingList + "[다음 " + nextPage + "]" + "[마지막 "+pageCnt+"]";
+  pagingList = "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+privPage+")'>Previous</a></li>"
+             + pagingList 
+             + "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+nextPage+")'>Next</a></li>";
+
+  return pagingList;
+}
+
 
 /**
  * 값을 조회한다.

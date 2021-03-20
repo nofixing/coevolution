@@ -136,23 +136,7 @@
                 <!-- paging -->
                 <div class="table-responsive d-flex justify-content-center">
                   <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3">
-                      <li class="page-item">
-                        <a class="page-link" href="#">Previous</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
+                    <ul class="pagination pt-3" id="pagingList"></ul>
                   </nav>
                 </div>
               

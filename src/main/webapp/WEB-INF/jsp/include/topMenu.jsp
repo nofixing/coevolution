@@ -1,4 +1,7 @@
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
     <div class="hamburger" id="hamburger-6">
         <a href="#!">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
@@ -662,22 +665,22 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item ">
                             <a href="#" class="nav-link nav-item-font">
-                                <strong>관람가이드</strong>
+                                <strong><spring:message code="top.view.guid" text="관람가이드"/></strong>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a href="#" class="nav-link nav-item-font">
-                                <strong>버추얼전시관</strong>
+                                <strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a href="/member/login_form" class="nav-link nav-item-font">
-                                <strong>로그인</strong>
+                                <strong><spring:message code="top.login" text="로그인"/></strong>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a href="/member/join_form1" class="nav-link nav-item-font">
-                                <strong>참관등록</strong>
+                                <strong><spring:message code="top.visit.reg" text="참관등록"/></strong>
                             </a>
                         </li>
                         <li class="nav-item ">
