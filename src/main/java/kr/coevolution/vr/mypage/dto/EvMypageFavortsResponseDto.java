@@ -9,8 +9,10 @@ public class EvMypageFavortsResponseDto {
     public Long favorts_id;
     public Long rn;
     private String cust_id;
+    private String cust_nm;
     private String favorts_cust_id;
     private String favorts_cust_nm;
     private String shortcut_url;
+    private String ins_dtm;
     private Long row_count;     /* 총 row  */
 }

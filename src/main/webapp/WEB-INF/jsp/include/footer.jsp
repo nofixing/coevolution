@@ -1,115 +1,143 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- FOOTER
-================================================== -->
-<footer class="section bg-dark pt-3 pb-3">
-
-    <!-- Triangles -->
-    <div class="bg-triangle bg-triangle-light bg-triangle-bottom bg-triangle-left"></div>
-    <div class="bg-triangle bg-triangle-light bg-triangle-bottom bg-triangle-right"></div>
-
-    <!--Content -->
-    <div class="container">
-    <div class="row align-self-center">
-        <div class="col-md-auto">
-
-        <!-- Brand -->
-        <p>
-            <a href="#" class="footer-brand text-white">
-                <img src="/image/expo.png"/>
-            </a>
-        </p>
-    
+    <!-- FOOTER
+    ================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer_menu clearfix">
+                <div class="footer_link">
+                    <ul>
+                        <li>
+                            <a href="#!">개인정보처리방침</a>
+                        </li>
+                        <li>
+                            <a href="#!">이용약관</a>
+                        </li>
+                        <li>
+                            <a href="#!">오시는 길</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer_sns">
+                    <ul>
+                        <li>
+                            <a href="#!">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_info">
+                <div class="footer_inner">
+                    <div class="footer_address">
+                        <div class="footer_logo">
+                            <a href="/">
+                                <img src="/assets/img/icons/foot_logo.png" alt="">
+                            </a>
+                        </div>
+                        <ul>
+                            <li>
+                                <span>(우) 63309 제주특별자치도 제주시 첨단로 213-3,215호 국제전기자동차엑스포(영평동, 스마트빌딩)</span>
+                            </li>
+                            <li>
+                                <span>국제전기자동차엑스포 사업자등록번호 : 136-82-03165</span>
+                                <span>대표자 : 김대환</span>
+                            </li>
+                            <li>
+                                <span>TEL：064-702-1580</span>
+                                <span>Fax : 064-702-1576</span>
+                                <span>E-mail：ieve@ievexpo.org</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer_partner_logo">
+                        <span>VR 전시 주관사 <img src="/assets/img/icons/logo.png" alt=""></span>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>Copyright 2021 ⓒ IEVE. ALL RIGHTS RESERVED.</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md">
-    
-            <!-- Links -->
-            <ul class="list-unstyled list-inline text-md-left">
-                <li class="list-inline-item mr-2">
-                    <span class="text-white text-muted small">
-                        개인정보처리방침    이용약관     찾아오시는 길        
-                    </span>
-                </li>
-            </ul>
-            <ul class="list-unstyled list-inline text-md-left mb-0">
-                <li class="list-inline-item mr-2">
-                    <span class="text-white text-muted small">
-                        (우) 63309 제주특별자치도 제주시 첨단로 213-3,215호 국제전기자동차엑스포(영평동, 스마트빌딩)
-                    </span>
-                </li>
-            </ul>   
-            <ul class="list-unstyled list-inline text-md-left mb-0">
-                <li class="list-inline-item mr-2">
-                    <span class="text-white text-muted small">
-                        국제전기자동차엑스포 사업자등록번호 : 136-82-03165 대표자 : 김대환
-                    </span>
-                </li>
-            </ul>            
-            <ul class="list-unstyled list-inline text-md-left">
-                <li class="list-inline-item mr-2">
-                    <span class="text-white text-muted small">
-                        TEL：064-702-1580 Fax : 064-702-1576 E-mail：ieve@ievexpo.org
-                    </span>
-                </li>
-            </ul>
-        </div>
-    </div> <!-- / .row -->
-    <div class="row align-items-center">
-        <div class="col-md">
-    
-        <!-- Copyright -->
-        <p class="text-white text-muted">
-            <small>
-            &copy; Copyright <span class="current-year"></span> ⓒ IEVE. ALL RIGHTS RESERVED.
-            </small>
-        </p>
+    </footer>
 
-        </div>
-        <div class="col-md">
-    
-        <!-- Social links -->
-        <ul class="list-inline list-unstyled text-md-right">
-            <li class="list-inline-item">
-            <a href="#">
-                <i class="fab fa-github"></i>
-            </a>
-            </li>
-            <li class="list-inline-item ml-3">
-            <a href="#">
-                <i class="fab fa-twitter"></i>
-            </a>
-            </li>
-            <li class="list-inline-item ml-3">
-            <a href="#">
-                <i class="fab fa-instagram"></i>
-            </a>
-            </li>
-        </ul>
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Global JS -->
+    <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
 
-        </div>
-    </div> <!-- / .row -->
-    </div> <!-- / .container -->
+    <!-- Plugins JS -->
+    <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/libs/flickity/dist/flickity.pkgd.min.js"></script>
+    <script src="/assets/libs/flickity-fade/flickity-fade.js"></script>
+    <script src="/assets/libs/jquery-parallax.js/parallax.min.js"></script>
+    <script src="/assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="/assets/libs/waypoints/lib/shortcuts/inview.min.js"></script>
+    <script src="/assets/libs/fullpage.js/vendors/scrolloverflow.min.js"></script>
+    <script src="/assets/libs/fullpage.js/dist/fullpage.min.js"></script>
+    <script src="/assets/libs/highlightjs/highlight.pack.min.js"></script>
 
-</footer>
+    <!-- Theme JS -->
+    <script src="/assets/js/theme.min.js"></script>
 
-<!-- JAVASCRIPT
-================================================== -->
-<!-- Global JS -->
-<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+            // $(".hamburger").click(function () {
+            //     $(this).toggleClass("is-active");
+            // });
+            $(".hamburger").click(function () {
+                if ($(".m-menu").css("display") == "none") {
+                    $(".m-menu").show().animate({
+                        "left": "0"
+                    });
+                    $(".m-menu-bg").show();
+                    $(".m-menu").show();
+                    //            $("m-menu-bg").css("position","fixed");
+                } else {
+                    $("html, body").css("position", "static");
+                    $(".m-menu").stop().animate({
+                        "left": "-100%"
+                    }, 400);
+                    $(".m-menu-bg").hide();
+                    setTimeout(function () {
+                        $(".m-menu").css("display", "none");
+                    }, 400);
+                    //            $('m-menu-bg').css({"overflow": "", "position" : "static"});
+                }
+            });
+            $(".m-menu-top a").click(function () {
+                if ($(".m-menu").css("display") == "block") {
+                    $("html, body").css("position", "static");
+                    $(".m-menu").stop().animate({
+                        "left": "-100%"
+                    }, 400);
+                    $(".m-menu-bg").hide();
+                    setTimeout(function () {
+                        $(".m-menu").css("display", "none");
+                    }, 400);
+                }
+            });
 
-<!-- Plugins JS -->
-<script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/libs/flickity/dist/flickity.pkgd.min.js"></script>
-<script src="/assets/libs/flickity-fade/flickity-fade.js"></script>
-<script src="/assets/libs/jquery-parallax.js/parallax.min.js"></script>
-<script src="/assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
-<script src="/assets/libs/waypoints/lib/shortcuts/inview.min.js"></script>
-<script src="/assets/libs/fullpage.js/vendors/scrolloverflow.min.js"></script>
-<script src="/assets/libs/fullpage.js/dist/fullpage.min.js"></script>
-<script src="/assets/libs/highlightjs/highlight.pack.min.js"></script>
 
-<!-- Theme JS -->
-<script src="/assets/js/theme.min.js"></script>
+            // modal dropdown 
+
+            $(".collapse-btn").click(function(){
+                $(this).toggleClass("on");
+                if($(this).hasClass("on")){
+                    $(this).find("span").css("transform", "rotate(180deg) translateY(50%)");
+                } else {
+                    $(this).find("span").css("transform", "rotate(0) translateY(-50%)");
+                }
+            });
+
+        });
+    </script>
 
 <!-- Common JS -->
 <script src="/js/common.js"></script>

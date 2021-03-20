@@ -40,8 +40,12 @@ $(document).ready(function() {
 
 		    //console.log("message : " + message.result_code);
 			if(message.result_code == 0) {
-				//분기처리 필요
-				document.location.href="/mypage/myp01";
+				if(message.cust_clsf_cd == "202001") {
+					document.location.href="/mypage/myp01";
+				} else {
+					document.location.href="/mypage/myc01";
+				}
+				
 			} else {
 				alert("일치하는 정보가 없습니다.\r\n확인후 다시 입력해주세요.");
 			}

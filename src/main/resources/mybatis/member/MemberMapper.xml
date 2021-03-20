@@ -24,6 +24,7 @@
         FROM ev_cust_mst
         where cust_id = #{user_id}
           and cust_pw = #{user_pw}
+          and cust_sts_cd = '105001'
 
     </select>
 

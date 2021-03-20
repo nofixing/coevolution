@@ -44,6 +44,8 @@ public class EvMypageConsltController {
     @RequestMapping("/mypage/conslt_list")
     public String mypage_conslt_list (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
 
+        String returnUrl = "";
+
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
@@ -53,10 +55,15 @@ public class EvMypageConsltController {
                 /* 참관고객 */
                 evBoardSearchDto.setReg_user_id(loginInfoDto.getCust_id());
                 evBoardSearchDto.setConslt_cust_id("");
+
+                returnUrl = "/mypage/myp03";
+
             } else {
                 /* 참가고객 */
                 evBoardSearchDto.setReg_user_id("");
                 evBoardSearchDto.setConslt_cust_id(loginInfoDto.getCust_id());
+
+                returnUrl = "/mypage/myc04";
             }
 
             /* row 개수 */
@@ -97,7 +104,7 @@ public class EvMypageConsltController {
             e.printStackTrace();
         }
 
-        return "/mypage/myp03";
+        return returnUrl;
     }
 
     /**
@@ -189,6 +196,7 @@ public class EvMypageConsltController {
             evBoardRequestDto.setBoard_clsf_cd("101002"); /* 1:1 문의게시판 */
             evBoardRequestDto.setBoard_stat_cd("104002"); /* 답변완료 */
             evBoardRequestDto.setBoard_res_id(evBoardRequestDto.getBoard_id()); /* 게시판ID_답변 */
+
 
             /* 답변입력 */
             int return_code = evMypageBoardConsltService.vr_conslt_insert(evBoardRequestDto);

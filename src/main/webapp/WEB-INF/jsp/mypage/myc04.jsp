@@ -53,8 +53,8 @@
         <div class="row">
           <div class="col-md-2">
             
-            <!--left Menu -->
-            <jsp:include page="/WEB-INF/jsp/include/pLeftMenu.jsp"></jsp:include>
+             <!--left Menu -->
+            <jsp:include page="/WEB-INF/jsp/include/cLeftMenu.jsp"></jsp:include>
 
           </div>
           <div class="col-md-10">
@@ -96,8 +96,7 @@
                     <div class="col-sm-2">
                       <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" id="btnSearch">조회</button>
                     </div>
-                  </div>
-                         
+                  </div>        
 
                   <!-- 총건수 -->
                   <span class="text-muted small">
@@ -107,30 +106,34 @@
                     <thead class="table-light">
                       <tr>
                         <th scope="col" width="10%" class="text-center">번호</th>
-                        <th scope="col" width="40%" class="text-left">제목</th>
+                        <th scope="col" width="30%" class="text-left">제목</th>
                         <th scope="col" width="20%" class="text-center">부스명</th>
+                        <th scope="col" width="15%" class="text-center">회원</th>
                         <th scope="col" width="15%" class="text-center">등록일</th>
-                        <th scope="col" width="15%" class="text-center">진행상태</th>
+                        <th scope="col" width="10%" class="text-center">진행상태</th>
                       </tr>
                     </thead>
                     <tbody>
                       <c:forEach var="list" items="${list}">
                       <tr>
                         <th scope="row" class="text-center">${list.rn}</th>
-                        <td class="text-left"><a href="javascript:doDetail('${list.board_id}')">${list.board_subject}</a></td>
+                        <td class="text-left">
+                          <div style="overflow: hidden;text-overflow: ellipsis; white-space: nowrap; width:250px;">
+                            <a href="javascript:doDetail('${list.board_id}')">${list.board_subject}</a>
+                          </div>
+                        </td>
                         <td class="text-center">${list.conslt_cust_nm}</td>
+                        <td class="text-center">${list.reg_user_nm}</td>
                         <td class="text-center">${list.reg_dt}</td>
                         <td class="text-center">${list.board_stat_nm}</td>
-                      </tr>   
+                      </tr>    
                       </c:forEach>    
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <th scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</th>
+                        <th scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</th>
                       </tr>
-                      </c:if>                                                                                                                                                                                                                                                                                              
+                      </c:if>                                                                                                                                                                                                                                                                                                 
                     </tbody>
-                    
-
                   </table>
 
 
@@ -156,9 +159,9 @@
                       </ul>
                     </nav>
                   </div>
-
-                </form>   
               
+                </form>
+
               </div>
               
             </div>
@@ -169,7 +172,6 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
-    <jsp:include page="myp03_js.jsp"></jsp:include>
-
+    <jsp:include page="myc04_js.jsp"></jsp:include>
   </body>
 </html>

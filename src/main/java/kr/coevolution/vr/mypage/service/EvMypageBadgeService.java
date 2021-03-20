@@ -49,6 +49,24 @@ public class EvMypageBadgeService {
     }
 
     /**
+     * 마이페이지 뱃지 리스트 - 기업참가
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> mypage_badge_list2 (EvMypageBadgeRequestDto evMypageBadgeRequestDto) {
+        return evMemberMapper.S04_BADGE(evMypageBadgeRequestDto);
+    }
+
+    /**
+     * 마이페이지 뱃지 개수  - 기업참가
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> mypage_badge_list_count2 (EvMypageBadgeRequestDto evMypageBadgeRequestDto) {
+        return evMemberMapper.S05_BADGE(evMypageBadgeRequestDto);
+    }
+
+    /**
      * 기업정보에서 뱃지를 입력 및 회수한다.
      * @param evMemberBadgeRequestDto
      * @return

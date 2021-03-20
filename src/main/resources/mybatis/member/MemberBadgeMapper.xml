@@ -89,4 +89,64 @@
 
     </select>
 
+    <select id="S04_BADGE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+        /* 기업 뱃지 적립내역 */
+        SELECT ROW_NUMBER() OVER() as rn
+        , a.badge_id
+        , a.cust_id
+        , (select cust_nm from ev_cust_mst where cust_id = a.cust_id) as cust_nm
+        , a.give_cust_id
+        , (select cd_nm from ev_comm_code where cd_id = a.badge_clsf_cd) AS badge_clsf_nm
+        , '기업명 표시?' AS badge_conts
+        , case when a.badge_clsf_cd IN ('211001','211002','211004') then a.badge_cnt ELSE 0 END AS badge_recv_cnt
+        , case when a.badge_clsf_cd IN ('211003') then a.badge_cnt ELSE 0 END AS badge_use_cnt
+        , date_format(ins_dtm,'%Y-%m-%d') AS ins_dt
+        FROM ev_cust_badge a
+        WHERE a.give_cust_id = #{cust_id}
+        AND date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+
+        <if test="slt_badge_clsf != null and slt_badge_clsf != ''">
+            <choose>
+                <when test="slt_badge_clsf == '211001'">
+                    and a.badge_clsf_cd in ('211001','211002')
+                </when>
+                <otherwise>
+                    and a.badge_clsf_cd = #{slt_badge_clsf}
+                </otherwise>
+            </choose>
+        </if>
+
+        ORDER BY a.ins_dtm DESC
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S05_BADGE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        /* 기업 뱃지 적립 건수 */
+
+        SELECT count(*) as row_count
+            , (SELECT SUM(x.badge_cnt)
+                FROM ev_cust_badge x
+                WHERE x.give_cust_id = #{cust_id}
+              ) as tot_badge
+        FROM ev_cust_badge a
+        WHERE a.give_cust_id = #{cust_id}
+        AND date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+
+        <if test="slt_badge_clsf != null and slt_badge_clsf != ''">
+            <choose>
+                <when test="slt_badge_clsf == '211001'">
+                    and a.badge_clsf_cd in ('211001','211002')
+                </when>
+                <otherwise>
+                    and a.badge_clsf_cd = #{slt_badge_clsf}
+                </otherwise>
+            </choose>
+        </if>
+
+    </select>
+
 </mapper>

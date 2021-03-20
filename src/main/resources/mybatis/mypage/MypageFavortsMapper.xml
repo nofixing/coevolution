@@ -10,7 +10,7 @@
              , a.favorts_id
              , a.cust_id
              , a.favorts_cust_id
-             , CONCAT('관정보> ', (SELECT cust_nm FROM ev_cust_mst WHERE cust_id = a.cust_id)) AS favorts_cust_nm
+             , CONCAT('관정보> ', (SELECT cust_nm FROM ev_cust_mst WHERE cust_id = a.favorts_cust_id)) AS favorts_cust_nm
              , '#' as shortcut_url /* 바로가기 */
           FROM ev_cust_favorts a
          WHERE a.del_yn = 'N'
@@ -31,6 +31,7 @@
 
     </select>
 
+
     <select id="S03_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto"
             resultType="kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto">
 
@@ -44,6 +45,39 @@
         AND a.favorts_cust_id = #{favorts_cust_id}
 
     </select>
+
+
+    <select id="S04_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto">
+
+        /* 마이페이지 참가 부스 즐겨찾기 내역*/
+        SELECT ROW_NUMBER() OVER() as rn
+        , a.favorts_id
+        , a.cust_id
+        , (SELECT cust_nm FROM ev_cust_mst WHERE cust_id = a.cust_id) as cust_nm
+        , a.favorts_cust_id
+        , CONCAT('관정보> ', (SELECT cust_nm FROM ev_cust_mst WHERE cust_id = a.favorts_cust_id)) AS favorts_cust_nm
+        , DATE_FORMAT(a.ins_dtm, '%Y-%m-%d') as ins_dtm
+        FROM ev_cust_favorts a
+        WHERE a.del_yn = 'N'
+        AND a.favorts_cust_id = #{cust_id}
+        and DATE_FORMAT(a.ins_dtm, '%Y-%m-%d') between #{favorts_ins_fr} and #{favorts_ins_to}
+        ORDER BY a.ins_dtm DESC
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S05_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto">
+
+        /* 마이페이지 참가 부스 즐겨찾기 총 건수 */
+        SELECT COUNT(*) AS row_count
+        FROM ev_cust_favorts a
+        WHERE a.del_yn = 'N'
+        AND a.favorts_cust_id = #{cust_id}
+
+    </select>
+
 
     <insert id="I01_FAVORTS" parameterType="kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto">
 

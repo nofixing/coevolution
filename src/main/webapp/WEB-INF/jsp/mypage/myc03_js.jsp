@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 		var frm = document.forms[0];
 		frm.method = "post";
-		frm.action = "/mypage/badge";
+		frm.action = "/mypage/badgecorp";
 		frm.submit();
 	});	
 

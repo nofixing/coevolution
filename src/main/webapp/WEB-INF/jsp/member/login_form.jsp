@@ -14,149 +14,95 @@
     
     <!-- FULLPAGE
     ================================================== -->
-    <section class="section section-full section-top bg-light">
+    <section class="section section-full section-top">
 
-      <!-- Content -->
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8 col-lg-6">
-
-            <!-- Form -->
-            <form class="form-styled bg-white">
-
-              <!-- Heading -->
-              <h2 class="text-center mb-4">
-                로 그 인
-              </h2>
-
-              <!-- 아이디 -->
-              <div class="form-group">
-                
-                <!-- 아이디 -->
-                <label>아이디</label>
-                <div class="input-group">
-                  <input type="text" class="form-control order-1" id="user_id" name="user_id">
-                  <div class="input-group-append order-0">
-                    <div class="input-group-text">
-                      <svg class="input-group-icon icon-offset icon icon-person" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path transform="translate(3 3)" d="M0 100 A 50 50 0 0 1 50 60 A 20 20 0 0 1 50 0 A 20 20 0 0 1 50 60 A 50 50 0 0 1 100 100"></path>
-                      </svg>
+        <!-- Content -->
+        <div class="container">
+            <div class="">
+                <div class="form login_form">
+                    <div class="form_head">
+                        <p>LOGIN</p>
                     </div>
-                  </div>
+                    <div class="login_inner">
+                        <div class="form_inner">
+                            <form>
+                                <div class="login_form clearfix">
+                                    <div class="login_input_area">
+                                        <div class="id_area input_area">
+                                            <input type="text" id="user_id" name="user_id" placeholder="아이디">
+                                        </div>
+                                        <div class="pw_area input_area">
+                                            <input type="password" id="user_pw" name="user_pw" placeholder="비밀번호">
+                                        </div>
+                                    </div>
+                                    <div class="login_form_btn">
+                                        <button type="button" class="login_form_submit" id="btnLogin">로그인</button>
+                                    </div>
+                                </div>
+                                <div class="check_area clearfix">
+                                    <div class="check_id">
+                                        <input type="checkbox" id="check_id">
+                                        <label for="check_id"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                          </svg><span>아이디 저장</span></label>
+                                    </div>
+                                    <div class="find_info">
+                                        <a href="/member/id_sh_form1">아이디찾기</a>
+                                        <a href="/member/pw_sh_form1">비밀번호찾기</a>
+                                    </div>
+                                    <!-- <div class="login_check">
+                                        <input type="checkbox" id="auto_login" class="form_chk_btn">
+                                        <label for="auto_login">자동로그인</label>
+                                    </div> -->
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="form_inner">
+                            <div class="login_member clearfix">
+                                <a href="/member/join_form1" class="member_page">회원가입</a>
+                            </div>
+                        </div>
+                        <div class="sns_login bg-light">
+                            <div class="small_title">
+                                <span>소셜로그인</span>
+                            </div>
+                            <div class="sns_login_inner">
+                                <ul class="clearfix">
+                                    <li>
+                                        <a href="#" id="naver_login">
+                                            <img src="/assets/img/icons/naver_icon.png"/>
+                                            <span>네이버</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="facebook_login">
+                                            <img src="/assets/img/icons/facebook_icon.png" />
+                                            <span>페이스북</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="google_login">
+                                            <img src="/assets/img/icons/instar_icon.png" />
+                                            <span>구글</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="kakao_login">
+                                            <img src="/assets/img/icons/kakao_icon.png" />
+                                            <span>카카오톡</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-              </div>
-
-              <!-- Password -->
-              <div class="form-group">
-                
-                <!-- Name -->
-                <label>비밀번호</label>
-                <div class="input-group">
-                  <input type="password" class="form-control order-1" id="user_pw" name="user_pw">
-                  <div class="input-group-append order-0">
-                    <div class="input-group-text">
-                      <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path transform="translate(3 3)" d="M25 50 V 20 A 25 25 0 0 1 50 0 A 25 25 0 0 1 75 20 V 50 H 90 V 100 H 10 V 50 H 75 M50 85 A 5 5 0 0 1 45 80 V 70 A 5 5 0 0 1 50 65 A 5 5 0 0 1 55 70 V 80 A 5 5 0 0 1 50 85"></path>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- Footer -->
-              <div class="form-row align-items-center">
-                <div class="col-md-auto">
-
-                  <!-- Checkbox -->
-                  <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                    <input type="checkbox" class="custom-control-input" id="sign-in-checkbox">
-                    <label class="custom-control-label" for="sign-in-checkbox">
-                      아이디 저장
-                    </label>
-                  </div>
-
-                </div>
-                <div class="col-md">
-
-                  <!-- Button -->
-                  <div class="text-center text-md-right">
-                    <button type="button" class="btn btn-outline-primary" id="btnLogin">
-                      로그인
-                    </button>
-                    
-                    <button type="button" class="btn btn-outline-primary" id="btnJoin">
-                      회원가입
-                    </button>
-
-                  </div>
-
-                </div>
-              </div> <!-- / .form-row -->
-
-              <!-- 소셜로그인 -->
-                <div class="form-row align-items-center mt-3">
-
-                  <div class="col-md-3">
-
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="naver_login" type="radio" name="naver_login">
-                      <label class="extended-radio-label text-xs" for="naver_login">
-                        네이버
-                      </label>
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-3">
-
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="kakao_login" type="radio" name="kakao_login">
-                      <label class="extended-radio-label text-xs" for="kakao_login">
-                        카카오
-                      </label>
-                    </div>
-
-                  </div>
-                    
-                  <div class="col-md-3">
-
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="google_login" type="radio" name="google_login">
-                      <label class="extended-radio-label text-xs" for="google_login">
-                        구글
-                      </label>
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-3">
-
-                    <div class="extended-radio">
-                      <input class="extended-radio-input" id="facebook_login" type="radio" name="facebook_login">
-                      <label class="extended-radio-label text-xs" for="facebook_login">
-                        페이스북
-                      </label>
-                    </div>
-
-                  </div>
-
-              </div> <!-- / .form-row -->              
-
-              <!-- Link -->
-              <p class="text-center text-muted mt-3 mb-0">
-                <small>
-                   <a href="/member/join_form1">회원가입</a> | <a href="/member/id_sh_form1">아이디 찾기</a> | <a href="/member/pw_sh_form1">비밀번호 찾기</a>
-                </small>
-              </p>
-
-            </form>
-            
-          </div>
+            </div>
         </div> <!-- / .row -->
-      </div> <!-- / .container -->
-      
+        </div> <!-- / .container -->
+
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>

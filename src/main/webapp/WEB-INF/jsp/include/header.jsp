@@ -15,7 +15,13 @@
     <meta name="msapplication-config" content="/assets/ico/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/custom/common.css">
+    <link rel="stylesheet" href="/assets/custom/form.css">
+
     <!-- Plugins CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/assets/libs/flickity/dist/flickity.min.css">
     <link rel="stylesheet" href="/assets/libs/flickity-fade/flickity-fade.css">
     <link rel="stylesheet" href="/assets/libs/fullpage.js/dist/fullpage.min.css">
@@ -26,7 +32,8 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="/assets/css/theme.min.css">
 
-    <!-- 전체메뉴팝업 -->
-    <script src="/js/popMenuHtml.js"></script>
-
     <title>국제전기자동차엑스포</title>
+
+    <!-- 전체메뉴팝업 -->
+    <!--script src="/js/popMenuHtml.js"></script-->
+

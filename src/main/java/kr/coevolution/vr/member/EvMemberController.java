@@ -139,6 +139,7 @@ public class EvMemberController {
                 /* sesstion 정보 입력 */
                 session.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
 
+                resposeResult.put("cust_clsf_cd", evMemberLoginInfoDtoList.get(0).getCust_clsf_cd());
                 resposeResult.put("result_code", "0");
                 resposeResult.put("result_msg", "성공!!");
             } else {

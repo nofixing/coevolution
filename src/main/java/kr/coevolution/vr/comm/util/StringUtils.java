@@ -55,9 +55,7 @@ public class StringUtils {
         String rtnValue = String.valueOf(str);
 
         if(str == null || "".equals(String.valueOf(str)) || "null".equals(String.valueOf(str))) {
-            if(!chgStr.isEmpty()) {
-                rtnValue = chgStr;
-            }
+            rtnValue = chgStr;
         }
 
         return rtnValue;

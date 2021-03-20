@@ -43,6 +43,24 @@ public class EvMypageFavoritsService {
     }
 
     /**
+     * 기업참가 즐겨찾기내역
+     * @param evMypageFavortsRequestDto
+     * @return
+     */
+    public List<EvMypageFavortsResponseDto> mypage_favorits_list2 (EvMypageFavortsRequestDto evMypageFavortsRequestDto) {
+        return evMypageFavoritsMapper.S04_FAVORTS(evMypageFavortsRequestDto);
+    }
+
+    /**
+     * 기업참가 즐겨찾기내역 건수
+     * @param evMypageFavortsRequestDto
+     * @return
+     */
+    public List<EvMypageFavortsResponseDto> mypage_favorits_list_count2 (EvMypageFavortsRequestDto evMypageFavortsRequestDto) {
+        return evMypageFavoritsMapper.S05_FAVORTS(evMypageFavortsRequestDto);
+    }
+
+    /**
      * VR에서 즐겨찾기 등록 시 입력
      * @param evMypageFavortsRequestDto
      * @return

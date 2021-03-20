@@ -52,6 +52,8 @@ public class EvBoardRequestDto {
     private String conslt_user_id;
     /* 사용자ID */
     private String user_id;
+    /* 리플등록여부 */
+    private String reply_yn;
     /* 첨부파일 */
     private List file_list;
 }

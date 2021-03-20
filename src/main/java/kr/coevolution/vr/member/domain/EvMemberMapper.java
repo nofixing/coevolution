@@ -101,5 +101,24 @@ public interface EvMemberMapper {
      */
     public List<EvMypageBadgeResponseDto> S02_BADGE(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
 
+    /**
+     * VR뱃지등록여부 체크
+     * @param evMemberBadgeRequestDto
+     * @return
+     */
     public List<EvMypageBadgeResponseDto> S03_BADGE(EvMemberBadgeRequestDto evMemberBadgeRequestDto);
+
+    /**
+     * 회원뱃지내역조회-기업참가
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> S04_BADGE(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
+
+    /**
+     * 회원뱃지조회 건수 및 뱃지 건수-기업참가
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> S05_BADGE(EvMypageBadgeRequestDto evMypageBadgeRequestDto);    
 }

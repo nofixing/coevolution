@@ -293,12 +293,27 @@ public class EvHomeController {
      * @param model
      * @return
      */
+    @RequestMapping("/mypage/myp031")
     public String myp031(@RequestParam("board_id") String board_id, Model model) {
 
         model.addAttribute("board_id", board_id);
 
         return "/mypage/myp031";
     }
+
+    /**
+     * 상담문의내역 - 기업 참가
+     * @param board_id
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc041")
+    public String myc041(@RequestParam("board_id") String board_id, Model model) {
+
+        model.addAttribute("board_id", board_id);
+
+        return "/mypage/myc041";
+    }    
 
     /**
      * 정보수정

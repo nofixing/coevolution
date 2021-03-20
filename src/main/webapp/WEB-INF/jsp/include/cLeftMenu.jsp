@@ -22,10 +22,13 @@
       <a href="#/mypage/myc01"><strong>내 부스 정보 등록</strong></a>
     </li>
     <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/myc02"><strong>즐겨찾기 내역</strong></a>
+      <a href="/mypage/favortscorp"><strong>즐겨찾기 내역</strong></a>
     </li>
     <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/myc03"><strong>삼담문의 내역</strong></a>
+      <a href="/mypage/badgecorp"><strong>뱃지 적립 내역</strong></a>
+    </li>    
+    <li class="text-xs text-uppercase mb-2">
+      <a href="/mypage/conslt_list"><strong>삼담문의 내역</strong></a>
     </li>
 
     <li class="text-xs text-uppercase mb-2">

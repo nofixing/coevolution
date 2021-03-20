@@ -13,19 +13,19 @@ $(document).ready(function() {
 	var today = lComm.getToday("-");
 	
 	/* 검색일자 셋팅 */
-	if(getValue("ins_dt_fr") == "")
-		setValue("ins_dt_fr", lComm.addDays(today, -30, "-"));
+	if(getValue("favorts_ins_fr") == "")
+		setValue("favorts_ins_fr", lComm.addDays(today, -30, "-"));
 	
-	if(getValue("ins_dt_to") == "")
-		setValue("ins_dt_to", today);
+	if(getValue("favorts_ins_to") == "")
+		setValue("favorts_ins_to", today);
 
 	$('#btnSearch').on('click', function () {
 		//검색
 
 		/* 필수항목 체크 */
 		var chk = '['
-			+ '  {"id":"ins_dt_fr","name":"조회 시작일자"} '
-			+ ', {"id":"ins_dt_to","name":"조회 종료일자"} ';
+			+ '  {"id":"favorts_ins_fr","name":"조회 시작일자"} '
+			+ ', {"id":"favorts_ins_to","name":"조회 종료일자"} ';
 		chk += ']';
 
 		var jsonCheck = JSON.parse(chk);
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 		var frm = document.forms[0];
 		frm.method = "post";
-		frm.action = "/mypage/badge";
+		frm.action = "/mypage/favortscorp";
 		frm.submit();
 	});	
 

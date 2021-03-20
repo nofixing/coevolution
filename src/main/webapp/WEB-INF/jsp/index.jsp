@@ -14,15 +14,18 @@
     
     <!-- FULLPAGE
     ================================================== -->
-    <section class="section section-full section-top bg-light pt-0 pb-0">
+    <section class="section section-full section-top bg-light">
 
-      <!-- Content -->
-      <div class="container">
-        <div class="justify-content-center text-center">
-          <img src="/image/virtual_main.png" style="object-fit: cover; "/>
+        <!-- Content -->
+        <div class="container">
+            <div class="justify-content-center text-center">
+                <div class="main-img">
+                    <img src="/assets/img/icons/main-img.png" alt="">
+                </div>
+            </div>
         </div> <!-- / .row -->
-      </div> <!-- / .container -->
-      
+        </div> <!-- / .container -->
+
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>

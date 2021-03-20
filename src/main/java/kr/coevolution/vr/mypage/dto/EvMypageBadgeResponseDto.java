@@ -8,6 +8,7 @@ import lombok.Setter;
 public class EvMypageBadgeResponseDto {
     private String rn;
     private String cust_id;
+    private String cust_nm;
     private Long badge_id;
     private String give_cust_id;
     private String badge_clsf_nm;

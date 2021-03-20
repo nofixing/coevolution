@@ -61,6 +61,7 @@ public class EvMypageBoardConsltService {
         Long boardId = evBoardRequestDto.getBoard_id();
         log.debug("board_id 1 : " + boardId);
 
+        String reply_board_id = "";
         /* 문의 답글 입력 */
         if("104002".equals(evBoardRequestDto.getBoard_stat_cd())) {
             /* 해당 내역을 조회하여 변경이 필요없는 항목을 입력한다. */
@@ -72,14 +73,27 @@ public class EvMypageBoardConsltService {
             evBoardRequestDto.setReg_user_id(StringUtils.nvl(list.get(0).get("reg_user_id"), ""));
             evBoardRequestDto.setConslt_cust_id(StringUtils.nvl(list.get(0).get("conslt_cust_id"), ""));
             evBoardRequestDto.setConslt_user_id(evBoardRequestDto.getUser_id());
+
+            /* 답글이 입력되어있으면 답글의 board_id를 입력한다. */
+            reply_board_id = StringUtils.nvl(list.get(0).get("reply_board_id"), "");
         }
 
-        int return_code = evBoardMapper.I01_BOARD(evBoardRequestDto);
-        log.debug("board_id 2 : " + evBoardRequestDto.getBoard_id());
+        int return_code = 0;
 
-        /* 문의 답글상태 업데이트 */
-        if("104002".equals(evBoardRequestDto.getBoard_stat_cd())) {
-            evBoardRequestDto.setBoard_id(boardId);
+        if("".equals(reply_board_id)) {
+            return_code = evBoardMapper.I01_BOARD(evBoardRequestDto);
+            log.debug("board_id 2 : " + evBoardRequestDto.getBoard_id());
+
+            /* 문의 답글상태 업데이트 */
+            if("104002".equals(evBoardRequestDto.getBoard_stat_cd())) {
+                evBoardRequestDto.setBoard_id(boardId);
+                return_code = evBoardMapper.U03_BOARD(evBoardRequestDto);
+            }
+
+        } else {
+            //이미 답글등록 완료 - 답글업데이트
+            evBoardRequestDto.setBoard_id(Long.parseLong(reply_board_id));
+            evBoardRequestDto.setReply_yn("Y");
             return_code = evBoardMapper.U03_BOARD(evBoardRequestDto);
         }
 

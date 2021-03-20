@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
@@ -65,43 +68,36 @@
               </h3>
 
               <form class="form-styled">
+                <input type="hidden" id="board_id" />
                 <div class="form-row col-sm-12 border-bottom pt-2 pl-2">
-                  <div class="col-sm-12"> <span>입력된 제목이 표시됩니다.</span> </div>
+                  <div class="col-sm-12"> <span id="board_subject"></span> </div>
                 </div>
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
-                  <div class="col-sm-3 small">부스명 | <span>주제 색션 A</span> </div>
-                  <div class="col-sm-3 small">회원명 | <span>홍길동</span> </div>
-                  <div class="col-sm-3 small">등록일 | <span>2021-04-01</span></div>
-                  <div class="col-sm-3 small">상태 | <span>답변완료</span></div>
+                  <div class="col-sm-6 small">부스명 | <span id="conslt_cust_nm"></span> </div>
+                  <div class="col-sm-3 small">등록일 | <span id="reg_dt"></span></div>
+                  <div class="col-sm-3 small">상태 | <span id="board_stat_nm"></span></div>
                 </div>
 
-                <div class="form-row col-sm-12  p-2">
-                  <textarea class="form-control" name="contact-message" rows="7">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam deleniti cumque ea magnam laboriosam numquam quidem est iste labore recusandae non aperiam facere veniam asperiores impedit laborum, harum natus vero?
-                  </textarea>
+                <div class="form-row col-sm-12 border-bottom p-2" id="board_content">
                 </div>              
 
+                <div class="form-row col-sm-12 pt-3 justify-content-between">
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList">목록</button>
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSave">저장</button>
+                </div>
                 
                 <div class="form-row col-sm-12 border-bottom pt-3 pl-2">
                   <div class="col-sm-12"> <strong>답변내용</strong></div>
                 </div>  
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
-                  <div class="col-sm-3 small">답변일자 | <span>2021-04-01</span></div>
+                  <div class="col-sm-5 small">답변일자 | <span id="board_reply_ins_dtm"></span></div>
                 </div>    
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
-                    <div class="form-group col-12">
-                      <!-- Message -->
-                      <textarea class="form-control" name="contact-message" rows="7">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam deleniti cumque ea magnam laboriosam numquam quidem est iste labore recusandae non aperiam facere veniam asperiores impedit laborum, harum natus vero?
-                      </textarea>
-                    </div>
-                </div>    
-                
-                <div class="form-row col-sm-12 pt-3 justify-content-between">
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;">목록</button>
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;">저장</button>
-                </div>                
+                  <textarea class="form-control" name="contact-message" rows="7" id="board_reply_content"></textarea>
+                </div>               
 
               </div>
 
@@ -113,6 +109,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+    <jsp:include page="myc041_js.jsp"></jsp:include>
 
   </body>
 </html>

@@ -31,6 +31,20 @@ public interface EvMypageFavoritsMapper {
     public List<EvMypageFavortsResponseDto> S03_FAVORTS(EvMypageFavortsRequestDto param);
 
     /**
+     * 마이페이지 즐겨찾기 조회 (참가)
+     * @param param
+     * @return
+     */
+    public List<EvMypageFavortsResponseDto> S04_FAVORTS(EvMypageFavortsRequestDto param);
+
+    /**
+     * 총 개수 (참가)
+     * @param param
+     * @return
+     */
+    public List<EvMypageFavortsResponseDto> S05_FAVORTS(EvMypageFavortsRequestDto param);
+
+    /**
      * 즐겨찾기 입력
      * @param param
      * @return

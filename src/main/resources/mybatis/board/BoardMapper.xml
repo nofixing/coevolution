@@ -98,9 +98,10 @@
     <update id="U03_BOARD" parameterType="kr.coevolution.vr.board.dto.EvBoardRequestDto">
 
         UPDATE ev_board
-        SET board_stat_cd   = #{board_stat_cd}
-        , mod_user          = #{user_id}
-        , mod_dtm           = NOW()
+        SET mod_user          = #{user_id}
+          , mod_dtm           = NOW()
+          , board_content   = #{board_content}
+          , board_stat_cd   = #{board_stat_cd}
         WHERE board_id = #{board_id}
 
     </update>
@@ -112,7 +113,9 @@
              , a.board_id
              , a.board_subject
              , a.conslt_cust_id
-             , (select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id) as conslt_cust_nm
+             , concat('????',(select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id)) as conslt_cust_nm
+             , a.reg_user_id
+             , (select cust_nm from ev_cust_mst where cust_id = a.reg_user_id) as reg_user_nm
              , a.reg_dt
              , a.board_stat_cd
              , (select cd_nm from ev_comm_code where cd_id = a.board_stat_cd) as board_stat_nm
@@ -210,8 +213,9 @@
     </select>
 
     <select id="S04_BOARD_ALL" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="map">
-        SELECT *
-          FROM ev_board
+        SELECT a.*
+             , (select max(board_id) from ev_board where board_res_id = a.board_id) as reply_board_id
+          FROM ev_board a
          WHERE board_id = #{board_id}
     </select>
 

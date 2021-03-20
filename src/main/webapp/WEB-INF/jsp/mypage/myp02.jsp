@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
@@ -123,7 +124,7 @@
                       <td class="text-center">${list.badge_use_cnt}</td>
                     </tr>                                                                                                                                                                                                         
                     </c:forEach>
-                    <c:if test="${null eq list}">
+                    <c:if test="${fn:length(list) == 0}">
                     <tr>
                       <th scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</th>
                     </tr>
