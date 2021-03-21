@@ -15,4 +15,9 @@ public class EvMemberLoginRequestDto {
     private String agree_1;
     private String agree_2;
     private String member_wdrwl_rsn;
+    private String google_email;
+    private String naver_email;
+    private String kakao_email;
+    private String facebook_email;
+    private String reg_provider;
 }

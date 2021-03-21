@@ -13,18 +13,19 @@ import java.util.Map;
 public class OAuthAttributes {
 
     private Map<String, Object> attributes;
-    private String nameAttributeKey, name, email, picture;
+    private String nameAttributeKey, name, email, provider, picture;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Builder
     public OAuthAttributes(Map<String, Object> attributes,
                            String nameAttributeKey,
-                           String name, String email, String picture) {
+                           String name, String email, String provider, String picture) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
         this.email = email;
+        this.provider = provider;
         this.picture = picture;
     }
 
@@ -49,6 +50,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
+                .provider("google")
                 .picture((String) attributes.get("picture"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
@@ -61,6 +63,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
+                .provider("naver")
                 .picture((String) response.get("profile_image"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
@@ -74,6 +77,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
+                .provider("facebook")
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -85,6 +89,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String)profile.get("nickname"))
                 .email((String)response.get("email"))
+                .provider("kakao")
                 .picture((String)profile.get("profile_image_url"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
@@ -95,6 +100,7 @@ public class OAuthAttributes {
         return User.builder()
                 .name(name)
                 .email(email)
+                .provider(provider)
                 .picture(picture)
                 .role(Role.GUEST)
                 .build();

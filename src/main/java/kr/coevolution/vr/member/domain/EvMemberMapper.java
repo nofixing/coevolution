@@ -25,6 +25,20 @@ public interface EvMemberMapper {
     public List<EvMemberLoginInfoDto> S02_CUST(EvMemberLoginRequestDto param);
 
     /**
+     * 회원로그인-정보조회_소셜
+     * @param param
+     * @return
+     */
+    public List<EvMemberLoginInfoDto> S02_CUST_SOCIAL(EvMemberLoginRequestDto param);
+
+    /**
+     * 회원가입시 이미 가입된 이메일이 있는지 조회
+     * @param param
+     * @return
+     */
+    public List<EvMemberLoginInfoDto> S02_CUST_EMAIL_CHECK(EvMemberLoginRequestDto param);
+
+    /**
      * 회원정보조회
      * @param param
      * @return

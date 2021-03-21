@@ -2,6 +2,7 @@ package kr.coevolution.vr.member;
 
 import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
+import kr.coevolution.vr.config.auth.dto.SessionUser;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
 import kr.coevolution.vr.member.dto.EvMemberResposeDto;
@@ -15,11 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Slf4j
 @NoArgsConstructor
@@ -101,6 +105,85 @@ public class EvMemberController {
             resposeResult.put("result_msg", "입력실패!!");
 
             e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 회원가입
+     * @param map
+     * @return
+     */
+    @PostMapping("/member/insert_social")
+    public Map<String,Object> member_insert_social(@RequestBody Map map) {
+
+        Map resposeResult = new HashMap();
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+
+        SessionUser user = (SessionUser)session.getAttribute("user");
+
+        if(user != null) {
+            logger.info(map.toString());
+
+            StringBuffer temp = new StringBuffer();
+            Random rnd = new Random();
+            for (int i = 0; i < 10; i++) {
+                int rIndex = rnd.nextInt(3);
+                switch (rIndex) {
+                    case 0:
+                        // a-z
+                        temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+                        break;
+                    case 1:
+                        // A-Z
+                        temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+                        break;
+                    case 2:
+                        // 0-9
+                        temp.append((rnd.nextInt(10)));
+                        break;
+                }
+            }
+
+            logger.info("\nRandom Password: "+map.toString());
+
+            map.put("cust_id", user.getEmail());
+            map.put("cust_pw", temp.toString());
+
+            if ("google".equals(user.getProvider())) {
+                map.put("google_email", user.getEmail());
+                map.put("reg_provider", "google");
+            } else if ("naver".equals(user.getProvider())) {
+                map.put("naver_email", user.getEmail());
+                map.put("reg_provider", "naver");
+            } else if ("kakao".equals(user.getProvider())) {
+                map.put("kakao_email", user.getEmail());
+                map.put("reg_provider", "kakao");
+            } else if ("facebook".equals(user.getProvider())) {
+                map.put("facebook_email", user.getEmail());
+                map.put("reg_provider", "facebook");
+            }
+
+            try {
+
+                int result_code = evMemberService.member_insert(map);
+
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+
+            } catch (Exception e) {
+
+                resposeResult.put("result_code", "-99");
+                resposeResult.put("result_msg", "입력실패!!");
+
+                e.printStackTrace();
+            }
+        } else {
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
         }
 
         return resposeResult;

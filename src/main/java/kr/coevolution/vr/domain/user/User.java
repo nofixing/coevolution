@@ -21,6 +21,9 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String provider;
+
     @Column
     private String picture;
 
@@ -29,9 +32,10 @@ public class User extends BaseTimeEntity {
     private Role role;  // Role: 직접 만드는 클래스
 
     @Builder
-    public User(String name, String email, String picture, Role role) {
+    public User(String name, String email, String provider, String picture, Role role) {
         this.name = name;
         this.email = email;
+        this.provider = provider;
         this.picture = picture;
         this.role = role;
     }

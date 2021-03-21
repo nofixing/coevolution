@@ -47,6 +47,24 @@ public class EvMemberService {
     }
 
     /**
+     * 로그인정보조회 소셜
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    public List<EvMemberLoginInfoDto> search_login_social(EvMemberLoginRequestDto evMemberLoginRequestDto) {
+        return evMemberMapper.S02_CUST_SOCIAL(evMemberLoginRequestDto);
+    }
+
+    /**
+     * 로그인정보조회 소셜
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    public List<EvMemberLoginInfoDto> search_login_email_check(EvMemberLoginRequestDto evMemberLoginRequestDto) {
+        return evMemberMapper.S02_CUST_EMAIL_CHECK(evMemberLoginRequestDto);
+    }
+
+    /**
      * 회원정보조회
      * @param evMemberSearchDto
      * @return

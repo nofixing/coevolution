@@ -1,9 +1,9 @@
 package kr.coevolution.vr.home;
 
 import kr.coevolution.vr.comm.util.StringUtils;
-import kr.coevolution.vr.config.auth.LoginUser;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
 import kr.coevolution.vr.home.dto.EvMemberJoinForm3;
+import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,14 +35,26 @@ public class EvHomeController {
     LocaleResolver localeResolver;
 
     @RequestMapping({"/", "/index"})
-    public String index(Model model, @LoginUser SessionUser user) {
+    public String index(Model model) {
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+
+        SessionUser user = (SessionUser)session.getAttribute("user");
 
         if(user != null) {
-            logger.info("userName:"+user.getName());
-            model.addAttribute("userName", user.getName());
-            model.addAttribute("userImg", user.getPicture());
+            logger.info("user info:" + user.toString());
         } else {
             logger.info("user is null");
+        }
+
+        EvMemberLoginInfoDto cust = (EvMemberLoginInfoDto)session.getAttribute(StringUtils.login_session);
+
+        if(cust != null) {
+            logger.info("cust info:" + cust.toString());
+            model.addAttribute("userName", cust.getCust_nm());
+        } else {
+            logger.info("cust is null");
         }
 
         return "index";
@@ -54,7 +66,9 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/member/login_form")
-    public String login_form(Model model) {
+    public String login_form(Model model, HttpServletRequest request) {
+
+        request.getSession().setAttribute("url_prior_login", "/");
 
         return "/member/login_form";
     }
@@ -127,13 +141,15 @@ public class EvHomeController {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);
 
-        SessionUser user = (SessionUser)session.getAttribute("user");
+        if ("dup_email".equals(session.getAttribute("email_check"))) {
+            model.addAttribute("email_check", "dup_email");
+            return "/member/join_form1";
+        } else {
 
-        if(user != null) {
-            logger.info("user email:" + user.getEmail());
+            return "/member/join_form2";
+
         }
 
-        return "/member/join_form2";
     }
 
     /**
@@ -182,6 +198,15 @@ public class EvHomeController {
     @RequestMapping("/member/join_form5")
     public String join_form5(EvMemberJoinForm3 evMemberJoinForm3, Model model) {
 
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+
+        SessionUser user = (SessionUser)session.getAttribute("user");
+
+        if(user != null) {
+            logger.info("user info:" + user.toString());
+        }
+
         String agree_1 = StringUtils.nvl(evMemberJoinForm3.getAgree_1(),"N");
         String agree_2 = StringUtils.nvl(evMemberJoinForm3.getAgree_2(),"N");
         String agree_3 = StringUtils.nvl(evMemberJoinForm3.getAgree_3(),"N");
@@ -195,7 +220,14 @@ public class EvHomeController {
             model.addAttribute("agree_2", agree_2);
             model.addAttribute("agree_3", agree_3);
 
-            return "/member/join_form5";
+            if(user != null) {
+                String[] email_id = user.getEmail().split("@");
+                model.addAttribute("email_id1", email_id[0]);
+                model.addAttribute("email_id2", email_id[1]);
+                return "/member/join_form6";
+            } else {
+                return "/member/join_form5";
+            }
         }
     }
 

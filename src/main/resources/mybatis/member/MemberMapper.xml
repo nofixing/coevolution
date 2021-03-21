@@ -28,6 +28,48 @@
 
     </select>
 
+    <select id="S02_CUST_SOCIAL" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberLoginInfoDto">
+
+        /* 로그인 회원정보 조회 */
+        SELECT cust_seq
+             , cust_id as cust_id
+             , cust_id as user_id
+             , cust_nm
+             , email_id
+             , cust_clsf_cd
+        FROM ev_cust_mst
+        where 1=1
+            <choose>
+                <when test="reg_provider == 'google'">
+                    AND google_email = #{google_email}
+                </when>
+                <when test="reg_provider == 'naver'">
+                    AND naver_email = #{naver_email}
+                </when>
+                <when test="reg_provider == 'kakao'">
+                    AND kakao_email = #{kakao_email}
+                </when>
+                <otherwise>
+                    AND facebook_email = #{facebook_email}
+                </otherwise>
+            </choose>
+
+    </select>
+
+    <select id="S02_CUST_EMAIL_CHECK" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberLoginInfoDto">
+
+        /* 소셜 회원가입시 이미 가입된 이메일이 있는지 조회 */
+        SELECT cust_seq
+             , cust_id as cust_id
+             , cust_id as user_id
+             , cust_nm
+             , email_id
+             , cust_clsf_cd
+        FROM ev_cust_mst
+        where cust_id = #{cust_id}
+
+    </select>
+
     <select id="S03_CUST" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberResposeDto">
 
         /* 회원정보 조회 */
@@ -65,7 +107,7 @@
             , zip_code, addr_1, addr_2
             , city_nm, visit_pups_cd, rcmder_cust_id, agree_1, agree_dtm_1
             , agree_2, agree_dtm_2, agree_3, agree_dtm_3, ins_user
-            , ins_dtm, mod_user, mod_dtm, cust_sts_cd
+            , ins_dtm, mod_user, mod_dtm, google_email, naver_email, kakao_email, facebook_email, reg_provider
         ) VALUES (
               NULL, #{cust_id}, #{cust_pw}, #{cust_clsf_cd}, #{cust_nm}
             , #{company_nm}, #{dept_nm}, #{rep_nm}, #{posn_nm}, #{gender_cd}
@@ -73,7 +115,7 @@
             , #{zip_code}, #{addr_1}, #{addr_2}
             , #{city_nm}, #{visit_pups_cd}, #{rcmder_cust_id}, #{agree_1}, NOW()
             , #{agree_2}, NOW(), #{agree_3}, NOW(), #{user_id}
-            , NOW(), #{user_id}, NOW(), '105001'
+            , NOW(), #{user_id}, NOW(), #{google_email}, #{naver_email}, #{kakao_email}, #{facebook_email}, #{reg_provider}
         )
 
     </insert>
