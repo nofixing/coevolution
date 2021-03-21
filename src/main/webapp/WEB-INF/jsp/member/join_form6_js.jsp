@@ -85,10 +85,13 @@ function fnSignUp() {
 
 		if(message.result_code == 0) {
 			var msg = "참관등록 완료되었습니다. ";
-
+            /*
 			gfnAlert ("alert", "참관등록 완료", msg, function(rtnValue){
 				document.location.href="/";
-			});	
+			});
+			*/
+            alert("참관등록 완료되었습니다.");
+            document.location.href="/";
 		} else {
 			alert("[참가신청 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
 			lComm.setFocus("cust_nm");
