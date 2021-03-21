@@ -673,11 +673,23 @@
                                 <strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a href="/member/login_form" class="nav-link nav-item-font">
-                                <strong><spring:message code="top.login" text="로그인"/></strong>
-                            </a>
-                        </li>
+                        <c:choose>
+                            <c:when test="${empty userName}">
+                                <li class="nav-item ">
+                                    <a href="/member/login_form" class="nav-link nav-item-font">
+                                        <strong><spring:message code="top.login" text="로그인"/></strong>
+                                    </a>
+                                </li>
+                            </c:when>
+
+                            <c:otherwise>
+                                <li class="nav-item ">
+                                    <a href="/logout" class="nav-link nav-item-font">
+                                        <strong><spring:message code="top.logout" text="로그아웃"/></strong>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
                         <li class="nav-item ">
                             <a href="/member/join_form1" class="nav-link nav-item-font">
                                 <strong><spring:message code="top.visit.reg" text="참관등록"/></strong>
