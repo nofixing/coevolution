@@ -90,7 +90,7 @@ function fnSignUp() {
 				document.location.href="/";
 			});
 			*/
-            alert("참관등록 완료되었습니다.");
+            alert(msg);
             document.location.href="/";
 		} else {
 			alert("[참가신청 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
