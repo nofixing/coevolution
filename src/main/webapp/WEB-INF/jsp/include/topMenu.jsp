@@ -1,7 +1,6 @@
-  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-  <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
     <div class="hamburger" id="hamburger-6">
         <a href="#!">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
@@ -674,7 +673,7 @@
                             </a>
                         </li>
                         <c:choose>
-                            <c:when test="${empty userName}">
+                            <c:when test="${empty sessionScope.login_session.cust_nm}">
                                 <li class="nav-item ">
                                     <a href="/member/login_form" class="nav-link nav-item-font">
                                         <strong><spring:message code="top.login" text="로그인"/></strong>
