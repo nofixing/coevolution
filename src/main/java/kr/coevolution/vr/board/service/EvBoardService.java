@@ -36,37 +36,26 @@ public class EvBoardService {
      * @param files
      * @return
      */
-    public int insert (EvBoardRequestDto evBoardRequestDto, List<MultipartFile> files) {
+    public int insert (EvBoardRequestDto evBoardRequestDto, List<MultipartFile> files) throws Exception {
 
         int return_code = 0;
 
-        try {
-            /* 파일업로드 */
-            List<Map<String, String>> fileList = evFileAttachService.fileUpload(files);
+        /* 파일업로드 */
+        List<Map<String, String>> fileList = evFileAttachService.fileUpload(files);
 
-            /* 게시판 입력 */
-            return_code = evBoardMapper.I01_BOARD(evBoardRequestDto);
+        /* 게시판 입력 */
+        return_code = evBoardMapper.I01_BOARD(evBoardRequestDto);
 
-            /* 파일 입력 */
-            Map<String, Object> fileMap = new HashMap<>();
-            fileMap.put("fileList", fileList);
-            fileMap.put("board_id", evBoardRequestDto.getBoard_id());
-            fileMap.put("board_clsf_cd", evBoardRequestDto.getBoard_clsf_cd());
-            fileMap.put("board_clsf_dtl_cd", evBoardRequestDto.getBoard_clsf_dtl_cd());
+        /* 파일 입력 */
+        Map<String, Object> fileMap = new HashMap<>();
+        fileMap.put("fileList", fileList);
+        fileMap.put("board_id", evBoardRequestDto.getBoard_id());
+        fileMap.put("board_clsf_cd", evBoardRequestDto.getBoard_clsf_cd());
+        fileMap.put("board_clsf_dtl_cd", evBoardRequestDto.getBoard_clsf_dtl_cd());
 
-            int rtnValue = evFileAttachService.fileInsert(fileMap);
+        int rtnValue = evFileAttachService.fileInsert(fileMap);
 
-            if(rtnValue < 0) {
-                throw new RuntimeException("업로드 실패!!");
-            }
-
-        } catch(Exception e) {
-            return_code = -1;
-            e.printStackTrace();
-            throw e;
-        } finally {
-            return return_code;
-        }
+        return return_code;
 
     }
 }

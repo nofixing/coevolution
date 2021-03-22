@@ -2,6 +2,9 @@ package kr.coevolution.vr.comm.service;
 
 import kr.coevolution.vr.comm.domain.EvFileAttachMapper;
 import kr.coevolution.vr.comm.dto.EvFileAttachRequestDto;
+import kr.coevolution.vr.comm.dto.EvFileAttachResponseDto;
+import kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto;
+import kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,31 +80,35 @@ public class EvFileAttachService {
 
         int return_code = 0;
 
-        try {
-            List<Map<String, String>> fileList = (ArrayList)fileMap.get("fileList");
+        List<Map<String, String>> fileList = (ArrayList)fileMap.get("fileList");
 
-            EvFileAttachRequestDto evFileAttachRequestDto = null;
+        EvFileAttachRequestDto evFileAttachRequestDto = null;
 
-            for(Map<String, String> vMap : fileList) {
+        for(Map<String, String> vMap : fileList) {
 
-                evFileAttachRequestDto = new EvFileAttachRequestDto();
-                evFileAttachRequestDto.setBoard_id(Long.parseLong(String.valueOf(fileMap.get("board_id"))));
-                evFileAttachRequestDto.setFile_clsf_cd(String.valueOf(fileMap.get("board_clsf_cd")));
-                evFileAttachRequestDto.setFile_clsf_dtl_cd(String.valueOf(fileMap.get("board_clsf_dtl_cd")));
-                evFileAttachRequestDto.setFile_name(String.valueOf(vMap.get("file_name")));
-                evFileAttachRequestDto.setOrg_file_name(String.valueOf(vMap.get("org_file_name")));
-                evFileAttachRequestDto.setFile_size(String.valueOf(vMap.get("file_size")));
-                evFileAttachRequestDto.setFile_path(String.valueOf(vMap.get("file_path")));
-                evFileAttachRequestDto.setUser_id(String.valueOf(vMap.get("user_id")));
+            evFileAttachRequestDto = new EvFileAttachRequestDto();
+            evFileAttachRequestDto.setBoard_id(Long.parseLong(String.valueOf(fileMap.get("board_id"))));
+            evFileAttachRequestDto.setFile_clsf_cd(String.valueOf(fileMap.get("board_clsf_cd")));
+            evFileAttachRequestDto.setFile_clsf_dtl_cd(String.valueOf(fileMap.get("board_clsf_dtl_cd")));
+            evFileAttachRequestDto.setFile_name(String.valueOf(vMap.get("file_name")));
+            evFileAttachRequestDto.setOrg_file_name(String.valueOf(vMap.get("org_file_name")));
+            evFileAttachRequestDto.setFile_size(String.valueOf(vMap.get("file_size")));
+            evFileAttachRequestDto.setFile_path(String.valueOf(vMap.get("file_path")));
+            evFileAttachRequestDto.setUser_id(String.valueOf(vMap.get("user_id")));
 
-                evFileAttachMapper.I01_FILE(evFileAttachRequestDto);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            evFileAttachMapper.I01_FILE(evFileAttachRequestDto);
         }
 
         return return_code;
+    }
+
+    /**
+     * 첨부파일리스트
+     * @param evFileAttachRequestDto
+     * @return
+     */
+    public List<EvFileAttachResponseDto> file_attach_list (EvFileAttachRequestDto evFileAttachRequestDto) {
+        return evFileAttachMapper.S01_FILE(evFileAttachRequestDto);
     }
 
 }

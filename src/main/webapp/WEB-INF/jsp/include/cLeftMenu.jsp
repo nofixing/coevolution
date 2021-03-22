@@ -19,7 +19,7 @@
   <!-- List -->
   <ul class="sidenav list-unstyled pt-3 mb-5 mb-md-0">
     <li class="text-xs text-uppercase mb-2">
-      <a href="#/mypage/myc01"><strong>내 부스 정보 등록</strong></a>
+      <a href="/mypage/myc01"><strong>내 부스 정보 등록</strong></a>
     </li>
     <li class="text-xs text-uppercase mb-2">
       <a href="/mypage/favortscorp"><strong>즐겨찾기 내역</strong></a>

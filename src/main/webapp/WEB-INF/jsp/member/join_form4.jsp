@@ -29,7 +29,7 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="index.html">Home</a>
+              <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
               기업 참가(부스) 등록
@@ -40,233 +40,70 @@
       </div> <!-- / .container -->
     </nav>    
 
-<!-- 진행순서
-    ================================================== -->
-    <section class="section pb-0">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-md-2">
-            
-            <!-- Title -->
-            <h6 class="title">
-              기업참가(부스)등록
-            </h6>
-
-          </div>
-
-          <div class="form-row col-md-10"> 
-
-            <div class="col-md-3">
-              
-              <!-- Card -->
-              <div class="card card-mg mb-3 mb-lg-4 card-active">
-                
-                <!-- Body -->
-                <div class="card-body text-center">
-  
-                  <!-- Title -->
-                  <h4 class="card-title">
-                    Step1. 약관동의
-                  </h4>
-  
-                </div>
-                
-              </div> <!-- / .card -->
-  
+    <section class="section section-full section-top">
+        <div class="form">
+            <div class="form_head">
+                <p>기업 참가(부스) 등록</p>
             </div>
-            <div class="col-md-1"></div>
-  
-             <div class="col-md-3">
-              
-              <!-- Card -->
-              <div class="card card-mg mb-3 mb-lg-4">
-                
-                <!-- Body -->
-                <div class="card-body text-center">
-  
-                  <!-- Title -->
-                  <h4 class="card-title">
-                    Step2. 정보입력
-                  </h4>
-  
+            <div class="join_inner">
+                <div class="register_head clearfix">
+                    <!-- <p class="register_head_tit">약관동의<span>* 회원가입약관 및 개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.</span></p> -->
+                    <ul class="register_seq clearfix">
+                        <li class="on">
+                            <span>Step 01</span> 약관동의
+                        </li>
+                        <li>
+                            <span>Step 02</span> 정보입력
+                        </li>
+                        <li>
+                            <span>Step 03</span> 가입완료
+                        </li>
+                    </ul>
                 </div>
-                
-              </div> <!-- / .card -->
-  
+                <div class="form_inner">
+                    <div class="register_section">
+                        <h4><strong>이용약관(필수)</strong></h4>
+                        <div class="register_section_area">
+                            <textarea name="" id="" cols="30" rows="5" placeholder=""></textarea>
+                        </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="agree_1" name="agree_1" value="Y" class="custom-control-input">
+                        <label class="custom-control-label" for="agree_1">이용약관에 동의합니다.(필수)</label>
+                      </div>
+                    </div>
+                    <div class="register_section">
+                      <h4><strong>개인정보처리방침안내(필수)</strong></h4>
+                        <div class="register_section_area">
+                            <textarea name="" id="" cols="30" rows="5"></textarea>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" id="agree_2" name="agree_2" value="Y" class="custom-control-input">
+                          <label class="custom-control-label" for="agree_2">개인정보처리방침에 동의합니다.(필수)</label>
+                        </div>
+                    </div>
+                    <div class="register_section">
+                        <h4><strong>개인정보 마케팅 활용 동의(선택)</strong></h4>
+                        <div class="register_section_area">
+                            <textarea name="" id="" cols="30" rows="5"></textarea>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" id="agree_3" name="agree_3" value="Y" class="custom-control-input">
+                          <label class="custom-control-label" for="agree_3">개인정보 마케팅 활용에 동의합니다.(선택)</label>
+                        </div>
+                    </div>
+                    <div class="register_section">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="agree-all" name="agree-all" class="custom-control-input">
+                        <label class="custom-control-label" for="agree-all"><strong>모든 약관을 확인하고 전체 동의합니다.</strong></label>
+                      </div>
+                    </div>
+                    <div class="register_page" id="btnSignUp">
+                        <a href="#!" class="register_page_submit">회원가입</a>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-1"></div>
-  
-            <div class="col-md-3">
-              
-              <!-- Card -->
-              <div class="card card-mg mb-3 mb-lg-4">
-                
-                <!-- Body -->
-                <div class="card-body text-center">
-  
-                  <!-- Title -->
-                  <h4 class="card-title">
-                    Step3. 가입완료
-                  </h4>
-  
-                </div>
-                
-              </div> <!-- / .card -->
-  
-            </div>
-            <div class="col-md-1"></div>
-
-
-
-
-
-
-          </div> <!-- / .row -->
-
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
+        </div>
     </section>
-
-
-    <!-- FORM
-    ================================================== -->
-    <section class="section pb-0 py-0">
-
-      <!-- Content -->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-2">
-
-            <!-- Title -->
-            <h6 class="title">
-              이용약관 (필수)
-            </h6>
-            
-          </div>
-          <div class="col-md-10">
-              <div class="form-row">
-                <div class="form-group col-12">
-                  <!-- Message -->
-                  <textarea class="form-control" name="contact-message" rows="7"></textarea>
-                </div>
-              </div> <!-- / .form-row -->
-              <div class="form-row">
-                <div class="col-12">
-
-                    <!-- Checkbox -->
-                    <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                      <input type="checkbox" class="custom-control-input" id="agree_1" name="agree_1" value="Y">
-                      <label class="custom-control-label" for="agree_1">
-                        이용약관에 동의합니다.(필수)
-                      </label>
-                    </div>
-
-                </div>
-              </div>
-           
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
-
-    </section>
-
-    <!-- OFFICES
-    ================================================== -->
-    <section class="section pb-0">
-
-      <!-- Content -->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-2">
-            
-            <!-- Title -->
-            <h6 class="title">
-              개인정보처리방침 (필수)
-            </h6>
-
-          </div>
-          <div class="col-md-10">
-
-              <div class="form-row">
-                <div class="form-group col-12">
-                  <!-- Message -->
-                  <textarea class="form-control" name="contact-message" rows="7"></textarea>
-                </div>
-              </div> <!-- / .form-row -->
-              <div class="form-row">
-                <div class="col-12">
-
-                    <!-- Checkbox -->
-                    <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                      <input type="checkbox" class="custom-control-input" id="agree_2" name="agree_2" value="Y">
-                      <label class="custom-control-label" for="agree_2">
-                        개인정보처리방침에 동의합니다. (필수 )
-                      </label>
-                    </div>
-
-                </div>
-              </div>
-            </form>            
-
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
-
-    </section>
-
-    <section class="section">
-
-      <!-- Content -->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-2">
-            
-            <!-- Title -->
-            <h6 class="title">
-              개인정보 마케팅 활용 동의 (선택)
-            </h6>
-
-          </div>
-          <div class="col-md-10">
-
-              <div class="form-row">
-                <div class="form-group col-12">
-                  <!-- Message -->
-                  <textarea class="form-control" name="contact-message" rows="7"></textarea>
-                </div>
-              </div> <!-- / .form-row -->
-              <div class="form-row">
-                <div class="col-12">
-
-                    <!-- Checkbox -->
-                    <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                      <input type="checkbox" class="custom-control-input" id="agree_3" name="agree_3" value="Y">
-                      <label class="custom-control-label" for="agree_3">
-                        개인정보 마케팅 활용에 동의합니다. (선택)
-                      </label>
-                    </div>
-
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="col-12">
-                  <div class="text-center text-md-center">
-                    <button type="button" class="btn btn-outline-primary" id="btnSignUp">
-                      회원가입
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
-
-    </section>    
 
   </form>
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>

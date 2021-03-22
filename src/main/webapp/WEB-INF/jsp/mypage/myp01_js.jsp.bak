@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<script>
+
+/**
+ * Script 설정
+ */
+var lComm;
+$(document).ready(function() {
+	//초기 값 설정
+	lComm = new gfnComm();
+
+	$('#btnFileSave').on('click', function () {
+		fileUpload();
+	});			
+
+});
+
+/* 파일업로드 */
+function fileUpload() {
+
+	/* 파일업로드 조회 */
+	var data = new FormData();
+	var files = $('input[name="fileUpload"]')[0].files;
+	
+	for(var i = 0; i < files.length; i++){
+		console.log('file_name :'+files[i].name);
+		data.append("file", $('#file').prop('files')[i]);
+	}
+
+	data.append("file_clsf_cd", getValue("file_clsf_cd"));
+	data.append("file_clsf_dtl_cd", getValue("file_clsf_dtl_cd"));
+
+	console.log(data);
+
+	$.ajax({
+
+		type: "POST",
+		enctype: 'multipart/form-data',
+		url: "/mypage/corpattach",
+		data: data,
+		processData: false,
+		contentType: false,
+		cache: false,
+		timeout: 600000,
+		success: function (result) {
+			alert("SUCCESS");
+			console.log("SUCCESS : ");
+		},
+		error: function (e) {
+			alert("ERROR");
+			console.log("ERROR : ", e);
+		}
+
+	});
+
+}
+
+</script>

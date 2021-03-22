@@ -22,12 +22,12 @@
                     <ul>
                         <li>
                             <a href="#!">
-                                <i class="fab fa-facebook"></i>
+                                <img src="/assets/img/icons/footer_facebook.png" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="#!">
-                                <i class="fab fa-twitter"></i>
+                                <img src="/assets/img/icons/footer_youtube.png" alt="">
                             </a>
                         </li>
                     </ul>

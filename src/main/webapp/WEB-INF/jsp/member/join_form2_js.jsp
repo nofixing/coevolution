@@ -31,11 +31,27 @@ $(document).ready(function() {
 		} else {
 			var frm = document.forms[0];
 			frm.method = "post";
-			frm.action = "/member/join_form5";
+			frm.action = "/member/join_form3";
 			frm.submit();
 		}
 
 	});
+
+	$('#agree-all').on('click', function () {
+		//전체체크
+		if(checked("agree_1")) {
+			gfnSetUnCheck("agree_1");
+			gfnSetUnCheck("agree_2");
+			gfnSetUnCheck("agree_3");
+		} else {
+			gfnSetCheck("agree_1");
+			gfnSetCheck("agree_2");
+			gfnSetCheck("agree_3");
+		}
+
+	});	
+
+	
 
 });
 

@@ -106,8 +106,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="modal-tit">
@@ -124,28 +127,30 @@
                         </span>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 text-left">
-                            <sapn class="small">[기준]부스별 관심 뱃지 순위</sapn>
+                        <div class="col-sm-8 text-left">
+                            <sapn class="small">[기준] 부스 별 관심 뱃지 순위</sapn>
                         </div>
-                        <div class="col-sm-6 text-right mobile-hidden">
-                            <sapn class="small" style="margin-right:20px;">바로가기/즐겨찾기/관심뱃지</sapn>
+                        <div class="col-sm-4 text-right mobile-hidden">
+                            <div class="">
+                                <sapn class="small" >즐겨찾기</sapn>
+                                <span class="small" style="margin:0 25px 0 15px">관심뱃지</span>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-scroll">
                         <div class="col-sm-12 pl-0 pr-0">
 
                             <hr class="my-2">
-
                             <!-- 1 row -->
                             <div class="row search-item align-items-center text-nounderline">
-                                <div class="col-12 col-sm-3 text-center">
+                                <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -164,31 +169,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
                                     <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
-
                             <hr class="my-1">
-
-                            <!-- 2 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -207,32 +215,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
-
                             <hr class="my-1">
-
-
-                            <!-- 3 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -251,32 +261,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
-
                             <hr class="my-1">
-
-
-                            <!-- 4 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -295,30 +307,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
-
                             <hr class="my-1">
-                            <!-- 4 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -337,29 +353,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
                             <hr class="my-1">
-                            <!-- 4 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -378,29 +399,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
                             <hr class="my-1">
-                            <!-- 4 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -419,29 +445,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
                             <hr class="my-1">
-                            <!-- 4 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -460,29 +491,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
                             <hr class="my-1">
-                            <!-- 4 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -501,29 +537,34 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
                             <hr class="my-1">
-                            <!-- 4 row -->
-                            <div class="row align-items-center text-nounderline">
+                            <div class="row search-item align-items-center text-nounderline">
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
-                                <div class="col-12 col-sm-6 mb-0">
+                                <div class="col-12 col-sm-5 mb-0">
 
                                     <!-- Heading -->
                                     <h5 class="mb-0">
@@ -542,18 +583,25 @@
 
                                 </div>
 
-                                <div class="col-12 col-sm-3 text-left pr-0">
+                                <div class="col-12 col-sm-4 text-left pr-0">
                                     <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-sm-12 justify-content-between">
+                                    <div class="row col-12 justify-content-between">
 
-                                        <img src="link.png" width="30rem" />
-                                        <img src="star.png" width="30rem" />
-                                        <img src="medal.png" width="30rem" />
+                                        <a href="#!" class="basic-btn">바로가기</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                          </svg>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
 
                                     </div>
                                 </div>
 
                             </div> <!-- / .row -->
+
 
                         </div>
                     </div>
@@ -588,8 +636,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="sitemap clearfix">
@@ -695,12 +746,10 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:modalMenu()" class="nav-link nav-item-svg" data-toggle="modal"
+                            <a href="javascript:modalMenu()" class="nav-link" data-toggle="modal"
                                 data-target="#menuModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                    class="bi bi-list" viewBox="0 0 16 16" data>
-                                    <path fill-rule="evenodd"
-                                        d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" data="">
+                                    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
                                     </path>
                                 </svg>
                             </a>
@@ -708,12 +757,9 @@
                         <li class="nav-item">
                             <a href="javascript:modalCorpSh()" class="nav-link nav-item-svg" data-toggle="modal"
                                 data-target="#myModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                    class="bi bi-search" viewBox="0 0 16 16">
-                                    <path
-                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
-                                    </path>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                  </svg>
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -726,10 +772,10 @@
                                 </svg>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarWelcome">
-                                <a class="dropdown-item " href="/index/lang?lang=ko">
+                                <a class="dropdown-item dropdown-item-font" href="/index/lang?lang=ko">
                                     KOR
                                 </a>
-                                <a class="dropdown-item " href="/index/lang?lang=en">
+                                <a class="dropdown-item dropdown-item-font" href="/index/lang?lang=en">
                                     ENG
                                 </a>
                             </div>

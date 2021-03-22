@@ -15,6 +15,10 @@ img{
     background:#0089d0 !important;
 }
 
+.pd-20{
+    padding:20px 0;
+}
+
 .small_title{
     font-size:16px;
     color:#333;
@@ -33,6 +37,14 @@ img{
     background:#f0f0f0;
 }
 
+.basic-btn{
+    background:#0089d0;
+    color:#fff;
+    padding:4px 15px;
+    box-sizing:border-box;
+    border-radius:3px;
+}
+
 
 
 @media (max-width:991px){
@@ -44,6 +56,18 @@ img{
 
 
 /* 부트스트랩 */
+
+.dropdown-item-font{
+    font-size:.750rem !important;
+}
+
+.custom-control-label{
+    vertical-align:middle;
+    padding-top:5px;
+}
+.custom-control strong{
+    font-size:1.125rem;
+}
 
 .boot-btn{
     border:0;
@@ -64,7 +88,7 @@ img{
 }
 
 .nav-item-font strong{
-    font-size:20px;
+    font-size:18px;
 }
 .nav-item-svg{
     margin-top:4px;

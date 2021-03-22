@@ -14,91 +14,87 @@
     
     <!-- FULLPAGE
     ================================================== -->
-    <section class="section section-full section-top bg-light">
+    <section class="section section-full section-top">
 
       <!-- Content -->
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8 col-lg-6">
-
-            <!-- Form -->
-            <form class="form-styled bg-white">
-
-              <!-- Heading -->
-              <h2 class="text-center mb-4">
-                아이디 찾기
-              </h2>
-
-              <!-- 아이디 -->
-              <div class="form-group">
-                
-                <!-- 아이디 -->
-                <label>아이디</label>
-                <div class="input-group">
-                  <input type="email" class="form-control order-1">
-                  <div class="input-group-append order-0">
-                    <div class="input-group-text">
-                      <svg class="input-group-icon icon-offset icon icon-person" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path transform="translate(3 3)" d="M0 100 A 50 50 0 0 1 50 60 A 20 20 0 0 1 50 0 A 20 20 0 0 1 50 60 A 50 50 0 0 1 100 100"></path>
-                      </svg>
+        <div class="form find_inner">
+            <div class="find_wrap">
+                <div class="find_tab clearfix">
+                    <a href="#!" class="on">아이디 찾기</a>
+                    <a href="#!">비밀번호 찾기</a>
+                </div>
+                <div class="find_area">
+                    <div class="find_box">
+                        <h5 class="text-center">아이디가 생각나지 않으세요?</h5>
+                        <h5 class="text-center">가입하신 이메일을 입력해주세요.</h5>
+                        <div class="find_form">
+                            <form action="">
+                                <div class="find_form_row">
+                                    <div class="find_form_cell">
+                                        <label for="">이름</label>
+                                    </div>
+                                    <div class="find_form_cell find_form_cell2">
+                                        <input type="text" placeholder="홍길동">
+                                    </div>
+                                </div>
+                                <div class="find_form_row">
+                                    <div class="find_form_cell">
+                                        <label for="">이메일</label>
+                                    </div>
+                                    <div class="find_form_cell find_form_cell2">
+                                        <input type="email" placeholder="abc@naver.com">
+                                    </div>
+                                </div>
+                                <div class="form_btn mt-3">
+                                    <button class="form_btn_only">아이디 찾기</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- 이메일 -->
-              <div class="form-group">
-                
-                <!-- Email -->
-                <label>이메일</label>
-                <div class="input-group">
-                  <input type="email" class="form-control order-1">
-                  <div class="input-group-append order-0">
-                    <div class="input-group-text">
-                      <svg class="input-group-icon icon-offset icon icon-envelope" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path transform="translate(3 3)" d="
-                          M0 30 V 10 H 100 V 90 H 0 V 30 L 50 60 L 100 30">
-                        </path>
-                      </svg>
+                    <div class="find_box">
+                        <h5 class="text-center">가입하신 이메일을 입력하시면<br> 해당 메일로 임시비밀번호를 발급해드립니다.</h5>
+                        <div class="find_form">
+                            <form action="">
+                                <div class="find_form_row">
+                                    <div class="find_form_cell">
+                                        <label for="">아이디</label>
+                                    </div>
+                                    <div class="find_form_cell find_form_cell2">
+                                        <input type="text" placeholder="아이디">
+                                    </div>
+                                </div>
+                                <div class="find_form_row">
+                                    <div class="find_form_cell">
+                                        <label for="">이름</label>
+                                    </div>
+                                    <div class="find_form_cell find_form_cell2">
+                                        <input type="text" placeholder="이름">
+                                    </div>
+                                </div>
+                                <div class="find_form_row">
+                                    <div class="find_form_cell">
+                                        <label for="">이메일</label>
+                                    </div>
+                                    <div class="find_form_cell find_form_cell2">
+                                        <input type="email" placeholder="abc@naver.com">
+                                    </div>
+                                </div>
+                                <div class="form_btn mt-3">
+                                    <button class="form_btn_only">비밀번호 찾기</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                  </div>
                 </div>
-
-              </div>
-
-              <!-- Footer -->
-              <div class="form-row align-items-center">
-                <div class="col-md">
-
-                  <!-- Button -->
-                  <div class="text-center text-md-right">
-                    <button type="button" class="btn btn-outline-primary" onclick="javascript:document.location.href='/member/id_sh_form2'">
-                      아이디 찾기
-                    </button>
-                  </div>
-
-                </div>
-              </div> <!-- / .form-row -->
-
-                      
-
-              <!-- Link -->
-              <p class="text-center text-muted mt-3 mb-0">
-                <small>
-                   <a href="/member/pw_sh_form1">비밀번호 찾기</a>
-                </small>
-              </p>
-
-            </form>
-            
-          </div>
-        </div> <!-- / .row -->
+            </div>
+        </div>
       </div> <!-- / .container -->
       
     </section>
-
+    
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+  <jsp:include page="id_sh_form1_js.jsp"></jsp:include>
 
   </body>
 </html>

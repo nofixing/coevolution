@@ -37,4 +37,35 @@
         )
     </insert>
 
+    <select id="S01_FILE" parameterType="kr.coevolution.vr.comm.dto.EvFileAttachRequestDto" resultType="kr.coevolution.vr.comm.dto.EvFileAttachResponseDto">
+
+        /* 첨부파일조회 */
+        SELECT attach_id
+            , board_id
+            , board_seq
+            , file_clsf_cd
+            , file_clsf_dtl_cd
+            , file_name
+            , org_file_name
+            , file_size
+            , file_path
+        FROM ev_file_attach
+        WHERE board_id = #{board_id}
+
+        <if test="board_seq != null and board_seq != ''">
+            and board_seq = #{board_seq}
+        </if>
+
+        <if test="file_clsf_cd != null and file_clsf_cd != ''">
+            and file_clsf_cd = #{file_clsf_cd}
+        </if>
+
+        <if test="file_clsf_dtl_cd != null and file_clsf_dtl_cd != ''">
+            and file_clsf_cd = #{file_clsf_cd}
+        </if>
+
+        ORDER BY file_clsf_cd, file_clsf_dtl_cd, file_name
+
+    </select>
+
 </mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coevolution.vr.mypage.domain.EvMypageCustCorpInfoMapper">
+
+
+    <select id="S01_CORP_INFO" parameterType="kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoResponseDto">
+        /* 참가-내부스정보 조회 */
+        select info_id
+            , cust_id
+            , homepage_url
+            , about_company_kor
+            , about_company_eng
+            , video_url
+            , promtn_url
+            , scan_3d_url
+            , comrce_url
+        from ev_cust_corp_info
+        where cust_id = #{cust_id}
+
+    </select>
+
+    <insert id="I01_CORP_INFO" parameterType="kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto">
+        /* 참가-내부스정보 입력 */
+        insert into ev_cust_corp_info (
+        info_id     , cust_id       , homepage_url      , about_company_kor     , about_company_eng
+        , video_url   , promtn_url    , scan_3d_url       , comrce_url            , ins_user
+        , ins_dtm     , mod_user      , mod_dtm
+        ) VALUES (
+        NULL        , #{cust_id}    , #{homepage_url}   , #{about_company_kor} , #{about_company_eng}
+        , #{video_url}, #{promtn_url} , #{scan_3d_url}    , #{comrce_url}        , #{user_id}
+        , NOW()       , #{user_id} , NOW()
+        )
+
+    </insert>
+
+    <update id="U01_CORP_INFO" parameterType="kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto">
+        /* 참가-내부스정보 수정 */
+        UPDATE ev_cust_corp_info
+        SET homepage_url           = #{homepage_url}
+            , about_company_kor    = #{about_company_kor}
+            , about_company_eng    = #{about_company_eng}
+            , video_url            = #{video_url}
+            , promtn_url           = #{promtn_url}
+            , scan_3d_url          = #{scan_3d_url}
+            , comrce_url           = #{comrce_url}
+            , mod_user             = #{user_id}
+            , mod_dtm              = NOW()
+        WHERE cust_id = #{cust_id}
+
+    </update>
+
+</mapper>

@@ -35,9 +35,6 @@
                                             <input type="password" id="user_pw" name="user_pw" placeholder="비밀번호">
                                         </div>
                                     </div>
-                                    <div class="login_form_btn">
-                                        <button type="button" class="login_form_submit" id="btnLogin">로그인</button>
-                                    </div>
                                 </div>
                                 <div class="check_area clearfix">
                                     <div class="check_id">
@@ -60,20 +57,28 @@
                             </form>
                         </div>
                         <div class="form_inner">
+                            <div class="login_form_btn">
+                                <button type="button" class="login_form_submit" id="btnLogin">로그인</button>
+                            </div>                
+                        </div>
+                        <div class="form_inner">        
                             <div class="login_member clearfix">
                                 <a href="/member/join_form1" class="member_page">회원가입</a>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="sns_login bg-light">
-                            <div class="small_title">
-                                <span>소셜로그인</span>
-                            </div>
                             <div class="sns_login_inner">
                                 <ul class="clearfix">
                                     <li>
                                         <a href="#" id="naver_login">
                                             <img src="/assets/img/icons/naver_icon.png"/>
                                             <span>네이버</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="kakao_login">
+                                            <img src="/assets/img/icons/kakao_icon.png" />
+                                            <span>카카오톡</span>
                                         </a>
                                     </li>
                                     <li>
@@ -84,14 +89,8 @@
                                     </li>
                                     <li>
                                         <a href="#" id="google_login">
-                                            <img src="/assets/img/icons/instar_icon.png" />
+                                            <img src="/assets/img/icons/google_icon.png" alt="">
                                             <span>구글</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" id="kakao_login">
-                                            <img src="/assets/img/icons/kakao_icon.png" />
-                                            <span>카카오톡</span>
                                         </a>
                                     </li>
                                 </ul>

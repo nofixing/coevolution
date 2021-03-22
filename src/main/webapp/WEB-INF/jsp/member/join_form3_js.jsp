@@ -162,7 +162,9 @@ function fnSignUp() {
 		+ ', {"id":"company_nm","name":"소속"}'
 		+ ', {"id":"dept_nm","name":"부서"}'
 		+ ', {"id":"hp_no","name":"전화번호"}'
-		+ ', {"id":"tel_no","name":"연락처"}'
+		//+ ', {"id":"tel_no","name":"연락처"}'
+		+ ', {"id":"email_id1","name":"이메일 주소"}'
+		+ ', {"id":"email_id2","name":"이메일 주소"}'
 		+ ', {"id":"country_cd","name":"국가"}'
 		+ ', {"id":"city_nm","name":"시도"}'
 	chk += ']';

@@ -35,7 +35,7 @@
               마이페이지
             </span>
             <span class="breadcrumb-item active">
-              즐겨찾기 내역
+              내 부스 정보 등록
             </span>            
           
           </div>
@@ -61,129 +61,95 @@
               
               <!-- Heading -->
               <h3 class="mb-4">
-                내 부스 즐겨찾기 내역
+                내 부스 정보 등록
               </h3>
 
               <form class="form-styled">
-                <!-- Subheading -->
-                <p class="text-muted">
-                  <img src="/image/star.png" width="16rem" /> 8명이 즐겨찾기 등록 했습니다.
-                </p>
 
-                <!--검색조건-->
-                <div class="form-row align-items-center pb-3">
-                  <div class="col-auto">
-                    <input type="date" class="form-control form-control-sm mb-2" id="inlineFormInput" >
+                <div class="form-group">
+                  
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업CI</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" data-toggle="modal" data-target="#fileModal" style="width: 8rem;" id="btn_corp_ci">파일선택</button>
+                    </div>
+                  </div>   
+
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >홈페이지</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <input type="text" class="form-control" id="homepage_url" name="homepage_url"/>
+                    </div>
+                  </div>  
+
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업소개(한)</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <textarea rows="3" class="form-control" style="width: 100%;" id="about_company_kor" name="about_company_kor"></textarea>
+                    </div>
+                  </div>     
+                  
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업소개(영)</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <textarea rows="3" class="form-control" style="width: 100%;" id="about_company_eng" name="about_company_eng"></textarea>
+                    </div>
+                  </div>   
+                  
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업영상</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small"  >
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnVideoRrl">파일선택</button>
+                      <input type="text" class="form-control" id="video_url"/>
+                    </div>
                   </div>
-                  <div class="col-auto">~</div>                  
-                  <div class="col-auto">
-                    <input type="date" class="form-control form-control-sm mb-2" id="inlineFormInput" >
+                  
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >홍보동영상</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnPromtnIrl">파일선택</button>
+                      <input type="text" class="form-control" id="promtn_url"/>
+                    </div>
+                  </div>     
+
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >제품소개</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnProductItem">파일선택</button>
+                    </div>
+                  </div>         
+                  
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >갤러리</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnGallery">파일선택</button>
+                    </div>
+                  </div>     
+                  
+
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >3D스캐닝</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnScan3d">파일선택</button>
+                        <input type="text" class="form-control" id="scan_3d_url"/>
+                    </div>
                   </div>
-                  <div class="col-auto">
-                    <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;">조회</button>
-                  </div>
-                  <div class="col-auto">
-                    <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;">부스 바로가기</button>
+                  
+                  <div class="input-group">
+                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >커머스 연결</div>
+                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                      <input type="text" class="form-control" id="comrce_url"/>
+                    </div>
                   </div>                  
-                </div>              
 
-                <table class="table table-striped table-hover table-sm border-bottom">
-                  <thead class="table-light">
-                    <tr>
-                      <th scope="col" width="10%" class="text-center">번호</th>
-                      <th scope="col" width="40%" class="text-left">내 부스명</th>
-                      <th scope="col" width="25%" class="text-center">회원명</th>
-                      <th scope="col" width="25%" class="text-center">즐겨찾기 설정일</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>    
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>    
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>    
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>    
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="text-center">1</th>
-                      <td class="text-left">Mark</td>
-                      <td class="text-center">홍길동(sfdsfsd)</td>
-                      <td class="text-center">2021-04-01</td>
-                    </tr>                                                                                                                                                                                                          
-                  </tbody>
-                </table>
+                </div>  
 
-
-                <!-- paging -->
-                <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3">
-                      <li class="page-item">
-                        <a class="page-link" href="#">Previous</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
+                <div class="input-group">
+                  <div class="col-sm-12 d-flex justify-content-center">
+                    <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnSave">저장</button>
+                  </div>   
                 </div>
-              
+
               </form>
 
             </div>
@@ -193,7 +159,46 @@
       </div> <!-- / .container -->
     </section>
 
+
+
+
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <form id="fileForm" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="file_clsf_cd" name="file_clsf_cd" value="101008"/> <!-- 내부스정보등록 -->
+        <input type="hidden" id="file_clsf_dtl_cd" name="file_clsf_dtl_cd"/> <!-- upper_cd : 101008 -->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="sitemap clearfix pt-0 pb-3">
+                        <ul>
+                            <li>
+                                <strong>파일업로드</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                      <input type="file" id="fileUpload" name="fileUpload" class="form-control" accept=".jpg, .jpeg, .png" multiple/>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                  <div class="col-sm-12 d-flex justify-content-center">
+                    <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnFileSave">저장</button>
+                  </div>   
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </form>
+    </div><!-- /.modal -->    
+
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+    <jsp:include page="myc01_js.jsp"></jsp:include>
 
   </body>
 </html>

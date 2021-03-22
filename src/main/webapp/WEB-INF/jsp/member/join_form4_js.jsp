@@ -37,6 +37,20 @@ $(document).ready(function() {
 
 	});
 
+	$('#agree-all').on('click', function () {
+		//전체체크
+		if(checked("agree_1")) {
+			gfnSetUnCheck("agree_1");
+			gfnSetUnCheck("agree_2");
+			gfnSetUnCheck("agree_3");
+		} else {
+			gfnSetCheck("agree_1");
+			gfnSetCheck("agree_2");
+			gfnSetCheck("agree_3");
+		}
+
+	});		
+
 });
 
 </script>

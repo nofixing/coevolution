@@ -813,6 +813,10 @@ function gfnSetCheck(pId) {
   $("#"+pId).prop("checked", true);
 }
 
+function gfnSetUnCheck(pId) {
+  $("#"+pId).prop("checked", false);
+}
+
 /**
  *  공통코드를 조회한다
  * @param {*} pUpperCd 공통코드 Upper - 여러개를 조회할 경우 000,000 분리
