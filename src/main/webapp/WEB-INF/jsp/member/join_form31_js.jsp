@@ -12,11 +12,6 @@ $(document).ready(function() {
 	lComm = new gfnComm();
 	var yyyyMMdd = lComm.getToday("-");
 
-	//중복확인
-	$('#btnDupCheck').on('click', function () {
-		fnDupCheck();
-	});
-
 	//확인 (회원가입)
 	$('#btnSignUp').on('click', function () {
 		fnSignUp();
@@ -61,53 +56,6 @@ $(document).ready(function() {
 	}
 
 });
-
-/* ID중복체크 */
-function fnDupCheck() {
-	var chk = '['
-		+ '  {"id":"cust_id","name":"아이디"}';
-	chk += ']';
-
-	var jsonCheck = JSON.parse(chk);
-
-	if(!lComm.fnRequiredItems(jsonCheck)) {
-		return false;
-	}
-
-	/* JSON 생성을 위해 입력*/
-	gfnPutObj("cust_id", getValue("cust_id"));
-
-	/* form값 global 변수에 입력 */
-	gfnGetFormJSON();
-
-	/* global 변수 json으로 변환 */
-	var pParamJson = gfnGetJson();
-
-	sendForm("POST", "/member/dup", "application/json; charset=utf-8", "json", pParamJson, function(message) {
-
-		console.log("message : " + message.result_code);
-
-		if(message.result_code == 0) {
-			if(message.dup_yn == "N") {
-				alert("사용가능한 ID입니다.");
-
-				/* ID 중복체크여부 임시저장 */
-				lfnPutObj(lDataObjectPutGet, "cust_id", getValue("cust_id"));
-				lfnPutObj(lDataObjectPutGet, "dup_yn", message.dup_yn);
-
-				console.log(lfnGetObj(lDataObjectPutGet, "dup_yn"));
-
-			} else {
-				alert("중복된 아이디가 있습니다.\r\n아이디를 다시 입력해주세요.");
-				lComm.setFocus("cust_id");
-			}
-		} else {
-			alert("[중복체크 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
-			lComm.setFocus("cust_id");
-		}
-
-	});	
-}
 
 /* 추천인 검색 */
 function fnRrcmderCustId() {
@@ -155,10 +103,7 @@ function fnSignUp() {
 
 	/* 필수체크 */
 	var chk = '['
-		+ '  {"id":"cust_id","name":"아이디"}'
-		+ ', {"id":"cust_pw","name":"비밀번호"}'
-		+ ', {"id":"cust_pw2","name":"비밀번호 확인"}'
-		+ ', {"id":"cust_nm","name":"이름"}'
+		+ ' {"id":"cust_nm","name":"이름"}'
 		+ ', {"id":"company_nm","name":"소속"}'
 		+ ', {"id":"dept_nm","name":"부서"}'
 		+ ', {"id":"hp_no","name":"전화번호"}'
@@ -172,21 +117,6 @@ function fnSignUp() {
 	var jsonCheck = JSON.parse(chk);
 
 	if(!lComm.fnRequiredItems(jsonCheck)) {
-		return false;
-	}
-
-	/* 비밀번호 확인 체크 */
-	if(getValue("cust_pw") != getValue("cust_pw2")) {
-		alert("정확한 비밀번호를 입력하세요.")
-		return false;
-	}
-
-	/* 인증받은 ID 체크 */
-	if(lfnGetObj(lDataObjectPutGet, "dup_yn") != "N") {
-		alert("중복확인을 진행하시기 바랍니다.")
-		return false;
-	} else if(lfnGetObj(lDataObjectPutGet, "cust_id") != getValue("cust_id")) {
-		alert("인증받은 아이디와 같지 않습니다.\r\n다시 중복확인 하시기 바랍니다.")
 		return false;
 	}
 
@@ -252,7 +182,7 @@ function fnSignUp() {
 	/* global 변수 json으로 변환 */
 	var pParamJson = gfnGetJson();
 
-	sendForm("POST", "/member/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+	sendForm("POST", "/member/insert_social", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		console.log("message : " + message.result_code);
 
@@ -271,7 +201,7 @@ function fnSignUp() {
             document.location.href="/member/login_form";
 		} else {
 			alert("[참관신청 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
-			lComm.setFocus("cust_id");
+			lComm.setFocus("cust_nm");
 		}
 
 	});	

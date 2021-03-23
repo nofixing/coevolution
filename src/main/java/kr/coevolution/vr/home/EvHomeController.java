@@ -161,6 +161,15 @@ public class EvHomeController {
     @RequestMapping("/member/join_form3")
     public String join_form3(EvMemberJoinForm3 evMemberJoinForm3, Model model) {
 
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+
+        SessionUser user = (SessionUser)session.getAttribute("user");
+
+        if(user != null) {
+            logger.info("user info:" + user.toString());
+        }
+
         String agree_1 = StringUtils.nvl(evMemberJoinForm3.getAgree_1(),"N");
         String agree_2 = StringUtils.nvl(evMemberJoinForm3.getAgree_2(),"N");
         String agree_3 = StringUtils.nvl(evMemberJoinForm3.getAgree_3(),"N");
@@ -174,7 +183,14 @@ public class EvHomeController {
             model.addAttribute("agree_2", agree_2);
             model.addAttribute("agree_3", agree_3);
 
-            return "/member/join_form3";
+            if(user != null) {
+                String[] email_id = user.getEmail().split("@");
+                model.addAttribute("email_id1", email_id[0]);
+                model.addAttribute("email_id2", email_id[1]);
+                return "/member/join_form31";
+            } else {
+                return "/member/join_form3";
+            }
         }
     }
 
@@ -198,15 +214,6 @@ public class EvHomeController {
     @RequestMapping("/member/join_form5")
     public String join_form5(EvMemberJoinForm3 evMemberJoinForm3, Model model) {
 
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-
-        SessionUser user = (SessionUser)session.getAttribute("user");
-
-        if(user != null) {
-            logger.info("user info:" + user.toString());
-        }
-
         String agree_1 = StringUtils.nvl(evMemberJoinForm3.getAgree_1(),"N");
         String agree_2 = StringUtils.nvl(evMemberJoinForm3.getAgree_2(),"N");
         String agree_3 = StringUtils.nvl(evMemberJoinForm3.getAgree_3(),"N");
@@ -220,14 +227,7 @@ public class EvHomeController {
             model.addAttribute("agree_2", agree_2);
             model.addAttribute("agree_3", agree_3);
 
-            if(user != null) {
-                String[] email_id = user.getEmail().split("@");
-                model.addAttribute("email_id1", email_id[0]);
-                model.addAttribute("email_id2", email_id[1]);
-                return "/member/join_form6";
-            } else {
-                return "/member/join_form5";
-            }
+            return "/member/join_form5";
         }
     }
 
