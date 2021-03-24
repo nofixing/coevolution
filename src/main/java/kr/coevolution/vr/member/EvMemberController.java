@@ -3,23 +3,24 @@ package kr.coevolution.vr.member;
 import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
-import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
-import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
-import kr.coevolution.vr.member.dto.EvMemberResposeDto;
-import kr.coevolution.vr.member.dto.EvMemberSearchDto;
+import kr.coevolution.vr.member.dto.*;
+import kr.coevolution.vr.member.service.EmailService;
 import kr.coevolution.vr.member.service.EvMemberService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,12 @@ public class EvMemberController {
 
     @Autowired
     private EvMemberService evMemberService;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Value("${mail.sender}")
+    private String sender;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -148,7 +155,7 @@ public class EvMemberController {
                 }
             }
 
-            logger.info("\nRandom Password: "+map.toString());
+            //logger.info("\nRandom Password: "+temp.toString());
 
             map.put("cust_id", user.getEmail());
             map.put("cust_pw", temp.toString());
@@ -240,4 +247,131 @@ public class EvMemberController {
 
         return resposeResult;
     }
+
+    /**
+     * 아이디 찾기
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    @PostMapping("/member/search_id")
+    public Map<String,Object> search_id(@RequestBody EvMemberLoginRequestDto evMemberLoginRequestDto) {
+        Map resposeResult = new HashMap();
+
+        logger.info("search_id post start");
+
+        try {
+            List<EvMemberLoginInfoDto> evMemberLoginInfoDtoList = evMemberService.search_id(evMemberLoginRequestDto);
+
+            if(evMemberLoginInfoDtoList.size() == 1) {
+
+                resposeResult.put("cust_id", evMemberLoginInfoDtoList.get(0).getCust_id());
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            } else {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "입력정보가 정확하지 않습니다.");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 비밀번호 찾기
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    @PostMapping("/member/passwd_init")
+    public Map<String,Object> passwd_init(@RequestBody EvMemberLoginRequestDto evMemberLoginRequestDto)
+            throws UnsupportedEncodingException, MessagingException {
+
+        Map resposeResult = new HashMap();
+
+        logger.info("passwd_init post start");
+
+        evMemberLoginRequestDto.setCust_id(evMemberLoginRequestDto.getCust_id_pw());
+        evMemberLoginRequestDto.setCust_nm(evMemberLoginRequestDto.getCust_nm_pw());
+        evMemberLoginRequestDto.setEmail_id(evMemberLoginRequestDto.getEmail_id_pw());
+
+        try {
+            List<EvMemberLoginInfoDto> evMemberLoginInfoDtoList = evMemberService.search_pw(evMemberLoginRequestDto);
+
+            if (evMemberLoginInfoDtoList == null || evMemberLoginInfoDtoList.size() != 1) {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "입력정보가 정확하지 않습니다.");
+            } else {
+                try {
+
+                    StringBuffer temp = new StringBuffer();
+                    Random rnd = new Random();
+                    for (int i = 0; i < 10; i++) {
+                        int rIndex = rnd.nextInt(3);
+                        switch (rIndex) {
+                            case 0:
+                                // a-z
+                                temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+                                break;
+                            case 1:
+                                // A-Z
+                                temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+                                break;
+                            case 2:
+                                // 0-9
+                                temp.append((rnd.nextInt(10)));
+                                break;
+                        }
+                    }
+                    String title = "임시비밀번호 안내";
+                    String content = "회원님의 임시비밀번호는 "+temp.toString()+" 입니다.\n";
+                    content += "임시비밀번호로 로그인 하신후 보안을 위해 비밀번호를 변경하시기를 바랍니다.\n";
+                    content += "감사합니다.";
+                    String receiver = evMemberLoginRequestDto.getEmail_id();
+                    EmailDto email = new EmailDto(title, content, sender, receiver);
+
+                    try {
+                        emailService.send(email);
+                    }catch (Exception e) {
+                        logger.error("email send error: "+e.toString());
+                    }
+
+                    String userPw = SecureUtils.getSecurePassword(temp.toString());
+                    evMemberLoginRequestDto.setUser_change_pw1(userPw);
+
+
+                    evMemberService.member_passwd_init(evMemberLoginRequestDto);
+
+                    resposeResult.put("result_code", "0");
+                    resposeResult.put("result_msg", "성공!!");
+
+                    logger.info("passwd_init post end");
+
+                } catch (Exception e) {
+
+                    resposeResult.put("result_code", "-99");
+                    resposeResult.put("result_msg", "입력실패!!");
+
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        logger.info("passwd_init post end resposeResult: "+resposeResult.get("result_code"));
+
+        return resposeResult;
+    }
+
 }

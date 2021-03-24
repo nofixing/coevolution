@@ -10,6 +10,10 @@ $(document).ready(function() {
 
 	//초기 값 설정
 	lComm = new gfnComm();
+
+    $('#btnLogin').on('click', function () {
+        document.location.href="/member/login_form";
+    });
     
 });
 

@@ -47,6 +47,24 @@ public class EvMemberService {
     }
 
     /**
+     * 아이디 찾기
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    public List<EvMemberLoginInfoDto> search_id(EvMemberLoginRequestDto evMemberLoginRequestDto) {
+        return evMemberMapper.S02_CUST_ID_FIND(evMemberLoginRequestDto);
+    }
+
+    /**
+     * 비밀번호 찾기
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    public List<EvMemberLoginInfoDto> search_pw(EvMemberLoginRequestDto evMemberLoginRequestDto) {
+        return evMemberMapper.S02_CUST_PW_FIND(evMemberLoginRequestDto);
+    }
+
+    /**
      * 로그인정보조회 소셜
      * @param evMemberLoginRequestDto
      * @return
@@ -212,6 +230,22 @@ public class EvMemberService {
         /* 비밃번호 변경 */
         evMemberMapper.U03_CUST(evMemberLoginRequestDto);
         
+        return return_code;
+    }
+
+    /**
+     * 임시 비밀번호 저장
+     * @param evMemberLoginRequestDto
+     * @return
+     * @throws Exception
+     */
+    public int member_passwd_init(EvMemberLoginRequestDto evMemberLoginRequestDto) throws Exception {
+
+        int return_code = 0;
+
+        /* 임시 비밀번호 저장 */
+        evMemberMapper.U03_CUST_PW_INIT(evMemberLoginRequestDto);
+
         return return_code;
     }
 

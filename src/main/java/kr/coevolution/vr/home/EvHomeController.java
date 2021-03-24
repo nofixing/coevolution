@@ -90,7 +90,10 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/member/id_sh_form2")
-    public String id_sh_form2(Model model) {
+    public String id_sh_form2(Model model, HttpServletRequest request) {
+
+        String cust_id = request.getParameter("id");
+        model.addAttribute("cust_id", cust_id);
 
         return "/member/id_sh_form2";
     }

@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="find_info">
                                         <a href="/member/id_sh_form1">아이디찾기</a>
-                                        <a href="/member/pw_sh_form1">비밀번호찾기</a>
+                                        <a href="/member/id_sh_form1#!">비밀번호찾기</a>
                                     </div>
                                     <!-- <div class="login_check">
                                         <input type="checkbox" id="auto_login" class="form_chk_btn">

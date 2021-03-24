@@ -25,6 +25,20 @@ public interface EvMemberMapper {
     public List<EvMemberLoginInfoDto> S02_CUST(EvMemberLoginRequestDto param);
 
     /**
+     * 회원로그인-아이디 찾기
+     * @param param
+     * @return
+     */
+    public List<EvMemberLoginInfoDto> S02_CUST_ID_FIND(EvMemberLoginRequestDto param);
+
+    /**
+     * 회원로그인-비밀번호 찾기
+     * @param param
+     * @return
+     */
+    public List<EvMemberLoginInfoDto> S02_CUST_PW_FIND(EvMemberLoginRequestDto param);
+
+    /**
      * 회원로그인-정보조회_소셜
      * @param param
      * @return
@@ -79,6 +93,13 @@ public interface EvMemberMapper {
      * @return
      */
     public int U03_CUST(EvMemberLoginRequestDto evMemberLoginRequestDto);
+
+    /**
+     * 임시 비밀번호 저장
+     * @EvMemberLoginRequestDto evMemberLoginRequestDto
+     * @return
+     */
+    public int U03_CUST_PW_INIT(EvMemberLoginRequestDto evMemberLoginRequestDto);
 
     /**
      * 재동의

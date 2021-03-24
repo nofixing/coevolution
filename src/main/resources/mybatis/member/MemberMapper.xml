@@ -56,6 +56,37 @@
 
     </select>
 
+    <select id="S02_CUST_ID_FIND" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberLoginInfoDto">
+
+        /* 로그인 회원정보 조회 */
+        SELECT cust_seq
+        , cust_id as cust_id
+        , cust_id as user_id
+        , cust_nm
+        , email_id
+        , cust_clsf_cd
+        FROM ev_cust_mst
+        where cust_nm = #{cust_nm}
+          and email_id = #{email_id}
+
+    </select>
+
+    <select id="S02_CUST_PW_FIND" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberLoginInfoDto">
+
+        /* 로그인 회원정보 조회 */
+        SELECT cust_seq
+             , cust_id as cust_id
+             , cust_id as user_id
+             , cust_nm
+             , email_id
+             , cust_clsf_cd
+        FROM ev_cust_mst
+        where cust_id = #{cust_id}
+          and cust_nm = #{cust_nm}
+          and email_id = #{email_id}
+
+    </select>
+
     <select id="S02_CUST_EMAIL_CHECK" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberLoginInfoDto">
 
         /* 소셜 회원가입시 이미 가입된 이메일이 있는지 조회 */
@@ -175,6 +206,17 @@
              , mod_user = #{user_id}
              , mod_dtm  = NOW()
          WHERE cust_id  = #{cust_id}
+
+    </update>
+
+    <update id="U03_CUST_PW_INIT" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto">
+
+        /* 회원비빌번호 임시저장 */
+        UPDATE ev_cust_mst
+        SET cust_pw  = #{user_change_pw1}
+          , mod_user = 'init_pw'
+          , mod_dtm  = NOW()
+        WHERE cust_id  = #{cust_id}
 
     </update>
 

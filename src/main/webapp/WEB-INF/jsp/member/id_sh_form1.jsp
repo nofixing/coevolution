@@ -12,16 +12,13 @@
   <!-- top Menu -->
   <jsp:include page="/WEB-INF/jsp/include/topMenu.jsp"></jsp:include>
     
-    <!-- FULLPAGE
-    ================================================== -->
     <section class="section section-full section-top">
 
-      <!-- Content -->
       <div class="container">
         <div class="form find_inner">
             <div class="find_wrap">
                 <div class="find_tab clearfix">
-                    <a href="#!" class="on">아이디 찾기</a>
+                    <a href="" class="on">아이디 찾기</a>
                     <a href="#!">비밀번호 찾기</a>
                 </div>
                 <div class="find_area">
@@ -32,22 +29,22 @@
                             <form action="">
                                 <div class="find_form_row">
                                     <div class="find_form_cell">
-                                        <label for="">이름</label>
+                                        <label for="cust_nm">이름</label>
                                     </div>
                                     <div class="find_form_cell find_form_cell2">
-                                        <input type="text" placeholder="홍길동">
+                                        <input type="text" name="cust_nm" id="cust_nm" placeholder="이름을 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="find_form_row">
                                     <div class="find_form_cell">
-                                        <label for="">이메일</label>
+                                        <label for="email_id">이메일</label>
                                     </div>
                                     <div class="find_form_cell find_form_cell2">
-                                        <input type="email" placeholder="abc@naver.com">
+                                        <input type="email" name="email_id" id="email_id" placeholder="이메일을 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="form_btn mt-3">
-                                    <button class="form_btn_only">아이디 찾기</button>
+                                    <button class="form_btn_only" id="btnIdFind">아이디 찾기</button>
                                 </div>
                             </form>
                         </div>
@@ -58,30 +55,30 @@
                             <form action="">
                                 <div class="find_form_row">
                                     <div class="find_form_cell">
-                                        <label for="">아이디</label>
+                                        <label for="cust_id_pw">아이디</label>
                                     </div>
                                     <div class="find_form_cell find_form_cell2">
-                                        <input type="text" placeholder="아이디">
+                                        <input type="text" name="cust_id_pw" id="cust_id_pw" placeholder="아이디를 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="find_form_row">
                                     <div class="find_form_cell">
-                                        <label for="">이름</label>
+                                        <label for="cust_nm_pw">이름</label>
                                     </div>
                                     <div class="find_form_cell find_form_cell2">
-                                        <input type="text" placeholder="이름">
+                                        <input type="text" name="cust_nm_pw" id="cust_nm_pw" placeholder="이름을 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="find_form_row">
                                     <div class="find_form_cell">
-                                        <label for="">이메일</label>
+                                        <label for="email_id_pw">이메일</label>
                                     </div>
                                     <div class="find_form_cell find_form_cell2">
-                                        <input type="email" placeholder="abc@naver.com">
+                                        <input type="email" name="email_id_pw" id="email_id_pw" placeholder="이메일을 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="form_btn mt-3">
-                                    <button class="form_btn_only">비밀번호 찾기</button>
+                                    <button class="form_btn_only" id="btnPwFind">비밀번호 찾기</button>
                                 </div>
                             </form>
                         </div>
@@ -89,12 +86,11 @@
                 </div>
             </div>
         </div>
-      </div> <!-- / .container -->
+      </div>
       
     </section>
     
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
   <jsp:include page="id_sh_form1_js.jsp"></jsp:include>
-
   </body>
 </html>

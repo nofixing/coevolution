@@ -117,7 +117,7 @@
                         <h3>참여기업 검색</h3>
                     </div>
                     <div class="input-group pb-3">
-                        <input type="text" class="form-control" placeholder="기업명을 입력해 주세요">
+                        <input type="text" name="search_en_nm" class="form-control" placeholder="기업명을 입력해 주세요">
                         <span class="input-group-text bg-white" id="basic-addon2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-search" viewBox="0 0 16 16">

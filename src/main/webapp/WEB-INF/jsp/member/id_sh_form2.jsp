@@ -31,10 +31,10 @@
                 <div class="find_text text-center mt-3">
                   <h5>회원님의 아이디를 알려 드립니다.</h5>
                   <h5>입력하신 정보와 일치하는 아이디는 아래와 같습니다.</h5>
-                  <p><strong>홍길동</strong> 님의 아이디는 <strong>kkeju5137</strong> 입니다.</p>
+                  <p><strong>${cust_id}</strong></p>
                 </div>
                 <div class="form_bordert mt-3 p-3">
-                  <span>비밀번호가 기억나지 않는 경우에는 <a href="#!">'비밀번호 찾기'</a>를 이용해 주세요.</span>
+                  <span>비밀번호가 기억나지 않는 경우에는 <a href="/member/id_sh_form1#!">'비밀번호 찾기'</a>를 이용해 주세요.</span>
                 </div>
                 <div class="form_btn">
                   <button class="form_btn_inline">로그인</button>

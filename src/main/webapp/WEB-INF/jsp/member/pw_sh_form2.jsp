@@ -27,22 +27,11 @@
                     <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
                   </svg>
                   <div class="find_text text-left mt-3">
-                    <h5><strong>홍길동님</strong>, 안녕하세요!</h5>
-                    <h5>임시 비밀번호가 발급되었습니다.</h5>
-                    <h5>아래 비밀번호를 통해 로그인이 가능 하며, 로그인 하신 후 꼭 비밀번호를 변경해 주시기 바랍니다.</h5>
-                  </div>
-                  <div class="form_inner">
-                    <div class="input-group">
-                      <span class="col-sm-3 input-group-text border-0" id="basic-addon3">임시비밀번호</span>
-                      <span class="col-sm-9 input-group-text border-0 bg-white" id="basic-addon3">ASDFQERAFASDZFFAFSDFADF</span>
-                    </div>
-                    <div class="input-group">
-                      <span class="col-sm-3 input-group-text border-0" id="basic-addon3">발급일시</span>
-                      <span class="col-sm-9 input-group-text border-0 bg-white" id="basic-addon3">2021-05-07 17:00:00</span>
-                    </div>
+                     <h5>임시 비밀번호가 발급되어 회원님의 이메일로 전송되었습니다..</h5>
+                    <h5>임시 비밀번호를 통해 로그인이 가능 하며, 로그인 하신 후 꼭 비밀번호를 변경해 주시기 바랍니다.</h5>
                   </div>
                   <div class="form_btn">
-                    <button class="form_btn_inline">로그인</button>
+                    <button class="form_btn_inline" id="btnLogin">로그인</button>
                 </div>
                 </div>
               </div>
