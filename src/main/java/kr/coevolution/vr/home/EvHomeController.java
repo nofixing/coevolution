@@ -85,7 +85,7 @@ public class EvHomeController {
     }
 
     /**
-     * 아이디찾기결과
+     * 아이디찾기 결과
      * @param model
      * @return
      */
@@ -96,6 +96,17 @@ public class EvHomeController {
         model.addAttribute("cust_id", cust_id);
 
         return "/member/id_sh_form2";
+    }
+
+    /**
+     * 비밀번호찾기 결과
+     * @param model
+     * @return
+     */
+    @RequestMapping("/member/id_sh_form3")
+    public String id_sh_form3(Model model, HttpServletRequest request) {
+
+        return "/member/id_sh_form3";
     }
 
     /**

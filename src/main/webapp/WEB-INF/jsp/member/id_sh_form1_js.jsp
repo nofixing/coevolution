@@ -118,4 +118,74 @@
 
     });
 
+    function idFind() {
+        /* 필수항목 체크 */
+        var chk = '['
+            + '  {"id":"cust_nm","name":"이름"} '
+            + ', {"id":"email_id","name":"이메일"} ';
+        chk += ']';
+
+        var jsonCheck = JSON.parse(chk);
+
+        if(!lComm.fnRequiredItems(jsonCheck)) {
+            return false;
+        }
+
+        /* form값 global 변수에 입력 */
+        gfnGetFormJSON();
+
+        /* global 변수 json으로 변환 */
+        var pParamJson = gfnGetJson();
+
+        console.log("pParamJson : " + pParamJson);
+
+        sendForm("POST", "/member/search_id", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+            if(message.result_code == 0) {
+                document.location.href="/member/id_sh_form2?id="+message.cust_id;
+            } else {
+                alert("입력하신 정보에 해당하는 아이디가 없습니다.\r\n디시 시도하시거나 관리자에게 문의해 주십시오.");
+            }
+
+        });
+    }
+
+    function pwFind() {
+        console.log("btnPwFind click");
+
+        /* 필수항목 체크 */
+        var chk = '['
+            + '  {"id":"cust_id_pw","name":"아이디"} '
+            + ', {"id":"cust_nm_pw","name":"이름"} '
+            + ', {"id":"email_id_pw","name":"이메일"} ';
+        chk += ']';
+
+        var jsonCheck = JSON.parse(chk);
+
+        //return false;
+
+        if(!lComm.fnRequiredItems(jsonCheck)) {
+            console.log("fnRequiredItems break");
+            return false;
+        }
+
+        /* form값 global 변수에 입력 */
+        gfnGetFormJSON();
+
+        /* global 변수 json으로 변환 */
+        var pParamJson = gfnGetJson();
+
+        console.log("pParamJson : " + pParamJson);
+        //return false;
+        sendForm("POST", "/member/passwd_init", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+            if(message.result_code == 0) {
+                document.location.href="/member/id_sh_form3";
+            } else {
+                alert("입력하신 정보에 해당하는 회원이 없습니다.\r\n디시 시도하시거나 관리자에게 문의해 주십시오.");
+            }
+
+        });
+    }
+
 </script>

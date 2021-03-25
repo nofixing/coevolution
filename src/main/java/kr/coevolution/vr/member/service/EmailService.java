@@ -45,8 +45,8 @@ public class EmailService {
         MimeMessage msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(email.getSender(),"<EMAIL_SENDER_NICKNAME>"));
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email.getReceiver()));
-        msg.setSubject(email.getTitle());
-        msg.setContent(email.getContent(),"text/html");
+        msg.setSubject(email.getTitle(), "UTF-8");
+        msg.setContent(email.getContent(), "text/html; charset=UTF-8");
 
         //msg.setHeader("X-SES-CONFIGURATION-SET", "ConfigSet");
 

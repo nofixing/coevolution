@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 <div class="form_btn mt-3">
-                                    <button class="form_btn_only" id="btnIdFind">아이디 찾기</button>
+                                    <button class="form_btn_only" onclick="javascript:idFind(); return false;">아이디 찾기</button>
                                 </div>
                             </form>
                         </div>
@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="form_btn mt-3">
-                                    <button class="form_btn_only" id="btnPwFind">비밀번호 찾기</button>
+                                    <button class="form_btn_only" onclick="javascript:pwFind(); return false;">비밀번호 찾기</button>
                                 </div>
                             </form>
                         </div>
