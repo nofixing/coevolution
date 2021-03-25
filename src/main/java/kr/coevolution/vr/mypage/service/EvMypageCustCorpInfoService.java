@@ -1,6 +1,7 @@
 package kr.coevolution.vr.mypage.service;
 
 import kr.coevolution.vr.board.dto.EvBoardRequestDto;
+import kr.coevolution.vr.comm.dto.EvFileAttachRequestDto;
 import kr.coevolution.vr.comm.service.EvFileAttachService;
 import kr.coevolution.vr.mypage.domain.EvMypageCustCorpInfoMapper;
 import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto;
@@ -58,6 +59,7 @@ public class EvMypageCustCorpInfoService {
         fileMap.put("board_id", evMypageCustCorpInfoRequestDto.getBoard_id());
         fileMap.put("board_clsf_cd", evMypageCustCorpInfoRequestDto.getFile_clsf_cd());
         fileMap.put("board_clsf_dtl_cd", evMypageCustCorpInfoRequestDto.getFile_clsf_dtl_cd());
+        fileMap.put("user_id", evMypageCustCorpInfoRequestDto.getUser_id());
 
         /* 첨부파일입력 */
         int rtnValue = evFileAttachService.fileInsert(fileMap);
@@ -71,6 +73,20 @@ public class EvMypageCustCorpInfoService {
         }
 
         return return_code;
+    }
+
+    /**
+     * 첨부파일삭제
+     * @param evMypageCustCorpInfoRequestDto
+     * @return
+     */
+    public int mypage_cust_corp_file_del (EvMypageCustCorpInfoRequestDto evMypageCustCorpInfoRequestDto) {
+
+        EvFileAttachRequestDto evFileAttachRequestDto = new EvFileAttachRequestDto();
+        evFileAttachRequestDto.setAttach_id(evMypageCustCorpInfoRequestDto.getAttach_id());
+        evFileAttachRequestDto.setUser_id(evMypageCustCorpInfoRequestDto.getUser_id());
+
+        return evFileAttachService.file_attach_del(evFileAttachRequestDto);
     }
 
     /**
@@ -98,5 +114,7 @@ public class EvMypageCustCorpInfoService {
 
         return return_code;
     }
+
+
 
 }

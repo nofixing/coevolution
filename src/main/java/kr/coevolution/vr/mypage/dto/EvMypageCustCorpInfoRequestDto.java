@@ -16,6 +16,7 @@ public class EvMypageCustCorpInfoRequestDto {
     private String comrce_url;
     private String user_id;
     private Long board_id; //첨부파일
+    private Long attach_id; //첨부파일id
     private String file_clsf_cd;
     private String file_clsf_dtl_cd;
 }

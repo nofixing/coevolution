@@ -6,6 +6,7 @@
 <html lang="en">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
+    <script type="text/javascript" src="/js/multiupload.js"></script>
   </head>
   <body>
 
@@ -64,14 +65,16 @@
                 내 부스 정보 등록
               </h3>
 
-              <form class="form-styled">
-
+              <form id="myForm" class="form-styled">
+                <input type="hidden" name="attach_id" id="attach_id"/>
+                
                 <div class="form-group">
                   
                   <div class="input-group">
                     <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업CI</div>
                     <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" data-toggle="modal" data-target="#fileModal" style="width: 8rem;" id="btn_corp_ci">파일선택</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btn_corp_ci">파일선택</button>
+                      <div id="imgCorpCi" class="col-sm-auto"></div>
                     </div>
                   </div>   
 
@@ -99,23 +102,26 @@
                   <div class="input-group">
                     <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업영상</div>
                     <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small"  >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnVideoRrl">파일선택</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnVideoRrl">파일선택(X)</button>
                       <input type="text" class="form-control" id="video_url"/>
+                      <div id="corpVideo" class="col-sm-auto"></div>
                     </div>
                   </div>
                   
                   <div class="input-group">
                     <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >홍보동영상</div>
                     <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnPromtnIrl">파일선택</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnPromtnIrl">파일선택(X)</button>
                       <input type="text" class="form-control" id="promtn_url"/>
+                      <div id="corpPromtn" class="col-sm-auto"></div>
                     </div>
                   </div>     
 
                   <div class="input-group">
                     <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >제품소개</div>
                     <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnProductItem">파일선택</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" id="btn_corp_product" style="width: 8rem;" id="btnProductItem">파일선택</button>
+                      <div id="corpProduct" class="col-sm-10 input-group"></div>
                     </div>
                   </div>         
                   
@@ -123,6 +129,7 @@
                     <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >갤러리</div>
                     <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
                       <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnGallery">파일선택</button>
+                      <div id="corpGallery" class="col-sm-10 input-group"></div>
                     </div>
                   </div>     
                   
@@ -130,8 +137,9 @@
                   <div class="input-group">
                     <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >3D스캐닝</div>
                     <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnScan3d">파일선택</button>
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnScan3d">파일선택(?)</button>
                         <input type="text" class="form-control" id="scan_3d_url"/>
+                        <div id="corp3D" class="col-sm-auto"></div>
                     </div>
                   </div>
                   
@@ -159,43 +167,11 @@
       </div> <!-- / .container -->
     </section>
 
-
-
-
-    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <form id="fileForm" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="file_clsf_cd" name="file_clsf_cd" value="101008"/> <!-- 내부스정보등록 -->
-        <input type="hidden" id="file_clsf_dtl_cd" name="file_clsf_dtl_cd"/> <!-- upper_cd : 101008 -->
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="sitemap clearfix pt-0 pb-3">
-                        <ul>
-                            <li>
-                                <strong>파일업로드</strong>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                      <input type="file" id="fileUpload" name="fileUpload" class="form-control" accept=".jpg, .jpeg, .png" multiple/>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                  <div class="col-sm-12 d-flex justify-content-center">
-                    <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnFileSave">저장</button>
-                  </div>   
-                </div>
-
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </form>
-    </div><!-- /.modal -->    
+    <form id="fileForm" method="post" enctype="multipart/form-data">
+      <input type="hidden" id="file_clsf_cd" name="file_clsf_cd" value="101008"/> <!-- 내부스정보등록 -->
+      <input type="hidden" id="file_clsf_dtl_cd" name="file_clsf_dtl_cd"/> <!-- upper_cd : 101008 -->
+      <div id="divFileModal"></div>
+    </form>  
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
     <jsp:include page="myc01_js.jsp"></jsp:include>

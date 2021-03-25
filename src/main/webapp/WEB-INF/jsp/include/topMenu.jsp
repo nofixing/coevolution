@@ -146,7 +146,7 @@
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="assets/img/22.jpg" class="mb-3" style="width: 110px;">
+                                    <img src="/assets/img/22.jpg" class="mb-3" style="width: 110px;">
 
                                 </div>
 
@@ -723,6 +723,7 @@
                                 <strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong>
                             </a>
                         </li>
+
                         <c:choose>
                             <c:when test="${empty sessionScope.login_session.cust_nm}">
                                 <li class="nav-item ">
@@ -740,11 +741,31 @@
                                 </li>
                             </c:otherwise>
                         </c:choose>
-                        <li class="nav-item ">
-                            <a href="/member/join_form1" class="nav-link nav-item-font">
-                                <strong><spring:message code="top.visit.reg" text="참관등록"/></strong>
-                            </a>
-                        </li>
+
+                        <c:choose>
+                            <c:when test="${empty sessionScope.login_session.cust_nm}">
+                                <li class="nav-item ">
+                                    <a href="/member/join_form1" class="nav-link nav-item-font">
+                                        <strong><spring:message code="top.visit.reg" text="참관등록"/></strong>
+                                    </a>
+                                </li>
+                            </c:when>
+
+                            <c:otherwise>
+                                <li class="nav-item ">
+                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202001'}">
+                                    <a href="/mypage/myp01" class="nav-link nav-item-font">
+                                    </c:if>
+                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
+                                    <a href="/mypage/myc01" class="nav-link nav-item-font">
+                                    </c:if>                                    
+                                        <strong><spring:message code="top.mypage" text="마이페이지"/></strong>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
+
                         <li class="nav-item ">
                             <a href="javascript:modalMenu()" class="nav-link" data-toggle="modal"
                                 data-target="#menuModal">
@@ -788,3 +809,4 @@
 
         </div> <!-- / .container -->
     </nav>
+    <div id="mainBody"></div>

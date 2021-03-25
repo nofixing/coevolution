@@ -50,6 +50,7 @@ public class EvBoardService {
         Map<String, Object> fileMap = new HashMap<>();
         fileMap.put("fileList", fileList);
         fileMap.put("board_id", evBoardRequestDto.getBoard_id());
+        fileMap.put("user_id", evBoardRequestDto.getUser_id());
         fileMap.put("board_clsf_cd", evBoardRequestDto.getBoard_clsf_cd());
         fileMap.put("board_clsf_dtl_cd", evBoardRequestDto.getBoard_clsf_dtl_cd());
 

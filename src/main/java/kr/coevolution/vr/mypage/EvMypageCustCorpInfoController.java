@@ -50,6 +50,8 @@ public class EvMypageCustCorpInfoController {
 
             /* 내 부스정보 첨부파일 조회 */
             EvFileAttachRequestDto evFileAttachRequestDto = new EvFileAttachRequestDto();
+            evFileAttachRequestDto.setBoard_id(loginInfoDto.getCust_seq());
+
             List<EvFileAttachResponseDto> attachList = evFileAttachService.file_attach_list(evFileAttachRequestDto);
 
             resposeResult.put("list", list);
@@ -84,6 +86,7 @@ public class EvMypageCustCorpInfoController {
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
             evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMypageCustCorpInfoRequestDto.setUser_id(loginInfoDto.getCust_id());
 
             /* 내 부스정보 저장 */
             evMypageCustCorpInfoService.mypage_cust_corp_save(evMypageCustCorpInfoRequestDto);
@@ -125,6 +128,40 @@ public class EvMypageCustCorpInfoController {
             int return_code = evMypageCustCorpInfoService.mypage_cust_corp_file(evMypageCustCorpInfoRequestDto, files);
 
             if(return_code != 0) {
+                new RuntimeException("-1");
+            } else {
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "업로드실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    @PostMapping("/mypage/corpattachdel")
+    public Map<String,Object> mypage_corpattachdel (@RequestBody EvMypageCustCorpInfoRequestDto evMypageCustCorpInfoRequestDto, HttpServletRequest request) {
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            evMypageCustCorpInfoRequestDto.setBoard_id(loginInfoDto.getCust_seq());
+            evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMypageCustCorpInfoRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            /* 내 부스정보 첨부파일 업로드 */
+            int return_code = evMypageCustCorpInfoService.mypage_cust_corp_file_del(evMypageCustCorpInfoRequestDto);
+
+            if(return_code <= 0) {
                 new RuntimeException("-1");
             } else {
                 resposeResult.put("result_code", "0");

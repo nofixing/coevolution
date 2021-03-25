@@ -127,6 +127,37 @@ function sendForm(pMethod, pUrl, pcontentType, pDataType, pParamJson, callback) 
 }
 
 /**
+ * 파일전송
+ * @param {*} pUrl 
+ * @param {*} pFormData  
+ * @param {*} callback 
+ */
+function sendFormFile(pUrl, pFormData, callback) {
+
+	$.ajax({
+
+		type: "POST",
+		url: pUrl,
+		data: pFormData,
+		processData: false,
+		contentType: false,
+		cache: false,
+		timeout: 600000,
+		success: function (msg) {
+      if(typeof callback === "function") {
+        callback(msg);
+      }
+		},
+		error: function (e) {
+      if(typeof callback === "function") {
+        callback(e);
+      }   
+		}
+	});
+
+}
+
+/**
 * 공통팝업
 * gfnAlert (pType, pTitle, pContents)
 *   pType : confirm/CONFIRM - YES OR NO
@@ -846,6 +877,15 @@ function gfnSetField(pJsonData, pFieldArry) {
   }
 }
 
+/**
+ * 이미지 뷰어
+ * @param {*} pImageList 
+ */
+ 
+function imageViewer (pImageList) {
+
+  
+}
 
   /*
 function doFunction(callback){

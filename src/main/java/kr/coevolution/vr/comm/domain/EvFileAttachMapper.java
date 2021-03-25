@@ -16,6 +16,13 @@ public interface EvFileAttachMapper {
     public int I01_FILE(EvFileAttachRequestDto param);
 
     /**
+     * 첨부파일삭제
+     * @param param
+     * @return
+     */
+    public int U01_FILE(EvFileAttachRequestDto param);
+
+    /**
      * 첨부파일조회
      * @param param
      * @return

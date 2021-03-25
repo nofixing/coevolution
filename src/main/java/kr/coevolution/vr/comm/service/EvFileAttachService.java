@@ -30,6 +30,7 @@ public class EvFileAttachService {
         SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
         String nowDt = sf.format(new Date());
         String realFileDir = fileDir + nowDt + "/";
+        String fileUrl = "/upload/" + nowDt + "/";
 
         /* 날짜별폴더생성 */
         File chkDir = new File(realFileDir);
@@ -55,7 +56,7 @@ public class EvFileAttachService {
             vMap.put("org_file_name", originalfileName);
             vMap.put("file_size", size);
             vMap.put("file_name", realFileNm);
-            vMap.put("file_path", realFileDir + realFileNm + ext);
+            vMap.put("file_path", fileUrl + realFileNm + ext);
 
             log.debug("file list : " + vMap.toString());
 
@@ -94,7 +95,7 @@ public class EvFileAttachService {
             evFileAttachRequestDto.setOrg_file_name(String.valueOf(vMap.get("org_file_name")));
             evFileAttachRequestDto.setFile_size(String.valueOf(vMap.get("file_size")));
             evFileAttachRequestDto.setFile_path(String.valueOf(vMap.get("file_path")));
-            evFileAttachRequestDto.setUser_id(String.valueOf(vMap.get("user_id")));
+            evFileAttachRequestDto.setUser_id(String.valueOf(fileMap.get("user_id")));
 
             evFileAttachMapper.I01_FILE(evFileAttachRequestDto);
         }
@@ -109,6 +110,15 @@ public class EvFileAttachService {
      */
     public List<EvFileAttachResponseDto> file_attach_list (EvFileAttachRequestDto evFileAttachRequestDto) {
         return evFileAttachMapper.S01_FILE(evFileAttachRequestDto);
+    }
+
+    /**
+     * 첨부파일을 삭제한다 (del_yn = 'N')
+     * @param evFileAttachRequestDto
+     * @return
+     */
+    public int file_attach_del (EvFileAttachRequestDto evFileAttachRequestDto) {
+        return evFileAttachMapper.U01_FILE(evFileAttachRequestDto);
     }
 
 }
