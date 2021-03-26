@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class EvMailSndRequestDto {
     private Long mail_id;
-    private Long cust_id;
+    private String cust_id;
     private String snd_dt;
     private String rcv_email_id;
     private String rcv_title_nm;
@@ -15,5 +15,6 @@ public class EvMailSndRequestDto {
     private String rcv_snd_yn;
     private String rcv_snd_msg;
     private String user_id;
+    private int email_form_id;
 }
 

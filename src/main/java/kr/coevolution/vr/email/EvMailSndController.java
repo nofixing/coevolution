@@ -32,6 +32,15 @@ public class EvMailSndController {
 
         try {
 
+            /* 이메일 내용 조회 */
+            evMailSndRequestDto.setEmail_form_id(1);
+            List<EvMailSndResposeDto> formList = evMailSndService.searchMailForm(evMailSndRequestDto);
+
+            String content = formList.get(0).getEmail_form();
+            content = content.replace("#passwd#", "12121213");
+
+            evMailSndRequestDto.setRcv_email_conts(content);
+
             int return_code = evMailSndService.send(evMailSndRequestDto);
 
             if (return_code == 0) {

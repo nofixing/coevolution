@@ -33,7 +33,7 @@
                   <h5>임시 비밀번호를 통해 로그인이 가능 하며, 로그인 하신 후 꼭 비밀번호를 변경해 주시기 바랍니다.</h5>
                 </div>
                 <div class="form_btn">
-                  <button class="form_btn_inline">로그인</button>
+                  <button class="form_btn_inline" id="btnLogin">로그인</button>
               </div>
               </div>
             </div>

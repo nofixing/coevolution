@@ -22,6 +22,14 @@
 
     </select>
 
+    <select id="S02_MAIL_FORM" parameterType="kr.coevolution.vr.email.dto.EvMailSndRequestDto" resultType="kr.coevolution.vr.email.dto.EvMailSndResposeDto">
+        select email_form_id
+             , email_form_nm
+             , email_form
+          from ev_email_form
+         where email_form_id = #{email_form_id}
+    </select>
+
     <insert id="I01" parameterType="kr.coevolution.vr.email.dto.EvMailSndRequestDto">
         INSERT INTO ev_mail_snd
         (
@@ -30,5 +38,7 @@
             NULL, #{cust_id}, CURRENT_DATE(), #{rcv_email_id}, #{rcv_title_nm}, #{rcv_email_conts}, #{rcv_snd_yn}, #{rcv_snd_msg}, #{user_id}, NOW()
         )
     </insert>
+
+
 
 </mapper>

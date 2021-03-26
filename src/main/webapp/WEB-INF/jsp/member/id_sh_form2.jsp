@@ -37,7 +37,7 @@
                   <span>비밀번호가 기억나지 않는 경우에는 <a href="/member/id_sh_form1#!">'비밀번호 찾기'</a>를 이용해 주세요.</span>
                 </div>
                 <div class="form_btn">
-                  <button class="form_btn_inline">로그인</button>
+                  <button class="form_btn_inline" id="btnLogin">로그인</button>
               </div>
               </div>
             </div>

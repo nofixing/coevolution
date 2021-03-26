@@ -31,6 +31,16 @@ public class EvMailSndService {
         return evMailSndRepository.S01(evMailSndRequestDto);
     }
 
+    /**
+     * 메일폼내용을 조회한다.
+     * @param evMailSndRequestDto
+     * @return
+     */
+    @Transactional
+    public List<EvMailSndResposeDto> searchMailForm(EvMailSndRequestDto evMailSndRequestDto) {
+        return evMailSndRepository.S02_MAIL_FORM(evMailSndRequestDto);
+    }
+
     @Transactional
     public int send(EvMailSndRequestDto evMailSndRequestDto) {
 
@@ -48,8 +58,31 @@ public class EvMailSndService {
 
             evMailSndRepository.I01(evMailSndRequestDto);
 
-            //강제오류 발생하여 rollback;
-            //throw new RuntimeException();
+        } catch(Exception e) {
+            return_code = -1;
+            e.printStackTrace();
+            throw e;
+        } finally {
+            return return_code;
+        }
+    }
+
+    /**
+     * 이메일로그를 남긴다. 오류가 발생해도 Exception 처리하지 않음.
+     * @param evMailSndRequestDto
+     * @return
+     */
+    public int eMailsendLog (EvMailSndRequestDto evMailSndRequestDto) {
+        int return_code = 0;
+
+        try {
+            if(return_code == 0) {
+                evMailSndRequestDto.setRcv_snd_yn("Y");
+            } else {
+                evMailSndRequestDto.setRcv_snd_yn("N");
+            }
+
+            evMailSndRepository.I01(evMailSndRequestDto);
 
         } catch(Exception e) {
             return_code = -1;

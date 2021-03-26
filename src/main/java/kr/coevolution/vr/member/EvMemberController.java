@@ -3,6 +3,10 @@ package kr.coevolution.vr.member;
 import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
+import kr.coevolution.vr.email.domain.EvMailSndRepository;
+import kr.coevolution.vr.email.dto.EvMailSndRequestDto;
+import kr.coevolution.vr.email.dto.EvMailSndResposeDto;
+import kr.coevolution.vr.email.service.EvMailSndService;
 import kr.coevolution.vr.member.dto.*;
 import kr.coevolution.vr.member.service.EmailService;
 import kr.coevolution.vr.member.service.EvMemberService;
@@ -36,6 +40,9 @@ public class EvMemberController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private EvMailSndService mailSndService;
 
     @Value("${mail.sender}")
     private String sender;
@@ -301,6 +308,7 @@ public class EvMemberController {
         evMemberLoginRequestDto.setEmail_id(evMemberLoginRequestDto.getEmail_id_pw());
 
         try {
+            EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
             List<EvMemberLoginInfoDto> evMemberLoginInfoDtoList = evMemberService.search_pw(evMemberLoginRequestDto);
 
             if (evMemberLoginInfoDtoList == null || evMemberLoginInfoDtoList.size() != 1) {
@@ -328,17 +336,39 @@ public class EvMemberController {
                                 break;
                         }
                     }
+
+                    /* 이메일 내용 조회 */
+                    evMailSndRequestDto.setEmail_form_id(1);
+                    List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
+
+                    String content = formList.get(0).getEmail_form();
+                    content = content.replace("#passwd#", temp.toString());
+
                     String title = "임시비밀번호 안내";
-                    String content = "회원님의 임시비밀번호는 "+temp.toString()+" 입니다.\n";
-                    content += "임시비밀번호로 로그인 하신후 보안을 위해 비밀번호를 변경하시기를 바랍니다.\n";
-                    content += "감사합니다.";
+                    //String content = "회원님의 임시비밀번호는 "+temp.toString()+" 입니다.\n";
+                    //content += "임시비밀번호로 로그인 하신후 보안을 위해 비밀번호를 변경하시기를 바랍니다.\n";
+                    //content += "감사합니다.";
+
                     String receiver = evMemberLoginRequestDto.getEmail_id();
                     EmailDto email = new EmailDto(title, content, sender, receiver);
 
+                    String sndYn = "";
                     try {
                         emailService.send(email);
+                        sndYn = "Y";
                     }catch (Exception e) {
                         logger.error("email send error: "+e.toString());
+                        sndYn = "N";
+                    }finally {
+                        /* 이메일로그생성 */
+                        evMailSndRequestDto.setRcv_snd_yn(sndYn);
+                        evMailSndRequestDto.setUser_id(evMemberLoginRequestDto.getCust_id());
+                        evMailSndRequestDto.setCust_id(evMemberLoginRequestDto.getCust_id());
+                        evMailSndRequestDto.setRcv_email_id(receiver);
+                        evMailSndRequestDto.setRcv_title_nm(title);
+                        evMailSndRequestDto.setRcv_email_conts(content);
+
+                        mailSndService.eMailsendLog (evMailSndRequestDto);
                     }
 
                     String userPw = SecureUtils.getSecurePassword(temp.toString());

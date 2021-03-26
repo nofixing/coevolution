@@ -15,5 +15,8 @@ public class EvMailSndResposeDto {
     private String rcv_email_conts;
     private String rcv_snd_yn;
     private String rcv_snd_msg;
+    private int email_form_id;
+    private String email_form_nm;
+    private String email_form;
 
 }
