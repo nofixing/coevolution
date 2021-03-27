@@ -32,7 +32,7 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="#">Home</a>
+              <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
               마이페이지
@@ -46,25 +46,30 @@
       </div> <!-- / .container -->
     </nav>
     
-    <!-- CONTENT
+        <!-- CONTENT
     ================================================== -->
-    <section class="section pt-4">
+    <section class="section">
       <div class="container">
+        <div class="form_head">
+          <p>마이페이지</p>
+      </div>
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             
             <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/pLeftMenu.jsp"></jsp:include>
-
           </div>
-          <div class="col-md-10">
+
+          <div class="col-md-9">
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
               <h3 class="mb-4">
-                개인정보 재동의
+                <strong>
+                  개인정보 재동의
+                </strong>
               </h3>
 
               <div class="form-group col-sm-12 pt-2 pl-2 border" style="background-color: #FFF;">
@@ -72,104 +77,74 @@
                   <span class="small">● 개인정보 재동의 시행 안내 </span>
                 </div>
                 <div class="col-sm-12"> 
-                  <span class="small">버추얼 전시관 홈페이지는 개인정보 보호법에 따른 2년주기 개인정보 재동의 절차를 시행합니다.</span><br>
-                  <span class="small"><span id="cust_nm"></span> 님께서는 <span id="agree1_dt_end"></span> 까지 재동의 하지 않을 경우 자동으로 회원 탈퇴 처리됨을 알려드립니다.</span>
+                  <span class="small"><strong>버추얼 전시관 홈페이지는 개인정보 보호법에 따른 2년주기 개인정보 재동의</strong> 절차를 시행합니다.</span><br>
+                  <span class="small"><span style="color:red" id="cust_nm"></span> 님께서는 <strong><span style="color:red" id="agree1_dt_end"></span><em class="red">까지</em></strong> 재동의 하지 않을 경우 <em class="red">자동으로 회원 탈퇴 처리됨을 알려드립니다.</em></span>
                 </div>
               </div>
               
               <form class="form-styled">
 
-                <div class="form-group">
+                <div class="form-group text-left">
                   <!-- 개인정보 재동의 내용 -->
                   <div class="input-group">
-                    <span class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >주요내용</span>
+                    <span class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;">주요내용</span>
                     <span class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <span id="agree1_dt_end2"></span>까지 정보제공 재동의 하지 않은 경우 회원 개인정보 삭제 및 자동 탈퇴처리
-                    </span>
+                      <span id="agree1_dt_end2"></span>
+                    </span>                    
                   </div>   
                   <div class="input-group">
-                    <span class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                    <span class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small">
                       개인정보 파기 및 탈퇴 처리 시행일자
                     </span>
-                    <span class="col-sm-8 input-group-text border-0 bg-white "  style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="agree1_dt_expr">
-                      2021년 05월 03일
-                    </span>
-                  </div>     
+                    <span class="col-sm-8 input-group-text border-0 bg-white "  style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" id="agree1_dt_expr"></span>
+                  </div>      
                   <div class="input-group">
-                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
+                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small">
                       파기 대상 개인정보 항목
                     </span>
-                    <span class="col-sm-8 input-group-text border-0 bg-white text-left" style="white-space:normal;border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      회원가입 시 입력한 모든 정보는 삭제 처리되고 아이디는 재사용 및 복구 불가능합니다.<br>
-                      제③항 정책고객, 홈페이지회원 등의 홍보 및 대국민서비스 목적의 외부고객 명부는 특별한 경우를 제외하고는 2년을 주기로 정보주체의 재동의 절차를 거쳐 동의한 경우에만 계속하여 보유할 수 있다.
+                    <span class="col-sm-8 input-group-text border-0 bg-white text-left" style="white-space:normal;border-top:1px solid rgba(0,0,0,.1)!important; font-size: small">
+                      <em class="cr">회원가입 시 입력한 모든 정보는 삭제 처리되고 아이디는 재사용 및 복구 불가능합니다.</em>
                     </span>
                   </div>    
-                  <div class="input-group mb-3">
-                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; border-bottom:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      동의 일시
+                  <div class="input-group">
+                    <span class="col-sm-4 input-group-text border-0 " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small">
+                      관련법령
                     </span>
-                    <span class="col-sm-8 input-group-text border-0 bg-white text-left" style="white-space:normal;border-top:1px solid rgba(0,0,0,.1)!important; border-bottom:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <span id="agree1_dtm_fm"></span>
+                    <span class="col-sm-8 input-group-text border-0 bg-white text-left" style="white-space:normal;border-top:1px solid rgba(0,0,0,.1)!important; font-size: small">
+                      <em class="cr">표준개인정보보호지침 제60조(개인정보파일 보유기간의 산정)<br>
+                        제③항 정책고객, 홈페이지회원 등의 홍보 및 대국민서비스 목적의 외부고객 명부는 특별한 경우를 제외하고는 2년을 주기로 정보주체의 재동의 절차를 거쳐 동의한 경우에만 계속하여 보유할 수 있다.
+                      </em>
                     </span>
-                  </div>                      
-
-                  <!--이용약관-->                  
-                  <div class="form-row">
-                    <div class="form-group col-12">
-                      <!-- Message -->
-                      <textarea class="form-control" name="contact-message" rows="7"></textarea>
-                    </div>
-                  </div> <!-- / .form-row -->
-                  <div class="form-row">
-                    <div class="col-12">
-
-                        <!-- Checkbox -->
-                        <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                          <input type="checkbox" class="custom-control-input" value="Y" name="agree_1" id="agree_1">
-                          <label class="custom-control-label" for="agree_1">
-                            이용약관 (필수)
-                          </label>
-                        </div>
-
-                    </div>
-                  </div>
-
-                  <!--개인정보수집 및 이용안내-->                  
-                  <div class="form-row">
-                    <div class="form-group col-12">
-                      <!-- Message -->
-                      <textarea class="form-control" name="contact-message" rows="7"></textarea>
-                    </div>
-                  </div> <!-- / .form-row -->
-                  <div class="form-row">
-                    <div class="col-12">
-
-                        <!-- Checkbox -->
-                        <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                          <input type="checkbox" class="custom-control-input" value="Y" name="agree_2" id="agree_2">
-                          <label class="custom-control-label" for="agree_2">
-                            개인정보처리방침에 동의합니다. (필수)
-                          </label>
-                        </div>
-
-                    </div>
-                  </div>                  
-
+                  </div>                                     
+                  
                   <div class="form-row justify-content-center">
   
                     <!-- Button -->
-                    <div class="text-center text-md-right p-1">
-                      <button type="button" class="btn btn-outline-primary" style="width:7rem" id="btnAgree">
-                        재동의 하기
-                      </button>
+                    <div class="text-center text-md-right pt-3">
+                      <a href="/mypage/myp061" class="basic-btn">재동의 하기</a>
+                      <a href="#divAgreeList" data-toggle="collapse" class="basic-btn-default">재동의 이력보기</a>
                     </div>
 
                   </div> <!-- / .form-row -->   
+
+                  <div class="form-row justify-content-center pt-5 collapse " id="divAgreeList">
+                    <table class="table table-striped table-hover table-md border-bottom text-center">
+                      <thead>
+                        <tr>
+                          <th>번호</th>
+                          <th>가입일</th>
+                          <th>동의 실시</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbodyAgree"></tbody>
+                    </table>
+                  </div>
 
                 </div>  
 
 
               </form>
+
          
 
           </div>

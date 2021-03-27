@@ -1,49 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-  <!-- Title -->
-  <div class="bg-light p-3">
-    <h6 class="text-center"><strong>홍길동</strong>님</h6>
-    <label class="text-left mb-0">아이디</label>
-    <div><label class="text-left pl-2">kdfdjkjdf</label></div>
-    <label class="text-left mb-0">가입일</label>
-    <div><label class="text-left pl-2">2021-04-01</label></div>
-    <!--정보수정-->
-    <div class="text-center text-md-center pt-3">
-      <button type="button" class="btn btn-outline-primary p-0" style="width: 100%;">
-        <strong>정보수정</strong>
-      </button>
-    </div>
-                          
-  </div>
+            <!-- Title -->
+            <div class="bg-light p-4 member-info">
+              <h6 class="text-center member-name"><strong>홍길동</strong>님</h6>
+              <dl>
+                <dt>아이디</dt>
+                <dd>kdfdjkjdf</dd>
+              </dl>
+              <dl>
+                <dt>가입일</dt>
+                <dd>2021-04-01</dd>
+              </dl>
+              <!--정보수정-->
+              <div class="text-center text-md-center pt-3">
+                <button type="button" class="btn btn-outline-primary" style="padding:0 15px; box-sizing:border-box;">
+                  <strong>정보수정</strong>
+                </button>
+              </div>
+                                    
+            </div>
 
-  <!-- List -->
-  <ul class="sidenav list-unstyled pt-3 mb-5 mb-md-0">
-    <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/myp01"><strong>부스 즐겨찾기 내역</strong></a>
-    </li>
-    <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/badge"><strong>관심 뱃지 내역</strong></a>
-    </li>
-    <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/conslt_list"><strong>삼담문의 내역</strong></a>
-    </li>
+            <!-- List -->
+            <ul class="list-unstyled sidenav-list">
+              <li class="text-xs text-uppercase border p-2">
+                <a href="/mypage/favorts" <c:if test="${page_clsf eq 'myp01'}">class="on"</c:if> ><strong>부스 즐겨찾기 내역</strong></a>
+              </li>
+              <li class="text-xs text-uppercase border p-2">
+                <a href="/mypage/badge" <c:if test="${page_clsf eq 'myp02'}">class="on"</c:if> ><strong>관심 뱃지 내역</strong></a>
+              </li>
+              <li class="text-xs text-uppercase border p-2">
+                <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myp03'}">class="on"</c:if> ><strong>삼담문의 내역</strong></a>
+              </li>
 
-    <li class="text-xs text-uppercase mb-2">
-      <a href="#update" data-toggle="collapse"><strong>내정보수정</strong></a>
-      <div id="update" class="collapse show pl-3">
-        <ul class="list-group">
-          <li class="list-group"><a href="#/mypage/myp04"><strong>정보수정</strong></a></li>
-          <li class="list-group"><a href="/mypage/myp05"><strong>비밀번호변경</strong></a></li>
-        </ul>
-      </div>
-    </li>              
-    
-    
-    <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/myp06"><strong>개인정보 재동의</strong></a>
-    </li>
-    <li class="text-xs text-uppercase mb-2">
-      <a href="/mypage/myp07"><strong>회원탈퇴</strong></a>
-    </li>
-  </ul>
+              <li class="text-xs text-uppercase border p-2">
+                <a href="#update" data-toggle="collapse"><strong>내정보수정</strong></a>
+                <div id="update" class="collapse show pl-3">
+                  <ul class="list-group">
+                    <li class="list-group"><a href="/mypage/myp04" <c:if test="${page_clsf eq 'myp04'}">class="on"</c:if> ><strong>정보수정</strong></a></li>
+                    <li class="list-group"><a href="/mypage/myp05" <c:if test="${page_clsf eq 'myp05'}">class="on"</c:if>><strong>비밀번호변경</strong></a></li>
+                  </ul>
+                </div>
+              </li>              
+              
+              
+              <li class="text-xs text-uppercase border p-2">
+                <a href="/mypage/myp06" <c:if test="${page_clsf eq 'myp06'}">class="on"</c:if> ><strong>개인정보 재동의</strong></a>
+              </li>
+              <li class="text-xs text-uppercase border p-2">
+                <a href="/mypage/myp07" <c:if test="${page_clsf eq 'myp07'}">class="on"</c:if> ><strong>회원탈퇴</strong></a>
+              </li>
+            </ul>
+
 

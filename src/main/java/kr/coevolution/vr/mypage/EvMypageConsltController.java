@@ -84,9 +84,15 @@ public class EvMypageConsltController {
             Long page_priv = StringUtils.page_priv(evBoardSearchDto.getPage_current());
             Long page_end = StringUtils.page_next(evBoardSearchDto.getPage_current(), row_count, "Y");
 
+            if("".equals(StringUtils.nvl(evBoardSearchDto.getPage_current(),""))) {
+                evBoardSearchDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_clsf", "myp03");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count);
             model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
+            model.addAttribute("page_current", String.valueOf(evBoardSearchDto.getPage_current()));  /* 현재페이지 */
             model.addAttribute("page_next", String.valueOf(page_next));  /* 다음페이지 */
             model.addAttribute("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
             model.addAttribute("page_end", String.valueOf(page_end));   /* 마지막페이지 */

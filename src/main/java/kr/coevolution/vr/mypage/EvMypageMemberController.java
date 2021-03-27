@@ -164,7 +164,13 @@ public class EvMypageMemberController {
         try {
             List<EvMemberResposeDto> memberResposeDto = evMemberService.search_cust_info(evMemberSearchDto);
 
+            Map<String, String> pMap = new HashMap<String, String>();
+            pMap.put("cust_id", loginInfoDto.getCust_id());
+
+            List<Map<String, String>> agreeList = evMemberService.search_cust_agree(pMap);
+
             resposeResult.put("data", memberResposeDto);
+            resposeResult.put("agreeList", agreeList);
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
 

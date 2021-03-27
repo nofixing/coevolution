@@ -61,6 +61,30 @@ public class EvHomeController {
     }
 
     /**
+     * 이용약관
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping("/index/terms")
+    public String terms(Model model, HttpServletRequest request) {
+
+        return "/terms";
+    }
+
+    /**
+     * 개인정보처리방침
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping("/index/pirvatePolicy")
+    public String pirvatePolicy(Model model, HttpServletRequest request) {
+
+        return "/pirvatePolicy";
+    }
+
+    /**
      * 로그인
      * @param model
      * @return
@@ -343,8 +367,21 @@ public class EvHomeController {
     public String myp031(@RequestParam("board_id") String board_id, Model model) {
 
         model.addAttribute("board_id", board_id);
+        model.addAttribute("page_clsf", "myp03");
 
         return "/mypage/myp031";
+    }
+
+    /**
+     * 개인정보동의 이동
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp061")
+    public String myp061(Model model) {
+
+        model.addAttribute("page_clsf", "myp06");
+        return "/mypage/myp061";
     }
 
     /**
@@ -357,6 +394,7 @@ public class EvHomeController {
     public String myc041(@RequestParam("board_id") String board_id, Model model) {
 
         model.addAttribute("board_id", board_id);
+        model.addAttribute("page_clsf", "myp04");
 
         return "/mypage/myc041";
     }    
@@ -369,6 +407,7 @@ public class EvHomeController {
     @RequestMapping("/mypage/myp04")
     public String myp04(Model model) {
 
+        model.addAttribute("page_clsf", "myp04");
         return "/mypage/myp04";
     }
 
@@ -380,6 +419,7 @@ public class EvHomeController {
     @RequestMapping("/mypage/myp05")
     public String myp05(Model model) {
 
+        model.addAttribute("page_clsf", "myp05");
         return "/mypage/myp05";
     }
 
@@ -391,6 +431,7 @@ public class EvHomeController {
     @RequestMapping("/mypage/myp06")
     public String myp06(Model model) {
 
+        model.addAttribute("page_clsf", "myp06");
         return "/mypage/myp06";
     }
 
@@ -402,6 +443,7 @@ public class EvHomeController {
     @RequestMapping("/mypage/myp07")
     public String myp07(Model model) {
 
+        model.addAttribute("page_clsf", "myp07");
         return "/mypage/myp07";
     }
 
@@ -413,6 +455,7 @@ public class EvHomeController {
     @RequestMapping("/mypage/myc01")
     public String myc01(Model model) {
 
+        model.addAttribute("page_clsf", "myc01");
         return "/mypage/myc01";
     }
 
@@ -424,6 +467,7 @@ public class EvHomeController {
     @RequestMapping("/mypage/myc02")
     public String myc02(Model model) {
 
+        model.addAttribute("page_clsf", "myc02");
         return "/mypage/myc02";
     }
 
@@ -435,6 +479,7 @@ public class EvHomeController {
     @RequestMapping("/mypage/myc03")
     public String myc03(Model model) {
 
+        model.addAttribute("page_clsf", "myc03");
         return "/mypage/myc03";
     }
 
@@ -446,6 +491,7 @@ public class EvHomeController {
     @RequestMapping("/mypage/myc031")
     public String myc031(Model model) {
 
+        model.addAttribute("page_clsf", "myc03");
         return "/mypage/myc031";
     }
 

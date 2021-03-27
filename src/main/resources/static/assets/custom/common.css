@@ -5,11 +5,16 @@
 
 
 /* 공통 */
+em.red{
+    color:red;
+    font-style:normal;
+}
 img{
     max-width:100%;
 }
 .cr{
     color:#0089d0 !important;
+    font-style:normal;
 }
 .br{
     background:#0089d0 !important;
@@ -43,6 +48,24 @@ img{
     padding:4px 15px;
     box-sizing:border-box;
     border-radius:3px;
+    display:inline-block;
+    border:1px solid #0089d0;
+    box-shadow:0;
+}
+button.basic-btn{
+    border:0;
+    box-shadow:0;
+}
+.basic-btn-default{
+    background:transparent;
+    color:#333;
+    padding:4px 15px;
+    box-sizing:border-box;
+    border-radius:3px;
+    display:inline-block;
+    width:auto;
+    border:1px solid #666;
+    box-shadow:0;
 }
 
 
@@ -56,6 +79,26 @@ img{
 
 
 /* 부트스트랩 */
+
+
+.modal-dialog.modal-lg{
+    max-width:1100px;
+    width:100%;
+}
+
+.basic-tab li a{
+    color:rgba(0,0,0,0.8);
+    font-size:14px;
+}
+.basic-tab li a.on{
+    color:#0089d0;
+}
+
+.form-style-small{
+    max-width:400px;
+    width:100%;
+    margin:auto;
+}
 
 .dropdown-item-font{
     font-size:.750rem !important;
@@ -158,6 +201,9 @@ img{
 @media (max-width:991px){
     .mobile-hidden{
         display:none;
+    }
+    .form-control{
+        width:100% !important;
     }
 }
 

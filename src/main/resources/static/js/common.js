@@ -736,6 +736,7 @@ function setPaging(pTotalCnt, pCurrentPage) {
   var vPagingViewCnt = 10;
 
   //총건수
+  if(pTotalCnt == 0) pTotalCnt = 1;
   var vRowTotCnt = pTotalCnt;
 
   //현재페이지
@@ -793,9 +794,9 @@ function setPaging(pTotalCnt, pCurrentPage) {
 
   //처음/이전/이후/마지막
   //pagingList = "[처음 1]" + "[이전 "+privPage+"]" + pagingList + "[다음 " + nextPage + "]" + "[마지막 "+pageCnt+"]";
-  pagingList = "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+privPage+")'>Previous</a></li>"
+  pagingList = "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+privPage+")'>&lt;</a></li>"
              + pagingList 
-             + "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+nextPage+")'>Next</a></li>";
+             + "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+nextPage+")'>&gt;</a></li>";
 
   return pagingList;
 }

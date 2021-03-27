@@ -23,29 +23,44 @@ $(document).ready(function() {
 		setValue("ins_dt_to", today);
 
 	$('#btnSearch').on('click', function () {
-		//검색
-
-		/* 필수항목 체크 */
-		var chk = '['
-			+ '  {"id":"ins_dt_fr","name":"조회 시작일자"} '
-			+ ', {"id":"ins_dt_to","name":"조회 종료일자"} ';
-		chk += ']';
-
-		var jsonCheck = JSON.parse(chk);
-
-		if(!lComm.fnRequiredItems(jsonCheck)) {
-			return false;
-		}
-
-		var frm = document.forms[0];
-		frm.method = "post";
-		frm.action = "/mypage/badge";
-		frm.submit();
+		fnSearch();
 	});	
 
 	/* 페이징처리 (총페이지, 현재페이지)*/
 	var pagingList = setPaging("${row_count}", "${page_current}");
 	$('#pagingList').html(pagingList) ;
 });
+
+/* 조회 */
+function fnSearch() {
+	/* 필수항목 체크 */
+	var chk = '['
+		+ '  {"id":"ins_dt_fr","name":"조회 시작일자"} '
+		+ ', {"id":"ins_dt_to","name":"조회 종료일자"} ';
+	chk += ']';
+
+	var jsonCheck = JSON.parse(chk);
+
+	if(!lComm.fnRequiredItems(jsonCheck)) {
+		return false;
+	}
+
+	var frm = document.forms[0];
+	frm.method = "post";
+	frm.action = "/mypage/badge";
+	frm.submit();	
+}
+
+/* 검색조건 셋팅 */
+function setBadgeClsf(pClsf, pSltBadgeClsf) {
+
+	setValue("slt_badge_clsf", pClsf);
+
+	for(var i = 1; i <= 4; i++) {
+		lComm.setCssRemove("slt_badge_clsf"+i, "on");
+	}
+	
+	lComm.setCssAdd(pSltBadgeClsf, "on");
+}
 
 </script>

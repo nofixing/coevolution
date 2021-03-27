@@ -8,10 +8,10 @@
                 <div class="footer_link">
                     <ul>
                         <li>
-                            <a href="#!">개인정보처리방침</a>
+                            <a href="/index/pirvatePolicy">개인정보처리방침</a>
                         </li>
                         <li>
-                            <a href="#!">이용약관</a>
+                            <a href="/index/terms">이용약관</a>
                         </li>
                         <li>
                             <a href="#!">오시는 길</a>

@@ -28,9 +28,8 @@ public class EvMypageFavortsController {
     @Autowired
     private EvMypageFavoritsService evMypageFavoritsService;
 
-    @ResponseBody
-    @PostMapping("/mypage/favorts")
-    public Map<String,Object> mypage_favorts (@RequestBody EvMypageFavortsRequestDto evMypageFavortsRequestDto, HttpServletRequest request) {
+    @RequestMapping("/mypage/favorts")
+    public String mypage_favorts (EvMypageFavortsRequestDto evMypageFavortsRequestDto, HttpServletRequest request, Model model) {
         Map resposeResult = new HashMap();
 
         try {
@@ -55,30 +54,30 @@ public class EvMypageFavortsController {
             Long page_priv = StringUtils.page_priv(evMypageFavortsRequestDto.getPage_current());
             Long page_end = StringUtils.page_next(evMypageFavortsRequestDto.getPage_current(), row_count, "Y");
 
-            resposeResult.put("data", list);
-            resposeResult.put("row_count", row_count);
-            resposeResult.put("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
-            resposeResult.put("page_next", String.valueOf(page_next));  /* 다음페이지 */
-            resposeResult.put("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
-            resposeResult.put("page_end", String.valueOf(page_end));   /* 마지막페이지 */
+            model.addAttribute("page_clsf", "myp01");
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count);
+            model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
+            model.addAttribute("page_next", String.valueOf(page_next));  /* 다음페이지 */
+            model.addAttribute("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
+            model.addAttribute("page_end", String.valueOf(page_end));   /* 마지막페이지 */
 
-            resposeResult.put("result_code", "0");
-            resposeResult.put("result_msg", "성공!!");
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
 
         } catch (Exception e) {
 
-            resposeResult.put("result_code", "-99");
-            resposeResult.put("result_msg", "조회실패!!");
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
 
             e.printStackTrace();
         }
 
-        return resposeResult;
+        return "/mypage/myp01";
     }
 
     @RequestMapping("/mypage/favortscorp")
     public String mypage_favorts_corp (EvMypageFavortsRequestDto evMypageFavortsRequestDto, HttpServletRequest request, Model model) {
-        Map resposeResult = new HashMap();
 
         try {
             /* 로그인정보 */

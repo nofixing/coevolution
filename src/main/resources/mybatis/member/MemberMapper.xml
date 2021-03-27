@@ -268,5 +268,42 @@
 
     </update>
 
+    <insert id="I03_CUST_LOG" parameterType="map">
+        INSERT INTO ev_cust_mst_log
+        (
+              log_id		, cust_seq			, cust_id			, cust_pw			, cust_sts_cd
+            , cust_clsf_cd	, cust_nm			, company_nm		, dept_nm			, rep_nm
+            , posn_nm		, gender_cd			, age_cd			, hp_no				, tel_no
+            , email_id		, country_cd		, city_nm			, zip_code			, addr_1
+            , addr_2		, visit_pups_cd	    , rcmder_cust_id	, agree_1			, agree_dtm_1
+            , agree_2		, agree_dtm_2		, agree_3			, agree_dtm_3		, member_wdrwl_rsn
+            , ins_user		, ins_dtm			, mod_user			, mod_dtm			, google_email
+            , naver_email	, kakao_email		, facebook_email	, reg_provider		, create_date
+        )
+        SELECT
+            null			, cust_seq			, cust_id			, cust_pw			, cust_sts_cd
+            , cust_clsf_cd	, cust_nm			, company_nm		, dept_nm			, rep_nm
+            , posn_nm		, gender_cd			, age_cd			, hp_no				, tel_no
+            , email_id		, country_cd		, city_nm			, zip_code			, addr_1
+            , addr_2		, visit_pups_cd	    , rcmder_cust_id	, agree_1			, agree_dtm_1
+            , agree_2		, agree_dtm_2		, agree_3			, agree_dtm_3		, member_wdrwl_rsn
+            , ins_user		, ins_dtm			, mod_user			, mod_dtm			, google_email
+            , naver_email	, kakao_email		, facebook_email	, reg_provider		, NOW()
+        FROM ev_cust_mst
+        WHERE cust_id = #{cust_id}
+          or cust_seq = #{cust_seq}
+    </insert>
+
+    <select id="S04_AGREE_LIST" parameterType="map" resultType="map">
+        /* 동의정보조회 */
+        select ROW_NUMBER() OVER() as rn
+        , DATE_FORMAT(min(a.ins_dtm), '%Y-%m-%d') AS ins_dt
+        , DATE_FORMAT(a.agree_dtm_1, '%Y-%m-%d %H:%i:%s') AS agree_dtm
+        from ev_cust_mst_log a
+        where cust_id = #{cust_id}
+        group by agree_dtm_1
+        order by agree_dtm_1
+    </select>
+
 
 </mapper>

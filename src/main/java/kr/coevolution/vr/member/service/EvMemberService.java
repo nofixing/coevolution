@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,6 +93,15 @@ public class EvMemberService {
     }
 
     /**
+     * 고객개인정보동의내역을 조회한다.
+     * @param param
+     * @return
+     */
+    public List<Map<String, String>> search_cust_agree(Map param) {
+        return evMemberMapper.S04_AGREE_LIST(param);
+    }
+
+    /**
      * 회원정보입력
      * @param param
      * @return
@@ -109,9 +119,13 @@ public class EvMemberService {
         cust_pw = SecureUtils.getSecurePassword(cust_pw);
         param.put("cust_pw", cust_pw);
         param.put("user_id", String.valueOf(param.get("cust_id")));
+        param.put("cust_id", String.valueOf(param.get("cust_id")));
 
         /* 회원정보입력 */
         evMemberMapper.I01_CUST(param);
+
+        /* 회원로그입력 */
+        evMemberMapper.I03_CUST_LOG(param);
 
         /* 관심사항입력 */
         setInterst(param);
@@ -211,6 +225,9 @@ public class EvMemberService {
         /* 회원관심사항 삭제 */
         evMemberMapper.U02_CUST(param);
 
+        /* 회원로그입력 */
+        evMemberMapper.I03_CUST_LOG(param);
+
         /* 회원관심사항 입력 */
         setInterst(param);
 
@@ -229,6 +246,12 @@ public class EvMemberService {
 
         /* 비밃번호 변경 */
         evMemberMapper.U03_CUST(evMemberLoginRequestDto);
+
+        /* 회원로그입력 */
+        Map<String, String> param = new HashMap();
+        param.put("cust_id", evMemberLoginRequestDto.getCust_id());
+
+        evMemberMapper.I03_CUST_LOG(param);
         
         return return_code;
     }
@@ -246,6 +269,12 @@ public class EvMemberService {
         /* 임시 비밀번호 저장 */
         evMemberMapper.U03_CUST_PW_INIT(evMemberLoginRequestDto);
 
+        /* 회원로그입력 */
+        Map<String, String> param = new HashMap();
+        param.put("cust_id", evMemberLoginRequestDto.getCust_id());
+
+        evMemberMapper.I03_CUST_LOG(param);
+
         return return_code;
     }
 
@@ -262,6 +291,12 @@ public class EvMemberService {
         /* 재동의 */
         evMemberMapper.U04_AGREE(evMemberLoginRequestDto);
 
+        /* 회원로그입력 */
+        Map<String, String> param = new HashMap();
+        param.put("cust_id", evMemberLoginRequestDto.getCust_id());
+
+        evMemberMapper.I03_CUST_LOG(param);
+
         return return_code;
     }
 
@@ -277,6 +312,12 @@ public class EvMemberService {
 
         /* 재동의 */
         evMemberMapper.U05_WDRAL(evMemberLoginRequestDto);
+
+        /* 회원로그입력 */
+        Map<String, String> param = new HashMap();
+        param.put("cust_id", evMemberLoginRequestDto.getCust_id());
+
+        evMemberMapper.I03_CUST_LOG(param);
 
         return return_code;
     }

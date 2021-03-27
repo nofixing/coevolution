@@ -81,6 +81,20 @@ public interface EvMemberMapper {
     public int I02_CUST(Map param);
 
     /**
+     * 고객정보_log 입력
+     * @param param
+     * @return
+     */
+    public int I03_CUST_LOG(Map param);
+
+    /**
+     * 고객개인정보동의내역을 조회한다.
+     * @param param
+     * @return
+     */
+    public List<Map<String, String>> S04_AGREE_LIST(Map param);
+
+    /**
      * 회원관심사항 삭제
      * @param param
      * @return

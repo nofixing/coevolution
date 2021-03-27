@@ -23,7 +23,7 @@
           <div class="col">
             
             <!-- Heading -->
-            <h5 class="breadcrumb-heading" >
+            <h5 class="breadcrumb-heading">
               비밀번호 변경
             </h5>
 
@@ -32,7 +32,7 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="/">Home</a>
+              <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
               마이페이지
@@ -48,73 +48,78 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-4">
+    <section class="section">
       <div class="container">
+        <div class="form_head">
+          <p>마이페이지</p>
+      </div>
         <div class="row">
-          <div class="col-md-2">
-            
+          <div class="col-md-3">
             <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/pLeftMenu.jsp"></jsp:include>
-
           </div>
-          <div class="col-md-10">
+
+          <div class="col-md-9">
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
               <h3 class="mb-4">
-                비밀번호 변경
+                <strong>
+                  비밀번호 변경
+                </strong>
               </h3>
 
-              <div class="form-row col-sm-12 pt-2 pl-2">
-                <div class="col-sm-12"> 
+              <div class="form-row col-sm-12 pt-2 pl-2 mb-4">
+                <div class="col-sm-12 text-center"> 
                   고객님의 개인정보보호와 안전한 사용을 위해 90일 마다
                 </div>
-                <div class="col-sm-12"> 
+                <div class="col-sm-12 text-center"> 
                   비밀번호 변경을 권장하고 있으니 비밀번호를 변경해 주시기 바랍니다.
                 </div>
               </div>
               
               <form class="form-styled">
-
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="password" class="form-control order-1" placeholder="현재 비밀번호" id="user_current_pw">
-                    <div class="input-group-append order-0">
-                      <div class="input-group-text">
-                        <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <path transform="translate(3 3)" d="M25 50 V 20 A 25 25 0 0 1 50 0 A 25 25 0 0 1 75 20 V 50 H 90 V 100 H 10 V 50 H 75 M50 85 A 5 5 0 0 1 45 80 V 70 A 5 5 0 0 1 50 65 A 5 5 0 0 1 55 70 V 80 A 5 5 0 0 1 50 85"></path>
-                        </svg>
+                <div class="form-style-small">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="password" class="form-control order-1" placeholder="현재 비밀번호" id="user_current_pw">
+                      <div class="input-group-append order-0">
+                        <div class="input-group-text">
+                          <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path transform="translate(3 3)" d="M25 50 V 20 A 25 25 0 0 1 50 0 A 25 25 0 0 1 75 20 V 50 H 90 V 100 H 10 V 50 H 75 M50 85 A 5 5 0 0 1 45 80 V 70 A 5 5 0 0 1 50 65 A 5 5 0 0 1 55 70 V 80 A 5 5 0 0 1 50 85"></path>
+                          </svg>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="password" class="form-control order-1" placeholder="새 비밀번호" id="user_change_pw1">
-                    <div class="input-group-append order-0">
-                      <div class="input-group-text">
-                        <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <path transform="translate(3 3)" d="M25 50 V 20 A 25 25 0 0 1 50 0 A 25 25 0 0 1 75 20 V 50 H 90 V 100 H 10 V 50 H 75 M50 85 A 5 5 0 0 1 45 80 V 70 A 5 5 0 0 1 50 65 A 5 5 0 0 1 55 70 V 80 A 5 5 0 0 1 50 85"></path>
-                        </svg>
+  
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="password" class="form-control order-1" placeholder="새 비밀번호" id="user_change_pw1">
+                      <div class="input-group-append order-0">
+                        <div class="input-group-text">
+                          <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path transform="translate(3 3)" d="M25 50 V 20 A 25 25 0 0 1 50 0 A 25 25 0 0 1 75 20 V 50 H 90 V 100 H 10 V 50 H 75 M50 85 A 5 5 0 0 1 45 80 V 70 A 5 5 0 0 1 50 65 A 5 5 0 0 1 55 70 V 80 A 5 5 0 0 1 50 85"></path>
+                          </svg>
+                        </div>
                       </div>
-                    </div>
-                  </div>     
-                </div>
-
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="password" class="form-control order-1" placeholder="새 비밀번호 확인" id="user_change_pw2">
-                    <div class="input-group-append order-0">
-                      <div class="input-group-text">
-                        <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <path transform="translate(3 3)" d="M25 50 V 20 A 25 25 0 0 1 50 0 A 25 25 0 0 1 75 20 V 50 H 90 V 100 H 10 V 50 H 75 M50 85 A 5 5 0 0 1 45 80 V 70 A 5 5 0 0 1 50 65 A 5 5 0 0 1 55 70 V 80 A 5 5 0 0 1 50 85"></path>
-                        </svg>
+                    </div>     
+                  </div>
+  
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="password" class="form-control order-1" placeholder="새 비밀번호 확인" id="user_change_pw2">
+                      <div class="input-group-append order-0">
+                        <div class="input-group-text">
+                          <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path transform="translate(3 3)" d="M25 50 V 20 A 25 25 0 0 1 50 0 A 25 25 0 0 1 75 20 V 50 H 90 V 100 H 10 V 50 H 75 M50 85 A 5 5 0 0 1 45 80 V 70 A 5 5 0 0 1 50 65 A 5 5 0 0 1 55 70 V 80 A 5 5 0 0 1 50 85"></path>
+                          </svg>
+                        </div>
                       </div>
-                    </div>
-                  </div>    
+                    </div>    
+                  </div>
                 </div>
 
                 <div class="form-group">
@@ -134,10 +139,18 @@
   
                     <!-- Button -->
                     <div class="text-center text-md-right p-1">
-                      <button type="button" class="btn btn-outline-primary" style="width:7rem" id="btnChange">
+                      <button type="button" class="basic-btn" style="width:7rem" id="btnChange">
                         변경하기
                       </button>
                     </div>
+  
+                    <!-- Button 
+                    <div class="text-center text-md-right p-1" >
+                      <button type="button" class="basic-btn-default" style="width:7rem">
+                        다음에 하기
+                      </button>
+                    </div>
+                    -->
 
                 </div> <!-- / .form-row -->     
 

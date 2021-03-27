@@ -13,6 +13,10 @@ color: #000;
 font-weight: 400;
 outline: 0;
 line-height: 1;}
+.basic-em{
+    font-style:normal;
+    color:#0089d0;
+}
 
 
 .align-center{
@@ -933,7 +937,11 @@ line-height: 1;}
 
 
 
-
+@media (max-width:991px){
+    .find_area{
+        padding:30px;
+    }
+}
 
 
 
@@ -1290,3 +1298,254 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
 
 
 
+
+/* 정보 동의 */
+
+.terms_bx{
+    width:100%;
+    height:150px;
+    overflow-y:scroll;
+    border: 1px solid #dddddd;
+    box-sizing: border-box;
+    padding: 15px;
+}
+ .terms_article{
+    margin-bottom:30px;
+}
+ .terms_article h3{
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #212529;
+    letter-spacing: 0;
+}
+ .terms_article p{
+    margin-bottom:15px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #666;
+}
+ .terms_article ol{
+    padding-left:15px;
+}
+ .terms_article ol li{
+    font-size:14px;
+    color: #666;
+    margin-bottom:10px;
+}
+ .terms_article ol li p{
+    margin:5px 0;
+}
+ .terms_article ol li span{
+    display:block;
+}
+ .terms_article ul{
+    padding-left:5px;
+    box-sizing:border-box;
+    list-style:none;
+}
+ .terms_article ul li{
+    position:relative;
+    padding-left:10px;
+    box-sizing:border-box;
+    position:relative;
+    margin:5px 0;
+}
+ .terms_article ul li:before{
+    content:"";
+    display:block;
+    width:5px;
+    height:1px;
+    background:#666;
+    position:absolute;
+    top:9px;
+    left:0;
+}
+ .terms_article dl{
+    margin-top:10px;
+}
+ .terms_article dt{
+    margin-bottom:10px;
+    font-weight:400;
+}
+ .terms_article dd{
+    font-size:12px;
+}
+ .terms_article table{
+    max-width:600px;
+    width:100%;
+}
+ .terms_article table th{
+    padding:5px;
+    box-sizing:border-box;
+    text-align:center;
+    border:1px solid #333;
+}
+ .terms_article table td{
+    border:1px solid #666;
+    padding:0 5px;
+    text-align:center;
+}
+
+
+.secret-info-tit{
+    font-size:24px;
+    margin-bottom:30px;
+}
+
+
+/* mypage */
+
+.member-name{
+    font-size:18px;
+    margin-bottom:20px;
+}
+.member-info dl{
+    margin-bottom:5px;
+    display:table;
+    width:100%;
+}
+.member-info dl dt{
+    font-size:14px;
+    font-weight:700;
+    display:table-cell;
+    width:50%;
+    text-align:center;
+    padding:0 5px;
+}
+.member-info dl dd{
+    font-size:12px;
+    display:table-cell;
+    text-align:left;
+    padding:0 5px;
+}
+.sidenav-list li{
+    margin-bottom:-1px;
+    background:#fff;
+    padding:5px;
+    box-sizing:border-box;
+}
+
+.sidenav-list li a{
+    color:#666;
+    font-size:14px;
+}
+.sidenav-list li a.on{
+    color:#0089d0;
+}
+
+.list-group li a{
+    display:block;
+    padding-left:20px;
+    box-sizing:border-box;
+    position:relative;
+}
+.list-group li a:before{
+    content:"-";
+    display:block;
+    position:absolute;
+    top:0px;
+    left:0;
+}
+
+.table-des{
+    font-size:16px;
+}
+.table-des p{
+    margin:0;
+}
+
+.table-striped td{
+    vertical-align:middle !important;
+}
+
+.search-tab{
+    font-size:0;
+}
+.search-tab a{
+    font-size:14px;
+    color:#666;
+    display:inline-block;
+}
+.search-tab a:after{
+    content:"";
+    display:inline-block;
+    width:3px;
+    height:3px;
+    background:#666;
+    border-radius:50%;
+    vertical-align:middle;
+    margin:0 5px 5px;
+}
+.search-tab a:last-child:after{
+    display:none;
+}
+.search-tab a.on{
+    color:#0089d0;
+    font-weight:500;
+}
+
+@media (max-width:1200px){
+    .search-tab{
+        margin-top:20px;
+        width:100% !important;
+        margin-right:auto !important;
+    }
+    .member-info dl dt{
+        display:block;
+        width:100%;
+        text-align:left;
+    }
+    .member-info dl dd{
+        display:block;
+        width:100%;
+    }
+}
+
+
+
+
+/* mypage 내 정보 수정 */
+
+.basic-table{
+    width:100%;
+    border-top:1px solid #0089d0;
+}
+.basic-table th{
+    background:#f7f7f7;
+    color:#333;
+    width:20%;
+    text-align:center;
+    padding:5px;
+    border-bottom:1px solid #e7e7e7;
+    box-sizing:border-box;
+}
+.basic-table td{
+    padding:5px 10px;
+    border-bottom:1px solid #e7e7e7;
+    border-left:1px solid #e7e7e7;
+    box-sizing:border-box;
+}
+.basic-table input:not([type=file]){
+    width:100%;
+}
+.basic-table textarea{
+    resize:none;
+    width:100%;
+}
+
+.table-responsive table{
+    min-width:770px;
+}
+
+@media (max-width:991px){
+    .basic-table th{
+        display:block;
+        width:100%;
+    }
+    .basic-table td{
+        display:block;
+        width:100%;
+    }
+}

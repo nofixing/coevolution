@@ -32,7 +32,7 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="#">Home</a>
+              <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
               마이페이지
@@ -48,27 +48,29 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-4">
+    <section class="section">
       <div class="container">
+        <div class="form_head">
+          <p>마이페이지</p>
+      </div>
         <div class="row">
-          <div class="col-md-2">
-            
+          <div class="col-md-3">
             <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/pLeftMenu.jsp"></jsp:include>
-
           </div>
-          <div class="col-md-10">
+          <div class="col-md-9">
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
               <h3 class="mb-4">
-                상담문의 내역
+                <strong>
+                  상담문의 내역
+                </strong>
               </h3>
 
               <form class="form-styled">
-                <input type="hidden" id="board_id"/>
                 <div class="form-row col-sm-12 border-bottom pt-2 pl-2">
                   <div class="col-sm-12"> <span id="board_subject"></span> </div>
                 </div>
@@ -76,11 +78,10 @@
                 <div class="form-row col-sm-12 border-bottom p-2">
                   <div class="col-sm-6 small">부스명 | <span id="conslt_cust_nm"></span> </div>
                   <div class="col-sm-3 small">등록일 | <span id="reg_dt"></span></div>
-                  <div class="col-sm-3 small">상태 | <span id="board_stat_nm"></span></div>
+                  <div class="col-sm-3 small">상태 | <span><em class="basic-em" id="board_stat_nm"></em></span></div>
                 </div>
 
-                <div class="form-row col-sm-12 border-bottom p-2" id="board_content">
-                </div>              
+                <div class="form-row col-sm-12 border-bottom p-2" id="board_content"></div>              
 
                 <div class="form-row col-sm-12 pt-3 justify-content-between">
                   <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList">목록</button>
@@ -95,8 +96,7 @@
                   <div class="col-sm-5 small">답변일자 | <span id="board_reply_ins_dtm"></span></div>
                 </div>    
                 
-                <div class="form-row col-sm-12 border-bottom p-2" id="board_reply_content">
-                </div>               
+                <div class="form-row col-sm-12 border-bottom p-2" id="board_reply_content"></div>               
 
               </div>
 

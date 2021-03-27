@@ -32,7 +32,7 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="#">Home</a>
+              <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
               마이페이지
@@ -48,23 +48,27 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-4">
+    <section class="section">
       <div class="container">
+        <div class="form_head">
+          <p>마이페이지</p>
+      </div>
         <div class="row">
-          <div class="col-md-2">
-            
+          <div class="col-md-3">
             <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/pLeftMenu.jsp"></jsp:include>
-
           </div>
-          <div class="col-md-10">
+
+          <div class="col-md-9">
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
               <h3 class="mb-4">
-                상담문의 내역
+                <strong>
+                  상담문의 내역
+                </strong>
               </h3>
 
               <div class="form-styled">
@@ -94,20 +98,21 @@
                     </div>
 
                     <div class="col-sm-2">
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" id="btnSearch">조회</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" id="btnSearch">검색</button>
                     </div>
                   </div>
-                         
+                </form>            
 
-                  <!-- 총건수 -->
-                  <span class="text-muted small">
-                    (총 ${row_count} 건)
-                  </span>
+                <!-- 총건수 -->
+                <span class="text-muted small">
+                   (총 ${row_count} 건)
+                </span>
+                <div class="table-responsive">
                   <table class="table table-striped table-hover table-sm border-bottom">
                     <thead class="table-light">
                       <tr>
                         <th scope="col" width="10%" class="text-center">번호</th>
-                        <th scope="col" width="40%" class="text-left">제목</th>
+                        <th scope="col" width="40%" class="text-center">제목</th>
                         <th scope="col" width="20%" class="text-center">부스명</th>
                         <th scope="col" width="15%" class="text-center">등록일</th>
                         <th scope="col" width="15%" class="text-center">진행상태</th>
@@ -127,37 +132,19 @@
                       <tr>
                         <th scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</th>
                       </tr>
-                      </c:if>                                                                                                                                                                                                                                                                                              
+                      </c:if>                                                                                                                                                                                                                                                                          
                     </tbody>
-                    
-
                   </table>
+                </div>
 
 
-                  <!-- paging -->
-                  <div class="table-responsive d-flex justify-content-center">
-                    <nav aria-label="Page navigation">
-                      <ul class="pagination pt-3">
-                        <li class="page-item">
-                          <a class="page-link" href="#">Previous</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">Next</a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-
-                </form>   
+                <!-- paging -->
+                <div class="table-responsive d-flex justify-content-center">
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination pt-3" id="pagingList"></ul>
+                  </nav>
+                </div>
+              
               
               </div>
               

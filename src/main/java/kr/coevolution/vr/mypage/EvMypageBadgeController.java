@@ -91,6 +91,7 @@ public class EvMypageBadgeController {
                 evMypageBadgeRequestDto.setPage_current(1L);
             }
 
+            model.addAttribute("page_clsf", "myp02");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count);
             model.addAttribute("tot_badge", tot_badge); /* 관심뱃지 총 개수 */

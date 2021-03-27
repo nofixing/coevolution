@@ -41,7 +41,7 @@ $(document).ready(function() {
 		    //console.log("message : " + message.result_code);
 			if(message.result_code == 0) {
 				if(message.cust_clsf_cd == "202001") {
-					document.location.href="/mypage/myp01";
+					document.location.href="/mypage/favorts";
 				} else {
 					document.location.href="/mypage/myc01";
 				}
