@@ -178,6 +178,12 @@ public class EvMypageBadgeController {
             Long page_row_start = StringUtils.page_start_row(evMypageBadgeRequestDto.getPage_current());
             evMypageBadgeRequestDto.setPage_row_start(page_row_start);
 
+            if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getPage_current(),""))) {
+                evMypageBadgeRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMypageBadgeRequestDto.getPage_current()));  /* 현재페이지 */
+
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date nDt = new Date();
 
@@ -211,6 +217,7 @@ public class EvMypageBadgeController {
             Long page_priv = StringUtils.page_priv(evMypageBadgeRequestDto.getPage_current());
             Long page_end = StringUtils.page_next(evMypageBadgeRequestDto.getPage_current(), row_count, "Y");
 
+            model.addAttribute("page_clsf", "myc03");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count);
             model.addAttribute("tot_badge", tot_badge); /* 관심뱃지 총 개수 */

@@ -21,6 +21,7 @@
              , cust_nm
              , email_id
              , cust_clsf_cd
+             , date_format(ins_dtm,'%Y-%m-%d')  as ins_dt
         FROM ev_cust_mst
         where cust_id = #{user_id}
           and cust_pw = #{user_pw}
@@ -107,9 +108,26 @@
         SELECT cust_seq
             , cust_id as cust_id
             , cust_id as user_id
-            , cust_nm
-            , email_id
             , cust_clsf_cd
+            , cust_sts_cd
+            , (select cd_nm from ev_comm_code where cd_id = a.cust_sts_cd) as cust_sts_nm
+            , cust_nm
+            , company_nm
+            , dept_nm
+            , rep_nm
+            , posn_nm
+            , gender_cd
+            , age_cd
+            , hp_no
+            , tel_no
+            , email_id
+            , country_cd
+            , city_nm
+            , zip_code
+            , addr_1
+            , addr_2
+            , visit_pups_cd
+            , rcmder_cust_id
             , agree_1
             , agree_dtm_1
             , date_format(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH),'%Y-%m-%d %H:%i:%s')   as agree1_dtm_fm
@@ -119,9 +137,25 @@
             , agree_dtm_2
             , agree_3
             , agree_dtm_3
-        FROM ev_cust_mst
-        where cust_id = #{user_id}
+            , google_email
+            , naver_email
+            , kakao_email
+            , facebook_email
+            , reg_provider
+            , date_format(ins_dtm,'%Y-%m-%d')  as ins_dt
+        FROM ev_cust_mst a
+        where cust_id = #{cust_id}
 
+    </select>
+
+    <select id="S06_INTRST" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="map">
+        select intrst_id
+             , cust_id
+             , intrst_cd
+          from ev_cust_intrst
+        where cust_id = #{cust_id}
+          and del_yn = 'N'
+        order by intrst_cd
     </select>
 
     <insert id="I01_CUST" parameterType="map" useGeneratedKeys="true">
@@ -184,7 +218,7 @@
              , visit_pups_cd    = #{visit_pups_cd}
              , mod_user         = #{user_id}
              , mod_dtm          = NOW()
-         WHERE cust_seq         = #{cust_seq}
+         WHERE cust_id         = #{cust_id}
     </update>
 
     <update id="U02_CUST" parameterType="map">

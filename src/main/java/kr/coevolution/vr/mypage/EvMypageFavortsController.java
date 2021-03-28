@@ -44,6 +44,12 @@ public class EvMypageFavortsController {
             Long page_row_start = StringUtils.page_start_row(evMypageFavortsRequestDto.getPage_current());
             evMypageFavortsRequestDto.setPage_row_start(page_row_start);
 
+            if("".equals(StringUtils.nvl(evMypageFavortsRequestDto.getPage_current(),""))) {
+                evMypageFavortsRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMypageFavortsRequestDto.getPage_current()));  /* 현재페이지 */
+
             /* 즐겨찾기 리스트 조회 */
             List<EvMypageFavortsResponseDto> list = evMypageFavoritsService.mypage_favorits_list(evMypageFavortsRequestDto);
             List<EvMypageFavortsResponseDto> listCnt = evMypageFavoritsService.mypage_favorits_list_count(evMypageFavortsRequestDto);
@@ -91,6 +97,12 @@ public class EvMypageFavortsController {
             Long page_row_start = StringUtils.page_start_row(evMypageFavortsRequestDto.getPage_current());
             evMypageFavortsRequestDto.setPage_row_start(page_row_start);
 
+            if("".equals(StringUtils.nvl(evMypageFavortsRequestDto.getPage_current(),""))) {
+                evMypageFavortsRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMypageFavortsRequestDto.getPage_current()));  /* 현재페이지 */
+
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date nDt = new Date();
 
@@ -116,6 +128,7 @@ public class EvMypageFavortsController {
             Long page_priv = StringUtils.page_priv(evMypageFavortsRequestDto.getPage_current());
             Long page_end = StringUtils.page_next(evMypageFavortsRequestDto.getPage_current(), row_count, "Y");
 
+            model.addAttribute("page_clsf", "myc02");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count);
             model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */

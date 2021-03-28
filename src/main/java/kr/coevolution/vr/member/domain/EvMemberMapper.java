@@ -58,7 +58,7 @@ public interface EvMemberMapper {
      * @return
      */
     public List<EvMemberResposeDto> S03_CUST(EvMemberSearchDto param);
-    
+
     /**
      * 회원정보를 입력한다.
      * @param param
@@ -169,5 +169,12 @@ public interface EvMemberMapper {
      * @param evMypageBadgeRequestDto
      * @return
      */
-    public List<EvMypageBadgeResponseDto> S05_BADGE(EvMypageBadgeRequestDto evMypageBadgeRequestDto);    
+    public List<EvMypageBadgeResponseDto> S05_BADGE(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
+
+    /**
+     * 회원정보-관심분야
+     * @param param
+     * @return
+     */
+    public List<Map<String,Object>> S06_INTRST(EvMemberSearchDto param);
 }

@@ -24,7 +24,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              회원 탈퇴
+              회원탈퇴
             </h5>
 
           </div>
@@ -32,13 +32,13 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="#">Home</a>
+              <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
               마이페이지
             </span>
             <span class="breadcrumb-item active">
-              회원 탈퇴
+              회원탈퇴
             </span>            
           
           </div>
@@ -48,37 +48,39 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-4">
+    <section class="section">
       <div class="container">
+        <div class="form_head">
+          <p>마이페이지</p>
+      </div>
         <div class="row">
-          <div class="col-md-2">
-            
+
+          <div class="col-md-3">
             <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/pLeftMenu.jsp"></jsp:include>
-
           </div>
-          <div class="col-md-10">
+
+          <div class="col-md-9">
+
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
               <h3 class="mb-4">
-                회원 탈퇴
-              </h3>
-
-              <div class="form-group col-sm-12 pt-2 pl-2 border" style="background-color: #FFF;">
-                <div class="col-sm-12"> 
-                  <span class="small">그 동안 버추얼 전시관를 이용해 주셔서 진심으로 감사합니다. </span><br>
-                  <span class="small">사이트 이용 시 불편했거나 부족했던 부분을 알려주시면 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.</span>
-                </div>
-              </div>
-              
+                <strong>
+                  회원탈퇴
+                </strong>
+              </h3>              
               <form class="form-styled">
 
                 <div class="form-group">
                   <!-- 회원 탈퇴 내용 -->
-                  <div class="input-group">
+                  <div class="text-center">
+                  <span class="small">그 동안 버추얼 전시관를 이용해 주셔서 진심으로 감사합니다. </span><br>
+                  <span class="small">사이트 이용 시 불편했거나 부족했던 부분을 알려주시면 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.</span>
+                </div>
+                  <div class="input-group mt-3">
                     <input type="text" class="form-control form-control-sm mb-4" id="member_wdrwl_rsn" maxlength="100" placeholder="최대 100자 까지 입력 가능합니다.">
                   </div>   
 
@@ -86,9 +88,8 @@
   
                     <!-- Button -->
                     <div class="text-center text-md-right p-1">
-                      <button type="button" class="btn btn-outline-primary" style="width:7rem" id="btnWdrwl">
-                        탈퇴하기
-                      </button>
+                      <button type="button" class="basic-btn-default" id="btnWdrwl">탈퇴하기</button>
+                      <!--button type="button" class="basic-btn">취소하기</button-->
                     </div>
 
                   </div> <!-- / .form-row -->   

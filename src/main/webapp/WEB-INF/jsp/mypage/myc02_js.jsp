@@ -40,6 +40,10 @@ $(document).ready(function() {
 		frm.submit();
 	});	
 
+	/* 페이징처리 (총페이지, 현재페이지)*/
+	var pagingList = setPaging("${row_count}", "${page_current}");
+	$('#pagingList').html(pagingList) ;	
+
 });
 
 </script>

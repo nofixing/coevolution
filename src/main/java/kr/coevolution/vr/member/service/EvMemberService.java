@@ -93,6 +93,15 @@ public class EvMemberService {
     }
 
     /**
+     * 회원정보-관심분야
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<Map<String, Object>> search_cust_intrst(EvMemberSearchDto evMemberSearchDto) {
+        return evMemberMapper.S06_INTRST(evMemberSearchDto);
+    }
+
+    /**
      * 고객개인정보동의내역을 조회한다.
      * @param param
      * @return

@@ -33,7 +33,7 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="#">Home</a>
+              <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
               마이페이지
@@ -49,23 +49,28 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-4">
+    <section class="section">
       <div class="container">
+        <div class="form_head">
+          <p>마이페이지</p>
+      </div>
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             
             <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/cLeftMenu.jsp"></jsp:include>
-
+           
           </div>
-          <div class="col-md-10">
+          <div class="col-md-9">
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
               <h3 class="mb-4">
-                뱃지 적립 내역
+                <strong>
+                  관심 뱃지 내역
+                </strong>
               </h3>
 
 
@@ -74,7 +79,10 @@
                 <!-- Subheading -->
                 <div class="text-center border p-4">
                   <h4 class="text-muted m-0">
-                    <img src="/image/medal.png" width="16rem" /> 관심뱃지 <strong><span id="badgeCnt">${tot_badge}</span></strong>개
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                      <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                      <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg> 관심뱃지 <strong><span id="badgeCnt">${tot_badge}</span></strong>개
                   </h4>
                 </div>
 
@@ -82,26 +90,25 @@
                 <!--검색조건-->
                 <form class="pt-4 pb-3">
                   <div class="form-row align-items-center">
-                    <div class="col-auto">
+                    <div class="col-md-auto col-sm-12">
                       <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_fr" name="ins_dt_fr" value="${ins_dt_fr}">
                     </div>
-                    <div class="col-auto">
+                    <div class="col-md-auto col-sm-12">
                       <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
                     </div>
-                    <div class="col-auto">
-                      <select class="form-control form-control-sm mb-2" style="width: 6rem;" id="slt_badge_clsf" name="slt_badge_clsf">
-                        <option value="" <c:if test="${slt_badge_clsf eq ''}">selected</c:if>>전체</option>
-                        <option value="211001" <c:if test="${slt_badge_clsf eq '211001'}">selected</c:if>>부여</option>  <!-- 회원가입 211001, 추천인 211002 -->
-                        <option value="211004" <c:if test="${slt_badge_clsf eq '211004'}">selected</c:if>>회수</option>  <!-- 뱃지회수 211004 -->
-                        <option value="211003" <c:if test="${slt_badge_clsf eq '211003'}">selected</c:if>>사용</option>  <!-- 뱃지사용 211003 -->
-                      </select>
-                    </div>
-                    <div class="col-auto">
+                    <div class="col-md-auto col-sm-12">
                       <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
+                    </div>
+                    <div class="col-md-auto col-sm-12 ml-auto text-right search-tab">
+                      <input type="hidden" name="slt_badge_clsf" id="slt_badge_clsf" value="${slt_badge_clsf}">
+                      <a id="slt_badge_clsf1" href="javascript:setBadgeClsf('', 'slt_badge_clsf1')"      <c:if test="${slt_badge_clsf eq '' || slt_badge_clsf eq null}">class="on"</c:if>>전체</a>
+                      <a id="slt_badge_clsf2" href="javascript:setBadgeClsf('211001','slt_badge_clsf2')" <c:if test="${slt_badge_clsf eq '211001'}">class="on"</c:if>>부여</a>
+                      <a id="slt_badge_clsf3" href="javascript:setBadgeClsf('211004','slt_badge_clsf3')" <c:if test="${slt_badge_clsf eq '211004'}">class="on"</c:if>>회수</a>
+                      <a id="slt_badge_clsf4" href="javascript:setBadgeClsf('211003','slt_badge_clsf4')" <c:if test="${slt_badge_clsf eq '211003'}">class="on"</c:if>>사용</a>
                     </div>
                   </div>
                 </form>            
-
+                <div class="table-responsive">
                 <table class="table table-striped table-hover table-sm border-bottom">
                   <thead class="table-light">
                     <tr>
@@ -120,41 +127,28 @@
                       <td class="text-center">${list.cust_nm}</td>
                       <td class="text-center">${list.badge_recv_cnt}</td>
                       <td class="text-center">${list.badge_use_cnt}</td>
-                    </tr>                                                                                                                                                                                                         
+                    </tr>   
                     </c:forEach>
                     <c:if test="${fn:length(list) == 0}">
                     <tr>
                       <th scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</th>
                     </tr>
-                    </c:if>
+                    </c:if>                                                                                                                                                                                                                             
                   </tbody>
                 </table>
-
+                </div>
 
                 <!-- paging -->
                 <div class="table-responsive d-flex justify-content-center">
                   <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3">
-                      <li class="page-item">
-                        <a class="page-link" href="#">Previous</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
+                    <ul class="pagination pt-3" id="pagingList"></ul>
                   </nav>
                 </div>
-              
+
+
               </div>
+
+            </div>
 
             </div>
             

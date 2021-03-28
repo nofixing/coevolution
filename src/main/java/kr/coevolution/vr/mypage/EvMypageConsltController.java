@@ -57,6 +57,7 @@ public class EvMypageConsltController {
                 evBoardSearchDto.setConslt_cust_id("");
 
                 returnUrl = "/mypage/myp03";
+                model.addAttribute("page_clsf", "myp03");
 
             } else {
                 /* 참가고객 */
@@ -64,6 +65,7 @@ public class EvMypageConsltController {
                 evBoardSearchDto.setConslt_cust_id(loginInfoDto.getCust_id());
 
                 returnUrl = "/mypage/myc04";
+                model.addAttribute("page_clsf", "myc04");
             }
 
             /* row 개수 */
@@ -88,7 +90,6 @@ public class EvMypageConsltController {
                 evBoardSearchDto.setPage_current(1L);
             }
 
-            model.addAttribute("page_clsf", "myp03");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count);
             model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */

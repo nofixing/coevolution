@@ -754,7 +754,7 @@
                             <c:otherwise>
                                 <li class="nav-item ">
                                     <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202001'}">
-                                    <a href="/mypage/myp01" class="nav-link nav-item-font">
+                                    <a href="/mypage/favorts" class="nav-link nav-item-font">
                                     </c:if>
                                     <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
                                     <a href="/mypage/myc01" class="nav-link nav-item-font">

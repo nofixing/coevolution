@@ -91,6 +91,22 @@ function setValue(pId, pValue)
   fnRequiredItems : function (pRequiredItems) {
 */
 
+/**
+ * select box option 입력
+ * setSelectOption("country_cd", message.countrylist);
+ * @param {*} pId 
+ * @param {*} pOptionList 
+ * function setSelectOption(pId, pOptionList) {
+ * 
+ /**
+ * checkbox, radio 값을 셋팅한다.
+ * setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>");
+ * @param {*} pClsf 
+ * @param {*} vPrefix 
+ * @param {*} valueList 
+ * @param {*} pId 
+ * function setCheckRadioList(pClsf, vPrefix, valueList, pId, startHtml, endHtml) { 
+
 /**  ajax 연결
 * sendForm(pMethod, pUrl) 
 *   pMethod     : GET, POST
@@ -850,19 +866,41 @@ function gfnSetUnCheck(pId) {
 }
 
 /**
+ * select box option 입력
+ * setSelectOption("country_cd", message.countrylist);
+ * @param {*} pId 
+ * @param {*} pOptionList 
+ */
+function setSelectOption(pId, pOptionList) {
+
+  for(var i = 0; i < pOptionList.length; i++) {
+    $("#"+pId).append("<option value='"+pOptionList[i].cd_id+"'>"+pOptionList[i].cd_nm+"</option>");
+  } 
+
+}
+
+/**
+ * checkbox, radio 값을 셋팅한다.
+ * setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>");
+ * @param {*} pClsf 
+ * @param {*} vPrefix 
+ * @param {*} valueList 
+ * @param {*} pId 
+ */
+function setCheckRadioList(pClsf, vPrefix, valueList, pId, startHtml, endHtml) {
+  var vHtml = "";
+  for(var i = 0; i < valueList.length; i++) {
+    vHtml += startHtml+"<input type='"+pClsf+"' name='"+vPrefix + valueList[i].upper_cd_id+"' id='"+vPrefix + valueList[i].cd_id+"' value='"+valueList[i].cd_id+"'> <label for='"+vPrefix + valueList[i].cd_id+"'><span></span><p>"+valueList[i].cd_nm+"</p></label>"+endHtml;
+  }
+
+  $("#"+pId).html(vHtml);  
+}
+
+/**
  *  공통코드를 조회한다
  * @param {*} pUpperCd 공통코드 Upper - 여러개를 조회할 경우 000,000 분리
  */
 function gfnCommCode(pUpperCd) {
-
-  sendForm("POST", "/dkpc/dntn/db/S01_LOGIN.php", "TEXT", "paramJson=" + pUpperCd, function(message){
-    var msgRslt = JSON.parse(message);
-    if(msgRslt.success == "Y") {
-      document.location.href = "./dntnEdit.php";
-    } else {
-      alert("신청인 / 비밀번호가 맞지 않습니다.\r\n다시 입력하시기 바랍니다.");
-    }
-  });
 
 }
 

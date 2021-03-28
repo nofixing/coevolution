@@ -1,5 +1,8 @@
 package kr.coevolution.vr.mypage;
 
+import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
+import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
+import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
@@ -28,6 +31,95 @@ public class EvMypageMemberController {
     @Autowired
     private EvMemberService evMemberService;
 
+    @Autowired
+    private EvCommCodeService evCommCodeService;
+
+    /**
+     * 마이페이지 조회
+     * @param map
+     * @param request
+     * @return
+     */
+    @PostMapping("/mypage/member/search")
+    public Map<String,Object> member_search(@RequestBody Map map, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+            resposeResult.put("session_yn", "N");
+            resposeResult.put("result_code", "-9999");
+            resposeResult.put("result_msg", "세션정보없음");
+            return resposeResult;
+        } else {
+            resposeResult.put("session_yn", "Y");
+        }
+
+        map.put("cust_id", loginInfoDto.getCust_id());
+        map.put("user_id", loginInfoDto.getCust_id());
+
+        try {
+            EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
+            evMemberSearchDto.setUser_id(loginInfoDto.getCust_id());
+            evMemberSearchDto.setCust_id(loginInfoDto.getCust_id());
+
+            /* 고객정보조회 */
+            List<EvMemberResposeDto> custInfo = evMemberService.search_cust_info(evMemberSearchDto);
+
+            /* 선택항목조회 (관심분야, 종사분야, 업무(구매)권한, 방문목적) */
+            List<Map<String, Object>> custIntrst = evMemberService.search_cust_intrst(evMemberSearchDto);
+
+            /* 국가코드조회 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id("212000");
+            List<EvCommCodeResponseDto> countrylist = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 관심분야 */
+            evCommCodeRequestDto.setUpper_cd_id("206000");
+            List<EvCommCodeResponseDto> list1 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 종사분야 */
+            evCommCodeRequestDto.setUpper_cd_id("207000");
+            List<EvCommCodeResponseDto> list2 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 업무(구매)권한 */
+            evCommCodeRequestDto.setUpper_cd_id("208000");
+            List<EvCommCodeResponseDto> list3 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 방문목적 */
+            evCommCodeRequestDto.setUpper_cd_id("209000");
+            List<EvCommCodeResponseDto> list4 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 인지경로 */
+            evCommCodeRequestDto.setUpper_cd_id("210000");
+            List<EvCommCodeResponseDto> list5 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            resposeResult.put("custInfo", custInfo);
+            resposeResult.put("custIntrst", custIntrst);
+            resposeResult.put("countrylist", countrylist);
+            resposeResult.put("list1", list1);
+            resposeResult.put("list2", list2);
+            resposeResult.put("list3", list3);
+            resposeResult.put("list4", list4);
+            resposeResult.put("list5", list5);
+            
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
     /**
      * 회원정보 수정
      * @param map
@@ -44,6 +136,15 @@ public class EvMypageMemberController {
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
         map.put("cust_id", loginInfoDto.getCust_id());
         map.put("user_id", loginInfoDto.getCust_id());
+
+        if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+            resposeResult.put("session_yn", "N");
+            resposeResult.put("result_code", "-9999");
+            resposeResult.put("result_msg", "세션정보없음");
+            return resposeResult;
+        } else {
+            resposeResult.put("session_yn", "Y");
+        }
 
         try {
 
@@ -236,6 +337,9 @@ public class EvMypageMemberController {
 
         try {
             int result_code = evMemberService.member_wdral(evMemberLoginRequestDto);
+
+            /* 세션제거 */
+            httpSession.invalidate();
 
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");

@@ -394,7 +394,7 @@ public class EvHomeController {
     public String myc041(@RequestParam("board_id") String board_id, Model model) {
 
         model.addAttribute("board_id", board_id);
-        model.addAttribute("page_clsf", "myp04");
+        model.addAttribute("page_clsf", "myc04");
 
         return "/mypage/myc041";
     }    

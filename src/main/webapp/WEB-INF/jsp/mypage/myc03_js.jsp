@@ -40,6 +40,22 @@ $(document).ready(function() {
 		frm.submit();
 	});	
 
+	/* 페이징처리 (총페이지, 현재페이지)*/
+	var pagingList = setPaging("${row_count}", "${page_current}");
+	$('#pagingList').html(pagingList) ;
+	
 });
+
+/* 검색조건 셋팅 */
+function setBadgeClsf(pClsf, pSltBadgeClsf) {
+
+	setValue("slt_badge_clsf", pClsf);
+
+	for(var i = 1; i <= 4; i++) {
+		lComm.setCssRemove("slt_badge_clsf"+i, "on");
+	}
+	
+	lComm.setCssAdd(pSltBadgeClsf, "on");
+}
 
 </script>

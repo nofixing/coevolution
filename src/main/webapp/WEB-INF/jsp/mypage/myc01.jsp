@@ -22,7 +22,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              즐겨찾기 내역
+              내 부스 정보 등록
             </h5>
 
           </div>
@@ -30,7 +30,7 @@
 
             <!-- Breadcrumb -->
             <span class="breadcrumb-item">
-              <a href="#">Home</a>
+              <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
               마이페이지
@@ -46,122 +46,122 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-4">
+    <section class="section">
       <div class="container">
+        <div class="form_head">
+          <p>마이페이지_기업</p>
+      </div>
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             
              <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/cLeftMenu.jsp"></jsp:include>
-
+           
           </div>
-          <div class="col-md-10">
+          <div class="col-md-9">
+
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
               <h3 class="mb-4">
-                내 부스 정보 등록
-              </h3>
-
-              <form id="myForm" class="form-styled">
+                <strong>
+                  내 부스 정보 등록
+                </strong>
+              </h3>              
+              <form class="form-styled">
                 <input type="hidden" name="attach_id" id="attach_id"/>
-                
+
                 <div class="form-group">
                   
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업CI</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btn_corp_ci">파일선택</button>
-                      <div id="imgCorpCi" class="col-sm-auto"></div>
-                    </div>
-                  </div>   
+                  <div class="form-row justify-content-center">
+                    <table class="basic-table">
+                      <tr>
+                        <th>기업CI</th>
+                        <td colspan="3">
+                          <div class="col-sm-12 input-group-text border-0 bg-white">
+                            <button type="button" class="basic-btn" id="btn_corp_ci">파일선택</button>
+                            <div id="imgCorpCi" class="col-sm-auto"></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>홈페이지</th>
+                        <td colspan="3">
+                          <input type="text" placeholder="url을 입력해 주세요." id="homepage_url" name="homepage_url" maxlength="100">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>기업소개<br>(KOR)</th>
+                        <td colspan="3">
+                          <textarea id="about_company_kor" name="about_company_kor" cols="30" rows="5"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>기업소개<br>(ENG)</th>
+                        <td colspan="3">
+                          <textarea id="about_company_eng" name="about_company_eng" cols="30" rows="5"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>기업영상</th>
+                        <td colspan="3">
+                          <input type="text" placeholder="url을 입력해 주세요." id="video_url" name="video_url" maxlength="100">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>홍보동영상</th>
+                        <td colspan="3">
+                          <input type="text" placeholder="url을 입력해 주세요." id="promtn_url" name="promtn_url" maxlength="100">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>제품소개</th>
+                        <td colspan="3">
+                          <div class="col-sm-12 input-group-text border-0 bg-white">
+                            <button type="button" class="basic-btn" id="btn_corp_product">파일선택</button>
+                            <div id="corpProduct" class="col-sm-auto input-group-text border-0 bg-white"></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th rowspan="3">갤러리</th>
+                        <td colspan="3">
+                          <div class="col-sm-12 input-group-text border-0 bg-white">
+                            <button type="button" class="basic-btn" id="btnGallery">파일선택</button>
+                            <div id="corpGallery" class="col-sm-auto input-group-text border-0 bg-white"></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>3D 스캐닝</th>
+                        <td colspan="3">
+                          <input type="text" name="scan_3d_url" id="scan_3d_url" placeholder="url을 입력해 주세요." maxlength="100">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>커머스 연결</th>
+                        <td colspan="3">
+                          <input type="text" name="comrce_url" id="comrce_url" placeholder="url을 입력해 주세요." maxlength="100">
+                        </td>
+                      </tr>
 
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >홈페이지</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <input type="text" class="form-control" id="homepage_url" name="homepage_url"/>
+                    </table>
+                    <!-- Button -->
+                    <div class="text-right text-md-right p-1">
+                      <button type="button" class="basic-btn" id="btnSave">저장</button>
                     </div>
-                  </div>  
 
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업소개(한)</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <textarea rows="3" class="form-control" style="width: 100%;" id="about_company_kor" name="about_company_kor"></textarea>
-                    </div>
-                  </div>     
-                  
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업소개(영)</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <textarea rows="3" class="form-control" style="width: 100%;" id="about_company_eng" name="about_company_eng"></textarea>
-                    </div>
-                  </div>   
-                  
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >기업영상</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small"  >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnVideoRrl">파일선택(X)</button>
-                      <input type="text" class="form-control" id="video_url"/>
-                      <div id="corpVideo" class="col-sm-auto"></div>
-                    </div>
-                  </div>
-                  
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >홍보동영상</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnPromtnIrl">파일선택(X)</button>
-                      <input type="text" class="form-control" id="promtn_url"/>
-                      <div id="corpPromtn" class="col-sm-auto"></div>
-                    </div>
-                  </div>     
-
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >제품소개</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" id="btn_corp_product" style="width: 8rem;" id="btnProductItem">파일선택</button>
-                      <div id="corpProduct" class="col-sm-10 input-group"></div>
-                    </div>
-                  </div>         
-                  
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >갤러리</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnGallery">파일선택</button>
-                      <div id="corpGallery" class="col-sm-10 input-group"></div>
-                    </div>
-                  </div>     
-                  
-
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >3D스캐닝</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnScan3d">파일선택(?)</button>
-                        <input type="text" class="form-control" id="scan_3d_url"/>
-                        <div id="corp3D" class="col-sm-auto"></div>
-                    </div>
-                  </div>
-                  
-                  <div class="input-group">
-                    <div class="col-sm-4 input-group-text border-0" style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small;" >커머스 연결</div>
-                    <div class="col-sm-8 input-group-text border-0 bg-white " style="border-top:1px solid rgba(0,0,0,.1)!important; font-size: small" >
-                      <input type="text" class="form-control" id="comrce_url"/>
-                    </div>
-                  </div>                  
+                  </div> <!-- / .form-row -->   
 
                 </div>  
 
-                <div class="input-group">
-                  <div class="col-sm-12 d-flex justify-content-center">
-                    <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 8rem;" id="btnSave">저장</button>
-                  </div>   
-                </div>
 
               </form>
 
-            </div>
-            
+         
+
           </div>
         </div> <!-- / .row -->
       </div> <!-- / .container -->
