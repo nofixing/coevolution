@@ -130,6 +130,8 @@ public class EvMemberService {
         param.put("user_id", String.valueOf(param.get("cust_id")));
         param.put("cust_id", String.valueOf(param.get("cust_id")));
 
+        param.put("cust_sts_cd", "105001"); // 회원상태: 정상
+
         /* 회원정보입력 */
         evMemberMapper.I01_CUST(param);
 

@@ -166,7 +166,7 @@
         /* 회원등록 */
         INSERT INTO ev_cust_mst
         (
-              cust_seq, cust_id, cust_pw, cust_clsf_cd, cust_nm
+              cust_seq, cust_id, cust_pw, cust_sts_cd, cust_clsf_cd, cust_nm
             , company_nm, dept_nm, rep_nm, posn_nm, gender_cd
             , age_cd, hp_no, tel_no, email_id, country_cd
             , zip_code, addr_1, addr_2
@@ -174,7 +174,7 @@
             , agree_2, agree_dtm_2, agree_3, agree_dtm_3, ins_user
             , ins_dtm, mod_user, mod_dtm, google_email, naver_email, kakao_email, facebook_email, reg_provider
         ) VALUES (
-              NULL, #{cust_id}, #{cust_pw}, #{cust_clsf_cd}, #{cust_nm}
+              NULL, #{cust_id}, #{cust_pw}, #{cust_sts_cd}, #{cust_clsf_cd}, #{cust_nm}
             , #{company_nm}, #{dept_nm}, #{rep_nm}, #{posn_nm}, #{gender_cd}
             , #{age_cd}, #{hp_no}, #{tel_no}, #{email_id}, #{country_cd}
             , #{zip_code}, #{addr_1}, #{addr_2}
