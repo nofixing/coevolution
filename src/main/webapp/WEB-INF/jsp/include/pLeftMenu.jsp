@@ -69,7 +69,7 @@
       <a href="#update" data-toggle="collapse"><strong>내정보수정</strong></a>
       <div id="update" class="collapse show pl-3">
         <ul class="list-group">
-          <li class="list-group"><a href="/mypage/myc04" <c:if test="${page_clsf eq 'myc05'}">class="on"</c:if> ><strong>정보수정</strong></a></li>
+          <li class="list-group"><a href="/mypage/myc05" <c:if test="${page_clsf eq 'myc05'}">class="on"</c:if> ><strong>정보수정</strong></a></li>
           <li class="list-group"><a href="/mypage/myp05" <c:if test="${page_clsf eq 'myp05'}">class="on"</c:if> ><strong>비밀번호변경</strong></a></li>
         </ul>
       </div>

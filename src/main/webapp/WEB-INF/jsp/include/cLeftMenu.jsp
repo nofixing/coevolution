@@ -16,7 +16,7 @@
               </dl>
               <!--정보수정-->
               <div class="text-center text-md-center pt-3">
-                <a href="/mypage/myc04" class="btn btn-outline-primary" style="padding:0 15px; box-sizing:border-box;">
+                <a href="/mypage/myc05" class="btn btn-outline-primary" style="padding:0 15px; box-sizing:border-box;">
                   <strong>정보수정</strong>
                 </a>
               </div>
@@ -42,7 +42,7 @@
                 <a href="#update" data-toggle="collapse"><strong>내정보수정</strong></a>
                 <div id="update" class="collapse show pl-3">
                   <ul class="list-group">
-                    <li class="list-group"><a href="/mypage/myc04" <c:if test="${page_clsf eq 'myc05'}">class="on"</c:if> ><strong>정보수정</strong></a></li>
+                    <li class="list-group"><a href="/mypage/myc05" <c:if test="${page_clsf eq 'myc05'}">class="on"</c:if> ><strong>정보수정</strong></a></li>
                     <li class="list-group"><a href="/mypage/myp05" <c:if test="${page_clsf eq 'myp05'}">class="on"</c:if> ><strong>비밀번호변경</strong></a></li>
                   </ul>
                 </div>

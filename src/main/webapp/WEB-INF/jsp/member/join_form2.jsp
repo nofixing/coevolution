@@ -60,7 +60,7 @@
                     <div class="register_section">
                         <h4><strong>이용약관(필수)</strong></h4>
                         <div class="register_section_area">
-                            <textarea name="" id="" cols="30" rows="5" placeholder=""></textarea>
+                            ${agree1_contents}
                         </div>
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" id="agree_1" name="agree_1" value="Y" class="custom-control-input">
@@ -70,7 +70,7 @@
                     <div class="register_section">
                       <h4><strong>개인정보처리방침안내(필수)</strong></h4>
                         <div class="register_section_area">
-                            <textarea name="" id="" cols="30" rows="5"></textarea>
+                            ${agree2_contents}
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="agree_2" name="agree_2" value="Y" class="custom-control-input">

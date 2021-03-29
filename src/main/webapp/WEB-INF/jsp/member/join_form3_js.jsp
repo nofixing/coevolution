@@ -60,7 +60,49 @@ $(document).ready(function() {
 		document.location.href="/member/join_form2";
 	}
 
+	fnSearch();
+
 });
+
+
+/* 코드정보조회 */
+var lFormValue;
+function fnSearch() {
+	
+	var pParamJson = "{}";
+	sendForm("POST", "/member/search_join_com_code", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message.result_code == 0) {
+			//console.log(message);
+
+			lFormValue = message;
+
+			/* 국가코드 */  
+			setSelectOption("country_cd", message.countrylist);
+			setValue("country_cd", "212032");
+
+			/* 관심분야 */
+			setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>");
+
+			/* 종사분야 */
+			setCheckRadioList("checkbox", "S", message.list2, "list2", "<li>", "</li>");
+
+			/* 업무(구매)권한 */
+			setCheckRadioList("checkbox", "S", message.list3, "list3", "<li>", "</li>");
+
+			/* 방문목적 */
+			setCheckRadioList("checkbox", "S", message.list4, "list4", "<li>", "</li>");
+
+			/* 인지경로 */
+			setCheckRadioList("checkbox", "S", message.list5, "list5", "<li>", "</li>");			
+			
+		} else {
+			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+		}
+
+	});	
+}
+
 
 /* ID중복체크 */
 function fnDupCheck() {
@@ -200,7 +242,8 @@ function fnSignUp() {
 	
 
 	/* 관심분야 체크 */
-	var arry = ["S206001","S206002","S206003","S206004","S206005","S206006"];
+	var arry = [];
+	arry = codeList(lFormValue.list1, arry);
 
 	if(chkYn(arry) == "N") {
 		alert("관심분야를 선택하세요.");
@@ -208,7 +251,8 @@ function fnSignUp() {
 	}
 
 	/* 종사분야 체크 */
-	arry = ["S207001","S207002","S207003","S207004","S207005","S207006","S207007","S207008","S207009","S207010"];
+	arry = [];
+	arry = codeList(lFormValue.list2, arry);
 
 	if(chkYn(arry) == "N") {
 		alert("종사분야를 선택하세요.");
@@ -216,7 +260,8 @@ function fnSignUp() {
 	}
 
 	/* 업무(구매)권한 체크 */
-	arry = ["S208001","S208002","S208003","S208004","S208005","S208006","S208007","S208008"];
+	arry = [];
+	arry = codeList(lFormValue.list3, arry);
 
 	if(chkYn(arry) == "N") {
 		alert("업무(구매)권한를 선택하세요.");
@@ -224,7 +269,9 @@ function fnSignUp() {
 	}	
 
 	/* 방문목적 체크 */
-	arry = ["S209001","S209002","S209003","S209004","S209005","S209006"];
+	arry = [];
+	arry = codeList(lFormValue.list4, arry);
+
 
 	if(chkYn(arry) == "N") {
 		alert("방문목적을 선택하세요.");
@@ -232,7 +279,9 @@ function fnSignUp() {
 	}	
 
 	/* 인지경로 체크 */
-	arry = ["S210001","S210002","S210003","S210004","S210005","S210006","S210007","S210008"];
+	arry = [];
+	arry = codeList(lFormValue.list5, arry);
+
 
 	if(chkYn(arry) == "N") {
 		alert("인지경로을 선택하세요.");
@@ -295,6 +344,16 @@ function chkYn(pArry) {
 	}
 
 	return rtnValue;
+}
+
+/* 관심사항에 대한 항목 */
+function codeList(pList, pArray) {
+	var str = "";
+	for(var i = 0; i < pList.length; i++) {
+		pArray.push("S"+pList[i].cd_id);
+	}
+
+	return pArray;
 }
 
 </script>

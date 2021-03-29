@@ -41,7 +41,7 @@ function fnSearch() {
 	sendForm("POST", "/mypage/member/search", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message.result_code == 0) {
-			console.log(message);
+			//console.log(message);
 
 			lFormValue = message;
 
@@ -65,7 +65,7 @@ function fnSearch() {
 
 			/* 필드값입력 */
 			var pFieldArry = ["cust_id","cust_nm","email_id","addr_1","addr_2","tel_no","hp_no","company_nm","dept_nm","posn_nm","country_cd","city_nm","rcmder_cust_id","ins_dt","cust_sts_nm"];
-			gfnSetField(message.custInfo[0], pFieldArry)
+			gfnSetField(message.custInfo[0], pFieldArry);
 
 			/* 성별 */
 			gfnSetCheck("gender_cd_"+message.custInfo[0].gender_cd);

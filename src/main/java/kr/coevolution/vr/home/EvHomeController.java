@@ -2,6 +2,9 @@ package kr.coevolution.vr.home;
 
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
+import kr.coevolution.vr.email.dto.EvMailSndRequestDto;
+import kr.coevolution.vr.email.dto.EvMailSndResposeDto;
+import kr.coevolution.vr.email.service.EvMailSndService;
 import kr.coevolution.vr.home.dto.EvMemberJoinForm3;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Locale;
 
 @Slf4j
@@ -33,6 +37,9 @@ public class EvHomeController {
 
     @Autowired
     LocaleResolver localeResolver;
+
+    @Autowired
+    private EvMailSndService mailSndService;
 
     @RequestMapping({"/", "/index"})
     public String index(Model model) {
@@ -184,6 +191,21 @@ public class EvHomeController {
             return "/member/join_form1";
         } else {
 
+            EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
+
+            /* 이용약관 */
+            evMailSndRequestDto.setEmail_form_id(2);
+            List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
+            String agree1 = formList.get(0).getEmail_form();
+
+            /* 개인정보처리방침 */
+            evMailSndRequestDto.setEmail_form_id(3);
+            formList = mailSndService.searchMailForm(evMailSndRequestDto);
+            String agree2 = formList.get(0).getEmail_form();
+
+            model.addAttribute("agree1_contents", agree1);
+            model.addAttribute("agree2_contents", agree2);
+
             return "/member/join_form2";
 
         }
@@ -239,6 +261,21 @@ public class EvHomeController {
      */
     @RequestMapping("/member/join_form4")
     public String join_for4(Model model) {
+
+        EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
+
+        /* 이용약관 */
+        evMailSndRequestDto.setEmail_form_id(2);
+        List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
+        String agree1 = formList.get(0).getEmail_form();
+
+        /* 개인정보처리방침 */
+        evMailSndRequestDto.setEmail_form_id(3);
+        formList = mailSndService.searchMailForm(evMailSndRequestDto);
+        String agree2 = formList.get(0).getEmail_form();
+
+        model.addAttribute("agree1_contents", agree1);
+        model.addAttribute("agree2_contents", agree2);
 
         return "/member/join_form4";
     }
@@ -380,7 +417,22 @@ public class EvHomeController {
     @RequestMapping("/mypage/myp061")
     public String myp061(Model model) {
 
+        EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
+
+        /* 이용약관 */
+        evMailSndRequestDto.setEmail_form_id(2);
+        List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
+        String agree1 = formList.get(0).getEmail_form();
+
+        /* 개인정보처리방침 */
+        evMailSndRequestDto.setEmail_form_id(3);
+        formList = mailSndService.searchMailForm(evMailSndRequestDto);
+        String agree2 = formList.get(0).getEmail_form();
+
+        model.addAttribute("agree1_contents", agree1);
+        model.addAttribute("agree2_contents", agree2);
         model.addAttribute("page_clsf", "myp06");
+
         return "/mypage/myp061";
     }
 
@@ -493,6 +545,18 @@ public class EvHomeController {
 
         model.addAttribute("page_clsf", "myc03");
         return "/mypage/myc031";
+    }
+
+    /**
+     * 마이페이지-참가 내정보수정
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc05")
+    public String myc05(Model model) {
+
+        model.addAttribute("page_clsf", "myc05");
+        return "/mypage/myc05";
     }
 
     @RequestMapping("/m.do")
