@@ -76,86 +76,87 @@
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
-                <!-- Heading -->
-                <h3 class="mb-4">
-                    <strong>
-                    내 정보 수정
-                    </strong>
-                </h3>
-                <div class="form_inner member page-area">
-                    <div class="join-form-area">
-                      <form action="">
-                          <table class="basic-table">
-                            <tr>
-                                <th>아이디</th>
-                                <td><div id="cust_id"></div></td>
-                            </tr>
-                            <tr>
-                                <th>비밀번호</th>
-                                <td>
-                                    <a href="/mypage/myp05" class="basic-btn">비밀번호 변경</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>기업명</th>
-                                <td><div id="cust_nm"></div></td>
-                            </tr>
-                            <tr>
-                                <th>이메일</th>
-                                <td>
-                                    <input type="text" name="email_id" id="email_id" maxlength="50" style="width:50%" class="input-box">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>휴대폰</th>
-                                <td><input type="text" name="hp_no" id="hp_no" maxlength="13" style="width:50%" class="input-box" placeholder="-없이 숫자만 입력하세요"></td>
-                            </tr>                            
-                            <tr>
-                                <th>부서</th>
-                                <td>
-                                    <input type="text" name="dept_nm" id="dept_nm" maxlength="50" style="width:50%" class="input-box" placeholder="부서을 입력하세요">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>담당자</th>
-                                <td>
-                                    <input type="text" name="rep_nm" id="rep_nm" maxlength="50" style="width:50%" class="input-box" placeholder="담당자를 입력하세요">
-                                </td>
-                            </tr>                            
-                            <tr>
-                                <th>국가</th>
-                                <td>
-                                    <select name="country_cd" class="custom-select-sm" style="width:40%;height:32px" id="country_cd"></select>
-                                </td>
-                            </tr>                         
-                            <tr>
-                                <th>개인정보 수집이용</th>
-                                <td><div id="agree_1"></div></td>
-                            </tr>
-                            <tr>
-                                <th>마케팅 활용 동의</th>
-                                <td><div id="agree_3"></div></td>
-                            </tr>
-                            <tr>
-                                <th>가입일자</th>
-                                <td><div id="ins_dt"></div></td>
-                            </tr>
-                            <!--tr>
-                                <th>최근방문일시</th>
-                                <td>yyyy-mm-dd 15:00:00</td>
-                            </tr-->
-                            <tr>
-                                <th>상태</th>
-                                <td><div id="cust_sts_nm"></div></td>
-                            </tr>
+              <!-- Heading -->
+              <h3 class="mb-4">
+                  <strong>
+                  내 정보 수정
+                  </strong>
+              </h3>
 
-                          </table>
-                          <div class="register_page text-center">
-                            <button type="button" class="register_page_submit" id="btnUpdate">정보수정</button>
-                            </div>
-                      </form>
+              <div class="form_inner member page-area">
+                <div class="join-form-area">
+                  <form action="">
+                    <table class="basic-table">
+                      <tr>
+                          <th>아이디</th>
+                          <td><div id="cust_id"></div></td>
+                      </tr>
+                      <tr>
+                          <th>비밀번호</th>
+                          <td>
+                              <a href="/mypage/myp05" class="basic-btn">비밀번호 변경</a>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>기업명</th>
+                          <td><div id="cust_nm"></div></td>
+                      </tr>
+                      <tr>
+                          <th>이메일</th>
+                          <td>
+                              <input type="text" name="email_id" id="email_id" maxlength="50" style="width:50%" class="input-box">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>휴대폰</th>
+                          <td><input type="text" name="hp_no" id="hp_no" maxlength="13" style="width:50%" class="input-box" placeholder="-없이 숫자만 입력하세요"></td>
+                      </tr>                            
+                      <tr>
+                          <th>부서</th>
+                          <td>
+                              <input type="text" name="dept_nm" id="dept_nm" maxlength="50" style="width:50%" class="input-box" placeholder="부서을 입력하세요">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>담당자</th>
+                          <td>
+                              <input type="text" name="rep_nm" id="rep_nm" maxlength="50" style="width:50%" class="input-box" placeholder="담당자를 입력하세요">
+                          </td>
+                      </tr>                            
+                      <tr>
+                          <th>국가</th>
+                          <td>
+                              <select name="country_cd" class="custom-select-sm" style="width:40%;height:32px" id="country_cd"></select>
+                          </td>
+                      </tr>                         
+                      <tr>
+                          <th>개인정보 수집이용</th>
+                          <td><div id="agree_1"></div></td>
+                      </tr>
+                      <tr>
+                          <th>마케팅 활용 동의</th>
+                          <td><div id="agree_3"></div></td>
+                      </tr>
+                      <tr>
+                          <th>가입일자</th>
+                          <td><div id="ins_dt"></div></td>
+                      </tr>
+                      <!--tr>
+                          <th>최근방문일시</th>
+                          <td>yyyy-mm-dd 15:00:00</td>
+                      </tr-->
+                      <tr>
+                          <th>상태</th>
+                          <td><div id="cust_sts_nm"></div></td>
+                      </tr>
+
+                    </table>
+                    <div class="register_page text-center">
+                      <button type="button" class="register_page_submit" id="btnUpdate">정보수정</button>
                     </div>
+                  </form>
                 </div>
+              </div>
 
             </div>
           </div>
@@ -164,6 +165,7 @@
     </section>
 
   </form>
+  
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
   <jsp:include page="myc05_js.jsp"></jsp:include>   
 

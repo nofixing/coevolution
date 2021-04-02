@@ -88,6 +88,13 @@ public interface EvMemberMapper {
     public int I03_CUST_LOG(Map param);
 
     /**
+     * 로그인로그
+     * @param param
+     * @return
+     */
+    public int I04_LOGIN_LOG(Map param);
+
+    /**
      * 고객개인정보동의내역을 조회한다.
      * @param param
      * @return
@@ -170,6 +177,20 @@ public interface EvMemberMapper {
      * @return
      */
     public List<EvMypageBadgeResponseDto> S05_BADGE(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
+
+    /**
+     * 관리자페이지 부스 뱃지 내역
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> S06_BADGE_SH1(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
+
+    /**
+     * 관리자페이지 부스 뱃지 내역 건수
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> S07_BADGE_SH1(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
 
     /**
      * 회원정보-관심분야

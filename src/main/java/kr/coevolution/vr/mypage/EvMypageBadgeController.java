@@ -42,10 +42,18 @@ public class EvMypageBadgeController {
     @RequestMapping("/mypage/badge")
     public String mypage_badge (EvMypageBadgeRequestDto evMypageBadgeRequestDto, HttpServletRequest request, Model model) {
 
+        String returnUrl = "/mypage/myp02";
+
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            }
+
             evMypageBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
             evMypageBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
 
@@ -117,7 +125,7 @@ public class EvMypageBadgeController {
             e.printStackTrace();
         }
 
-        return "/mypage/myp02";
+        return returnUrl;
     }
 
     /**
@@ -166,10 +174,18 @@ public class EvMypageBadgeController {
     @RequestMapping("/mypage/badgecorp")
     public String mypage_badge_corp (EvMypageBadgeRequestDto evMypageBadgeRequestDto, HttpServletRequest request, Model model) {
 
+        String returnUrl = "/mypage/myc03";
+
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            }
+
             evMypageBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
             evMypageBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
 
@@ -242,7 +258,7 @@ public class EvMypageBadgeController {
             e.printStackTrace();
         }
 
-        return "/mypage/myc03";
+        return returnUrl;
     }
 
     /**

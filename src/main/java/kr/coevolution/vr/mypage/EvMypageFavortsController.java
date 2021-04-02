@@ -31,11 +31,17 @@ public class EvMypageFavortsController {
     @RequestMapping("/mypage/favorts")
     public String mypage_favorts (EvMypageFavortsRequestDto evMypageFavortsRequestDto, HttpServletRequest request, Model model) {
         Map resposeResult = new HashMap();
+        String returnUrl = "/mypage/myp01";
 
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            }
 
             evMypageFavortsRequestDto.setCust_id(loginInfoDto.getCust_id());
 
@@ -79,16 +85,23 @@ public class EvMypageFavortsController {
             e.printStackTrace();
         }
 
-        return "/mypage/myp01";
+        return returnUrl;
     }
 
     @RequestMapping("/mypage/favortscorp")
     public String mypage_favorts_corp (EvMypageFavortsRequestDto evMypageFavortsRequestDto, HttpServletRequest request, Model model) {
 
+        String returnUrl = "/mypage/myc02";
+
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            }
 
             evMypageFavortsRequestDto.setCust_id(loginInfoDto.getCust_id());
 
@@ -151,7 +164,7 @@ public class EvMypageFavortsController {
             e.printStackTrace();
         }
 
-        return "/mypage/myc02";
+        return returnUrl;
     }
 
     /**

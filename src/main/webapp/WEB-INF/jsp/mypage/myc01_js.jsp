@@ -141,7 +141,10 @@ function fnSearch() {
 		
 		if(message.result_code == 0) {
 			var pFieldArry = ["homepage_url", "about_company_kor", "about_company_eng", "video_url", "promtn_url", "scan_3d_url", "comrce_url"];
-			gfnSetField(message.list[0], pFieldArry);
+
+			if(message.list.length > 0) {
+				gfnSetField(message.list[0], pFieldArry);
+			}
 
 			/* 이미지 셋팅 */
 			lfileList = message.attachList;

@@ -36,11 +36,11 @@ $(document).ready(function() {
 
 		//console.log("pParamJson : " + pParamJson);
 	
-		sendForm("POST", "/member/login", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+		sendForm("POST", "/mgnt/login", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		    //console.log("message : " + message.result_code);
 			if(message.result_code == 0) {
-				alert("로그인성공!!");
+				document.location.href="/mgnt/badge";
 			} else {
 				alert("일치하는 정보가 없습니다.\r\n확인후 다시 입력해주세요.");
 			}
@@ -48,12 +48,7 @@ $(document).ready(function() {
 		});
 
 	});
-
-	/* 회원가입 */
-	$('#btnJoin').on('click', function () {
-		document.location.href="/member/join_form1"
-	});
-
+	
 });
 
 </script>

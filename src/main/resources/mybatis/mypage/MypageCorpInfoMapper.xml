@@ -14,6 +14,7 @@
             , promtn_url
             , scan_3d_url
             , comrce_url
+            , (select cust_seq from ev_cust_mst where cust_id =  #{cust_id}) as cust_seq
         from ev_cust_corp_info
         where cust_id = #{cust_id}
 

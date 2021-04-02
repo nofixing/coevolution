@@ -14,88 +14,51 @@
     
     <!-- FULLPAGE
     ================================================== -->
-    <section class="section section-full section-top bg-light">
+    <section class="section section-full section-top">
 
-      <!-- Content -->
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8 col-lg-6">
-
-            <!-- Form -->
-            <form class="form-styled bg-white">
-
-              <!-- Heading -->
-              <h2 class="text-center mb-4">
-                로 그 인
-              </h2>
-
-              <!-- 아이디 -->
-              <div class="form-group">
-                
-                <!-- 아이디 -->
-                <label>아이디</label>
-                <div class="input-group">
-                  <input type="text" class="form-control order-1" id="user_id" name="user_id">
-                  <div class="input-group-append order-0">
-                    <div class="input-group-text">
-                      <svg class="input-group-icon icon-offset icon icon-person" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path transform="translate(3 3)" d="M0 100 A 50 50 0 0 1 50 60 A 20 20 0 0 1 50 0 A 20 20 0 0 1 50 60 A 50 50 0 0 1 100 100"></path>
-                      </svg>
+        <!-- Content -->
+        <div class="container">
+            <div class="">
+                <div class="form login_form">
+                    <div class="form_head">
+                        <p>LOGIN</p>
                     </div>
-                  </div>
-                </div>
+                    <div class="login_inner">
+                        <div class="form_inner">
+                            <form>
+                                <div class="login_form clearfix">
+                                    <div class="login_input_area">
+                                        <div class="id_area input_area">
+                                            <input type="text" id="user_id" name="user_id" placeholder="아이디">
+                                        </div>
+                                        <div class="pw_area input_area">
+                                            <input type="password" id="user_pw" name="user_pw" placeholder="비밀번호">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="check_area clearfix">
+                                    <div class="check_id">
+                                        <input type="checkbox" id="check_id">
+                                        <label for="check_id"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                          </svg><span>아이디 저장</span></label>
+                                    </div>
+                                </div>
 
-              </div>
-
-              <!-- Password -->
-              <div class="form-group">
-                
-                <!-- Name -->
-                <label>비밀번호</label>
-                <div class="input-group">
-                  <input type="password" class="form-control order-1" id="user_pw" name="user_pw">
-                  <div class="input-group-append order-0">
-                    <div class="input-group-text">
-                      <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path transform="translate(3 3)" d="M25 50 V 20 A 25 25 0 0 1 50 0 A 25 25 0 0 1 75 20 V 50 H 90 V 100 H 10 V 50 H 75 M50 85 A 5 5 0 0 1 45 80 V 70 A 5 5 0 0 1 50 65 A 5 5 0 0 1 55 70 V 80 A 5 5 0 0 1 50 85"></path>
-                      </svg>
+                            </form>
+                        </div>
+                        <div class="form_inner">
+                            <div class="login_form_btn">
+                                <button type="button" class="login_form_submit" id="btnLogin">로그인</button>
+                            </div>                
+                        </div>
                     </div>
-                  </div>
                 </div>
-
-              </div>
-
-              <!-- Footer -->
-              <div class="form-row align-items-center">
-                <div class="col-md-auto">
-
-                  <!-- Checkbox -->
-                  <div class="custom-control custom-checkbox mb-3 mb-md-0">
-                    <input type="checkbox" class="custom-control-input" id="sign-in-checkbox">
-                    <label class="custom-control-label" for="sign-in-checkbox">
-                      아이디 저장
-                    </label>
-                  </div>
-
-                </div>
-                <div class="col-md">
-
-                  <!-- Button -->
-                  <div class="text-center text-md-right">
-                    <button type="button" class="btn btn-outline-primary" id="btnLogin">
-                      로그인
-                    </button>
-                  </div>
-
-                </div>
-              </div> <!-- / .form-row -->
-
-            </form>
-            
-          </div>
+            </div>
         </div> <!-- / .row -->
-      </div> <!-- / .container -->
-      
+        </div> <!-- / .container -->
+
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>

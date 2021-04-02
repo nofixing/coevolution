@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coevolution.vr.mgnt.domain.MgntUserInfoMapper">
+
+    <select id="S01_LOGIN" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberLoginInfoDto">
+        /* 관리자로그인 */
+        select mgnt_id
+             , mgnt_nm
+             , mgnt_id      as cust_id
+             , mgnt_nm      as cust_nm
+             , email_id
+             , '202003'     as cust_clsf_cd
+          from ev_mgnt_user
+         where mgnt_id = #{user_id}#
+           and mgnt_pw = #{user_pw}#
+           and use_yn = 'Y'
+           and del_yn = 'N'
+
+    </select>
+
+    <select id="S02_MEMBER_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        /* 고객조회 */
+        SELECT ROW_NUMBER() OVER() as rn
+            , cust_seq			, cust_id			, cust_sts_cd			, cust_clsf_cd			, cust_nm
+            , company_nm		, dept_nm			, rep_nm				, posn_nm				, email_id
+            , DATE_FORMAT(ins_dtm, '%Y-%m-%d %H:%i:%s') AS ins_dtm
+            , (SELECT max(DATE_FORMAT(login_dtm, '%Y-%m-%d %H:%i:%s')) FROM ev_cust_login_log WHERE cust_id = a.cust_id) AS login_dtm
+        FROM 	ev_cust_mst a
+        WHERE   cust_sts_cd     = '105001'          /* 정상 */
+        AND 	cust_clsf_cd	= #{cust_clsf_cd}#  /* 202001:참관 202002:참가 */
+        AND 	date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        and     (cust_id like concat('%',#{keyword},'%') or cust_nm like concat('%',#{keyword},'%') or rep_nm like concat('%',#{keyword},'%'))
+        ORDER BY a.ins_dtm DESC
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S02_MEMBER_LIST_COUNT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        /* 고객조회건수 */
+        SELECT COUNT(*) AS row_count
+        FROM 	ev_cust_mst a
+        WHERE   cust_sts_cd     = '105001'          /* 정상 */
+        AND 	cust_clsf_cd	= #{cust_clsf_cd}#  /* 202001:참관 202002:참가 */
+        AND 	date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        and     (cust_id like concat('%',#{keyword},'%') or cust_nm like concat('%',#{keyword},'%') or rep_nm like concat('%',#{keyword},'%'))
+        ORDER BY a.ins_dtm DESC
+
+    </select>
+
+</mapper>
