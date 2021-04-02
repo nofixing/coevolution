@@ -6,7 +6,6 @@ import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
-import kr.coevolution.vr.email.domain.EvMailSndRepository;
 import kr.coevolution.vr.email.dto.EvMailSndRequestDto;
 import kr.coevolution.vr.email.dto.EvMailSndResposeDto;
 import kr.coevolution.vr.email.service.EvMailSndService;
@@ -19,6 +18,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +30,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -49,6 +54,9 @@ public class EvMemberController {
 
     @Autowired
     private EvCommCodeService evCommCodeService;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @Value("${mail.sender}")
     private String sender;
@@ -216,7 +224,7 @@ public class EvMemberController {
      * @return
      */
     @PostMapping("/member/login")
-    public Map<String,Object> member_login(@RequestBody EvMemberLoginRequestDto evMemberLoginRequestDto, HttpSession session) {
+    public Map<String,Object> member_login(@RequestBody EvMemberLoginRequestDto evMemberLoginRequestDto, HttpSession session, HttpServletRequest request) {
         Map resposeResult = new HashMap();
 
         /*
@@ -241,6 +249,16 @@ public class EvMemberController {
 
                 /* sesstion 정보 입력 */
                 session.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
+
+                UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(evMemberLoginRequestDto.getCust_nm(), userPw);
+
+                // Authenticate the user
+                Authentication authentication = authenticationManager.authenticate(authRequest);
+                SecurityContext securityContext = SecurityContextHolder.getContext();
+                securityContext.setAuthentication(authentication);
+
+                // Create a new session and add the security context.
+                session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 
                 resposeResult.put("cust_clsf_cd", evMemberLoginInfoDtoList.get(0).getCust_clsf_cd());
                 resposeResult.put("result_code", "0");

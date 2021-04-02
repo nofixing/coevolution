@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,6 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @RequiredArgsConstructor
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
@@ -21,6 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationSuccessHandler successHandler() {
         return new MyCustomLoginSuccessHandler("/");
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return new DummyAuthenticationManager();
     }
 
     @Override
@@ -39,9 +48,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/vr/vr_corp_sh").permitAll()
                 .antMatchers("/google29c9c8f0fdf11de8.html").permitAll()
                 .antMatchers("/vr/vr_coslt_form","/vr/vr_corp_form","/vr/conslt/delete","/vr/conslt/reply","/mail/send").permitAll() /* 테스트 후 삭제하기 */
-                .antMatchers("/mypage/**").permitAll() /* 테스트 후 삭제하기 */
+                //.antMatchers("/mypage/**").permitAll() /* 테스트 후 삭제하기 */
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name())
                 .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/member/login_form")
+                .permitAll()
 
                 .and()
                 .logout().logoutSuccessUrl("/")
