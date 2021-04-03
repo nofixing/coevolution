@@ -421,6 +421,18 @@ function getCookie(cname) {
 }
 
 /**
+ * 쿠키를 삭제한다.
+ * @param {*} cname
+ */
+function deleteCookie(cname){
+  var expireDate = new Date();
+
+  expireDate.setDate(expireDate.getDate() - 1);
+
+  document.cookie = cname + "= " + "; expires=" + expireDate.toGMTString();
+}
+
+/**
  * 현재날짜를 리턴한다 (2020-01-01)
  * @param {*} pParam 
  */

@@ -10,8 +10,33 @@ $(document).ready(function() {
 	//초기 값 설정
 	lComm = new gfnComm();
 	var yyyyMMdd = lComm.getToday("-");
-	
 
+    // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+    var userInputId = getCookie("userInputId");
+
+    $("input[name='user_id']").val(userInputId);
+
+    if($("input[name='user_id']").val() != ""){ // 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+        $("#check_id").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+    }
+
+    $("#check_id").change(function(){ // 체크박스에 변화가 있다면,
+        if($("#check_id").is(":checked")){ // ID 저장하기 체크했을 때,
+            var userInputId = $("input[name='user_id']").val();
+            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+        }else{ // ID 저장하기 체크 해제 시,
+            deleteCookie("userInputId");
+        }
+    });
+
+    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+    $("input[name='user_id']").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+        if($("#check_id").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+            var userInputId = $("input[name='user_id']").val();
+            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+        }
+    });
+	
 	//이벤트
 	$('#btnLogin').on('click', function () {
 		//로그인체크
