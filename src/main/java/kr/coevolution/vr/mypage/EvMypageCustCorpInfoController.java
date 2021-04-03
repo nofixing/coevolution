@@ -43,14 +43,17 @@ public class EvMypageCustCorpInfoController {
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
-            evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
+            /* 관리자가 아닌경우 - 관리자의 경우 cust_id가 전달됨 */
+            if("N".equals(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getM_yn(), "N"))) {
+                evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
+            } 
 
             /* 내 부스정보 조회 */
             List<EvMypageCustCorpInfoResponseDto> list = evMypageCustCorpInfoService.mypage_cust_corp_info(evMypageCustCorpInfoRequestDto);
 
             /* 내 부스정보 첨부파일 조회 */
             EvFileAttachRequestDto evFileAttachRequestDto = new EvFileAttachRequestDto();
-            evFileAttachRequestDto.setBoard_id(loginInfoDto.getCust_seq());
+            evFileAttachRequestDto.setBoard_id(list.get(0).getCust_seq());
 
             List<EvFileAttachResponseDto> attachList = evFileAttachService.file_attach_list(evFileAttachRequestDto);
 
@@ -85,8 +88,15 @@ public class EvMypageCustCorpInfoController {
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
-            evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
-            evMypageCustCorpInfoRequestDto.setUser_id(loginInfoDto.getCust_id());
+            if("Y".equals(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getM_yn(), "N"))) {
+                //관리자인경우
+                evMypageCustCorpInfoRequestDto.setUser_id(loginInfoDto.getCust_id());
+            } else {
+                evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
+                evMypageCustCorpInfoRequestDto.setUser_id(loginInfoDto.getCust_id());
+            }
+
+
 
             /* 내 부스정보 저장 */
             evMypageCustCorpInfoService.mypage_cust_corp_save(evMypageCustCorpInfoRequestDto);

@@ -91,7 +91,27 @@
                                 <a href="/mypage/myp04">내 정보 수정</a>
                             </li>
                             </c:otherwise>
+                            
                         </c:choose>
+
+                        <c:choose>
+                            <c:when test="${empty sessionScope.login_session.cust_nm}">
+                                <li>
+                                    <a href="/member/login_form">
+                                        <spring:message code="top.login" text="로그인"/>
+                                    </a>
+                                </li>
+                            </c:when>
+
+                            <c:otherwise>
+                                <li>
+                                    <a href="/logout">
+                                        <spring:message code="top.logout" text="로그아웃"/>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
                     </ul>
                 </div>
             </div>
@@ -193,7 +213,7 @@
                                 <div class="col-12 col-sm-3">
 
                                     <!-- Image -->
-                                    <img src="#" class="mb-3" style="width: 110px;" onerror="this.style.display='none'">
+                                    <img src="" class="mb-3" style="width: 110px;" onerror="this.style.display='none'">
 
                                 </div>
 
@@ -436,7 +456,10 @@
                                     </c:if>
                                     <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
                                     <a href="/mypage/myc01" class="nav-link nav-item-font">
-                                    </c:if>                                    
+                                    </c:if>    
+                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202003'}">
+                                    <a href="/mgnt/badge" class="nav-link nav-item-font">
+                                    </c:if>                                                                      
                                         <strong><spring:message code="top.mypage" text="마이페이지"/></strong>
                                     </a>
                                 </li>

@@ -149,4 +149,42 @@
 
     </select>
 
+
+    <select id="S06_BADGE_SH1" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        /* 관리자페이지 부스 뱃지 내역 */
+        SELECT ROW_NUMBER() OVER() as rn
+            , a.badge_id
+            , a.cust_id
+            , (select cust_nm from ev_cust_mst where cust_id = a.cust_id) as cust_nm
+            , (select cust_nm from ev_cust_mst where cust_id = a.give_cust_id) as give_cust_nm
+            , (select cd_nm from ev_comm_code where cd_id = a.badge_clsf_cd) AS badge_clsf_nm
+            , case when a.badge_clsf_cd IN ('211001','211002','211004') then a.badge_cnt ELSE 0 END AS badge_recv_cnt
+            , case when a.badge_clsf_cd IN ('211003') then a.badge_cnt ELSE 0 END AS badge_use_cnt
+            , date_format(ins_dtm,'%Y-%m-%d') AS ins_dt
+        FROM ev_cust_badge a
+        WHERE a.give_cust_id = #{cust_id}
+        AND date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        ORDER BY a.ins_dtm DESC
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S07_BADGE_SH1" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        /* 관리자페이지 부스 뱃지 내역 건수 */
+        SELECT count(*) as row_count
+            , (SELECT SUM(x.badge_cnt)
+                FROM ev_cust_badge x
+                WHERE x.give_cust_id = #{cust_id}
+              ) as tot_badge
+        FROM ev_cust_badge a
+        WHERE a.give_cust_id = #{cust_id}
+        AND date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+
+    </select>
+
+
 </mapper>

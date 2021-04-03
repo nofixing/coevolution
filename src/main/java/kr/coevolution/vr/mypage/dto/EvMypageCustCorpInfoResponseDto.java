@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 public class EvMypageCustCorpInfoResponseDto {
     private Long info_id;
+    private Long cust_seq;
     private String cust_id;
     private String homepage_url;
     private String about_company_kor;

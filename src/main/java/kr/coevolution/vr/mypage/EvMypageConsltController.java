@@ -51,6 +51,11 @@ public class EvMypageConsltController {
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            }
+
             if("202001".equals(loginInfoDto.getCust_clsf_cd())) {
                 /* 참관고객 */
                 evBoardSearchDto.setReg_user_id(loginInfoDto.getCust_id());

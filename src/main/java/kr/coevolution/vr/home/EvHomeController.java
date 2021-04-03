@@ -457,10 +457,20 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/mypage/myp04")
-    public String myp04(Model model) {
+    public String myp04(HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mypage/myp04";
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+            returnUrl = "/member/login_form";
+            return returnUrl;
+        }
 
         model.addAttribute("page_clsf", "myp04");
-        return "/mypage/myp04";
+        return returnUrl;
     }
 
     /**

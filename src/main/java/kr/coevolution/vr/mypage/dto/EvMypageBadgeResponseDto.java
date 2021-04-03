@@ -11,6 +11,7 @@ public class EvMypageBadgeResponseDto {
     private String cust_nm;
     private Long badge_id;
     private String give_cust_id;
+    private String give_cust_nm;
     private String badge_clsf_nm;
     private String badge_conts;
     private int badge_recv_cnt; /* 받은개수*/

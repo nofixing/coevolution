@@ -19,4 +19,6 @@ public class EvMypageCustCorpInfoRequestDto {
     private Long attach_id; //첨부파일id
     private String file_clsf_cd;
     private String file_clsf_dtl_cd;
+    private String file_cust_id;
+    private String m_yn;
 }

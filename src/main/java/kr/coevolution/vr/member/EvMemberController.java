@@ -12,6 +12,7 @@ import kr.coevolution.vr.email.service.EvMailSndService;
 import kr.coevolution.vr.member.dto.*;
 import kr.coevolution.vr.member.service.EmailService;
 import kr.coevolution.vr.member.service.EvMemberService;
+import kr.coevolution.vr.mgnt.service.EvMgntService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -33,6 +34,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +59,9 @@ public class EvMemberController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    private EvMgntService evMgntService;
 
     @Value("${mail.sender}")
     private String sender;
@@ -226,10 +231,7 @@ public class EvMemberController {
     @PostMapping("/member/login")
     public Map<String,Object> member_login(@RequestBody EvMemberLoginRequestDto evMemberLoginRequestDto, HttpSession session, HttpServletRequest request) {
         Map resposeResult = new HashMap();
-
-        /*
-            (개발) 로그인 후 접속 시 제어 필요
-         */
+        String msg = "";
 
         logger.info("member_login post start");
 
@@ -269,11 +271,25 @@ public class EvMemberController {
             }
 
         } catch (Exception e) {
-
+            msg = e.toString();
             resposeResult.put("result_code", "-99");
             resposeResult.put("result_msg", "입력실패!!");
 
             e.printStackTrace();
+        }finally {
+            try {
+                InetAddress local = InetAddress.getLocalHost();
+                String ip = local.getHostAddress();
+
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("cust_id", evMemberLoginRequestDto.getUser_id());
+                map.put("ip", ip);
+                map.put("rmk", String.valueOf(resposeResult.get("result_code")) + " : " + String.valueOf(resposeResult.get("result_msg")) + "\r\n"+msg);
+
+                evMgntService.login_log(map);
+
+            } catch (Exception e2){}
+
         }
 
         return resposeResult;

@@ -339,5 +339,12 @@
         order by agree_dtm_1
     </select>
 
+    <insert id="I04_LOGIN_LOG" parameterType="map">
+
+        INSERT INTO ev_cust_login_log
+        (login_seq, cust_id, ip, rmk, login_dtm)
+        VALUES (NULL, #{cust_id}, #{ip}, #{rmk}, NOW())
+
+    </insert>
 
 </mapper>
