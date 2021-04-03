@@ -7,14 +7,14 @@ import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto;
 import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoResponseDto;
-import kr.coevolution.vr.mypage.dto.EvMypageFavortsRequestDto;
-import kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto;
 import kr.coevolution.vr.mypage.service.EvMypageCustCorpInfoService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,11 +51,17 @@ public class EvMypageCustCorpInfoController {
             /* 내 부스정보 조회 */
             List<EvMypageCustCorpInfoResponseDto> list = evMypageCustCorpInfoService.mypage_cust_corp_info(evMypageCustCorpInfoRequestDto);
 
-            /* 내 부스정보 첨부파일 조회 */
-            EvFileAttachRequestDto evFileAttachRequestDto = new EvFileAttachRequestDto();
-            evFileAttachRequestDto.setBoard_id(list.get(0).getCust_seq());
+            List<EvFileAttachResponseDto> attachList = null;
 
-            List<EvFileAttachResponseDto> attachList = evFileAttachService.file_attach_list(evFileAttachRequestDto);
+            if(list.size() > 0) {
+
+                /* 내 부스정보 첨부파일 조회 */
+                EvFileAttachRequestDto evFileAttachRequestDto = new EvFileAttachRequestDto();
+                evFileAttachRequestDto.setBoard_id(list.get(0).getCust_seq());
+
+                attachList = evFileAttachService.file_attach_list(evFileAttachRequestDto);
+
+            }
 
             resposeResult.put("list", list);
             resposeResult.put("attachList", attachList);
