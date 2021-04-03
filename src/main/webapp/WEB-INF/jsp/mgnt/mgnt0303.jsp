@@ -112,7 +112,7 @@
                           <tr>
                               <th>비밀번호</th>
                               <td>
-                                  <a href="/mypage/myp05" class="basic-btn">비밀번호 변경</a>
+                                  <a href="javascript:pwReset()" class="basic-btn">비밀번호 초기화</a>
                               </td>
                           </tr>
                           <tr>
@@ -144,9 +144,15 @@
                           <tr>
                               <th>국가</th>
                               <td>
-                                  <select name="country_cd" class="custom-select-sm" style="width:40%;height:32px" id="country_cd"></select>
+                                  <select name="country_cd" class="custom-select-sm col-lg-6" style="height:32px" id="country_cd"></select>
                               </td>
-                          </tr>                         
+                          </tr>     
+                          <tr>
+                              <th>카테고리</th>
+                              <td>
+                                  <select name="category1" class="custom-select-sm col-lg-6" style="height:32px" id="category1"></select>
+                              </td>
+                          </tr>                                               
                           <tr>
                               <th>개인정보 수집이용</th>
                               <td><div id="agree_1"></div></td>

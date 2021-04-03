@@ -81,8 +81,11 @@ function fnSearch() {
 			/* 국가코드 */  
 			setSelectOption("country_cd", message.countrylist);
 
+			/* 카테고리1 */  
+			setSelectOption("category1", message.category1, "", "선택");			
+
 			/* 필드값입력 */
-			var pFieldArry = ["cust_id","cust_nm","email_id","hp_no","dept_nm","rep_nm","country_cd","ins_dt","cust_sts_nm"];
+			var pFieldArry = ["cust_id","cust_nm","email_id","hp_no","dept_nm","rep_nm","country_cd","category1","ins_dt","cust_sts_nm"];
 			gfnSetField(message.custInfo[0], pFieldArry)
 
 			/* 개인정보수집이용동의 */
@@ -378,6 +381,31 @@ function fileModalHtml() {
     vHtml += '    </div>';
 
 	return vHtml;
+}
+
+/* 비밀번호를 초기화한다. */
+function pwReset() {
+
+	if(!confirm("비밀번호를 초기화하시겠습니까?")) return false;
+
+	/* form값 global 변수에 입력 */
+	gfnGetFormJSON();
+
+	/* 값입력 */
+ 	gfnPutObj("cust_id", "${cust_id}");
+	
+	/* global 변수 json으로 변환 */
+	var pParamJson = gfnGetJson();		
+
+	sendForm("POST", "/mgnt/m_corp_pwreset", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+		
+		if(message.result_code == 0) {
+			alert("비밀번호를 초기화하였습니다.");
+		} else {
+			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+		}
+
+	});	
 }
 
 </script>

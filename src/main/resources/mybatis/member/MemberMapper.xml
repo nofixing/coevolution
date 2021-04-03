@@ -143,6 +143,9 @@
             , facebook_email
             , reg_provider
             , date_format(ins_dtm,'%Y-%m-%d')  as ins_dt
+            , category1
+            , category2
+            , category3
         FROM ev_cust_mst a
         where cust_id = #{cust_id}
 
@@ -173,6 +176,7 @@
             , city_nm, visit_pups_cd, rcmder_cust_id, agree_1, agree_dtm_1
             , agree_2, agree_dtm_2, agree_3, agree_dtm_3, ins_user
             , ins_dtm, mod_user, mod_dtm, google_email, naver_email, kakao_email, facebook_email, reg_provider
+            , category1, category2, category3
         ) VALUES (
               NULL, #{cust_id}, #{cust_pw}, #{cust_sts_cd}, #{cust_clsf_cd}, #{cust_nm}
             , #{company_nm}, #{dept_nm}, #{rep_nm}, #{posn_nm}, #{gender_cd}
@@ -181,6 +185,7 @@
             , #{city_nm}, #{visit_pups_cd}, #{rcmder_cust_id}, #{agree_1}, NOW()
             , #{agree_2}, NOW(), #{agree_3}, NOW(), #{user_id}
             , NOW(), #{user_id}, NOW(), #{google_email}, #{naver_email}, #{kakao_email}, #{facebook_email}, #{reg_provider}
+            , #{category1}, #{category2}, #{category3}
         )
 
     </insert>
@@ -216,6 +221,9 @@
              , addr_2           = #{addr_2}
              , city_nm          = #{city_nm}
              , visit_pups_cd    = #{visit_pups_cd}
+             , category1        = #{category1}
+             , category2        = #{category2}
+             , category3        = #{category3}
              , mod_user         = #{user_id}
              , mod_dtm          = NOW()
          WHERE cust_id         = #{cust_id}
@@ -296,6 +304,9 @@
         , agree_3 = ''
         , agree_dtm_3 = null
         , member_wdrwl_rsn  = #{member_wdrwl_rsn}
+        , category1 = ''
+        , category2 = ''
+        , category3 = ''
         , mod_user = #{user_id}
         , mod_dtm  = NOW()
         WHERE cust_id  = #{cust_id}
@@ -313,6 +324,7 @@
             , agree_2		, agree_dtm_2		, agree_3			, agree_dtm_3		, member_wdrwl_rsn
             , ins_user		, ins_dtm			, mod_user			, mod_dtm			, google_email
             , naver_email	, kakao_email		, facebook_email	, reg_provider		, create_date
+            , category1     , category2         , category3
         )
         SELECT
             null			, cust_seq			, cust_id			, cust_pw			, cust_sts_cd
@@ -323,6 +335,7 @@
             , agree_2		, agree_dtm_2		, agree_3			, agree_dtm_3		, member_wdrwl_rsn
             , ins_user		, ins_dtm			, mod_user			, mod_dtm			, google_email
             , naver_email	, kakao_email		, facebook_email	, reg_provider		, NOW()
+            , category1     , category2         , category3
         FROM ev_cust_mst
         WHERE cust_id = #{cust_id}
           or cust_seq = #{cust_seq}
@@ -346,5 +359,40 @@
         VALUES (NULL, #{cust_id}, #{ip}, #{rmk}, NOW())
 
     </insert>
+
+    <select id="S08_COPR_LIST" parameterType="kr.coevolution.vr.member.dto.EvMemberSearchDto" resultType="kr.coevolution.vr.member.dto.EvMemberCorpResposeDto">
+        /* top 참여기업 조회 */
+        select a.*
+        from (
+            select ecm.cust_id
+                , ecm.cust_nm
+                , ecm.category1
+                , nvl((select cd_nm from ev_comm_code ecc2 where ecc2.cd_id = ecm.category1),'') as category1_nm
+                , ecm.category2
+                , ecm.category3
+                , (select cd_val1 from ev_comm_code ecc where ecc.cd_id = ecm.category1) as vr_shutcut_url
+                , (select case when count(*) = 0 then 'N' else  'Y' end as favorts_yn from ev_cust_favorts ecf where ecf.favorts_cust_id = ecm.cust_id and ecf.cust_id = #{cust_id} and del_yn = 'N') as favorts_yn
+                , (select case when nvl(sum(badge_cnt),0) = 0 then 'N' else  'Y' end as badge_yn from ev_cust_badge ecb  where ecb.give_cust_id = ecm.cust_id and ecb.cust_id = #{cust_id} and badge_clsf_cd in ('211003', '211004') /* 사용, 회수 */) as badge_yn
+                , (select nvl(sum(badge_cnt),0) as badge_sum from ev_cust_badge ecb  where ecb.give_cust_id = ecm.cust_id and badge_clsf_cd in ('211003', '211004') /* 사용, 회수 */) as badge_sum
+                , (select file_path from ev_file_attach efa where efa.board_id = ecm.cust_seq and file_clsf_cd = '101008' and file_clsf_dtl_cd = '102006' and del_yn = 'N') as ci_url
+            from ev_cust_mst ecm
+            left outer join ev_cust_corp_info ecci
+                on ecm.cust_id = ecci.cust_id
+            where  ecm.cust_sts_cd 		= '105001'
+            and ecm.cust_clsf_cd		= '202002'
+
+        <if test="category != null and category != ''">
+            and ecm.category1 			= #{category}
+        </if>
+
+        <if test="keyword != null and keyword != ''">
+            and ecm.cust_nm 			like concat('%',#{keyword}, '%')
+        </if>
+            LIMIT #{page_row_start}, #{page_row_cnt}
+        ) a
+        order by a.badge_sum desc, a.cust_nm asc
+
+    </select>
+
 
 </mapper>

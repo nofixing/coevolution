@@ -23,6 +23,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +59,9 @@ public class EvMgntController {
     @Autowired
     private EvMypageCustCorpInfoService evMypageCustCorpInfoService;
 
+    @Autowired
+    AuthenticationManager authenticationManager;
+
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @ResponseBody
@@ -79,6 +87,16 @@ public class EvMgntController {
 
                 /* sesstion 정보 입력 */
                 session.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
+
+                UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(evMemberLoginRequestDto.getCust_nm(), userPw);
+
+                // Authenticate the user
+                Authentication authentication = authenticationManager.authenticate(authRequest);
+                SecurityContext securityContext = SecurityContextHolder.getContext();
+                securityContext.setAuthentication(authentication);
+
+                // Create a new session and add the security context.
+                session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 
                 resposeResult.put("cust_clsf_cd", evMemberLoginInfoDtoList.get(0).getCust_clsf_cd());
                 resposeResult.put("result_code", "0");
@@ -420,8 +438,13 @@ public class EvMgntController {
             evCommCodeRequestDto.setUpper_cd_id("212000");
             List<EvCommCodeResponseDto> countrylist = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
+            /* 카테고리 */
+            evCommCodeRequestDto.setUpper_cd_id("106000");
+            List<EvCommCodeResponseDto> category1 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
             resposeResult.put("custInfo", custInfo);
             resposeResult.put("countrylist", countrylist);
+            resposeResult.put("category1", category1);
 
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
@@ -517,6 +540,51 @@ public class EvMgntController {
             int return_code = evMypageCustCorpInfoService.mypage_cust_corp_file(evMypageCustCorpInfoRequestDto, files);
 
             if(return_code != 0) {
+                new RuntimeException("-1");
+            } else {
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "업로드실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 비밀번호를 초기화한다.
+     * @param pMap
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/m_corp_pwreset")
+    public Map<String,Object> mgnt_corppwreset (@RequestBody Map<String, String> pMap, HttpServletRequest request) {
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginRequestDto evMemberLoginRequestDto = new EvMemberLoginRequestDto();
+
+            /* cust_id를 비밀번호로 변경한다 - 초기화 */
+            String userCurrentPw = pMap.get("cust_id");
+
+            userCurrentPw = SecureUtils.getSecurePassword(pMap.get("cust_id"));
+            evMemberLoginRequestDto.setUser_change_pw1(userCurrentPw);
+            evMemberLoginRequestDto.setUser_id(loginInfoDto.getCust_id());
+            evMemberLoginRequestDto.setCust_id(pMap.get("cust_id"));
+
+            int result_code = evMemberService.member_passwd(evMemberLoginRequestDto);
+
+            if(result_code != 0) {
                 new RuntimeException("-1");
             } else {
                 resposeResult.put("result_code", "0");

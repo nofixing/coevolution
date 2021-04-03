@@ -10,6 +10,12 @@ public class EvMemberSearchDto {
     private String cust_id;
     /* 패스워드 */
     private String cust_pw;
-
     private String user_id;
+    
+    /* 참여기업 검색 */
+    private String category;
+    private String keyword;
+    private Long page_row_start;    /* 조회 시작 row */
+    private Long page_row_cnt;      /* 조회 할 개수 */
+    private Long page_current;      /* 현재페이지 */
 }

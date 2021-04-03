@@ -501,4 +501,41 @@ public class EvMemberController {
         return resposeResult;
     }
 
+    /**
+     * 참여기업 검색 팝업
+     * @param evMemberSearchDto
+     * @return
+     */
+    @PostMapping("/member/search_corp_search")
+    public Map<String,Object> search_corp_search(@RequestBody EvMemberSearchDto evMemberSearchDto) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+            /* row 개수 */
+            evMemberSearchDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+            Long page_row_start = StringUtils.page_start_row(evMemberSearchDto.getPage_current());
+            evMemberSearchDto.setPage_row_start(page_row_start);
+
+            if("".equals(StringUtils.nvl(evMemberSearchDto.getPage_current(),""))) {
+                evMemberSearchDto.setPage_current(1L);
+            }
+
+            List<EvMemberCorpResposeDto> list = evMemberService.search_corp_search(evMemberSearchDto);
+
+            resposeResult.put("corpList", list);
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
 }

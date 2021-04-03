@@ -883,7 +883,11 @@ function gfnSetUnCheck(pId) {
  * @param {*} pId 
  * @param {*} pOptionList 
  */
-function setSelectOption(pId, pOptionList) {
+function setSelectOption(pId, pOptionList, pAddValue, pAddName) {
+
+  if(pAddValue != "" || pAddName != "") {
+	$("#"+pId).append("<option value='"+pAddValue+"'>"+pAddName+"</option>");
+  }
 
   for(var i = 0; i < pOptionList.length; i++) {
     $("#"+pId).append("<option value='"+pOptionList[i].cd_id+"'>"+pOptionList[i].cd_nm+"</option>");
