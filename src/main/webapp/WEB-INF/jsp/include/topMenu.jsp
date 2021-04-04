@@ -165,6 +165,9 @@
                           </svg>
                     </button>
                 </div>
+
+                <!-- 참여기업 검색 -->
+
                 <div class="modal-body">
                     <div class="modal-tit">
                         <h3>참여기업 검색</h3>
@@ -172,23 +175,22 @@
                     <div class="pb-3">
                         <div class="form-inline">
                             <div class="input-group col-sm-4 pl-0 pr-1">
-                                <select class="form-control">
-                                    <option>전체</option>
-                                    <option>e-mobility</option>
-                                    <option>charging infra</option>
-                                    <option>component</option>
-                                    <option>energy</option>
-                                    <option>group</option>
-                                    <option>additional</option>
+                                <select class="form-control" id="top_category">
+                                    <option value="">전체</option>
+                                    <c:forEach var="list" items="${category_list}">
+                                    <option value="${list.cd_id}">${list.cd_nm}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                             <div class="input-group col-sm-8 pl-0">
-                                <input type="text" name="search_en_nm" class="form-control" placeholder="기업명을 입력해 주세요">
-                                <span class="input-group-text bg-white" id="basic-addon2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-search" viewBox="0 0 16 16">
-                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                    </svg>
+                                <input type="text" name="top_keyword" id="top_keyword" class="form-control" placeholder="기업명을 입력해 주세요">
+                                <span class="input-group-text bg-white" id="searchCategori">
+                                    <a href="#!">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        </svg>
+                                    </a>
                                 </span>
                             </div>
                         </div>
@@ -209,79 +211,21 @@
 
                             <hr class="my-2">
                             <!-- 1 row -->
-                            <div class="row search-item align-items-center text-nounderline">
-                                <div class="col-12 col-sm-3">
-
-                                    <!-- Image -->
-                                    <img src="" class="mb-3" style="width: 110px;" onerror="this.style.display='none'">
-
-                                </div>
-
-                                <div class="col-12 col-sm-5 mb-0">
-
-                                    <!-- Heading -->
-                                    <h5 class="mb-0">
-                                        SAMSUNG SDI (삼성SDI)
-                                    </h5>
-
-                                    <!-- Meta -->
-                                    <p class="mb-0 text-xs text-muted">
-                                        <strong class="text-body">서비스 품목</strong>
-                                    </p>
-
-                                    <!-- Text -->
-                                    <p class="mb-0 text-sm text-muted">
-                                    <h4><span class="badge bg-info "><small class="text-white">기자재</small></span></h4>
-                                    </p>
-
-                                </div>
-
-                                <div class="col-12 col-sm-4 text-left pr-0">
-                                    <!-- 즐겨찾기/관심뱃지 -->
-                                    <div class="row col-12 justify-content-between">
-
-                                        <a href="#!" class="basic-btn">바로가기</a>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
-                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
-                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award text-warning" viewBox="0 0 16 16">
-                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
-                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-                                        </svg>
-
-                                    </div>
-                                </div>
-
-                            </div> <!-- / .row -->
-                            <hr class="my-1">      
+                            <div id = "div_categori"></div>
 
                         </div>
                     </div>
                     <!-- paging -->
                     <div class="table-responsive d-flex justify-content-center">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination pt-3">
-                                <li class="page-item">
-                                    <a class="page-link" href="#">&lt;</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">&gt;</a>
-                                </li>
-                            </ul>
+                            <ul class="pagination pt-3" id="top_corp_page"></ul>
                         </nav>
                     </div>
 
                 </div>
+
+                <!-- / .참여기업 검색 -->
+
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -468,7 +412,7 @@
 
 
                         <li class="nav-item ">
-                            <a href="javascript:modalMenu()" class="nav-link" data-toggle="modal"
+                            <a href="#!" class="nav-link" data-toggle="modal"
                                 data-target="#menuModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" data="">
                                     <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
@@ -477,9 +421,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="javascript:modalCorpSh()" class="nav-link nav-item-svg" data-toggle="modal"
-                                data-target="#myModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <a href="#!" class="nav-link nav-item-svg" data-toggle="modal" data-target="#myModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" id="top_corp_search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                   </svg>
                             </a>
@@ -510,4 +453,5 @@
 
         </div> <!-- / .container -->
     </nav>
+    <jsp:include page="topMenu_js.jsp"></jsp:include>
     <div id="mainBody"></div>

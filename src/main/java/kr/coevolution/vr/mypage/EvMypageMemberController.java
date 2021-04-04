@@ -97,6 +97,10 @@ public class EvMypageMemberController {
             evCommCodeRequestDto.setUpper_cd_id("210000");
             List<EvCommCodeResponseDto> list5 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
+            /* 카테고리 */
+            evCommCodeRequestDto.setUpper_cd_id("106000");
+            List<EvCommCodeResponseDto> category1 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
             resposeResult.put("custInfo", custInfo);
             resposeResult.put("custIntrst", custIntrst);
             resposeResult.put("countrylist", countrylist);
@@ -105,6 +109,7 @@ public class EvMypageMemberController {
             resposeResult.put("list3", list3);
             resposeResult.put("list4", list4);
             resposeResult.put("list5", list5);
+            resposeResult.put("category1", category1);
             
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");

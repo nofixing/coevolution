@@ -143,10 +143,16 @@
                                   <select name="country_cd" class="custom-select-sm col-lg-6" style="height:32px" id="country_cd"></select>
                               </td>
                           </tr> 
+                          <tr>
+                              <th>카테고리</th>
+                              <td>
+                                  <select name="category1" class="custom-select-sm col-lg-6" style="height:32px" id="category1"></select>
+                              </td>
+                          </tr>                           
                         </table>
 
                         <div class="register_page text-center">
-                          <button type="button" class="register_page_submit" id="btnUpdate">참가신청등록</button>
+                          <button type="button" class="basic-btn" id="btnUpdate">참가신청등록</button>
                         </div>
                           
                     </div>

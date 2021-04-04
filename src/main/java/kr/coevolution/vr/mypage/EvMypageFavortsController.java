@@ -219,13 +219,30 @@ public class EvMypageFavortsController {
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
-            evMypageFavortsRequestDto.setCust_id(loginInfoDto.getCust_id());
-            evMypageFavortsRequestDto.setUser_id(loginInfoDto.getCust_id());
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                resposeResult.put("result_code", "-999");
+                resposeResult.put("result_msg", "로그인 후 사용 할 수 있습니다.!!");
 
-            int return_code = evMypageFavoritsService.vr_favorits_save(evMypageFavortsRequestDto);
+            } else {
+                evMypageFavortsRequestDto.setCust_id(loginInfoDto.getCust_id());
+                evMypageFavortsRequestDto.setUser_id(loginInfoDto.getCust_id());
 
-            resposeResult.put("result_code", "0");
-            resposeResult.put("result_msg", "성공!!");
+                int return_code = evMypageFavoritsService.vr_favorits_save(evMypageFavortsRequestDto);
+
+                /* 즐겨찾기 리스트 조회 */
+                List<EvMypageFavortsResponseDto> list = evMypageFavoritsService.vr_favorits(evMypageFavortsRequestDto);
+
+                String favorit_yn = "";
+                if(list.size() > 0) {
+                    favorit_yn = "Y";
+                } else {
+                    favorit_yn = "N";
+                }
+
+                resposeResult.put("favorit_yn", favorit_yn);
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            }
 
         } catch (Exception e) {
 

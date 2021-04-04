@@ -501,4 +501,58 @@ public class EvMemberController {
         return resposeResult;
     }
 
+    /**
+     * 참여기업 검색 팝업
+     * @param evMemberSearchDto
+     * @return
+     */
+    @PostMapping("/member/search_corp_search")
+    public Map<String,Object> search_corp_search(@RequestBody EvMemberSearchDto evMemberSearchDto, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto != null && !"".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                evMemberSearchDto.setUser_id(loginInfoDto.getCust_id());
+                evMemberSearchDto.setCust_id(loginInfoDto.getCust_id());
+            } else {
+                evMemberSearchDto.setUser_id("");
+                evMemberSearchDto.setCust_id("");
+            }
+
+            /* row 개수 */
+            evMemberSearchDto.setPage_row_cnt((long) StringUtils.page_row_corp_cnt);
+            Long page_row_start = StringUtils.page_start_row(evMemberSearchDto.getPage_current(), StringUtils.page_row_corp_cnt);
+            evMemberSearchDto.setPage_row_start(page_row_start);
+
+            if("".equals(StringUtils.nvl(evMemberSearchDto.getPage_current(),""))) {
+                evMemberSearchDto.setPage_current(1L);
+            }
+
+            List<EvMemberCorpResposeDto> list = evMemberService.search_corp_search(evMemberSearchDto);
+            List<EvMemberCorpResposeDto> listCount = evMemberService.search_corp_search_count(evMemberSearchDto);
+
+            resposeResult.put("row_count", listCount.get(0).getRow_count());            /* 총 건수 */
+            resposeResult.put("page_row_cnt", evMemberSearchDto.getPage_row_cnt());     /* 페이지 row 개수 */
+            resposeResult.put("page_current", evMemberSearchDto.getPage_current());     /* 현재페이지 */
+
+            resposeResult.put("corpList", list);
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
 }

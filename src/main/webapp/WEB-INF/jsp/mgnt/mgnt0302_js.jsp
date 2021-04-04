@@ -47,6 +47,9 @@ function fnSearch() {
 			/* 국가코드 */  
 			setSelectOption("country_cd", message.countrylist);
 
+			/* 카테고리1 */  
+			setSelectOption("category1", message.category1, "", "선택");
+
 			/* 필드값입력 */
 			var pFieldArry = ["cust_id","cust_nm","email_id","hp_no","dept_nm","rep_nm","country_cd"];
 
@@ -54,6 +57,7 @@ function fnSearch() {
 				gfnSetField(message.custInfo[0], pFieldArry);
 			} else {
 				setValue("country_cd", "212032");
+				setValue("category1", "");
 			}
 
 		} else {

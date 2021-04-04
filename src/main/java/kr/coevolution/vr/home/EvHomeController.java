@@ -1,5 +1,8 @@
 package kr.coevolution.vr.home;
 
+import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
+import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
+import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
 import kr.coevolution.vr.email.dto.EvMailSndRequestDto;
@@ -41,6 +44,9 @@ public class EvHomeController {
     @Autowired
     private EvMailSndService mailSndService;
 
+    @Autowired
+    private EvCommCodeService evCommCodeService;
+
     @RequestMapping({"/", "/index"})
     public String index(Model model) {
 
@@ -63,6 +69,13 @@ public class EvHomeController {
         } else {
             logger.info("cust is null");
         }
+
+        /* 카테고리조회 */
+        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+        evCommCodeRequestDto.setUpper_cd_id("106000");
+        List<EvCommCodeResponseDto> category = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        model.addAttribute("category_list", category);
 
         return "index";
     }

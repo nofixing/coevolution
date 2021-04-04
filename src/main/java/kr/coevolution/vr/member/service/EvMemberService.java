@@ -332,4 +332,22 @@ public class EvMemberService {
 
         return return_code;
     }
+
+    /**
+     * 참여기업조회 - top메뉴
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberCorpResposeDto> search_corp_search(EvMemberSearchDto evMemberSearchDto) {
+        return evMemberMapper.S08_COPR_LIST(evMemberSearchDto);
+    }
+
+    /**
+     * 참여기업조회 총 건수 - top메뉴
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberCorpResposeDto> search_corp_search_count(EvMemberSearchDto evMemberSearchDto) {
+        return evMemberMapper.S08_COPR_LIST_COUNT(evMemberSearchDto);
+    }
 }

@@ -17,6 +17,8 @@ public class StringUtils {
      */
     public static int page_row_cnt = 10;
 
+    public static int page_row_corp_cnt = 4;
+
     /**
      * 비밀번호체크
      */
@@ -70,6 +72,19 @@ public class StringUtils {
         Long startRow = 0L;
         if(page_current == null) page_current = 1L;
         startRow = (page_current - 1 ) * page_row_cnt;
+        return startRow;
+    }
+
+    /**
+     * 페이징처리-시작, 페이지가 10개가 아닌 경우
+     * @param page_current
+     * @param pPage_row_cnt
+     * @return
+     */
+    public static Long page_start_row(Long page_current, int pPage_row_cnt) {
+        Long startRow = 0L;
+        if(page_current == null) page_current = 1L;
+        startRow = (page_current - 1 ) * pPage_row_cnt;
         return startRow;
     }
 

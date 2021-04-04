@@ -198,4 +198,18 @@ public interface EvMemberMapper {
      * @return
      */
     public List<Map<String,Object>> S06_INTRST(EvMemberSearchDto param);
+
+    /**
+     * 참여기업조회 - top메뉴
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberCorpResposeDto> S08_COPR_LIST(EvMemberSearchDto evMemberSearchDto);
+
+    /**
+     * 참여기업조회 총 건수 - top메뉴
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberCorpResposeDto> S08_COPR_LIST_COUNT(EvMemberSearchDto evMemberSearchDto);
 }
