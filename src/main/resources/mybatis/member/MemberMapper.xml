@@ -370,7 +370,7 @@
                 , nvl((select cd_nm from ev_comm_code ecc2 where ecc2.cd_id = ecm.category1),'') as category1_nm
                 , ecm.category2
                 , ecm.category3
-                , (select cd_val1 from ev_comm_code ecc where ecc.cd_id = ecm.category1) as vr_shutcut_url
+                , nvl((select cd_val1 from ev_comm_code ecc where ecc.cd_id = ecm.category1),'#!') as vr_shutcut_url
                 , (select case when count(*) = 0 then 'N' else  'Y' end as favorts_yn from ev_cust_favorts ecf where ecf.favorts_cust_id = ecm.cust_id and ecf.cust_id = #{cust_id} and del_yn = 'N') as favorts_yn
                 , (select case when nvl(sum(badge_cnt),0) = 0 then 'N' else  'Y' end as badge_yn from ev_cust_badge ecb  where ecb.give_cust_id = ecm.cust_id and ecb.cust_id = #{cust_id} and badge_clsf_cd in ('211003', '211004') /* 사용, 회수 */) as badge_yn
                 , (select nvl(sum(badge_cnt),0) as badge_sum from ev_cust_badge ecb  where ecb.give_cust_id = ecm.cust_id and badge_clsf_cd in ('211003', '211004') /* 사용, 회수 */) as badge_sum
@@ -391,6 +391,26 @@
             LIMIT #{page_row_start}, #{page_row_cnt}
         ) a
         order by a.badge_sum desc, a.cust_nm asc
+
+    </select>
+
+    <select id="S08_COPR_LIST_COUNT" parameterType="kr.coevolution.vr.member.dto.EvMemberSearchDto" resultType="kr.coevolution.vr.member.dto.EvMemberCorpResposeDto">
+        /* top 참여기업 조회 */
+
+        select count(*) as row_count
+        from ev_cust_mst ecm
+        left outer join ev_cust_corp_info ecci
+        on ecm.cust_id = ecci.cust_id
+        where  ecm.cust_sts_cd 		= '105001'
+        and ecm.cust_clsf_cd		= '202002'
+
+        <if test="category != null and category != ''">
+            and ecm.category1 			= #{category}
+        </if>
+
+        <if test="keyword != null and keyword != ''">
+            and ecm.cust_nm 			like concat('%',#{keyword}, '%')
+        </if>
 
     </select>
 

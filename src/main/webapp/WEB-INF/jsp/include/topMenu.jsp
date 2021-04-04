@@ -218,23 +218,7 @@
                     <!-- paging -->
                     <div class="table-responsive d-flex justify-content-center">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination pt-3">
-                                <li class="page-item">
-                                    <a class="page-link" href="#">&lt;</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">&gt;</a>
-                                </li>
-                            </ul>
+                            <ul class="pagination pt-3" id="top_corp_page"></ul>
                         </nav>
                     </div>
 
@@ -437,9 +421,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#!" class="nav-link nav-item-svg" data-toggle="modal"
-                                data-target="#myModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <a href="#!" class="nav-link nav-item-svg" data-toggle="modal" data-target="#myModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" id="top_corp_search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                   </svg>
                             </a>

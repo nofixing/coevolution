@@ -71,11 +71,12 @@
 
 /**
  * 페이징 처리를 진행한다.
- * @param {*} pPagingViewCnt  페이징 건수 (한번에 표시할 페이지)
  * @param {*} pTotalCnt  총건수
  * @param {*} pCurrentPage  현재페이지
- *
- function setPaging(pPagingViewCnt, pTotalCnt, pCurrentPage) {
+ * @param {*} pPagingViewCnt  화면에 보여질 row 건수
+ * @param {*} pFunction  페이지 클릭 시 호출할 function 
+ * var pageHtml = setPaging(message.row_count, message.page_current, message.page_row_cnt, "searchCategori");
+function setPaging(pTotalCnt, pCurrentPage, pPagingViewCnt, pFunction) {
 
  * 값을 조회한다.
  * @param {*} pId 
@@ -757,11 +758,17 @@ function setTable(pParentId, pTableId, pTableInfo, pTableData) {
  * 페이징 처리를 진행한다.
  * @param {*} pTotalCnt  총건수
  * @param {*} pCurrentPage  현재페이지
+ * @param {*} pPagingViewCnt  화면에 보여질 row 건수
+ * @param {*} pFunction  페이지 클릭 시 호출할 function 
  */
-function setPaging(pTotalCnt, pCurrentPage) {
+function setPaging(pTotalCnt, pCurrentPage, pPagingViewCnt, pFunction) {
 
   //페이징건수 (한번에 표시할 페이지)
-  var vPagingViewCnt = 10;
+  var vPagingViewCnt = pPagingViewCnt;
+
+  if(pPagingViewCnt == "") {
+	vPagingViewCnt = 10;
+  }
 
   //총건수
   if(pTotalCnt == 0) pTotalCnt = 1;
@@ -814,17 +821,17 @@ function setPaging(pTotalCnt, pCurrentPage) {
 
   for(var i = startPage; i <= lastPage; i++) {
     if(i == currentPage) {
-      pagingList += "<li class='page-item page-link'>"+i+"</li>"
+      pagingList += "<li class='page-item page-link text-danger'>"+i+"</li>"
     } else {
-      pagingList += "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+i+")'>"+i+"</li>"
+      pagingList += "<li class='page-item'><a class='page-link' href='javascript:"+pFunction+"("+i+")'>"+i+"</a></li>"
     }
   }
 
   //처음/이전/이후/마지막
   //pagingList = "[처음 1]" + "[이전 "+privPage+"]" + pagingList + "[다음 " + nextPage + "]" + "[마지막 "+pageCnt+"]";
-  pagingList = "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+privPage+")'>&lt;</a></li>"
+  pagingList = "<li class='page-item'><a class='page-link' href='javascript:"+pFunction+"("+privPage+")'>&lt;</a></li>"
              + pagingList 
-             + "<li class='page-item'><a class='page-link' href='javascript:doPageMove("+nextPage+")'>&gt;</a></li>";
+             + "<li class='page-item'><a class='page-link' href='javascript:"+pFunction+"("+nextPage+")'>&gt;</a></li>";
 
   return pagingList;
 }

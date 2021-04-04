@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -134,6 +131,7 @@ public class EvMypageBadgeController {
      * @param request
      * @return
      */
+    @ResponseBody
     @PostMapping("/vr/badge")
     public Map<String,Object> vr_badge (@RequestBody EvMemberBadgeRequestDto evMemberBadgeRequestDto, HttpServletRequest request) {
         Map resposeResult = new HashMap();
@@ -267,6 +265,7 @@ public class EvMypageBadgeController {
      * @param request
      * @return
      */
+    @ResponseBody
     @PostMapping("/vr/badge/insert")
     public Map<String,Object> vr_badge_insert (@RequestBody EvMemberBadgeRequestDto evMemberBadgeRequestDto, HttpServletRequest request) {
         Map resposeResult = new HashMap();
@@ -275,13 +274,33 @@ public class EvMypageBadgeController {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
-            evMemberBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
-            evMemberBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
 
-            int return_code = evMypageBadgeService.vr_badge_save(evMemberBadgeRequestDto);
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                resposeResult.put("result_code", "-999");
+                resposeResult.put("result_msg", "로그인 후 사용 할 수 있습니다.!!");
 
-            resposeResult.put("result_code", "0");
-            resposeResult.put("result_msg", "성공!!");
+            } else {
+                evMemberBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
+                evMemberBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+                /* 뱃지등록 */
+                int return_code = evMypageBadgeService.vr_badge_save(evMemberBadgeRequestDto);
+
+                /* 뱃지 리스트 조회 sum_badge_cnt : 0 이면 뱃지 없음 */
+                List<EvMypageBadgeResponseDto> list = evMypageBadgeService.vr_badge(evMemberBadgeRequestDto);
+
+                String badge_yn = "";
+                if(list.get(0).getSum_badge_cnt() > 0) {
+                    badge_yn = "Y";
+                } else {
+                    badge_yn = "N";
+                }
+
+                resposeResult.put("badge_yn", badge_yn);
+
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            }
 
         } catch (Exception e) {
 
