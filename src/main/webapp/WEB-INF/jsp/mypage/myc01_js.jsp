@@ -58,7 +58,7 @@ function doView(pFileClsfDtlCd) {
     if(lfileList != null) {
         for (var i = 0; i < lfileList.length; i++) {
             if (lfileList[i].file_clsf_dtl_cd == pFileClsfDtlCd) {
-                pUrl.push(lfileList[i].file_path);
+                pUrl.push("/files" + lfileList[i].file_path);
             }
         }
     }
