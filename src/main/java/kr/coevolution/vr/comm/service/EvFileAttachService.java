@@ -3,8 +3,6 @@ package kr.coevolution.vr.comm.service;
 import kr.coevolution.vr.comm.domain.EvFileAttachMapper;
 import kr.coevolution.vr.comm.dto.EvFileAttachRequestDto;
 import kr.coevolution.vr.comm.dto.EvFileAttachResponseDto;
-import kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto;
-import kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +28,7 @@ public class EvFileAttachService {
         SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
         String nowDt = sf.format(new Date());
         String realFileDir = fileDir + nowDt + "/";
-        String fileUrl = "/upload/" + nowDt + "/";
+        String fileUrl = "/" + nowDt + "/";
 
         /* 날짜별폴더생성 */
         File chkDir = new File(realFileDir);

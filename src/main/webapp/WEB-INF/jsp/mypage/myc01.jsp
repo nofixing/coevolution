@@ -6,7 +6,6 @@
 <html lang="en">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
-    <script type="text/javascript" src="/js/multiupload.js"></script>
   </head>
   <body>
 
@@ -50,7 +49,7 @@
       <div class="container">
         <div class="form_head">
           <p>마이페이지_기업</p>
-      </div>
+        </div>
         <div class="row">
           <div class="col-md-3">
             
@@ -160,7 +159,7 @@
 
               </form>
 
-         
+            </div>
 
           </div>
         </div> <!-- / .row -->

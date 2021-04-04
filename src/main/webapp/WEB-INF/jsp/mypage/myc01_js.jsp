@@ -55,11 +55,13 @@ $(document).ready(function() {
 function doView(pFileClsfDtlCd) {
 
 	var pUrl = Array();
-	for(var i = 0; i < lfileList.length; i++) {
-		if(lfileList[i].file_clsf_dtl_cd == pFileClsfDtlCd) { 
-			pUrl.push(lfileList[i].file_path);
-		}
-	}
+    if(lfileList != null) {
+        for (var i = 0; i < lfileList.length; i++) {
+            if (lfileList[i].file_clsf_dtl_cd == pFileClsfDtlCd) {
+                pUrl.push(lfileList[i].file_path);
+            }
+        }
+    }
 	var imgPopup = imagePopup(pUrl);
 
 	gfnAlert ("", "", imgPopup, function(){});
@@ -69,12 +71,13 @@ function doView(pFileClsfDtlCd) {
 /* 등록된 이미지 개수 체크 */
 function imgCnt(pFileClsfDtlCd) {
 	var cnt = 0;
-	for(var i = 0; i < lfileList.length; i++) {
-		if(lfileList[i].file_clsf_dtl_cd == pFileClsfDtlCd) { 
-			cnt++;
-		}
-	}	
-
+	if(lfileList != null) {
+        for(var i = 0; i < lfileList.length; i++) {
+            if(lfileList[i].file_clsf_dtl_cd == pFileClsfDtlCd) {
+                cnt++;
+            }
+        }
+    }
 	return cnt;
 }
 
@@ -148,21 +151,23 @@ function fnSearch() {
 
 			/* 이미지 셋팅 */
 			lfileList = message.attachList;
-			var imgCorpCi = "", corpProduct = "", corpGallery = ""; 
-			for(var i = 0; i < lfileList.length; i++) {
-				
-				if(lfileList[i].file_clsf_dtl_cd == "102006") { //기업CI
-					imgCorpCi += "<div class='pr-1 text-center'><a href=\"javascript:doView('102006')\"><img src='"+lfileList[i].file_path+"' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('"+lfileList[i].attach_id+"')\">[삭제]</a></div>";
-				} else if(lfileList[i].file_clsf_dtl_cd == "102009") { //제품소개
-					corpProduct += "<div class='pr-1 text-center'><a href=\"javascript:doView('102009')\"><img src='"+lfileList[i].file_path+"' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('"+lfileList[i].attach_id+"')\">[삭제]</a></div>";
-				} else if(lfileList[i].file_clsf_dtl_cd == "102010") { //갤러리
-					corpGallery += "<div class='pr-1 text-center'><a href=\"javascript:doView('102010')\"><img src='"+lfileList[i].file_path+"' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('"+lfileList[i].attach_id+"')\">[삭제]</a></div>";
-				}
-			}
+			var imgCorpCi = "", corpProduct = "", corpGallery = "";
+			if(lfileList != null) {
+                for (var i = 0; i < lfileList.length; i++) {
 
-			$("#imgCorpCi").html(imgCorpCi);
-			$("#corpProduct").html(corpProduct);
-			$("#corpGallery").html(corpGallery);
+                    if (lfileList[i].file_clsf_dtl_cd == "102006") { //기업CI
+                        imgCorpCi += "<div class='pr-1 text-center'><a href=\"javascript:doView('102006')\"><img src='" + "/files" + lfileList[i].file_path + "' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('" + lfileList[i].attach_id + "')\">[삭제]</a></div>";
+                    } else if (lfileList[i].file_clsf_dtl_cd == "102009") { //제품소개
+                        corpProduct += "<div class='pr-1 text-center'><a href=\"javascript:doView('102009')\"><img src='" + "/files" + lfileList[i].file_path + "' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('" + lfileList[i].attach_id + "')\">[삭제]</a></div>";
+                    } else if (lfileList[i].file_clsf_dtl_cd == "102010") { //갤러리
+                        corpGallery += "<div class='pr-1 text-center'><a href=\"javascript:doView('102010')\"><img src='" + "/files" + lfileList[i].file_path + "' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('" + lfileList[i].attach_id + "')\">[삭제]</a></div>";
+                    }
+                }
+            }
+
+            $("#imgCorpCi").html(imgCorpCi);
+            $("#corpProduct").html(corpProduct);
+            $("#corpGallery").html(corpGallery);
 
 		} else {
 			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
