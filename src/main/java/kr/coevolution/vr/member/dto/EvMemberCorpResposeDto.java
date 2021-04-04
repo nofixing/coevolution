@@ -12,7 +12,7 @@ public class EvMemberCorpResposeDto {
     private String category1_nm;
     private String category2;
     private String category3;
-    private String vr_shutcut_url;
+    private String vr_shortcut_url;
     private String favorts_yn;
     private String badge_yn;
     private String ci_url;

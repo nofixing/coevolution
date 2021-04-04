@@ -76,6 +76,9 @@
                   
                 <!--검색조건-->
                 <form class="pt-4 pb-3">
+                
+                  <input type="hidden" name="page_current" id="page_current"/>
+                  
                   <div class="form-row align-items-center">
                     <div class="col-sm-2">
                       <select class="form-control form-control-sm mb-2" id="board_stat_cd" name="board_stat_cd">

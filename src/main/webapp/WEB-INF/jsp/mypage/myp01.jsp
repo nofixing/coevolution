@@ -74,6 +74,9 @@
               </h3>
 
               <form class="form-styled">
+
+                <input type="hidden" name="page_current" id="page_current"/>
+
                 <!-- Subheading -->
                 <p class="text-muted">
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
@@ -85,10 +88,10 @@
                   <table class="table table-striped table-hover table-md border-bottom" id="tbFavorit">
                     <thead class="table-light">
                       <tr>
-                        <th scope="col" width="10%" class="text-center">번호</th>
-                        <th scope="col" width="40%" class="text-left">부스명</th>
-                        <th scope="col" width="25%" class="text-center">즐겨찾기내역</th>
-                        <th scope="col" width="25%" class="text-center">부스바로가기</th>
+                        <th scope="col" class="text-center">번호</th>
+                        <th scope="col" class="text-left">부스명</th>
+                        <th scope="col" class="text-center">즐겨찾기내역</th>
+                        <th scope="col" class="text-center">부스바로가기</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -97,12 +100,12 @@
                         <th scope="row" class="text-center">${list.rn}</th>
                         <td class="text-left table-des">${list.favorts_cust_nm}</td>
                         <td class="text-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star text-warning" viewBox="0 0 16 16">
                             <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
                             <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
                           </svg>
                         </td>
-                        <td class="text-center"><a href="#!" class="basic-btn">바로가기</a></td>
+                        <td class="text-center"><a href="${list.shortcut_url}" class="basic-btn">바로가기</a></td>
                       </tr>        
                       </c:forEach>   
                     <c:if test="${fn:length(list) == 0}">
@@ -118,23 +121,7 @@
                 <!-- paging -->
                 <div class="table-responsive d-flex justify-content-center">
                   <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3">
-                      <li class="page-item">
-                        <a class="page-link" href="#">&lt;</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">&gt;</a>
-                      </li>
-                    </ul>
+                    <ul class="pagination pt-3" id="myp01_page"></ul>
                   </nav>
                 </div>
               

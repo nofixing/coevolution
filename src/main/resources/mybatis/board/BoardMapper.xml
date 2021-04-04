@@ -113,13 +113,16 @@
              , a.board_id
              , a.board_subject
              , a.conslt_cust_id
-             , concat('????',(select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id)) as conslt_cust_nm
+             , concat(nvl((select concat(cd_nm, '>') from ev_comm_code ecc where cd_id = b.category1), ''),
+                (select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id)) as conslt_cust_nm
              , a.reg_user_id
              , (select cust_nm from ev_cust_mst where cust_id = a.reg_user_id) as reg_user_nm
              , a.reg_dt
              , a.board_stat_cd
              , (select cd_nm from ev_comm_code where cd_id = a.board_stat_cd) as board_stat_nm
           FROM ev_board A
+            inner join ev_cust_mst b
+            on a.conslt_cust_id = b.cust_id
          WHERE A.board_clsf_cd = '101002' /* 1:1 문의 */
            AND a.del_yn = 'N'
            AND a.board_res_id = 0

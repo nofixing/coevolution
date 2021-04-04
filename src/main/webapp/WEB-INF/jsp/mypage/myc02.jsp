@@ -73,6 +73,9 @@
               </h3>
 
               <form class="form-styled">
+                
+                <input type="hidden" name="page_current" id="page_current"/>
+
                 <!-- Subheading -->
                 <div class="form-row align-items-center pb-3">
                     <div class="col-auto">
@@ -85,7 +88,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="col-auto">
-                            <a href="#!" class="basic-btn">부스 바로가기</a>
+                            <a href="${shortcut_url}" class="basic-btn">부스 바로가기</a>
                           </div>    
                     </div>
                 </div>
@@ -106,10 +109,10 @@
                     <table class="table table-striped table-hover table-md border-bottom">
                         <thead class="table-light">
                           <tr>
-                            <th scope="col" width="10%" class="text-center">번호</th>
-                            <th scope="col" width="40%" class="text-left">부스명</th>
-                            <th scope="col" width="25%" class="text-center">회원명</th>
-                            <th scope="col" width="25%" class="text-center">즐겨찾기 설정일</th>
+                            <th scope="col" class="text-center">번호</th>
+                            <th scope="col" class="text-left">부스명</th>
+                            <th scope="col" class="text-center">회원명</th>
+                            <th scope="col" class="text-center">즐겨찾기 설정일</th>
                           </tr>
                         </thead>
                         <tbody>

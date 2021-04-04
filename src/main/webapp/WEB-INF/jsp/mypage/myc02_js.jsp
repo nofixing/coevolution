@@ -20,30 +20,35 @@ $(document).ready(function() {
 		setValue("favorts_ins_to", today);
 
 	$('#btnSearch').on('click', function () {
-		//검색
-
-		/* 필수항목 체크 */
-		var chk = '['
-			+ '  {"id":"favorts_ins_fr","name":"조회 시작일자"} '
-			+ ', {"id":"favorts_ins_to","name":"조회 종료일자"} ';
-		chk += ']';
-
-		var jsonCheck = JSON.parse(chk);
-
-		if(!lComm.fnRequiredItems(jsonCheck)) {
-			return false;
-		}
-
-		var frm = document.forms[0];
-		frm.method = "post";
-		frm.action = "/mypage/favortscorp";
-		frm.submit();
+		fnSearchMyc02("1");
 	});	
 
-	/* 페이징처리 (총페이지, 현재페이지)*/
-	var pagingList = setPaging("${row_count}", "${page_current}");
-	$('#pagingList').html(pagingList) ;	
+	/* 총건수, 현재이지, view row, 호출할 function */
+	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMyc02");	
+	$('#pagingList').html(pageHtml);
 
 });
+
+function fnSearchMyc02(pPageCurrent) {
+
+	setValue("page_current", pPageCurrent);
+
+	/* 필수항목 체크 */
+	var chk = '['
+		+ '  {"id":"favorts_ins_fr","name":"조회 시작일자"} '
+		+ ', {"id":"favorts_ins_to","name":"조회 종료일자"} ';
+	chk += ']';
+
+	var jsonCheck = JSON.parse(chk);
+
+	if(!lComm.fnRequiredItems(jsonCheck)) {
+		return false;
+	}
+
+	var frm = document.forms[0];
+	frm.method = "post";
+	frm.action = "/mypage/favortscorp";
+	frm.submit();
+}
 
 </script>

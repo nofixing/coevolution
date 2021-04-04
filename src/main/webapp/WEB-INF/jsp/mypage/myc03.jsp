@@ -89,6 +89,9 @@
 
                 <!--검색조건-->
                 <form class="pt-4 pb-3">
+
+                  <input type="hidden" name="page_current" id="page_current"/>
+
                   <div class="form-row align-items-center">
                     <div class="col-md-auto col-sm-12">
                       <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_fr" name="ins_dt_fr" value="${ins_dt_fr}">
@@ -123,7 +126,10 @@
                     <c:forEach var="list" items="${list}">
                     <tr>
                       <td class="text-center">${list.ins_dt}</td>
-                      <td class="text-center">${list.badge_conts}</td>
+                      <td class="text-left">
+                        <p class="text-danger">${list.badge_clsf_nm}</p>
+                        ${list.badge_conts}
+                      </td>
                       <td class="text-center">${list.cust_nm}</td>
                       <td class="text-center">${list.badge_recv_cnt}</td>
                       <td class="text-center">${list.badge_use_cnt}</td>

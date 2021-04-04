@@ -90,6 +90,9 @@
 
                 <!--검색조건-->
                 <form class="pt-4 pb-3">
+                  
+                  <input type="hidden" name="page_current" id="page_current"/>
+
                   <div class="form-row align-items-center">
                     <div class="col-md-auto col-sm-12">
                       <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_fr" name="ins_dt_fr" value="${ins_dt_fr}">
@@ -113,10 +116,10 @@
                 <table class="table table-striped table-hover table-sm border-bottom">
                   <thead class="table-light">
                     <tr>
-                      <th scope="col" width="20%" class="text-center">부여일(유효기간)</th>
-                      <th scope="col" width="40%" class="text-center">내용</th>
-                      <th scope="col" width="15%" class="text-center">뱃지 부여/회수</th>
-                      <th scope="col" width="15%" class="text-center">뱃지 사용</th>
+                      <th scope="col" class="text-center">부여일(유효기간)</th>
+                      <th scope="col" class="text-center">내용</th>
+                      <th scope="col" class="text-center">뱃지 부여/회수</th>
+                      <th scope="col" class="text-center">뱃지 사용</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -125,7 +128,7 @@
                       <td class="text-center">${list.ins_dt}</td>
                       <td class="text-left table-des">
                         <p class="text-danger">${list.badge_clsf_nm}</p>
-                        <p>수정필요-${list.badge_conts}</p>
+                        <p>${list.badge_conts}</p>
                       </td>
                       <td class="text-center">${list.badge_recv_cnt}</td>
                       <td class="text-center">${list.badge_use_cnt}</td>

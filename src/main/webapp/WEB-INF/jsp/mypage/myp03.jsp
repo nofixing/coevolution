@@ -76,6 +76,9 @@
                   
                 <!--검색조건-->
                 <form class="pt-4 pb-3">
+
+                  <input type="hidden" name="page_current" id="page_current"/>
+
                   <div class="form-row align-items-center">
                     <div class="col-sm-2">
                       <select class="form-control form-control-sm mb-2" id="board_stat_cd" name="board_stat_cd">
@@ -111,11 +114,11 @@
                   <table class="table table-striped table-hover table-sm border-bottom">
                     <thead class="table-light">
                       <tr>
-                        <th scope="col" width="10%" class="text-center">번호</th>
-                        <th scope="col" width="40%" class="text-center">제목</th>
-                        <th scope="col" width="20%" class="text-center">부스명</th>
-                        <th scope="col" width="15%" class="text-center">등록일</th>
-                        <th scope="col" width="15%" class="text-center">진행상태</th>
+                        <th scope="col" class="text-center">번호</th>
+                        <th scope="col" class="text-center">제목</th>
+                        <th scope="col" class="text-center">부스명</th>
+                        <th scope="col" class="text-center">등록일</th>
+                        <th scope="col" class="text-center">진행상태</th>
                       </tr>
                     </thead>
                     <tbody>

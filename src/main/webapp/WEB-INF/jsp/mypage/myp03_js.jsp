@@ -11,18 +11,25 @@ $(document).ready(function() {
 	lComm = new gfnComm();
 
 	$('#btnSearch').on('click', function () {
-		//검색
-		var frm = document.forms[0];
-		frm.method = "post";
-		frm.action = "/mypage/conslt_list";
-		frm.submit();
+		fnSearchMyp03("1");
 	});	
 
-	/* 페이징처리 (총페이지, 현재페이지)*/
-	var pagingList = setPaging("${row_count}", "${page_current}");
-	$('#pagingList').html(pagingList) ;
+	/* 총건수, 현재이지, view row, 호출할 function */
+	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMyp03");	
+	$('#pagingList').html(pageHtml);
 
 });
+
+function fnSearchMyp03(pPageCurrent) {
+
+	setValue("page_current", pPageCurrent);
+
+	//검색
+	var frm = document.forms[0];
+	frm.method = "post";
+	frm.action = "/mypage/conslt_list";
+	frm.submit();	
+}
 
 /* 상세이동 */
 function doDetail(pId) {

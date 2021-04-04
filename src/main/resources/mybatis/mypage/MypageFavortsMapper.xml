@@ -10,10 +10,12 @@
              , a.favorts_id
              , a.cust_id
              , a.favorts_cust_id
-             , CONCAT('관정보> ', (SELECT cust_nm FROM ev_cust_mst WHERE cust_id = a.favorts_cust_id)) AS favorts_cust_nm
-             , '#' as shortcut_url /* 바로가기 */
+             , CONCAT(nvl((select concat(cd_nm,' > ') from ev_comm_code where cd_id = b.category1),''), b.cust_nm) AS favorts_cust_nm
+             , nvl((select cd_val1 from ev_comm_code where cd_id = b.category1),"#!") as shortcut_url /* 바로가기 */
           FROM ev_cust_favorts a
-         WHERE a.del_yn = 'N'
+             , ev_cust_mst b
+         WHERE a.favorts_cust_id = b.cust_id
+           and a.del_yn = 'N'
            AND a.cust_id = #{cust_id}
          ORDER BY a.ins_dtm DESC
          LIMIT #{page_row_start}, #{page_row_cnt}
@@ -56,10 +58,13 @@
         , a.cust_id
         , (SELECT cust_nm FROM ev_cust_mst WHERE cust_id = a.cust_id) as cust_nm
         , a.favorts_cust_id
-        , CONCAT('관정보> ', (SELECT cust_nm FROM ev_cust_mst WHERE cust_id = a.favorts_cust_id)) AS favorts_cust_nm
+        , CONCAT(nvl((select concat(cd_nm,' > ') from ev_comm_code where cd_id = b.category1),''), b.cust_nm) AS favorts_cust_nm
         , DATE_FORMAT(a.ins_dtm, '%Y-%m-%d') as ins_dtm
+        , (select cd_val1 from ev_comm_code where cd_id = b.category1) as shortcut_url
         FROM ev_cust_favorts a
-        WHERE a.del_yn = 'N'
+           , ev_cust_mst b
+        WHERE a.favorts_cust_id = b.cust_id
+        and a.del_yn = 'N'
         AND a.favorts_cust_id = #{cust_id}
         and DATE_FORMAT(a.ins_dtm, '%Y-%m-%d') between #{favorts_ins_fr} and #{favorts_ins_to}
         ORDER BY a.ins_dtm DESC

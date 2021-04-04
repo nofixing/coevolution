@@ -23,16 +23,20 @@ $(document).ready(function() {
 		setValue("ins_dt_to", today);
 
 	$('#btnSearch').on('click', function () {
-		fnSearch();
+		fnSearchMyp02("1");
 	});	
 
-	/* 페이징처리 (총페이지, 현재페이지)*/
-	var pagingList = setPaging("${row_count}", "${page_current}");
-	$('#pagingList').html(pagingList) ;
+	/* 총건수, 현재이지, view row, 호출할 function */
+	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMyp02");	
+	$('#pagingList').html(pageHtml);
+
 });
 
 /* 조회 */
-function fnSearch() {
+function fnSearchMyp02(pPageCurrent) {
+
+	setValue("page_current", pPageCurrent);
+
 	/* 필수항목 체크 */
 	var chk = '['
 		+ '  {"id":"ins_dt_fr","name":"조회 시작일자"} '

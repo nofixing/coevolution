@@ -59,6 +59,13 @@ public class EvMypageBadgeController {
             Long page_row_start = StringUtils.page_start_row(evMypageBadgeRequestDto.getPage_current());
             evMypageBadgeRequestDto.setPage_row_start(page_row_start);
 
+            if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getPage_current(),""))) {
+                evMypageBadgeRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMypageBadgeRequestDto.getPage_current()));  /* 현재페이지 */
+
+
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date nDt = new Date();
 
@@ -87,24 +94,14 @@ public class EvMypageBadgeController {
                 tot_badge = listCnt.get(0).getTot_badge(); /* 관심뱃지 */
             }
 
-            Long page_row_cnt = StringUtils.page_tot(row_count);
-            Long page_next = StringUtils.page_next(evMypageBadgeRequestDto.getPage_current(), row_count, "N");
-            Long page_priv = StringUtils.page_priv(evMypageBadgeRequestDto.getPage_current());
-            Long page_end = StringUtils.page_next(evMypageBadgeRequestDto.getPage_current(), row_count, "Y");
-
-            if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getPage_current(),""))) {
-                evMypageBadgeRequestDto.setPage_current(1L);
-            }
-
             model.addAttribute("page_clsf", "myp02");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count);
             model.addAttribute("tot_badge", tot_badge); /* 관심뱃지 총 개수 */
-            model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
-            model.addAttribute("page_current", String.valueOf(evMypageBadgeRequestDto.getPage_current()));  /* 현재페이지 */
-            model.addAttribute("page_next", String.valueOf(page_next));  /* 다음페이지 */
-            model.addAttribute("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
-            model.addAttribute("page_end", String.valueOf(page_end));   /* 마지막페이지 */
+
+            model.addAttribute("row_count", row_count); /* 총 개수 */
+            model.addAttribute("page_row_cnt", evMypageBadgeRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evMypageBadgeRequestDto.getPage_current());    /* 현재페이지 */
 
             /* 검색조건 */
             model.addAttribute("ins_dt_fr", evMypageBadgeRequestDto.getIns_dt_fr());
@@ -226,19 +223,12 @@ public class EvMypageBadgeController {
                 tot_badge = listCnt.get(0).getTot_badge(); /* 관심뱃지 */
             }
 
-            Long page_row_cnt = StringUtils.page_tot(row_count);
-            Long page_next = StringUtils.page_next(evMypageBadgeRequestDto.getPage_current(), row_count, "N");
-            Long page_priv = StringUtils.page_priv(evMypageBadgeRequestDto.getPage_current());
-            Long page_end = StringUtils.page_next(evMypageBadgeRequestDto.getPage_current(), row_count, "Y");
-
             model.addAttribute("page_clsf", "myc03");
             model.addAttribute("list", list);
-            model.addAttribute("row_count", row_count);
             model.addAttribute("tot_badge", tot_badge); /* 관심뱃지 총 개수 */
-            model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
-            model.addAttribute("page_next", String.valueOf(page_next));  /* 다음페이지 */
-            model.addAttribute("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
-            model.addAttribute("page_end", String.valueOf(page_end));   /* 마지막페이지 */
+            model.addAttribute("row_count", row_count); /* 총 개수 */
+            model.addAttribute("page_row_cnt", evMypageBadgeRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evMypageBadgeRequestDto.getPage_current());    /* 현재페이지 */
 
             /* 검색조건 */
             model.addAttribute("ins_dt_fr", evMypageBadgeRequestDto.getIns_dt_fr());

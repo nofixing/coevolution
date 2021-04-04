@@ -23,9 +23,6 @@ $(document).ready(function() {
 	$('#top_corp_search').on('click', function () {
 		searchCategori(1);
 	});	
-
-	searchCategori(1);
-
 });
 
 /* 참가기업검색 */
@@ -125,7 +122,7 @@ function setCategoriHtml(corpList) {
 		vCategoriHtml += '<div class="row search-item align-items-center text-nounderline"> ';
 		vCategoriHtml += '    <div class="col-12 col-sm-3"> ';
 		vCategoriHtml += '        <!-- Image --> ';
-		vCategoriHtml += '        <img src="'+lComm.nvl(corpList[i].ci_url,"#!")+'" class="mb-3" style="width: 110px;" onerror="this.style.display=\'none\'"> ';
+		vCategoriHtml += '        <img src="/files'+lComm.nvl(corpList[i].ci_url,"#!")+'" class="mb-3" style="width: 110px;" onerror="this.style.display=\'none\'"> ';
 		vCategoriHtml += '    </div> ';
 		vCategoriHtml += '    <div class="col-12 col-sm-5 mb-0"> ';
 		vCategoriHtml += '        <!-- Heading --> ';
@@ -148,7 +145,7 @@ function setCategoriHtml(corpList) {
 		vCategoriHtml += '    <div class="col-12 col-sm-4 text-left pr-0"> ';
 		vCategoriHtml += '        <!-- 즐겨찾기/관심뱃지 --> ';
 		vCategoriHtml += '        <div class="row col-12 justify-content-between"> ';
-		vCategoriHtml += '            <a href="'+ corpList[i].vr_shutcut_url+'" class="basic-btn">바로가기</a> '; 
+		vCategoriHtml += '            <a href="'+ corpList[i].vr_shortcut_url+'" class="basic-btn">바로가기</a> '; 
 
 		vCategoriHtml += '				<a href="javascript:top_favorit(\''+corpList[i].cust_id+'\')"> ';
 		if(corpList[i].favorts_yn == "Y") {
