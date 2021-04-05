@@ -60,6 +60,13 @@ public interface EvMemberMapper {
     public List<EvMemberResposeDto> S03_CUST(EvMemberSearchDto param);
 
     /**
+     * 회원정보조회
+     * @param param
+     * @return
+     */
+    public List<EvMemberResposeDto> S03_CUST_SEQ(EvMemberSearchDto param);
+
+    /**
      * 회원정보를 입력한다.
      * @param param
      * @return

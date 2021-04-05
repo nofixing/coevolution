@@ -174,6 +174,16 @@
                               <td><div id="cust_sts_nm"></div></td>
                           </tr>
 
+                          <tr>
+                              <th>VR기업정보URL</th>
+                              <td><div id="vr_corpinfo_url"></div></td>
+                          </tr>  
+
+                          <tr>
+                              <th>VR상담정보URL</th>
+                              <td><div id="vr_corpcoslt_url"></div></td>
+                          </tr>                                                   
+
                         </table>
                         <div class="register_page text-center">
                           <button type="button" class="basic-btn" id="btnUpdate">정보수정</button>

@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EvMemberLoginRequestDto {
+    private Long cust_seq;
     private String user_id;
     private String cust_id;
     private String user_pw;

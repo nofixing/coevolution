@@ -86,7 +86,10 @@ function fnSearch() {
 
 			/* 필드값입력 */
 			var pFieldArry = ["cust_id","cust_nm","email_id","hp_no","dept_nm","rep_nm","country_cd","category1","ins_dt","cust_sts_nm"];
-			gfnSetField(message.custInfo[0], pFieldArry)
+			gfnSetField(message.custInfo[0], pFieldArry);
+
+			setValue("vr_corpinfo_url", message.vr_corpinfo_url);
+			setValue("vr_corpcoslt_url", message.vr_corpcoslt_url);
 
 			/* 개인정보수집이용동의 */
 			if(message.custInfo[0].agree_1 == "Y") {

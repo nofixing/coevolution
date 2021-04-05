@@ -8,6 +8,8 @@ import lombok.Setter;
 public class EvMemberSearchDto {
     /* 고객id/로그인id */
     private String cust_id;
+    private Long cust_seq;
+
     /* 패스워드 */
     private String cust_pw;
     private String user_id;

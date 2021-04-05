@@ -2,7 +2,11 @@ package kr.coevolution.vr.home;
 
 import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
+import kr.coevolution.vr.comm.dto.EvFileAttachRequestDto;
+import kr.coevolution.vr.comm.dto.EvFileAttachResponseDto;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
+import kr.coevolution.vr.comm.service.EvFileAttachService;
+import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
 import kr.coevolution.vr.email.dto.EvMailSndRequestDto;
@@ -10,6 +14,12 @@ import kr.coevolution.vr.email.dto.EvMailSndResposeDto;
 import kr.coevolution.vr.email.service.EvMailSndService;
 import kr.coevolution.vr.home.dto.EvMemberJoinForm3;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
+import kr.coevolution.vr.member.dto.EvMemberResposeDto;
+import kr.coevolution.vr.member.dto.EvMemberSearchDto;
+import kr.coevolution.vr.member.service.EvMemberService;
+import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto;
+import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoResponseDto;
+import kr.coevolution.vr.mypage.service.EvMypageCustCorpInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +36,7 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,6 +57,15 @@ public class EvHomeController {
 
     @Autowired
     private EvCommCodeService evCommCodeService;
+
+    @Autowired
+    private EvMemberService evMemberService;
+
+    @Autowired
+    private EvMypageCustCorpInfoService evMypageCustCorpInfoService;
+
+    @Autowired
+    private EvFileAttachService evFileAttachService;
 
     @RequestMapping({"/", "/index"})
     public String index(Model model) {
@@ -337,9 +357,73 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/vr/vr_corp_form")
-    public String vr_corp_form(Model model) {
+    public String vr_corp_form(HttpServletRequest request, Model model) {
 
-        return "/vr/vr_corp_form";
+        String returnUrl = "/vr/vr_corp_form";
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+            returnUrl = "/vr/vr_login_form";
+            return returnUrl;
+        }
+
+        try {
+            /* 기업정보 조회 */
+            String cust_seq_str = request.getParameter("c");
+            Long cust_seq = SecureUtils.base62Decoding(cust_seq_str) / SecureUtils.vr_cust_seq_const;
+
+            EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
+            evMemberSearchDto.setCust_seq(cust_seq);
+            List<EvMemberResposeDto> list = evMemberService.search_cust_info_seq(evMemberSearchDto);
+
+            model.addAttribute("custInfo", list.get(0));
+
+            /* 부스정보 */
+            EvMypageCustCorpInfoRequestDto evMypageCustCorpInfoRequestDto = new EvMypageCustCorpInfoRequestDto();
+            evMypageCustCorpInfoRequestDto.setCust_id(list.get(0).getCust_id());
+            List<EvMypageCustCorpInfoResponseDto> boothList = evMypageCustCorpInfoService.mypage_cust_corp_info(evMypageCustCorpInfoRequestDto);
+
+            List<EvFileAttachResponseDto> attachList = null;
+            List<EvFileAttachResponseDto> prodList = new ArrayList<EvFileAttachResponseDto>();
+            List<EvFileAttachResponseDto> galleryList = new ArrayList<EvFileAttachResponseDto>();
+
+            String ciImage = "";
+            if (boothList.size() > 0) {
+
+                /* 내 부스정보 첨부파일 조회 */
+                EvFileAttachRequestDto evFileAttachRequestDto = new EvFileAttachRequestDto();
+                evFileAttachRequestDto.setBoard_id(boothList.get(0).getCust_seq());
+
+                attachList = evFileAttachService.file_attach_list(evFileAttachRequestDto);
+
+                for(int i = 0; i < attachList.size(); i++) {
+
+                    if(attachList.get(i).getFile_clsf_dtl_cd().equals("102006")) {
+                        //ci
+                        ciImage = "/files"+attachList.get(i).getFile_path();
+                    } else if(attachList.get(i).getFile_clsf_dtl_cd().equals("102009")) {
+                        //제품소개
+                        prodList.add(attachList.get(i));
+                    } else if(attachList.get(i).getFile_clsf_dtl_cd().equals("102010")) {
+                        //갤러리
+                        galleryList.add(attachList.get(i));
+                    }
+                }
+            }
+
+            model.addAttribute("boothInfo", boothList.get(0));
+            model.addAttribute("ci_image", ciImage);
+            model.addAttribute("prodList", prodList);
+            model.addAttribute("galleryList", galleryList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnUrl;
     }
 
     /**

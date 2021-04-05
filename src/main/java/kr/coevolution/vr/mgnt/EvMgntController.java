@@ -446,6 +446,12 @@ public class EvMgntController {
             resposeResult.put("countrylist", countrylist);
             resposeResult.put("category1", category1);
 
+            /* vr-기업정보 url */
+            Long base62Encode = custInfo.get(0).getCust_seq() * SecureUtils.vr_cust_seq_const;
+            String vr_corpinfo_url = SecureUtils.base62Encoding(base62Encode);
+            resposeResult.put("vr_corpinfo_url", "/vr/vr_corp_form?c="+vr_corpinfo_url);
+            resposeResult.put("vr_corpcoslt_url", "/vr/vr_coslt_form?c="+vr_corpinfo_url);
+
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
 

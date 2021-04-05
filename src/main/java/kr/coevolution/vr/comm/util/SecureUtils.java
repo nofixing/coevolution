@@ -13,6 +13,11 @@ public class SecureUtils {
     static Cipher cipher;
     private static Key keySpec;
     private static String key = "1a3b5c7d9e!@#$%^";
+    public static Long vr_cust_seq_const = 10000L;
+
+    /* base62 */
+    private static int RADIX = 62;
+    private static String CODEC = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static String getSecurePassword(String password) {
 
@@ -104,6 +109,35 @@ public class SecureUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * BASE62 인코딩
+     * @param param
+     * @return
+     */
+    public static String base62Encoding(long param) {
+        StringBuffer sb = new StringBuffer();
+        while(param > 0) {
+            sb.append(CODEC.charAt((int) (param % RADIX)));
+            param /= RADIX;
+        }
+        return sb.toString();
+    }
+
+    /**
+     * BASE62 디코딩
+     * @param param
+     * @return
+     */
+    public static long base62Decoding(String param) {
+        long sum = 0;
+        long power = 1;
+        for (int i = 0; i < param.length(); i++) {
+            sum += CODEC.indexOf(param.charAt(i)) * power;
+            power *= RADIX;
+        }
+        return sum;
     }
 
 }

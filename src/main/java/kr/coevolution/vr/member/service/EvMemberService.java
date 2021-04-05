@@ -93,6 +93,15 @@ public class EvMemberService {
     }
 
     /**
+     * 회원정보조회
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberResposeDto> search_cust_info_seq(EvMemberSearchDto evMemberSearchDto) {
+        return evMemberMapper.S03_CUST_SEQ(evMemberSearchDto);
+    }
+
+    /**
      * 회원정보-관심분야
      * @param evMemberSearchDto
      * @return
