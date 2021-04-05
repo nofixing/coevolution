@@ -103,6 +103,18 @@ public class EvHomeController {
 
         return "/pirvatePolicy";
     }
+    
+    /**
+     * 오시는 길
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping("/index/map")
+    public String pirvatePolicy(Model model, HttpServletRequest request) {
+
+        return "/map";
+    }
 
     /**
      * 로그인
