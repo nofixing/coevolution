@@ -14,7 +14,7 @@
                             <a href="/index/terms">이용약관</a>
                         </li>
                         <li>
-                            <a href="#!">오시는 길</a>
+                            <a href="/index/map">오시는 길</a>
                         </li>
                     </ul>
                 </div>
