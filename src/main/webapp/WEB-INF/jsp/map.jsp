@@ -23,14 +23,14 @@
                     <h4 class="secret-info-tit text-center"><strong>오시는 길</strong></h4>
                     <div class="register_section_area">
 						<!-- 지도를 표시할 div 입니다 -->
-						<div id="map" style="width:100%;height:450px;"></div>
+						<div id="map" style="width:100%;height:550px;"></div>
 
 						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=32212c1a9bac70b301c0825970db2292"></script>
 						<script>
 							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 								mapOption = { 
 									center: new kakao.maps.LatLng(33.453979, 126.572602), // 지도의 중심좌표
-									level: 3 // 지도의 확대 레벨
+									level: 4 // 지도의 확대 레벨
 								};
 
 							// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
