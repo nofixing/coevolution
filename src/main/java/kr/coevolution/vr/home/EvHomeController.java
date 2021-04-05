@@ -111,7 +111,7 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/index/map")
-    public String pirvatePolicy(Model model, HttpServletRequest request) {
+    public String map(Model model, HttpServletRequest request) {
 
         return "/map";
     }
