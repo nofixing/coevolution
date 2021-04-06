@@ -84,7 +84,7 @@
                   <div class="col-sm-3 small text-right">상태 | <span id="board_stat_nm" style="color:#0089d0"></span></div>
                 </div>
 
-                <div class="form-row col-sm-12 border-bottom p-2" id="board_content"></div>              
+                <pre><div class="form-row col-sm-12 border-bottom p-2" id="board_content"></div></pre>       
 
                 <div class="form-row col-sm-12 pt-3 justify-content-between">
                   <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList">목록</button>

@@ -133,8 +133,8 @@
         </if>
 
         <if test="conslt_cust_id != null and conslt_cust_id != ''">
-            /* 참가로그인 */
-            AND a.conslt_cust_id = #{conslt_cust_id}
+            /* 참가로그인 - 질문 또는 답변 가능 */
+            AND (a.conslt_cust_id = #{conslt_cust_id} or a.reg_user_id = #{conslt_cust_id})
         </if>
 
         <if test='keyword_clsf_cd == "subject"'>

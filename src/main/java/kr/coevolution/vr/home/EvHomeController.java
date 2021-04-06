@@ -512,7 +512,33 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/vr/vr_coslt_form")
-    public String vr_coslt_form(Model model) {
+    public String vr_coslt_form(HttpServletRequest request, Model model) {
+
+        String returnUrl = "/vr/vr_coslt_form";
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+            returnUrl = "/vr/vr_login_form";
+            return returnUrl;
+        }
+
+        try {
+            /* 기업명조회 */
+            String cust_seq_str = request.getParameter("c");
+            Long cust_seq = SecureUtils.base62Decoding(cust_seq_str) / SecureUtils.vr_cust_seq_const;
+
+            EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
+            evMemberSearchDto.setCust_seq(cust_seq);
+            List<EvMemberResposeDto> list = evMemberService.search_cust_info_seq(evMemberSearchDto);
+
+            model.addAttribute("custInfo", list.get(0));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return "/vr/vr_coslt_form";
     }

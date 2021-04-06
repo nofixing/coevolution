@@ -197,7 +197,7 @@ function fnUpdate() {
 
 	sendForm("POST", "/mgnt/m_corp_custupdate", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-		console.log("message : " + message.result_code);
+		console.log("message : " + message);
 
 		if(message.result_code == 0) {
 			alert("회원정보가 수정되었습니다.");

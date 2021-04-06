@@ -114,12 +114,12 @@
                   <table class="table table-striped table-hover table-sm border-bottom">
                     <thead class="table-light">
                       <tr>
-                        <th scope="col" width="10%" class="text-center">번호</th>
-                        <th scope="col" width="30%" class="text-left">제목</th>
-                        <th scope="col" width="15%" class="text-center">부스명</th>
-                        <th scope="col" width="15%" class="text-center">회원</th>
-                        <th scope="col" width="15%" class="text-center">등록일</th>
-                        <th scope="col" width="15%" class="text-center">진행상태</th>
+                        <th scope="col" class="text-center">번호</th>
+                        <th scope="col" class="text-left">제목</th>
+                        <th scope="col" class="text-center">부스명</th>
+                        <th scope="col" class="text-center">회원</th>
+                        <th scope="col" class="text-center">등록일</th>
+                        <th scope="col" class="text-center">진행상태</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -127,7 +127,7 @@
                       <tr>
                         <th scope="row" class="text-center">${list.rn}</th>
                         <td class="text-left">
-                          <div style="overflow: hidden;text-overflow: ellipsis; white-space: nowrap; width:250px;">
+                          <div style="overflow: hidden;text-overflow: ellipsis; white-space: nowrap; width:150px;">
                             <a href="javascript:doDetail('${list.board_id}')">${list.board_subject}</a>
                           </div>
                         </td>
