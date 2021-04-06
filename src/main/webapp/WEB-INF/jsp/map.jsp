@@ -41,25 +41,27 @@
 							}).render();
 						</script>
                     	
-						<div class="join-form-tb">
-						  	<div class="tb-tr">
-							  	<div class="tb-th"><h5>제주공항에서 오시는 방법</h5></div>
-						  	</div>
-						  	<div class="tb-tr tr-half">
-							  	<div class="half-box">
-								  	<div class="tb-th">자가용</div>
-								  	<div class="tb-td">
-									  	공항입구 > 공항로 우측도로(32.7KM 이동) > 창천 삼거리 > 예래 입구 > 중문관광단지 > ICC 제주국제컨벤션센터
-								  	</div>
-							  	</div>
-							  	<div class="half-box">
-								  	<div class="tb-th">대중교통</div>
-								  	<div class="tb-td">
-									  	[공항버스 600번], [2400번, 1002(심야), 500번, 200번 → 시외버스 782번 환승]
-								  	</div>
-							  	</div>
-						  	</div>
-					  	</div>
+						<div class="form-box">
+							<div class="join-form-tb">
+								<div class="tb-tr">
+									<div class="tb-th"><h5>제주공항에서 오시는 방법</h5></div>
+								</div>
+								<div class="tb-tr tr-half">
+									<div class="half-box">
+										<div class="tb-th">자가용</div>
+										<div class="tb-td">
+											공항입구 > 공항로 우측도로(32.7KM 이동) > 창천 삼거리 > 예래 입구 > 중문관광단지 > ICC 제주국제컨벤션센터
+										</div>
+									</div>
+									<div class="half-box">
+										<div class="tb-th">대중교통</div>
+										<div class="tb-td">
+											[공항버스 600번], [2400번, 1002(심야), 500번, 200번 → 시외버스 782번 환승]
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					
 					</div>
                 </div>
