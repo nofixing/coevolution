@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script>
 
@@ -10,112 +13,86 @@ $(document).ready(function() {
 	//초기 값 설정
 	lComm = new gfnComm();
 	var yyyyMMdd = lComm.getToday("-");
-
-    // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
-    var userInputId = getCookie("userInputId");
-
-    $("input[name='user_id']").val(userInputId);
-
-    if($("input[name='user_id']").val() != ""){ // 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
-        $("#check_id").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
-    }
-
-    $("#check_id").change(function(){ // 체크박스에 변화가 있다면,
-        if($("#check_id").is(":checked")){ // ID 저장하기 체크했을 때,
-            var userInputId = $("input[name='user_id']").val();
-            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
-        }else{ // ID 저장하기 체크 해제 시,
-            deleteCookie("userInputId");
-        }
-    });
-
-    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-    $("input[name='user_id']").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
-        if($("#check_id").is(":checked")){ // ID 저장하기를 체크한 상태라면,
-            var userInputId = $("input[name='user_id']").val();
-            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
-        }
-    });
 	
-	//이벤트
-	$('#btnLogin').on('click', function () {
-		//로그인체크
+	//즐겨찾기
+	$('#corpFavorit').on('click', function () {
 
-		/* 필수항목 체크 */
-		var chk = '['
-			+ '  {"id":"user_id","name":"아이디"} '
-			+ ', {"id":"user_pw","name":"비밀번호"} ';
-		chk += ']';
+        /* JSON 생성을 위해 입력*/
+        gfnPutObj("favorts_cust_id", "${custInfo.cust_id}");
 
-		var jsonCheck = JSON.parse(chk);
+        /* global 변수 json으로 변환 */
+        var pParamJson = gfnGetJson();
 
-		if(!lComm.fnRequiredItems(jsonCheck)) {
-			return false;
-		}
+        sendForm("POST", "/vr/favorts/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-		/* form값 global 변수에 입력 */
-		gfnGetFormJSON();
-	
-		/* global 변수 json으로 변환 */
-		var pParamJson = gfnGetJson();
+            if(message.result_code == 0) {
+                
+                if(message.favorit_yn == "Y") {
+                    lComm.setCssAdd("corpFavorit","text-warning");
+                } else {
+                    lComm.setCssRemove("corpFavorit","text-warning");
+                }
 
-		//console.log("pParamJson : " + pParamJson);
-	
-		sendForm("POST", "/member/login", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+            } else {
+                if(message.result_code == (-999) || message == undefined) {
+                    alert("로그인 후 사용할 수 있습니다.");
+                } else {
+                    alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                }
+            }
 
-		    //console.log("message : " + message.result_code);
-			if(message.result_code == 0) {
-				if(message.cust_clsf_cd == "202001") {
-					document.location.href="/mypage/favorts";
-				} else {
-					document.location.href="/mypage/myc01";
-				}
-				
-			} else {
-				alert("일치하는 정보가 없습니다.\r\n확인후 다시 입력해주세요.");
-			}
-
-		});
+        });		
 
 	});
 
-    //social login google
-    $('#google_login').on('click', function () {
+	//관심뱃지
+	$('#corpBadge').on('click', function () {
+		
+        /* JSON 생성을 위해 입력*/
+        gfnPutObj("give_cust_id", "${custInfo.cust_id}");
 
-        console.log("google_login click");
-        document.location.href = "/oauth2/authorization/google";
+        /* global 변수 json으로 변환 */
+        var pParamJson = gfnGetJson();
 
-    });
+        sendForm("POST", "/vr/badge/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-    //social login facebook
-    $('#facebook_login').on('click', function () {
+            if(message.result_code == 0) {
+                
+                if(message.badge_yn == "Y") {
+                    lComm.setCssAdd("corpBadge","text-warning");
+                } else {
+                    lComm.setCssRemove("corpBadge","text-warning");
+                }
 
-        console.log("facebook_login click");
-        document.location.href = "/oauth2/authorization/facebook";
+                setValue("tot_badge", message.tot_badge);
 
-    });
+            } else {
+                if(message.result_code == (-999) || message == undefined) {
+                    alert("로그인 후 사용할 수 있습니다.");
+                } else {
+                    alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                }
+            }
 
-    //social login naver
-    $('#naver_login').on('click', function () {
+        });	
 
-        console.log("naver_login click");
-        document.location.href = "/oauth2/authorization/naver";
-
-    });
-
-    //social login kakao
-    $('#kakao_login').on('click', function () {
-
-        console.log("kakao_login click");
-        document.location.href = "/oauth2/authorization/kakao";
-
-    });
-
-	/* 회원가입 */
-	$('#btnJoin').on('click', function () {
-		document.location.href="/member/join_form1"
-	});
+	});    
 
 });
+
+function doPdfViewer (pUrl) {
+
+    if(pUrl == "" || pUrl == undefined) {
+        <c:forEach var="prod" items="${prodList}" varStatus="status">
+            <c:if test="${status.index eq 0}">
+                pUrl = "/files${prod.file_path}";
+            </c:if>
+        </c:forEach>
+    }
+
+    pUrl = "/js/pdfjs/web/viewer.html?file="+pUrl;
+    var vHtml="<iframe src='"+pUrl+"' style='position: relative;   top: 0;  bottom: 0; left: 0;   width: 100%;   height: 500px;  border: 0'>";
+    $("#pdfViewer").html(vHtml);
+}
 
 </script>

@@ -109,7 +109,7 @@ function fnSearch() {
 			fnSearchBooth();
 
 		} else {
-			if(message.session_yn == "N") {
+			if(message.session_yn == "N" || message == undefined) {
 				alert("로그아웃되었습니다.");	
 				document.location.href="/m.do";
 			} else {
@@ -144,7 +144,7 @@ function fnSearchBooth() {
 					if(lfileList[i].file_clsf_dtl_cd == "102006") { //기업CI
 						imgCorpCi += "<div class='pr-1 text-center'><a href=\"javascript:doView('102006')\"><img src='" + "/files" + lfileList[i].file_path + "' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('"+lfileList[i].attach_id+"')\">[삭제]</a></div>";
 					} else if(lfileList[i].file_clsf_dtl_cd == "102009") { //제품소개
-						corpProduct += "<div class='pr-1 text-center'><a href=\"javascript:doView('102009')\"><img src='" + "/files" + lfileList[i].file_path + "' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('"+lfileList[i].attach_id+"')\">[삭제]</a></div>";
+						corpProduct += "<div class='pr-1 text-center'><a href=\"javascript:doViewPdf('"+lfileList[i].file_path+"')\"><img src='/images/pdf.png' width='75px' title='"+lfileList[i].org_file_name+"'/></a><br><a href=\"javascript:fileDel('"+lfileList[i].attach_id+"')\">[삭제]</a></div>";
 					} else if(lfileList[i].file_clsf_dtl_cd == "102010") { //갤러리
 						corpGallery += "<div class='pr-1 text-center'><a href=\"javascript:doView('102010')\"><img src='" + "/files" + lfileList[i].file_path + "' width='75px' height='50px'/></a><br><a href=\"javascript:fileDel('"+lfileList[i].attach_id+"')\">[삭제]</a></div>";
 					}
@@ -156,7 +156,12 @@ function fnSearchBooth() {
 			$("#corpGallery").html(corpGallery);
 
 		} else {
-			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+			if(message == undefined) {
+				alert("로그아웃되었습니다.");
+				document.location.href="/m.do";
+			} else {
+				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+			}
 		}
 
 	});	
@@ -198,9 +203,9 @@ function fnUpdate() {
 			alert("회원정보가 수정되었습니다.");
 			fnSearch();
 		} else {
-			if(message.session_yn == "N") {
+			if(message.session_yn == "N" || message == undefined) {
 				alert("로그아웃되었습니다.");	
-				document.location.href="/index";
+				document.location.href="/m.do";
 			} else {
 				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
 			}
@@ -223,21 +228,34 @@ function fnUpdateBooth() {
 	var pParamJson = gfnGetJson();		
 
 	sendForm("POST", "/mypage/corpsave", "application/json; charset=utf-8", "json", pParamJson, function(message) {
-		
+
 		if(message.result_code == 0) {
 			alert("부스 정보를 수정하였습니다.");
 			fnSearch();
 		} else {
-			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+			if(message == undefined) {
+				alert("로그아웃되었습니다.");
+				document.location.href="/m.do";
+			} else {
+				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+			}
 		}
 
 	});	
 
 }
 
+/* pdf 상세 */
+function doViewPdf(pUrl) {
+
+	var pdfHtml =  pdfPopup(pUrl);
+	gfnAlert ("", "", pdfHtml, function(){});
+
+}
+
 
 /* 이미지 상세 */
-function doView(pFileClsfDtlCd) {
+function doView(pUrl) {
 
 	var pUrl = Array();
 	for(var i = 0; i < lfileList.length; i++) {
@@ -289,6 +307,16 @@ function imagePopup(pUrl) {
 	vhtml +=		"<a class='carousel-control-next' href='#gImageControls' role='button' data-slide='next'>";
 	vhtml +=			"<span class='carousel-control-next-icon' aria-hidden='true'></span>";
 	vhtml +=		"</a>";
+	vhtml +=	"</div>";
+	vhtml +="</div>";
+
+	return vhtml;
+}
+
+function pdfPopup(pUrl) {
+	var vhtml = "<div id='gImageControls' class='carousel slide' data-ride='carousel'>";
+	vhtml +=	"<div class='carousel-inner'>";
+	vhtml += 		"<iframe src='/js/pdfjs/web/viewer.html?file=/files"+pUrl+"' style='position: relative;   top: 0;  bottom: 0; left: 0;   width: 100%;   height: 500px;  border: 0'></iframe>";
 	vhtml +=	"</div>";
 	vhtml +="</div>";
 

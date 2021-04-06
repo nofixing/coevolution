@@ -13,13 +13,15 @@ import kr.coevolution.vr.email.dto.EvMailSndRequestDto;
 import kr.coevolution.vr.email.dto.EvMailSndResposeDto;
 import kr.coevolution.vr.email.service.EvMailSndService;
 import kr.coevolution.vr.home.dto.EvMemberJoinForm3;
+import kr.coevolution.vr.member.dto.EvMemberBadgeRequestDto;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import kr.coevolution.vr.member.dto.EvMemberResposeDto;
 import kr.coevolution.vr.member.dto.EvMemberSearchDto;
 import kr.coevolution.vr.member.service.EvMemberService;
-import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto;
-import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoResponseDto;
+import kr.coevolution.vr.mypage.dto.*;
+import kr.coevolution.vr.mypage.service.EvMypageBadgeService;
 import kr.coevolution.vr.mypage.service.EvMypageCustCorpInfoService;
+import kr.coevolution.vr.mypage.service.EvMypageFavoritsService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +68,12 @@ public class EvHomeController {
 
     @Autowired
     private EvFileAttachService evFileAttachService;
+
+    @Autowired
+    private EvMypageBadgeService evMypageBadgeService;
+
+    @Autowired
+    private EvMypageFavoritsService evMypageFavoritsService;
 
     @RequestMapping({"/", "/index"})
     public String index(Model model) {
@@ -381,6 +389,42 @@ public class EvHomeController {
 
             model.addAttribute("custInfo", list.get(0));
 
+            /* 뱃지정보조회 */
+            /* 뱃지 리스트 조회 sum_badge_cnt : 0 이면 뱃지 없음 */
+            EvMemberBadgeRequestDto evMemberBadgeRequestDto = new EvMemberBadgeRequestDto();
+            evMemberBadgeRequestDto.setGive_cust_id(list.get(0).getCust_id());
+            evMemberBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            List<EvMypageBadgeResponseDto> badgeList = evMypageBadgeService.vr_badge(evMemberBadgeRequestDto);
+
+            String badge_yn = "";
+            if(badgeList.get(0).getSum_badge_cnt() > 0) {
+                badge_yn = "Y";
+            } else {
+                badge_yn = "N";
+            }
+
+            int badgeCnt = badgeList.get(0).getTot_badge();
+
+            model.addAttribute("badge_yn", badge_yn);
+            model.addAttribute("tot_badge", badgeCnt); /* 기업에 대한 전체 뱃지 */
+
+            /* 즐겨찾기정보조회 */
+            EvMypageFavortsRequestDto evMypageFavortsRequestDto = new EvMypageFavortsRequestDto();
+            evMypageFavortsRequestDto.setFavorts_cust_id(list.get(0).getCust_id());
+            evMypageFavortsRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            List<EvMypageFavortsResponseDto> favoritsList = evMypageFavoritsService.vr_favorits(evMypageFavortsRequestDto);
+
+            String favorit_yn = "";
+            if(favoritsList.size() > 0) {
+                favorit_yn = "Y";
+            } else {
+                favorit_yn = "N";
+            }
+
+            model.addAttribute("favorit_yn", favorit_yn);
+
             /* 부스정보 */
             EvMypageCustCorpInfoRequestDto evMypageCustCorpInfoRequestDto = new EvMypageCustCorpInfoRequestDto();
             evMypageCustCorpInfoRequestDto.setCust_id(list.get(0).getCust_id());
@@ -413,6 +457,8 @@ public class EvHomeController {
                     }
                 }
             }
+            
+            /* 관심뱃지조회 */
 
             model.addAttribute("boothInfo", boothList.get(0));
             model.addAttribute("ci_image", ciImage);

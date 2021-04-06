@@ -96,6 +96,7 @@
         SELECT a.cust_id
              , a.give_cust_id
              , sum(a.badge_cnt) as sum_badge_cnt
+             , nvl((select sum(badge_cnt) from ev_cust_badge where give_cust_id = #{give_cust_id} and badge_clsf_cd IN ('211003','211004')),0) as tot_badge
           FROM ev_cust_badge a
          WHERE a.cust_id = #{cust_id}
            AND a.badge_clsf_cd IN ('211003','211004') /* 뱃지사용,회수 */

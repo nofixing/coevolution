@@ -197,11 +197,11 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-8 text-left">
-                            <sapn class="small">[기준] 부스 별 관심 뱃지 순위</sapn>
+                            <span class="small">[기준] 부스 별 관심 뱃지 순위</span>
                         </div>
                         <div class="col-sm-4 text-right mobile-hidden">
                             <div class="">
-                                <sapn class="small" >즐겨찾기</sapn>
+                                <span class="small" >즐겨찾기</span>
                                 <span class="small" style="margin:0 25px 0 15px">관심뱃지</span>
                             </div>
                         </div>

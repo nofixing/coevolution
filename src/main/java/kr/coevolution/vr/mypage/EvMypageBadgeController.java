@@ -287,6 +287,7 @@ public class EvMypageBadgeController {
                 }
 
                 resposeResult.put("badge_yn", badge_yn);
+                resposeResult.put("tot_badge", list.get(0).getTot_badge()); /* 기업에 대한 전체 뱃지 */
 
                 resposeResult.put("result_code", "0");
                 resposeResult.put("result_msg", "성공!!");
