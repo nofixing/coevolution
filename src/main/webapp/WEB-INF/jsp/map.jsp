@@ -22,40 +22,46 @@
                 <div class="secret-info">
                     <h4 class="secret-info-tit text-center"><strong>오시는 길</strong></h4>
                     <div class="register_section_area">
-						<!-- 지도를 표시할 div 입니다 -->
-						<div id="map" style="width:100%;height:550px;"></div>
+						<!-- * 카카오맵 - 지도퍼가기 -->
+						<!-- 1. 지도 노드 -->
+						<div id="daumRoughmapContainer1617686911048" style="width: 100%;" class="root_daum_roughmap root_daum_roughmap_landing"></div>
 
-						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=32212c1a9bac70b301c0825970db2292"></script>
-						<script>
-							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-								mapOption = { 
-									center: new kakao.maps.LatLng(33.453979, 126.572602), // 지도의 중심좌표
-									level: 4 // 지도의 확대 레벨
-								};
+						<!--
+							2. 설치 스크립트
+							* 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
+						-->
+						<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 
-							// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-							var map = new kakao.maps.Map(mapContainer, mapOption);
-
-							// 지도를 클릭한 위치에 표출할 마커입니다
-							var marker = new kakao.maps.Marker({ 
-								// 지도 중심좌표에 마커를 생성합니다 
-								position: map.getCenter() 
-							}); 
-							// 지도에 마커를 표시합니다
-							marker.setMap(map);
-
-                            // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-                            var zoomControl = new kakao.maps.ZoomControl();
-                            map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-                            // 지도 타입 변경 컨트롤을 생성한다
-                            var mapTypeControl = new kakao.maps.MapTypeControl();
-
-                            // 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
-                            map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-							
+						<!-- 3. 실행 스크립트 -->
+						<script charset="UTF-8">
+							new daum.roughmap.Lander({
+								"timestamp" : "1617686911048",
+								"key" : "258gz",
+								"mapHeight" : "500"
+							}).render();
 						</script>
-                    </div>
+                    	
+						<div class="join-form-tb">
+						  	<div class="tb-tr">
+							  	<div class="tb-th"><h5>제주공항에서 오시는 방법</h5></div>
+						  	</div>
+						  	<div class="tb-tr tr-half">
+							  	<div class="half-box">
+								  	<div class="tb-th">자가용</div>
+								  	<div class="tb-td">
+									  	공항입구 > 공항로 우측도로(32.7KM 이동) > 창천 삼거리 > 예래 입구 > 중문관광단지 > ICC 제주국제컨벤션센터
+								  	</div>
+							  	</div>
+							  	<div class="half-box">
+								  	<div class="tb-th">대중교통</div>
+								  	<div class="tb-td">
+									  	[공항버스 600번], [2400번, 1002(심야), 500번, 200번 → 시외버스 782번 환승]
+								  	</div>
+							  	</div>
+						  	</div>
+					  	</div>
+					
+					</div>
                 </div>
             </div>
             </div> <!-- / .row -->
