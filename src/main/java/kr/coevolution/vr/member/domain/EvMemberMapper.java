@@ -186,18 +186,32 @@ public interface EvMemberMapper {
     public List<EvMypageBadgeResponseDto> S05_BADGE(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
 
     /**
-     * 관리자페이지 부스 뱃지 내역
+     * 관리자페이지 부스 뱃지 내역 (참관)
      * @param evMypageBadgeRequestDto
      * @return
      */
     public List<EvMypageBadgeResponseDto> S06_BADGE_SH1(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
 
     /**
-     * 관리자페이지 부스 뱃지 내역 건수
+     * 관리자페이지 부스 뱃지 내역 건수 (참관)
      * @param evMypageBadgeRequestDto
      * @return
      */
-    public List<EvMypageBadgeResponseDto> S07_BADGE_SH1(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
+    public List<EvMypageBadgeResponseDto> S06_BADGE_SH1_COUNT(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
+
+    /**
+     * 관리자페이지 부스 뱃지 내역 (참가)
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> S06_BADGE_SH2(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
+
+    /**
+     * 관리자페이지 부스 뱃지 내역 건수 (참가)
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> S06_BADGE_SH2_COUNT(EvMypageBadgeRequestDto evMypageBadgeRequestDto);
 
     /**
      * 회원정보-관심분야

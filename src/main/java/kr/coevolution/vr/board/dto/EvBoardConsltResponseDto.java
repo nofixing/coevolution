@@ -23,6 +23,7 @@ public class EvBoardConsltResponseDto {
     private String board_reply_ins_dtm; /* 1:1 상담 답변 일시 */
     private String reg_user_id; /* 요청자ID (1:1문의문의자) */
     private String reg_user_nm; /* 요청자명 (1:1문의문의자) */
+    private String email_id;
 
     private Long row_count; /* 조회된 row 개수 */
 }

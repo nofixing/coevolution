@@ -62,7 +62,25 @@ public class EvMgntService {
      * @return
      */
     public List<EvMypageBadgeResponseDto> mgnt_badge_list_count (EvMypageBadgeRequestDto evMypageBadgeRequestDto) {
-        return evMemberMapper.S07_BADGE_SH1(evMypageBadgeRequestDto);
+        return evMemberMapper.S06_BADGE_SH1_COUNT(evMypageBadgeRequestDto);
+    }
+
+    /**
+     * 관리자페이지 부스 뱃지 내역
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> mgnt_badge_list2 (EvMypageBadgeRequestDto evMypageBadgeRequestDto) {
+        return evMemberMapper.S06_BADGE_SH2(evMypageBadgeRequestDto);
+    }
+
+    /**
+     * 관리자페이지 부스 뱃지 내역 건수
+     * @param evMypageBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> mgnt_badge_list2_count (EvMypageBadgeRequestDto evMypageBadgeRequestDto) {
+        return evMemberMapper.S06_BADGE_SH2_COUNT(evMypageBadgeRequestDto);
     }
 
     /**

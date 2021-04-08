@@ -106,6 +106,16 @@
 
     </update>
 
+    <update id="U03_BOARD_STAT" parameterType="kr.coevolution.vr.board.dto.EvBoardRequestDto">
+
+        UPDATE ev_board
+        SET mod_user      = #{user_id}
+        , mod_dtm         = NOW()
+        , board_stat_cd   = #{board_stat_cd}
+        WHERE board_id = #{board_id}
+
+    </update>
+
     <select id="S01_CONSLT_LIST" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto"
             resultType="kr.coevolution.vr.board.dto.EvBoardConsltResponseDto">
 
@@ -203,6 +213,7 @@
              , a.board_content
              , a.conslt_cust_id
              , (select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id) as conslt_cust_nm
+             , (select email_id from ev_cust_mst where cust_id = a.conslt_cust_id) as email_id
              , (select board_content from ev_board where board_res_id = a.board_id and del_yn = 'N') as board_reply_content
              , (select date_format(ins_dtm,'%Y-%m-%d %H:%i:%S') from ev_board where board_res_id = a.board_id and del_yn = 'N') as board_reply_ins_dtm
              , a.reg_dt
@@ -220,6 +231,84 @@
              , (select max(board_id) from ev_board where board_res_id = a.board_id) as reply_board_id
           FROM ev_board a
          WHERE board_id = #{board_id}
+    </select>
+
+    <select id="S05_CONSLT_LIST" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto"
+            resultType="kr.coevolution.vr.board.dto.EvBoardConsltResponseDto">
+
+        SELECT ROW_NUMBER() OVER(ORDER BY a.ins_dtm DESC) as rn
+        , a.board_id
+        , a.board_subject
+        , a.conslt_cust_id
+        , concat(nvl((select concat(cd_nm, ' > ') from ev_comm_code ecc where cd_id = b.category1), ''),
+        (select cust_nm from ev_cust_mst where cust_id = a.conslt_cust_id)) as conslt_cust_nm
+        , a.reg_user_id
+        , (select cust_nm from ev_cust_mst where cust_id = a.reg_user_id) as reg_user_nm
+        , a.reg_dt
+        , a.board_stat_cd
+        , (select cd_nm from ev_comm_code where cd_id = a.board_stat_cd) as board_stat_nm
+        FROM ev_board A
+        inner join ev_cust_mst b
+        on a.conslt_cust_id = b.cust_id
+        WHERE A.board_clsf_cd = '101002' /* 1:1 문의 */
+        AND a.del_yn = 'N'
+        AND a.board_res_id = 0
+
+        <if test='keyword_clsf_cd == "subject"'>
+            and a.board_subject like concat('%',#{keyword},'%')
+        </if>
+
+        <if test='keyword_clsf_cd == "content"'>
+            and a.board_content like concat('%',#{keyword},'%')
+        </if>
+
+        <if test='keyword_clsf_cd == "insuser"'>
+            and b.cust_nm like concat('%',#{keyword},'%')
+        </if>
+
+        <if test='keyword != null and keyword != "" and (keyword_clsf_cd == null or keyword_clsf_cd == "")'>
+            and (a.board_subject like concat('%',#{keyword},'%') or a.board_content like concat('%',#{keyword},'%') or b.cust_nm like concat('%',#{keyword},'%'))
+        </if>
+
+        <if test="board_stat_cd != null and board_stat_cd != ''">
+            and a.board_stat_cd = #{board_stat_cd}
+        </if>
+
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S05_CONSLT_LIST_CNT" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto"
+            resultType="kr.coevolution.vr.board.dto.EvBoardConsltResponseDto">
+
+        SELECT COUNT(*) AS row_count
+        FROM ev_board A
+        inner join ev_cust_mst b
+        on a.conslt_cust_id = b.cust_id
+        WHERE A.board_clsf_cd = '101002' /* 1:1 문의 */
+        AND a.del_yn = 'N'
+        AND a.board_res_id = 0
+
+        <if test='keyword_clsf_cd == "subject"'>
+            and a.board_subject like concat('%',#{keyword},'%')
+        </if>
+
+        <if test='keyword_clsf_cd == "content"'>
+            and a.board_content like concat('%',#{keyword},'%')
+        </if>
+
+        <if test='keyword_clsf_cd == "insuser"'>
+            and b.cust_nm like concat('%',#{keyword},'%')
+        </if>
+
+        <if test='keyword != null and keyword != "" and (keyword_clsf_cd == null or keyword_clsf_cd == "")'>
+            and (a.board_subject like concat('%',#{keyword},'%') or a.board_content like concat('%',#{keyword},'%') or b.cust_nm like concat('%',#{keyword},'%'))
+        </if>
+
+        <if test="board_stat_cd != null and board_stat_cd != ''">
+            and a.board_stat_cd = #{board_stat_cd}
+        </if>
+
     </select>
 
 </mapper>

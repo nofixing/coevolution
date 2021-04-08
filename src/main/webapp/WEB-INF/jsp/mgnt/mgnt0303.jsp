@@ -46,7 +46,7 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              관리자
+              관리자페이지
             </span>
             <span class="breadcrumb-item active">
               참가회원 정보입력
@@ -58,13 +58,12 @@
     </nav>
 
 
-
   <!-- 진행순서
     ================================================== -->
     <section class="section">
       <div class="container">
         <div class="form_head">
-          <p>관리자</p>
+          <p>관리자페이지</p>
       </div>
         <div class="row">
           <div class="col-md-3">

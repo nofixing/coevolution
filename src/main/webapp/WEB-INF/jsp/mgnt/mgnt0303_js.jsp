@@ -46,7 +46,7 @@ $(document).ready(function() {
 		if(imgCnt("102009") >= 5) {
 			alert("제품 소개는 5개까지 등록 가능합니다.");
 		} else {
-			showFileModal();
+			showFileModal("pdf");
 			setValue("file_clsf_dtl_cd","102009");
 		}
 	});	
@@ -381,12 +381,12 @@ function fileDel(pAttachId) {
 }
 
 /* 모달창을 띄운다. */
-function showFileModal() {
+function showFileModal(pExt) {
 	if(document.getElementById("fileModal")) {
 		$("#fileModal").remove();
 	}
 
-	var modlContents = fileModalHtml();
+	var modlContents = fileModalHtml(pExt);
 
 	document.getElementById("divFileModal").insertAdjacentHTML("afterend", modlContents);
 
@@ -394,7 +394,12 @@ function showFileModal() {
 }
 
 /* 모달HTML */
-function fileModalHtml() {
+function fileModalHtml(pExt) {
+
+	if(pExt != "pdf")
+		pExt = ".jpg, .jpeg, .png";
+	else
+		pExt = ".pdf";
 
 	var vHtml = "";
     vHtml += '    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
@@ -406,7 +411,7 @@ function fileModalHtml() {
     vHtml += '            </button>';
     vHtml += '          </div>';
     vHtml += '          <div class="modal-body">';
-    vHtml += '              <input type="file" id="fileUpload" name="fileUpload" accept=".jpg, .jpeg, .png, .pdf"/>';
+    vHtml += '              <input type="file" id="fileUpload" name="fileUpload" accept="'+pExt+'"/>';
     vHtml += '          </div>';
     vHtml += '          <div class="input-group">';
     vHtml += '            <div class="col-sm-12 d-flex justify-content-center">';

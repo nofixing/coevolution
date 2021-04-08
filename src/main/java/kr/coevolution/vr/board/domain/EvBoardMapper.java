@@ -39,6 +39,12 @@ public interface EvBoardMapper {
     public int U03_BOARD(EvBoardRequestDto param);
 
     /**
+     * 상태업데이트
+     * @param param
+     * @return
+     */
+    public int U03_BOARD_STAT(EvBoardRequestDto param);
+    /**
      * 1:1 문의 (마이페이지 상담-리스트)
      * @param param
      * @return
@@ -65,4 +71,18 @@ public interface EvBoardMapper {
      * @return
      */
     public List<Map> S04_BOARD_ALL (EvBoardSearchDto param);
+
+    /**
+     * 1:1 문의 (관리자 상담-리스트)
+     * @param param
+     * @return
+     */
+    public List<EvBoardConsltResponseDto> S05_CONSLT_LIST (EvBoardSearchDto param);
+
+    /**
+     * 1:1 문의 건수 (관리자 상담-리스트)
+     * @param param
+     * @return
+     */
+    public List<EvBoardConsltResponseDto> S05_CONSLT_LIST_CNT (EvBoardSearchDto param);
 }

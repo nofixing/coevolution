@@ -44,4 +44,7 @@ public class EvBoardSearchDto {
     /* 현재페이지 */
     private Long page_current;
 
+    private String ins_dt_fr;
+    private String ins_dt_to;
+
 }

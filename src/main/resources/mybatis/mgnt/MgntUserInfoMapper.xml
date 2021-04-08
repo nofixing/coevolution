@@ -8,6 +8,7 @@
              , mgnt_nm
              , mgnt_id      as cust_id
              , mgnt_nm      as cust_nm
+             , mgnt_id      as user_id
              , email_id
              , '202003'     as cust_clsf_cd
           from ev_mgnt_user
@@ -48,5 +49,6 @@
         ORDER BY a.ins_dtm DESC
 
     </select>
+
 
 </mapper>

@@ -25,7 +25,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              참가회원
+              참관회원
             </h5>
 
           </div>
@@ -39,7 +39,7 @@
               관리자페이지
             </span>
             <span class="breadcrumb-item active">
-              참가회원
+              참관회원
             </span>            
           
           </div>
@@ -69,7 +69,7 @@
               <!-- Heading -->
               <h3 class="mb-4">
                 <strong>
-                  참가회원
+                  참관회원
                 </strong>
               </h3>
 
@@ -99,12 +99,9 @@
                       <div class="col-6">
                         <input type="text" class="form-control form-control-sm" id="keyword" name="keyword" value="${keyword}" style="width:100%">
                       </div>     
-                      <div class="col-2">
-                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-0" style="width:100%" id="btnSearch">조회</button>
+                      <div class="col-4 d-flex justify-content-end">
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-0" style="width: 6rem;" id="btnSearch">조회</button>
                       </div>           
-                      <div class="col-2">
-                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-0" id="btnInsert">참가업체입력</button> 
-                      </div>                          
                   </div>                  
 
                 </form>            
@@ -113,8 +110,8 @@
                     <thead class="table-light">
                       <tr>
                         <th scope="col" class="text-center">번호</th>
+                        <th scope="col" class="text-center">회원명</th>
                         <th scope="col" class="text-center">아이디</th>
-                        <th scope="col" class="text-center">참가업체명</th>
                         <th scope="col" class="text-center">이메일</th>
                         <th scope="col" class="text-center">가입일자</th>
                         <th scope="col" class="text-center">최종로그인</th>
@@ -124,8 +121,8 @@
                       <c:forEach var="list" items="${list}">
                       <tr>
                         <td class="text-center">${list.rn}</td>
-                        <td class="text-center"><a href="javascript:doDetail('${list.cust_id}')">${list.cust_id}</a></td>
                         <td class="text-center">${list.cust_nm}</td>
+                        <td class="text-center"><a href="javascript:doDetail('${list.cust_id}')">${list.cust_id}</a></td>
                         <td class="text-center">${list.email_id}</td>
                         <td class="text-center">${list.ins_dtm}</td>
                         <td class="text-center">${list.login_dtm}</td>
@@ -157,7 +154,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
-    <jsp:include page="mgnt0301_js.jsp"></jsp:include>
+    <jsp:include page="mgnt0401_js.jsp"></jsp:include>
 
   </body>
 </html>

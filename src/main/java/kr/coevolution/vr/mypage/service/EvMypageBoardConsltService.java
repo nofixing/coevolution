@@ -42,6 +42,24 @@ public class EvMypageBoardConsltService {
     }
 
     /**
+     * 마이페이지 - 상당내역 리스트
+     * @param evBoardSearchDto
+     * @return
+     */
+    public List<EvBoardConsltResponseDto> mgnt_conslt_list (EvBoardSearchDto evBoardSearchDto) {
+        return evBoardMapper.S05_CONSLT_LIST(evBoardSearchDto);
+    }
+
+    /**
+     * 마이페이지 - 상당내역 리스트 총 건수
+     * @param evBoardSearchDto
+     * @return
+     */
+    public List<EvBoardConsltResponseDto> mgnt_conslt_list_count (EvBoardSearchDto evBoardSearchDto) {
+        return evBoardMapper.S05_CONSLT_LIST_CNT(evBoardSearchDto);
+    }
+
+    /**
      * 마이페이지 - 상당내역 상세
      * @param evBoardSearchDto
      * @return
@@ -87,13 +105,12 @@ public class EvMypageBoardConsltService {
             /* 문의 답글상태 업데이트 */
             if("104002".equals(evBoardRequestDto.getBoard_stat_cd())) {
                 evBoardRequestDto.setBoard_id(boardId);
-                return_code = evBoardMapper.U03_BOARD(evBoardRequestDto);
+                return_code = evBoardMapper.U03_BOARD_STAT(evBoardRequestDto);
             }
 
         } else {
             //이미 답글등록 완료 - 답글업데이트
             evBoardRequestDto.setBoard_id(Long.parseLong(reply_board_id));
-            evBoardRequestDto.setReply_yn("Y");
             return_code = evBoardMapper.U03_BOARD(evBoardRequestDto);
         }
 

@@ -202,7 +202,8 @@ function gfnAlert (pType, pTitle, pContents, callback) {
 
       var modlContents = "";
       modlContents += '<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-      modlContents += '  <div class="modal-dialog modal-dialog-centered modal-dialog-video modal-lg" role="document">';
+      //modlContents += '  <div class="modal-dialog modal-dialog-centered modal-dialog-video modal-lg" role="document">'; 흰바탕없음
+	  modlContents += '  <div class="modal-dialog modal-dialog-centered" role="document">';
       modlContents += '    <div class="modal-content">';
       modlContents += '      <div class="modal-header">';
       modlContents += '         <h4 class="modal-title text-white" id="myModalLabel">'+pTitle+'</h4>';

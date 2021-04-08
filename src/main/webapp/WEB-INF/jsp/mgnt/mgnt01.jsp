@@ -36,7 +36,7 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              관리자페이지
             </span>
             <span class="breadcrumb-item active">
               뱃지 적립 내역
@@ -52,7 +52,7 @@
     <section class="section">
       <div class="container">
         <div class="form_head">
-          <p>마이페이지</p>
+          <p>관리자페이지</p>
       </div>
         <div class="row">
           <div class="col-md-3">
@@ -75,66 +75,123 @@
 
 
               <div class="form-styled">
-                
-                <!-- Subheading -->
-                <div class="text-center border p-4">
-                  <h4 class="text-muted m-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
-                      <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
-                      <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                    </svg> 관심뱃지 <strong><span id="badgeCnt">${tot_badge}</span></strong>개
-                  </h4>
-                </div>
-
 
                 <!--검색조건-->
                 <form class="pt-4 pb-3">
-                  <div class="form-row align-items-center">
-                    <div class="col-md-auto col-sm-12">
-                      <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_fr" name="ins_dt_fr" value="${ins_dt_fr}">
-                    </div>
-                    <div class="col-md-auto col-sm-12">
-                      <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
-                    </div>
-                    <div class="col-md-auto col-sm-12">
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
-                    </div>
-                    <div class="col-md-auto col-sm-12 ml-auto text-right search-tab">
-                      <input type="hidden" name="slt_badge_clsf" id="slt_badge_clsf" value="${slt_badge_clsf}">
-                      <a id="slt_badge_clsf1" href="javascript:setBadgeClsf('', 'slt_badge_clsf1')"      <c:if test="${slt_badge_clsf eq '' || slt_badge_clsf eq null}">class="on"</c:if>>전체</a>
-                      <a id="slt_badge_clsf2" href="javascript:setBadgeClsf('211001','slt_badge_clsf2')" <c:if test="${slt_badge_clsf eq '211001'}">class="on"</c:if>>부여</a>
-                      <a id="slt_badge_clsf3" href="javascript:setBadgeClsf('211004','slt_badge_clsf3')" <c:if test="${slt_badge_clsf eq '211004'}">class="on"</c:if>>회수</a>
-                      <a id="slt_badge_clsf4" href="javascript:setBadgeClsf('211003','slt_badge_clsf4')" <c:if test="${slt_badge_clsf eq '211003'}">class="on"</c:if>>사용</a>
-                    </div>
+                  <input type="hidden" name="page_current" id="page_current"/>
+                  <div class="form-row align-items-center pb-2">
+                      <div class="col-2 text-center form-control-sm">
+                        부스선택
+                      </div>                  
+                      <div class="col">
+                        <div class="form-inline">
+
+                          <select class="form-control form-control-sm mb-2" id="cust_clsf_sh" name="cust_clsf_sh">
+                            <option value="202001" <c:if test="${cust_clsf_sh eq '' || cust_clsf_sh eq '202001'}">selected</c:if>>참관고객</option>
+                            <option value="202002" <c:if test="${cust_clsf_sh eq '202002'}">selected</c:if>>참가고객</option>
+                          </select>
+
+                          <select class="form-control form-control-sm mb-2" id="category_sh" name="category_sh">
+                            <option value="" <c:if test="${category_sh eq ''}">selected</c:if>>전체</option>
+                            <c:forEach var="category" items="${category}">
+                              <option value="${category.cd_id}" <c:if test="${category_sh eq category.cd_id}">selected</c:if>>${category.cd_nm}</option>
+                            </c:forEach>
+                          </select>
+
+                        </div>
+                      </div>
+
+                      <div class="col-2 text-center form-control-sm">
+                        부스명
+                      </div>    
+                      <div class="col">
+                        <div class="form-inline">
+                          <input type="text" class="form-control form-control-sm mb-2" id="category_nm_sh" name="category_nm_sh" value="${category_nm_sh}">
+                        </div>
+                      </div>
+
                   </div>
+
+                  <div class="form-row align-items-center pb-2">
+                      <div class="col-2 text-center form-control-sm">
+                        검색기간
+                      </div>                  
+                      <div class="col">
+                        <div class="form-inline">
+                          <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_fr" name="ins_dt_fr" value="${ins_dt_fr}"> <span class="pl-2 pr-2">~</span>
+                          <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
+                        </div>
+                      </div>
+                      <div class="col-2 text-right">
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
+                      </div>                        
+                  </div>                  
+
                 </form>            
                 <div class="table-responsive">
                 <table class="table table-striped table-hover table-sm border-bottom">
-                  <thead class="table-light">
-                    <tr>
-                      <th scope="col" width="20%" class="text-center">부여일(유효기간)</th>
-                      <th scope="col" width="35%" class="text-center">내용</th>
-                      <th scope="col" width="15%" class="text-center">적립회원명</th>
-                      <th scope="col" width="15%" class="text-center">뱃지 부여/회수</th>
-                      <th scope="col" width="15%" class="text-center">뱃지 사용</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <c:forEach var="list" items="${list}">
-                    <tr>
-                      <td class="text-center">${list.ins_dt}</td>
-                      <td class="text-center">${list.badge_conts}</td>
-                      <td class="text-center">${list.cust_nm}</td>
-                      <td class="text-center">${list.badge_recv_cnt}</td>
-                      <td class="text-center">${list.badge_use_cnt}</td>
-                    </tr>   
-                    </c:forEach>
-                    <c:if test="${fn:length(list) == 0}">
-                    <tr>
-                      <th scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</th>
-                    </tr>
-                    </c:if>                                                                                                                                                                                                                             
-                  </tbody>
+                  <c:if test="${cust_clsf_sh eq '' || cust_clsf_sh eq '202001'}">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col" class="text-center">번호</th>
+                        <th scope="col" class="text-center">회원명</th>
+                        <th scope="col" class="text-center">뱃지지급</th>
+                        <th scope="col" class="text-center">사용뱃지</th>
+                        <th scope="col" class="text-center">잔여뱃지</th>
+                        <th scope="col" class="text-center">피추천수</th>
+                        <th scope="col" class="text-center">부여일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <c:forEach var="list" items="${list}">
+                      <tr>
+                        <td class="text-center">${list.rn}</td>
+                        <td class="text-center">${list.cust_nm}</td>
+                        <td class="text-center">${list.tot_badge_paid_cnt}</td>
+                        <td class="text-center">${list.tot_badge_use_cnt}</td>
+                        <td class="text-center">${list.tot_badge_rmin_cnt}</td>
+                        <td class="text-center">${list.tot_badge_rcmd_cnt}</td>
+                        <td class="text-center">${list.ins_dt}</td>
+                      </tr>   
+                      </c:forEach>
+                      <c:if test="${fn:length(list) == 0}">
+                      <tr>
+                        <th scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</th>
+                      </tr>
+                      </c:if>                                                                                                                                                                                                                 
+                    </tbody>
+                  </c:if>
+
+                  <c:if test="${cust_clsf_sh eq '202002'}">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col" class="text-center">번호</th>
+                        <th scope="col" class="text-center">회원명</th>
+                        <th scope="col" class="text-center">총뱃지</th>
+                        <th scope="col" class="text-center">뱃지부여</th>
+                        <th scope="col" class="text-center">뱃지회수</th>
+                        <th scope="col" class="text-center">부여일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <c:forEach var="list" items="${list}">
+                      <tr>
+                        <td class="text-center">${list.rn}</td>
+                        <td class="text-center">${list.cust_nm}</td>
+                        <td class="text-center">${list.tot_badge}</td>
+                        <td class="text-center">${list.tot_rcv}</td>
+                        <td class="text-center">${list.tot_recall}</td>
+                        <td class="text-center">${list.ins_dt}</td>
+                      </tr>   
+                      </c:forEach>
+                      <c:if test="${fn:length(list) == 0}">
+                      <tr>
+                        <th scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</th>
+                      </tr>
+                      </c:if>                                                                                                                                                                                                                 
+                    </tbody>
+                  </c:if>
+
                 </table>
                 </div>
 

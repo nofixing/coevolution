@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script>
 
@@ -23,17 +20,16 @@ $(document).ready(function() {
 		setValue("ins_dt_to", today);
 
 	$('#btnSearch').on('click', function () {
-		fnSearchMgnt01("1");
+		fnSearchMgnt02("1");
 	});	
 
 	/* 총건수, 현재이지, view row, 호출할 function */
-	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMgnt01");	
-	$('#pagingList').html(pageHtml);	
+	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMgnt02");	
+	$('#pagingList').html(pageHtml);		
 	
 });
 
-/* 검색 */
-function fnSearchMgnt01(pPageCurrent) {
+function fnSearchMgnt02(pPageCurrent) {
 
 	setValue("page_current", pPageCurrent);
 
@@ -51,9 +47,18 @@ function fnSearchMgnt01(pPageCurrent) {
 
 	var frm = document.forms[0];
 	frm.method = "post";
-	frm.action = "/mgnt/badge";
-	frm.submit();	
+	frm.action = "/mgnt/conslt";
+	frm.submit();
+
 }
 
+
+/* 상세이동 */
+function doDetail(pId) {
+	var frm = document.forms[0];
+	frm.method = "post";
+	frm.action = "/mgnt/conslt_dtl?board_id="+pId;
+	frm.submit();
+}
 
 </script>

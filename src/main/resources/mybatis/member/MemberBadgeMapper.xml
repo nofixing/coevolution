@@ -183,37 +183,148 @@
             resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
 
         /* 관리자페이지 부스 뱃지 내역 */
-        SELECT ROW_NUMBER() OVER() as rn
-            , a.badge_id
-            , a.cust_id
-            , (select cust_nm from ev_cust_mst where cust_id = a.cust_id) as cust_nm
-            , (select cust_nm from ev_cust_mst where cust_id = a.give_cust_id) as give_cust_nm
-            , (select cd_nm from ev_comm_code where cd_id = a.badge_clsf_cd) AS badge_clsf_nm
-            , case when a.badge_clsf_cd IN ('211001','211002','211004') then a.badge_cnt ELSE 0 END AS badge_recv_cnt
-            , case when a.badge_clsf_cd IN ('211003') then a.badge_cnt ELSE 0 END AS badge_use_cnt
-            , date_format(ins_dtm,'%Y-%m-%d') AS ins_dt
-        FROM ev_cust_badge a
-        WHERE a.give_cust_id = #{cust_id}
-        AND date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
-        ORDER BY a.ins_dtm DESC
+        select ROW_NUMBER() OVER(ORDER BY a.cust_nm asc) as rn
+        , a.*
+        from (
+        select ecm.cust_id
+            , ecm.cust_nm
+            , sum(case when ecb.badge_clsf_cd in ('211001','211002','211004') then ecb.badge_cnt
+            else 0
+            end) as tot_badge_paid_cnt
+            , abs(sum(case when ecb.badge_clsf_cd in ('211003') then ecb.badge_cnt
+            else 0
+            end)) as tot_badge_use_cnt
+            , abs(sum(case when ecb.badge_clsf_cd in ('211001','211002','211003','211004') then ecb.badge_cnt
+            else 0
+            end)) as tot_badge_rmin_cnt
+            , abs(sum(case when ecb.badge_clsf_cd in ('211002') then ecb.badge_cnt
+            else 0
+            end)) as tot_badge_rcmd_cnt
+            , date_format(ecb.ins_dtm ,'%Y-%m-%d') AS ins_dt
+        from ev_cust_mst ecm
+        left outer join ev_comm_code ecc
+        on ecm.category1 = ecc.cd_id
+        left outer join ev_cust_badge ecb
+        on ecm.cust_id = ecb.cust_id
+        where ecm.cust_sts_cd = '105001' /*정상*/
+        and ecm.cust_clsf_cd = #{cust_clsf_sh} /* 참관/참여 */
+
+        <if test="category_sh != null and category_sh != ''">
+            and exists (select 1
+                from ev_cust_mst
+                where cust_id = ecb.give_cust_id
+                and category1 = #{category_sh}
+            )  /*카테고리 검색조건*/
+        </if>
+
+        <if test="category_nm_sh != null and category_nm_sh != ''">
+            and exists (select 1
+                        from ev_cust_mst z
+                        left outer join ev_comm_code y
+                        on z.category1 = y.cd_id
+                        where z.cust_id = ecb.give_cust_id
+                        and upper(y.cd_nm) like upper(concat('%',#{category_nm_sh}, '%'))
+            )  /*카테고리 검색조건*/
+        </if>
+
+        and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+
+        group by ecm.cust_id, ecm.cust_nm
+        ) a
         LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>
 
-    <select id="S07_BADGE_SH1" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
+    <select id="S06_BADGE_SH1_COUNT" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
             resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
 
         /* 관리자페이지 부스 뱃지 내역 건수 */
-        SELECT count(*) as row_count
-            , (SELECT SUM(x.badge_cnt)
-                FROM ev_cust_badge x
-                WHERE x.give_cust_id = #{cust_id}
-              ) as tot_badge
-        FROM ev_cust_badge a
-        WHERE a.give_cust_id = #{cust_id}
-        AND date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        select count(a.cust_id) as row_count
+        from (
+            select ecm.cust_id
+            from ev_cust_mst ecm
+            left outer join ev_comm_code ecc
+            on ecm.category1 = ecc.cd_id
+            left outer join ev_cust_badge ecb
+            on ecm.cust_id = ecb.cust_id
+            where ecm.cust_sts_cd = '105001' /*정상*/
+            and ecm.cust_clsf_cd = #{cust_clsf_sh} /* 참관/참여 */
+
+            <if test="category_sh != null and category_sh != ''">
+                and exists (select 1
+                    from ev_cust_mst
+                    where cust_id = ecb.give_cust_id
+                    and category1 = #{category_sh}
+                )  /*카테고리 검색조건*/
+            </if>
+
+            <if test="category_nm_sh != null and category_nm_sh != ''">
+                and exists (select 1
+                from ev_cust_mst z
+                left outer join ev_comm_code y
+                on z.category1 = y.cd_id
+                where z.cust_id = ecb.give_cust_id
+                and upper(y.cd_nm) like upper(concat('%',#{category_nm_sh}, '%'))
+                )  /*카테고리 검색조건*/
+            </if>
+
+            and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+
+            group by ecm.cust_id, ecm.cust_nm
+        ) a
 
     </select>
 
+    <select id="S06_BADGE_SH2" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        with cust_badge as (
+            select give_cust_id
+                , sum(badge_cnt) as tot_cnt
+                , sum(case when badge_cnt > 0 then badge_cnt else 0 end) as tot_rcv
+                , abs(sum(case when badge_cnt <![CDATA[ < ]]> 0 then badge_cnt else 0 end)) as tot_recall
+                , date_format(max(ins_dtm) , '%Y-%m-%d') as ins_dt
+            from ev_cust_badge
+           where ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+            group by give_cust_id
+        )
+        select ROW_NUMBER() OVER(ORDER BY ecm.cust_nm asc) as rn
+            , ecm.cust_id
+            , ecm.cust_nm
+            , nvl((select tot_cnt from cust_badge ecb where give_cust_id = ecm.cust_id),0) as tot_badge
+            , nvl((select tot_rcv from cust_badge ecb where give_cust_id = ecm.cust_id),0) as tot_rcv
+            , nvl((select tot_recall from cust_badge ecb where give_cust_id = ecm.cust_id),0) as tot_recall
+            , (select ins_dt from cust_badge ecb where give_cust_id = ecm.cust_id) as ins_dt
+        from ev_cust_mst ecm
+        where ecm.cust_sts_cd   = '105001' /*정상*/
+        and ecm.cust_clsf_cd    = #{cust_clsf_sh}
+        and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+
+        <if test="category_sh != null and category_sh != ''">
+        and ecm.category1 	    = #{category_sh}
+        </if>
+
+        <if test="category_nm_sh != null and category_nm_sh != ''">
+        and exists (select 1 from ev_comm_code where cd_id = ecm.category1 and cd_nm like concat('%',#{category_nm_sh},'%'))
+        </if>
+
+    </select>
+
+    <select id="S06_BADGE_SH2_COUNT" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        select count(*) as row_count
+        from ev_cust_mst ecm
+        where ecm.cust_sts_cd   = '105001' /*정상*/
+        and ecm.cust_clsf_cd    = #{cust_clsf_sh}
+        and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+
+        <if test="category_sh != null and category_sh != ''">
+            and ecm.category1 	    = #{category_sh}
+        </if>
+
+        <if test="category_nm_sh != null and category_nm_sh != ''">
+            and exists (select 1 from ev_comm_code where cd_id = ecm.category1 and cd_nm like concat('%',#{category_nm_sh},'%'))
+        </if>
+
+    </select>
 
 </mapper>

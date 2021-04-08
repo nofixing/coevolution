@@ -31,4 +31,5 @@ public interface MgntUserInfoMapper {
      * @return
      */
     public List<EvMgntMemberResponseDto> S02_MEMBER_LIST_COUNT(EvMgntMemberRequestDto param);
+
 }
