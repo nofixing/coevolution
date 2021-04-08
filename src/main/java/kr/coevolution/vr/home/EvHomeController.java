@@ -479,7 +479,7 @@ public class EvHomeController {
             e.printStackTrace();
         }
 
-        return returnUrl;
+        return "/vr/vr_corp_form";
     }
 
     /**
