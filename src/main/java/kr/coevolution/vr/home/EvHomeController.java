@@ -401,14 +401,20 @@ public class EvHomeController {
 
             List<EvMypageBadgeResponseDto> badgeList = evMypageBadgeService.vr_badge(evMemberBadgeRequestDto);
 
-            String badge_yn = "";
-            if(badgeList.get(0).getSum_badge_cnt() > 0) {
-                badge_yn = "Y";
-            } else {
-                badge_yn = "N";
-            }
+            String badge_yn = "N";
+            int badgeCnt = 0;
 
-            int badgeCnt = badgeList.get(0).getTot_badge();
+            if(badgeList.size() > 0) {
+
+                if (badgeList.get(0).getSum_badge_cnt() > 0) {
+                    badge_yn = "Y";
+                } else {
+                    badge_yn = "N";
+                }
+
+                badgeCnt = badgeList.get(0).getTot_badge();
+
+            }
 
             model.addAttribute("badge_yn", badge_yn);
             model.addAttribute("tot_badge", badgeCnt); /* 기업에 대한 전체 뱃지 */
