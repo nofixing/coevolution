@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script>
 
@@ -20,48 +23,36 @@ $(document).ready(function() {
 		setValue("ins_dt_to", today);
 
 	$('#btnSearch').on('click', function () {
-		//검색
-
-		/* 필수항목 체크 */
-		var chk = '['
-			+ '  {"id":"ins_dt_fr","name":"조회 시작일자"} '
-			+ ', {"id":"ins_dt_to","name":"조회 종료일자"} ';
-		chk += ']';
-
-		var jsonCheck = JSON.parse(chk);
-
-		if(!lComm.fnRequiredItems(jsonCheck)) {
-			return false;
-		}
-
-		var frm = document.forms[0];
-		frm.method = "post";
-		frm.action = "/mgnt/m_corp_search";
-		frm.submit();
-
-		return false;
+		fnSearchMgnt0401("1");
 	});	
 
-	$('#btnInsert').on('click', function () {
-		document.location.href="/mgnt/m_corp_user_form";
-	});
-
-	/* 페이징처리 (총페이지, 현재페이지)*/
-	var pagingList = setPaging("${row_count}", "${page_current}");
-	$('#pagingList').html(pagingList) ;
+	/* 총건수, 현재이지, view row, 호출할 function */
+	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMgnt0401");	
+	$('#pagingList').html(pageHtml);
 	
 });
 
-/* 검색조건 셋팅 */
-function setBadgeClsf(pClsf, pSltBadgeClsf) {
+/* 조회 */
+function fnSearchMgnt0401(pPageCurrent) {
 
-	setValue("slt_badge_clsf", pClsf);
-
-	for(var i = 1; i <= 4; i++) {
-		lComm.setCssRemove("slt_badge_clsf"+i, "on");
-	}
+	setValue("page_current", pPageCurrent);
 	
-	lComm.setCssAdd(pSltBadgeClsf, "on");
+	/* 필수항목 체크 */
+	var chk = '['
+		+ '  {"id":"ins_dt_fr","name":"조회 시작일자"} '
+		+ ', {"id":"ins_dt_to","name":"조회 종료일자"} ';
+	chk += ']';
+
+	var jsonCheck = JSON.parse(chk);
+
+	if(!lComm.fnRequiredItems(jsonCheck)) {
+		return false;
+	}
+
+	var frm = document.forms[0];
+	frm.method = "post";
+	frm.action = "/mgnt/m_member_search";
+	frm.submit();
 }
 
 /* 상세내역이동 */

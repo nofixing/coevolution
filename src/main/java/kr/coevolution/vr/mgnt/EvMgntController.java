@@ -408,17 +408,12 @@ public class EvMgntController {
             }
 
             Long page_row_cnt = StringUtils.page_tot(row_count);
-            Long page_next = StringUtils.page_next(evMgntMemberRequestDto.getPage_current(), row_count, "N");
-            Long page_priv = StringUtils.page_priv(evMgntMemberRequestDto.getPage_current());
-            Long page_end = StringUtils.page_next(evMgntMemberRequestDto.getPage_current(), row_count, "Y");
 
             model.addAttribute("page_clsf", "mgnt0301");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count); /* 총건수 */
             model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
-            model.addAttribute("page_next", String.valueOf(page_next));  /* 다음페이지 */
-            model.addAttribute("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
-            model.addAttribute("page_end", String.valueOf(page_end));   /* 마지막페이지 */
+            model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
 
             /* 검색조건 */
             model.addAttribute("ins_dt_fr", evMgntMemberRequestDto.getIns_dt_fr());
@@ -772,17 +767,12 @@ public class EvMgntController {
             }
 
             Long page_row_cnt = StringUtils.page_tot(row_count);
-            Long page_next = StringUtils.page_next(evMgntMemberRequestDto.getPage_current(), row_count, "N");
-            Long page_priv = StringUtils.page_priv(evMgntMemberRequestDto.getPage_current());
-            Long page_end = StringUtils.page_next(evMgntMemberRequestDto.getPage_current(), row_count, "Y");
 
             model.addAttribute("page_clsf", "mgnt0401");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count); /* 총건수 */
             model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
-            model.addAttribute("page_next", String.valueOf(page_next));  /* 다음페이지 */
-            model.addAttribute("page_priv", String.valueOf(page_priv));  /* 이전페이지 */
-            model.addAttribute("page_end", String.valueOf(page_end));   /* 마지막페이지 */
+            model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
 
             /* 검색조건 */
             model.addAttribute("ins_dt_fr", evMgntMemberRequestDto.getIns_dt_fr());
@@ -809,8 +799,8 @@ public class EvMgntController {
         String returnUrl = "/mgnt/mgnt0402";
 
         try {
-
-            model.addAttribute("page_clsf", "mgnt0402");
+            model.addAttribute("cust_id", evMgntMemberRequestDto.getCust_id());
+            model.addAttribute("page_clsf", "mgnt0401");
             model.addAttribute("result_code", "0");
             model.addAttribute("result_msg", "성공!!");
 
@@ -826,11 +816,12 @@ public class EvMgntController {
     }
 
     /**
-     * 마이페이지 조회
+     * 관리자페이지 조회
      * @param map
      * @param request
      * @return
      */
+    @ResponseBody
     @PostMapping("/mgnt/m_member_search_dtl")
     public Map<String,Object> m_member_search_dtl(@RequestBody Map map, HttpServletRequest request) {
 
@@ -840,22 +831,10 @@ public class EvMgntController {
         HttpSession httpSession = request.getSession();
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
-        if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
-            resposeResult.put("session_yn", "N");
-            resposeResult.put("result_code", "-9999");
-            resposeResult.put("result_msg", "세션정보없음");
-            return resposeResult;
-        } else {
-            resposeResult.put("session_yn", "Y");
-        }
-
-        map.put("cust_id", loginInfoDto.getCust_id());
-        map.put("user_id", loginInfoDto.getCust_id());
-
         try {
             EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
             evMemberSearchDto.setUser_id(loginInfoDto.getCust_id());
-            evMemberSearchDto.setCust_id(loginInfoDto.getCust_id());
+            evMemberSearchDto.setCust_id(StringUtils.nvl(map.get("cust_id"),""));
 
             /* 고객정보조회 */
             List<EvMemberResposeDto> custInfo = evMemberService.search_cust_info(evMemberSearchDto);

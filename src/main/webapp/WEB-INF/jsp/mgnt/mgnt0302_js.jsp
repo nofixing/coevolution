@@ -17,6 +17,14 @@ $(document).ready(function() {
 		fnUpdate();
 	});
 
+	$('#btnList1').on('click', function () {
+		document.location.href="/mgnt/m_corp_search";
+	});
+
+	$('#btnList2').on('click', function () {
+		document.location.href="/mgnt/m_corp_search";
+	});	
+
 	//중복확인
 	$('#btnDupCheck').on('click', function () {
 		fnDupCheck();
@@ -59,6 +67,7 @@ function fnSearch() {
 				setValue("country_cd", "212032");
 				setValue("category1", "");
 			}
+
 
 		} else {
 			if(message.session_yn == "N") {

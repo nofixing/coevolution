@@ -151,7 +151,8 @@
                           </tr>                           
                         </table>
 
-                        <div class="register_page text-center">
+                        <div class="register_page text-right">
+                          <button type="button" class="basic-btn" id="btnList">목록</button>
                           <button type="button" class="basic-btn" id="btnUpdate">참가신청등록</button>
                         </div>
                           

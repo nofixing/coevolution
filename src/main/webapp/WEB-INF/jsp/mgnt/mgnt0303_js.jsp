@@ -24,6 +24,14 @@ $(document).ready(function() {
 		fnUpdateBooth();
 	});
 
+	$('#btnList1').on('click', function () {
+		document.location.href="/mgnt/m_corp_search";
+	});	
+
+	$('#btnList2').on('click', function () {
+		document.location.href="/mgnt/m_corp_search";
+	});		
+
 	//전화번호
 	$('#hp_no').on('focusout', function () {
 		var telNo = lComm.setTelNoFormat(getValue("hp_no"));

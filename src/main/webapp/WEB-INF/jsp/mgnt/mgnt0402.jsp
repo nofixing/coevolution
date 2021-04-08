@@ -85,7 +85,7 @@
                             <tr>
                                 <th>비밀번호</th>
                                 <td>
-                                    <a href="/mypage/myp05" class="basic-btn">초기화</a>
+                                    <a href="javascript:pwReset()" class="basic-btn">비밀번호 초기화</a>
                                 </td>
                             </tr>
                             <tr>
@@ -242,9 +242,10 @@
                                   <!-- 201117추가-->
                               </div>
                           </div>
-                          <div class="register_page text-center">
-                            <button type="button" class="register_page_submit" id="btnUpdate">정보수정</button>
-                            </div>
+                          <div class="register_page text-right">
+                            <button type="button" class="basic-btn" id="btnList">목록</button>
+                            <button type="button" class="basic-btn" id="btnUpdate">정보수정</button>
+                          </div>
                       </form>
                     </div>
                 </div>

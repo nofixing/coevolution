@@ -139,8 +139,15 @@ public class EvMypageMemberController {
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
-        map.put("cust_id", loginInfoDto.getCust_id());
-        map.put("user_id", loginInfoDto.getCust_id());
+
+        /* 관리자 화면에서 수정인 경우 */
+        if("Y".equals(StringUtils.nvl(map.get("m_yn"),""))) {
+            //cust_id map에 있음.
+            map.put("user_id", loginInfoDto.getCust_id());
+        } else {
+            map.put("cust_id", loginInfoDto.getCust_id());
+            map.put("user_id", loginInfoDto.getCust_id());
+        }
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
             resposeResult.put("session_yn", "N");

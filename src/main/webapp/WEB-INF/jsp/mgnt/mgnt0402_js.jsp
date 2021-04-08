@@ -29,6 +29,10 @@ $(document).ready(function() {
 		setValue("hp_no", telNo);
 	});	
 
+	$('#btnList').on('click', function () {
+		document.location.href="/mgnt/m_member_search";
+	});
+
 	fnSearch();
 
 });
@@ -37,8 +41,8 @@ $(document).ready(function() {
 var lFormValue;
 function fnSearch() {
 	
-	var pParamJson = "{}";
-	sendForm("POST", "/mypage/member/search", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+	var pParamJson = '{"cust_id":"${cust_id}"}';
+	sendForm("POST", "/mgnt/m_member_search_dtl", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message.result_code == 0) {
 			//console.log(message);
@@ -179,6 +183,10 @@ function fnUpdate() {
 	/* form값 global 변수에 입력 */
 	gfnGetFormJSON();
 
+	/* 값입력 */
+ 	gfnPutObj("cust_id", "${cust_id}");
+	gfnPutObj("m_yn", "Y");
+
 	/* global 변수 json으로 변환 */
 	var pParamJson = gfnGetJson();
 
@@ -232,4 +240,28 @@ function codeList(pList, pArray) {
 	return pArray;
 }
 
+/* 비밀번호를 초기화한다. */
+function pwReset() {
+
+	if(!confirm("비밀번호를 초기화하시겠습니까?")) return false;
+
+	/* form값 global 변수에 입력 */
+	gfnGetFormJSON();
+
+	/* 값입력 */
+ 	gfnPutObj("cust_id", "${cust_id}");
+	
+	/* global 변수 json으로 변환 */
+	var pParamJson = gfnGetJson();		
+
+	sendForm("POST", "/mgnt/m_corp_pwreset", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+		
+		if(message.result_code == 0) {
+			alert("비밀번호를 초기화하였습니다.");
+		} else {
+			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+		}
+
+	});	
+}
 </script>

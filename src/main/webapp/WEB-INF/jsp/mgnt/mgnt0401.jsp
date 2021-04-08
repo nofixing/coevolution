@@ -80,6 +80,7 @@
                 <!--검색조건-->
                 <form class="pt-4 pb-3" onsubmit="return false">
                   <input type="hidden" id="cust_id" name="cust_id"/>
+                  <input type="hidden" id="page_current" name="page_current"/>
                   <div class="form-row align-items-center pb-2">
                       <div class="col-2 text-center form-control-sm">
                         가입일
