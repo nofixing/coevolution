@@ -152,7 +152,10 @@ public class EvHomeController {
     @RequestMapping("/member/login_form")
     public String login_form(Model model, HttpServletRequest request) {
 
-        request.getSession().setAttribute("url_prior_login", "/");
+        String url_prior_login = (String)request.getSession().getAttribute("url_prior_login");
+        if(url_prior_login == null || "".equals(url_prior_login)) {
+            request.getSession().setAttribute("url_prior_login", "/");
+        }
 
         return "/member/login_form";
     }
@@ -368,14 +371,15 @@ public class EvHomeController {
     public String vr_corp_form(HttpServletRequest request, Model model) {
 
         String returnUrl = "/vr/vr_corp_form";
-
+        returnUrl = request.getRequestURL().append('?').append(request.getQueryString()).toString();
+        logger.info("returnUrl:"+returnUrl);
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
-            returnUrl = "/vr/vr_login_form";
-            return returnUrl;
+            request.getSession().setAttribute("url_prior_login", returnUrl);
+            return "redirect:/member/login_form";
         }
 
         try {
@@ -515,14 +519,15 @@ public class EvHomeController {
     public String vr_coslt_form(HttpServletRequest request, Model model) {
 
         String returnUrl = "/vr/vr_coslt_form";
-
+        returnUrl = request.getRequestURL().append('?').append(request.getQueryString()).toString();
+        logger.info("returnUrl:"+returnUrl);
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
-            returnUrl = "/vr/vr_login_form";
-            return returnUrl;
+            request.getSession().setAttribute("url_prior_login", returnUrl);
+            return "redirect:/member/login_form";
         }
 
         try {
