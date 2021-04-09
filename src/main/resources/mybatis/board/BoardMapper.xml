@@ -247,10 +247,10 @@
         , a.reg_dt
         , a.board_stat_cd
         , (select cd_nm from ev_comm_code where cd_id = a.board_stat_cd) as board_stat_nm
-        FROM ev_board A
+        FROM ev_board a
         inner join ev_cust_mst b
         on a.conslt_cust_id = b.cust_id
-        WHERE A.board_clsf_cd = '101002' /* 1:1 문의 */
+        WHERE a.board_clsf_cd = '101002' /* 1:1 문의 */
         AND a.del_yn = 'N'
         AND a.board_res_id = 0
 
@@ -282,10 +282,10 @@
             resultType="kr.coevolution.vr.board.dto.EvBoardConsltResponseDto">
 
         SELECT COUNT(*) AS row_count
-        FROM ev_board A
+        FROM ev_board a
         inner join ev_cust_mst b
         on a.conslt_cust_id = b.cust_id
-        WHERE A.board_clsf_cd = '101002' /* 1:1 문의 */
+        WHERE a.board_clsf_cd = '101002' /* 1:1 문의 */
         AND a.del_yn = 'N'
         AND a.board_res_id = 0
 
