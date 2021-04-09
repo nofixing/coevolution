@@ -32,6 +32,16 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="/assets/css/theme.min.css">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FH0GW643X0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FH0GW643X0');
+    </script>
+
     <title>국제전기자동차엑스포</title>
 
     <!-- 전체메뉴팝업 -->
