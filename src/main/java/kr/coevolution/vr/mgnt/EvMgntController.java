@@ -100,6 +100,17 @@ public class EvMgntController {
                 // Create a new session and add the security context.
                 session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 
+                //관리자 메뉴 리스트 조회
+                Map<String, String> pMap = new HashMap<String, String>();
+                pMap.put("mgnt_id", evMemberLoginInfoDtoList.get(0).getMgnt_id());
+                pMap.put("menu_lvel", "1"); //메뉴레벨1
+                List<Map<String, String>> userMenuList1 = evMgntService.mgnt_user_menu_list(pMap);
+                session.setAttribute("MGNT_MENU_LEVL1", userMenuList1);
+
+                pMap.put("menu_lvel", "2"); //메뉴레벨2
+                List<Map<String, String>> userMenuList2 = evMgntService.mgnt_user_menu_list(pMap);
+                session.setAttribute("MGNT_MENU_LEVL2", userMenuList2);
+
                 resposeResult.put("cust_clsf_cd", evMemberLoginInfoDtoList.get(0).getCust_clsf_cd());
                 resposeResult.put("result_code", "0");
                 resposeResult.put("result_msg", "성공!!");
@@ -895,4 +906,293 @@ public class EvMgntController {
         return resposeResult;
     }
 
+    /**
+     * 관리자 리스트
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/user")
+    public String m_member_user_list(EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt0501";
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
+            evMgntMemberRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            /* row 개수 */
+            evMgntMemberRequestDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+            Long page_row_start = StringUtils.page_start_row(evMgntMemberRequestDto.getPage_current());
+            evMgntMemberRequestDto.setPage_row_start(page_row_start);
+
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getPage_current(),""))) {
+                evMgntMemberRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMgntMemberRequestDto.getPage_current()));  /* 현재페이지 */
+
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getMgnt_id(),""))) {
+                evMgntMemberRequestDto.setMgnt_id("");
+            }
+
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getMgnt_nm(),""))) {
+                evMgntMemberRequestDto.setMgnt_nm("");
+            }
+
+            /* 뱃지 리스트 조회 */
+            List<EvMgntMemberResponseDto> list = evMgntService.search_mgnt_user_list(evMgntMemberRequestDto);
+            List<EvMgntMemberResponseDto> listCnt = evMgntService.search_mgnt_user_list_count(evMgntMemberRequestDto);
+
+            Long row_count = 0L;
+
+            if(listCnt != null && listCnt.size() > 0) {
+                row_count = listCnt.get(0).getRow_count(); /* 총건수 */
+            }
+
+            Long page_row_cnt = StringUtils.page_tot(row_count);
+
+            model.addAttribute("page_clsf", "mgnt05");
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count); /* 총건수 */
+            model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
+
+            /* 검색조건 */
+            model.addAttribute("mgnt_id_sh", evMgntMemberRequestDto.getMgnt_id_sh());
+            model.addAttribute("mgnt_nm_sh", evMgntMemberRequestDto.getMgnt_nm_sh());
+
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 관리자페이지 - 관리자입력 폼
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/user_form")
+    public String m_member_user_form(EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt0502";
+
+        try {
+
+            if("U".equals(evMgntMemberRequestDto.getMode())) {
+                returnUrl = "/mgnt/mgnt0503";
+                
+                //관리자정보조회
+                List<EvMgntMemberResponseDto> mgntInfo = evMgntService.search_mgnt_user_info(evMgntMemberRequestDto);
+                model.addAttribute("mgnt_id", mgntInfo.get(0).getMgnt_id());
+                model.addAttribute("mgnt_nm", mgntInfo.get(0).getMgnt_nm());
+                model.addAttribute("email_id", mgntInfo.get(0).getEmail_id());
+                model.addAttribute("hp_no", mgntInfo.get(0).getHp_no());
+                model.addAttribute("dept_nm", mgntInfo.get(0).getDept_nm());
+                model.addAttribute("use_yn", mgntInfo.get(0).getUse_yn());
+
+                //권한
+                Map<String, String> pMap = new HashMap<String, String>();
+                pMap.put("mgnt_id", evMgntMemberRequestDto.getMgnt_id());
+                List<Map<String,String>> listPrms = evMgntService.search_mgnt_prms_list(pMap);
+
+                for(int i = 0; i < listPrms.size(); i++) {
+                    model.addAttribute("S"+listPrms.get(i).get("menu_id"), listPrms.get(i).get("use_yn"));
+                }
+            }
+
+            model.addAttribute("mgnt_id", evMgntMemberRequestDto.getMgnt_id());
+            model.addAttribute("page_clsf", "mgnt05");
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 관리자 중복체크
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/user_dup")
+    public Map<String,Object> mgnt_user_dup(@RequestBody EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        try {
+
+            List<EvMgntMemberResponseDto> list = evMgntService.search_mgnt_dup_chk(evMgntMemberRequestDto);
+
+            String dup_yn = "N";
+            if(0 < list.get(0).getDup_cnt()) {
+                dup_yn = "Y";
+            }
+
+            resposeResult.put("dup_yn", dup_yn);
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 관리자를 등록한다.
+     * @param pMap
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/insert")
+    public Map<String,Object> mgnt_user_insert(@RequestBody Map<String, String> pMap, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        try {
+            /* 등록자 입력 */
+            pMap.put("user_id", loginInfoDto.getMgnt_id());
+
+            evMgntService.mgnt_user_insert(pMap);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            if("-1".equals(e.getMessage())) {
+                resposeResult.put("result_code", e.getMessage());
+                resposeResult.put("result_msg", "ID중복 오류");
+            } else {
+                resposeResult.put("result_code", "-99");
+                resposeResult.put("result_msg", "입력실패!!");
+            }
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 관리자 정보를 수정한다.
+     * @param pMap
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/update")
+    public Map<String,Object> mgnt_user_update(@RequestBody Map<String, String> pMap, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        try {
+            /* 등록자 입력 */
+            pMap.put("user_id", loginInfoDto.getMgnt_id());
+
+            evMgntService.mgnt_user_update(pMap);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 비밀번호변경
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/pwChange")
+    public Map<String,Object> mgnt_user_password_chagne(@RequestBody EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        try {
+            if(!evMgntMemberRequestDto.getMgnt_passwd1().equals(evMgntMemberRequestDto.getMgnt_passwd2())) {
+                throw new RuntimeException("-1");
+            }
+
+            /* 비밀번호 암호화 */
+            String mgnt_pw = String.valueOf(evMgntMemberRequestDto.getMgnt_passwd1());
+            mgnt_pw = SecureUtils.getSecurePassword(mgnt_pw);
+            evMgntMemberRequestDto.setMgnt_pw(mgnt_pw);
+            evMgntMemberRequestDto.setUser_id(loginInfoDto.getMgnt_id());
+
+            evMgntService.mgnt_user_passwd_change(evMgntMemberRequestDto);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+            if("-1".equals(e.getMessage())) {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "비밀번호 오류!!");
+            } else {
+                resposeResult.put("result_code", "-99");
+                resposeResult.put("result_msg", "입력실패!!");
+            }
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
 }

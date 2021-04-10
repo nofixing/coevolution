@@ -50,5 +50,183 @@
 
     </select>
 
+    <select id="S03_DUP_CHK" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+        /* 중복체크 */
+        select count(*) as dup_cnt
+        from ev_mgnt_user
+        where mgnt_id = #{mgnt_id}
+    </select>
+
+    <insert id="I01_MGNT_USER" parameterType="map">
+        /* 관리자등록 */
+        INSERT INTO ev_mgnt_user
+        (
+            mgnt_seq, mgnt_id, mgnt_nm, mgnt_pw, email_id, hp_no, dept_nm, use_yn, del_yn, ins_user, ins_dtm, mod_user, mod_dtm
+        ) VALUES (
+            null, #{mgnt_id}, #{mgnt_nm}, #{mgnt_pw}, #{email_id}, #{hp_no}, #{dept_nm},'Y', 'N', #{user_id}, now(), #{user_id}, now()
+        )
+
+    </insert>
+
+    <update id="U01_MGNT_USER" parameterType="map">
+        /* 관리자정보 수정 */
+        update ev_mgnt_user
+        set    mgnt_nm = #{mgnt_nm}
+             , email_id = #{email_id}
+             , dept_nm = #{dept_nm}
+             , hp_no = #{hp_no}
+             , use_yn = #{use_yn}
+             , mod_user = #{user_id}
+             , mod_dtm = now()
+        where mgnt_id = #{mgnt_id}
+
+    </update>
+
+    <update id="U01_MGNT_USER_PW" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto">
+        /* 관리자정보 수정 */
+        update ev_mgnt_user
+        set   mgnt_pw = #{mgnt_pw}
+        , mod_user = #{user_id}
+        , mod_dtm = now()
+        where mgnt_id = #{mgnt_id}
+
+    </update>
+
+    <insert id="I02_MGNT_PRMS" parameterType="map">
+        /* 관리자 메뉴 권한 */
+        INSERT INTO ev_menu_prms
+        (
+            prms_id, mgnt_id, menu_id, use_yn, del_yn, ins_user, ins_dtm, mod_user, mod_dtm
+        ) VALUES (
+            NULL, #{mgnt_id}, #{menu_id}, #{use_yn}, 'N', #{user_id}, NOW(), #{user_id}, NOW()
+        )
+
+    </insert>
+
+    <update id="U02_MGNT_PRMS_DEL" parameterType="map">
+        /* 권한삭제처리 */
+        update ev_menu_prms
+        set     del_yn = 'Y'
+                , mod_user = #{user_id}
+                , mod_dtm  = NOW()
+        where mgnt_id = #{mgnt_id}
+    </update>
+
+    <select id="S04_MENU_LIST" parameterType="map" resultType="map">
+        /* 관리메뉴를 조회한다. */
+        select menu_id
+            , menu_nm
+            , menu_url
+            , upper_menu_id
+            , menu_lvel
+        from ev_menu_mgnt
+        where menu_id like '1%'
+        and use_yn = 'Y'
+        order by case when menu_lvel = 2 then upper_menu_id  else menu_id end, menu_id
+    </select>
+
+    <select id="S05_MGNT_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        select ROW_NUMBER() OVER(order by mgnt_nm) as rn
+            , mgnt_id
+            , mgnt_nm
+            , email_id
+            , hp_no
+            , use_yn
+            , dept_nm
+        from ev_mgnt_user emu
+        where del_yn = 'N'
+
+        <if test="mgnt_id_sh != null and mgnt_id_sh != ''">
+            and emu.mgnt_id like concat('%',#{mgnt_id_sh},'%')
+        </if>
+
+        <if test="mgnt_nm_sh != null and mgnt_nm_sh != ''">
+            and emu.mgnt_nm like concat('%',#{mgnt_nm_sh},'%')
+        </if>
+
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S05_MGNT_LIST_COUNT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        select count(*) as row_count
+        from ev_mgnt_user emu
+        where del_yn = 'N'
+
+        <if test="mgnt_id_sh != null and mgnt_id_sh != ''">
+            and emu.mgnt_id like concat('%',#{mgnt_id_sh},'%')
+        </if>
+
+        <if test="mgnt_nm_sh != null and mgnt_nm_sh != ''">
+            and emu.mgnt_nm like concat('%',#{mgnt_nm_sh},'%')
+        </if>
+
+    </select>
+
+    <select id="S06_MGNT_USER_INFO" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+        /* 관리자 정보 상세조회 */
+        select mgnt_id
+            , mgnt_nm
+            , email_id
+            , hp_no
+            , dept_nm
+            , use_yn
+        from ev_mgnt_user
+        where mgnt_id = #{mgnt_id}
+        and del_yn = 'N'
+    </select>
+
+    <select id="S07_MGNT_PRMS_LIST" parameterType="map" resultType="map">
+        /* 메뉴권한조회 */
+        select menu_id
+             , use_yn
+          from ev_menu_prms
+         where mgnt_id = #{mgnt_id}
+          and del_yn = 'N'
+    </select>
+
+    <select id="S08_MGNT_MENU_LIST" parameterType="map" resultType="map">
+        /* 관리자 권한 내역 */
+        with menu as (
+            select menu_id
+                , menu_nm
+                , menu_url
+                , upper_menu_id
+                , menu_lvel
+                , menu_on_clsf
+            from ev_menu_mgnt a
+            where menu_id like '1%'
+            and use_yn = 'Y'
+            and exists (select 1 from ev_menu_prms emp where menu_id = a.menu_id and mgnt_id = #{mgnt_id} and del_yn = 'N' and use_yn = 'Y')
+        )
+        select a.menu_id
+            , a.menu_nm
+            , a.menu_url
+            , a.upper_menu_id
+            , a.menu_lvel
+            , a.menu_on_clsf
+            , (select count(*) from ev_menu_mgnt emm where upper_menu_id = a.menu_id and use_yn = 'Y') as cnt
+        from (
+            select distinct z.*
+            from (
+                    select *
+                    from menu
+                    union all
+                    select menu_id
+                        , menu_nm
+                        , menu_url
+                        , upper_menu_id
+                        , menu_lvel
+                        , menu_on_clsf
+                    from ev_menu_mgnt a
+                    where menu_id in (select upper_menu_id from menu)
+            ) z
+        ) a
+        where menu_lvel = #{menu_lvel}
+        order by case when a.menu_lvel = 2 then a.upper_menu_id  else a.menu_id end, a.menu_id
+
+    </select>
 
 </mapper>

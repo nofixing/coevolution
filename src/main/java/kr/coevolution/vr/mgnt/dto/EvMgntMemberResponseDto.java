@@ -9,6 +9,8 @@ public class EvMgntMemberResponseDto {
     private String rn;
     private Long cust_seq;
     private String cust_id;
+    private String mgnt_id;
+    private String mgnt_nm;
     private String user_id;
     private String cust_pw;
     private String cust_clsf_cd;
@@ -50,4 +52,6 @@ public class EvMgntMemberResponseDto {
     private String login_dtm;
     private Long row_count; /* 조회된 row 개수 */
     private Long tot_cnt; /* 총건수 */
+    private int dup_cnt;
+    private String use_yn;
 }
