@@ -202,6 +202,7 @@ public class EvMypageMemberController {
 
             /* 패스워드를 암호화하여 비교한다. */
             String userCurrentPw = evMemberLoginRequestDto.getUser_current_pw();
+
             userCurrentPw = SecureUtils.getSecurePassword(userCurrentPw);
             evMemberLoginRequestDto.setUser_pw(userCurrentPw);
 
@@ -214,25 +215,19 @@ public class EvMypageMemberController {
                     evMemberLoginRequestDto.setUser_change_pw1(pw);
 
                 } else {
-                    errCd = 2;
+                    errCd = 6;
                     errMsg = "새 비밀번호가 같지 않습니다.";
                 }
             } else {
-                errCd = 1;
+                errCd = 7;
                 errMsg = "현재 비밀번호가 맞지 않습니다.";
             }
-            
-            /* 자리수 체크 - 수정필요
-            int rtnValue = StringUtils.pwdRegularExpressionChk(evMemberLoginRequestDto.getUser_change_pw1(), evMemberLoginRequestDto.getUser_current_pw(), loginInfoDto.getCust_id());
 
-            if(rtnValue == 1) {
-                errCd = 3;
-                errMsg = "현재 비밀번호와 다른 비밀번호를 사용하세요.";
-            } else if(rtnValue == 2) {
-                errCd = 4;
-                errMsg = "비밀번호는 영문, 숫자, 특수문자를 혼용하여 6~12자 이내로 입력해주세요.";
+            if(errCd == 0) {
+                /* 비밀번호체크 */
+                errCd = StringUtils.pwdRegularExpressionChk(evMemberLoginRequestDto.getUser_change_pw2(), "", loginInfoDto.getCust_id());
             }
-            */
+
             if(errCd == 0) {
                 int result_code = evMemberService.member_passwd(evMemberLoginRequestDto);
 
