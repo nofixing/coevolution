@@ -1,9 +1,10 @@
+@charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 
 /*
 ********************************* 
-    common 공통 모음 
+    common ê³µí†µ ëª¨ìŒ 
 **********************************
 */
 
@@ -125,6 +126,7 @@ line-height: 1;}
 @media (max-width:991px){
     .form_inner{
         margin-bottom:20px;
+        padding: 0 15px;
     }
 }
 
@@ -406,8 +408,8 @@ line-height: 1;}
 }
 .register_seq{
     margin-top:8px;
-    margin-left:-20px;
-    margin-right:-20px;
+    /* margin-left:-20px; */
+    /* margin-right:-20px; */
 }
 .register_seq li{
     width:calc(33.33% - 40px);
@@ -662,6 +664,10 @@ line-height: 1;}
 }
 
 @media (max-width:991px){
+    .register_seq{
+        margin-left:0;
+        margin-right:0;
+    }
     .register_head .register_head_tit{
         float:none;
     }
@@ -880,11 +886,11 @@ line-height: 1;}
     font-size:18px;
 }
 
-.find_tab a:first-child:nth-last-child(1) { width: 100%; }                      /* li가 1개 일 때 */ 
-.find_tab a:first-child:nth-last-child(2), .find_tab a:first-child:nth-last-child(2) ~  a { width: 50%; }       /* li가 2개일 때 */ 
-.find_tab a:first-child:nth-last-child(3), .find_tab a:first-child:nth-last-child(3) ~  a { width: 33.3333% }  /* li가  3개일 때 */
-.find_tab a:first-child:nth-last-child(4), .find_tab a:first-child:nth-last-child(4) ~  a { width: 25%; }      /* li가 4개일 때*/
-.find_tab a:first-child:nth-last-child(5), .find_tab a:first-child:nth-last-child(5) ~  a { width: 20%; }      /* li가 5개일 때*/
+.find_tab a:first-child:nth-last-child(1) { width: 100%; }                      /* liê°€ 1ê°œ ì¼ ë•Œ */ 
+.find_tab a:first-child:nth-last-child(2), .find_tab a:first-child:nth-last-child(2) ~  a { width: 50%; }       /* liê°€ 2ê°œì¼ ë•Œ */ 
+.find_tab a:first-child:nth-last-child(3), .find_tab a:first-child:nth-last-child(3) ~  a { width: 33.3333% }  /* liê°€  3ê°œì¼ ë•Œ */
+.find_tab a:first-child:nth-last-child(4), .find_tab a:first-child:nth-last-child(4) ~  a { width: 25%; }      /* liê°€ 4ê°œì¼ ë•Œ*/
+.find_tab a:first-child:nth-last-child(5), .find_tab a:first-child:nth-last-child(5) ~  a { width: 20%; }      /* liê°€ 5ê°œì¼ ë•Œ*/
 
 
 
@@ -955,7 +961,7 @@ line-height: 1;}
 
 
 
-/* 회원가입 퍼옴 */
+/* íšŒì›ê°€ìž… í¼ì˜´ */
 
 
 /* .page-area {width:100%; min-height:calc(100vh - 112px);} */
@@ -987,7 +993,7 @@ line-height: 1;}
 
 
 
-/*회원가입*/
+/*íšŒì›ê°€ìž…*/
 .join-intro .contents-area {background:#f7f7f7; border:#e0e0e0 solid 1px; border-top:0; box-sizing:border-box;}
 .join-intro .contents-area .top_tit{text-align:center; font-size:30px; padding-top:50px;}
 .join-intro .contents-area .top_tit span{color:#0070ba; font-weight:700;}
@@ -1299,7 +1305,7 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
 
 
 
-/* 정보 동의 */
+/* ì •ë³´ ë™ì˜ */
 
 .terms_bx{
     width:100%;
@@ -1506,7 +1512,7 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
 
 
 
-/* mypage 내 정보 수정 */
+/* mypage ë‚´ ì •ë³´ ìˆ˜ì • */
 
 .basic-table{
     width:100%;

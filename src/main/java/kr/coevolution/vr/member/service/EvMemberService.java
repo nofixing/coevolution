@@ -134,6 +134,19 @@ public class EvMemberService {
 
         /* 비밀번호 암호화 */
         String cust_pw = String.valueOf(param.get("cust_pw"));
+        String cust_pw2 = String.valueOf(param.get("cust_pw2"));
+
+        if(!cust_pw.equals(cust_pw2)) {
+            return 6;
+        }
+
+        /* 비밀번호체크 */
+        int pwResult = StringUtils.pwdRegularExpressionChk(cust_pw, "", String.valueOf(param.get("cust_id")));
+
+        if(pwResult != 0) {
+            return pwResult;
+        }
+
         cust_pw = SecureUtils.getSecurePassword(cust_pw);
         param.put("cust_pw", cust_pw);
         param.put("user_id", String.valueOf(param.get("cust_id")));

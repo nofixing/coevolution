@@ -84,7 +84,7 @@
                     <div class="register_section">
                         <h4><strong>개인정보 마케팅 활용 동의(선택)</strong></h4>
                         <div class="register_section_area">
-                            <textarea name="" id="" cols="30" rows="5"></textarea>
+                            ${agree3_contents}
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="agree_3" name="agree_3" value="Y" class="custom-control-input">

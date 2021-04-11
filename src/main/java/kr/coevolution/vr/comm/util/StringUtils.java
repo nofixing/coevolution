@@ -22,11 +22,8 @@ public class StringUtils {
     /**
      * 비밀번호체크
      */
-    public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{6,20}$"; // 영문, 숫자, 특수문자
-    public static final String pattern2 = "^[A-Za-z[0-9]]{6,20}$"; // 영문, 숫자
-    public static final String pattern3 = "^[[0-9]$@$!%*#?&]{6,20}$"; //영문,  특수문자
-    public static final String pattern4 = "^[[A-Za-z]$@$!%*#?&]{6,20}$"; // 특수문자, 숫자
-    public static final String pattern5 = "(\\w)\\1\\1\\1"; // 같은 문자, 숫자
+    public static final String pattern1 = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z]).{6,20}$";// 영문, 숫자, 특수문자 "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{6,20}$"
+    public static final String pattern2 = "(\\w)\\1\\1\\1"; // 같은 문자, 숫자
 
 
     /**
@@ -182,125 +179,28 @@ public class StringUtils {
     public static int pwdRegularExpressionChk(String newPwd, String oldPwd, String userId) {
 
         Matcher  match;
-        boolean chk = false;
         int chkRtn = 0;
 
         // 특수문자, 영문, 숫자 조합 (6~20 자리)
         match = Pattern.compile(pattern1).matcher(newPwd);
 
         if(newPwd.equals(oldPwd)) {
-            chkRtn = 1;
-        } else if(match.find()) {
-            chkRtn = 2;
+            chkRtn = 1;//현재비밀번호, 과거비밀번호가 같다
+        } else if(newPwd.equals(userId)){
+            chkRtn = 2;//비밀번호와 사용자id가 같음
+        } else if(!match.matches()){
+            chkRtn = 3; //특수문자, 영문, 숫자 조합 (6~20 자리)
         }
 
-        return chkRtn;
-/*
-        // 영문, 숫자 (10~20 자리)
         match = Pattern.compile(pattern2).matcher(newPwd);
 
         if(match.find()) {
-            chk = true;
-        }
-
-        // 영문, 특수문자 (6~20 자리)
-        match = Pattern.compile(pattern3).matcher(newPwd);
-
-        if(match.find()) {
-            chk = true;
-        }
-
-        // 특수문자, 숫자 (6~20 자리)
-        match = Pattern.compile(pattern4).matcher(newPwd);
-
-        if(match.find()) {
-            chk = true;
-        }
-
-        if(chk) {
-            // 연속문자 4자리
-            if(samePwd(newPwd)) {
-                chkRtn = 1;
-            }
-
-            // 같은문자 4자리
-            if(continuousPwd(newPwd)) {
-                chkRtn = 2;
-            }
-
-            // 이전 아이디 4자리
-            if(newPwd.equals(oldPwd)) {
-                chkRtn = 3;
-            }
-
-            // 아이디와 동일 문자 4자리
-            if(sameId(newPwd, userId)) {
-                chkRtn = 4;
-            }
+            chkRtn = 4; //같은문자 4개이상 사용
+        } else if(newPwd.contains(" ")){
+            chkRtn = 5; //비밀번호에 공백 있음
         }
 
         return chkRtn;
-
- */
-    }
-
-    /**
-     * 같은 문자, 숫자 4자리 체크
-     * @param pwd
-     * @return
-     */
-
-    private static boolean samePwd(String pwd) {
-
-        Matcher  match;
-        match = Pattern.compile(pattern5).matcher(pwd);
-
-        return match.find() ? true : false;
-    }
-
-    /**
-     * 연속 문자, 숫자 4자리 체크
-     * @param pwd
-     * @return
-     */
-    private static boolean continuousPwd(String pwd) {
-
-        int o = 0;
-        int d = 0;
-        int p = 0;
-        int n = 0;
-        int limit = 4;
-
-        for(int i=0; i<pwd.length(); i++) {
-
-            char tempVal = pwd.charAt(i);
-
-            if(i > 0 && (p = o - tempVal) > -2 && (n = p == d ? n + 1 :0) > limit -3) {
-                return true;
-            }
-
-            d = p;
-            o = tempVal;
-        }
-
-        return false;
-    }
-
-    /**
-     * 아이디와 동일 문자 4자리 체크
-     * @param pwd
-     * @param id
-     * @return
-     */
-    private static boolean sameId(String pwd, String id) {
-
-        for(int i=0; i<pwd.length()-3; i++) {
-            if(id.contains(pwd.substring(i, i+4))) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
 

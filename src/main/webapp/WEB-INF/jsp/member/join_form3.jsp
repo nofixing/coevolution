@@ -80,14 +80,14 @@
                               <div class="tb-tr">
                                   <div class="tb-th"><span>*</span> 비밀번호</div>
                                   <div class="tb-td">
-                                      <input type="password" minlength="6" maxlength="10" class="input-box" placeholder="비밀번호를 입력하세요" id="cust_pw" name="cust_pw">
-                                      <p class="notice">※ 비밀번호는 영문, 숫자 혼용하여 6~10자 이내로 입력해주세요.</p>
+                                      <input type="password" minlength="6" maxlength="15" class="input-box" placeholder="비밀번호를 입력하세요" id="cust_pw" name="cust_pw">
+                                      <p class="notice">※ 비밀번호는 영문, 숫자 혼용하여 6~15자 이내로 입력해주세요.</p>
                                   </div>
                               </div>
                               <div class="tb-tr">
                                   <div class="tb-th"><span>*</span> 비밀번호 확인</div>
                                   <div class="tb-td">
-                                      <input type="password" minlength="6" maxlength="10" class="input-box" id="cust_pw2" name="cust_pw2">
+                                      <input type="password" minlength="6" maxlength="15" class="input-box" id="cust_pw2" name="cust_pw2">
                                   </div>
                               </div>
                               <div class="tb-tr tr-half">

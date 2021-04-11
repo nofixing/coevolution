@@ -162,6 +162,16 @@ function fnSignUp() {
 			*/
             alert(msg);
             document.location.href="/";
+		} else if(message.result_code == 1) {            
+			alert("이전 비밀번호와 현재 비밀번호가 같습니다.");
+		} else if(message.result_code == 2) {            
+			alert("비밀번호와 사용자ID가 같습니다.");
+		} else if(message.result_code == 3) {            
+			alert("비밀번호를 특수문자, 영문, 숫자 조합으로 입력하시기 바랍니다.");
+		} else if(message.result_code == 4) {            
+			alert("같은 문자를 연속하여 사용할 수 없습니다.");	
+		} else if(message.result_code == 5) {            
+			alert("비밀번호에 공백이 있습니다.");				
 		} else {
 			alert("[참가신청 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
 			lComm.setFocus("cust_id");

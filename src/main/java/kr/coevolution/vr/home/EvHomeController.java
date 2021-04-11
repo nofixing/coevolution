@@ -275,8 +275,14 @@ public class EvHomeController {
             formList = mailSndService.searchMailForm(evMailSndRequestDto);
             String agree2 = formList.get(0).getEmail_form();
 
+            /* 개인정보 마케팅 활용 동의(선택) */
+            evMailSndRequestDto.setEmail_form_id(4);
+            formList = mailSndService.searchMailForm(evMailSndRequestDto);
+            String agree3 = formList.get(0).getEmail_form();
+
             model.addAttribute("agree1_contents", agree1);
             model.addAttribute("agree2_contents", agree2);
+            model.addAttribute("agree3_contents", agree3);
 
             return "/member/join_form2";
 
@@ -346,8 +352,14 @@ public class EvHomeController {
         formList = mailSndService.searchMailForm(evMailSndRequestDto);
         String agree2 = formList.get(0).getEmail_form();
 
+        /* 개인정보 마케팅 활용 동의(선택) */
+        evMailSndRequestDto.setEmail_form_id(4);
+        formList = mailSndService.searchMailForm(evMailSndRequestDto);
+        String agree3 = formList.get(0).getEmail_form();
+
         model.addAttribute("agree1_contents", agree1);
         model.addAttribute("agree2_contents", agree2);
+        model.addAttribute("agree3_contents", agree3);
 
         return "/member/join_form4";
     }
@@ -637,8 +649,14 @@ public class EvHomeController {
         formList = mailSndService.searchMailForm(evMailSndRequestDto);
         String agree2 = formList.get(0).getEmail_form();
 
+        /* 개인정보 마케팅 활용 동의(선택) */
+        evMailSndRequestDto.setEmail_form_id(4);
+        formList = mailSndService.searchMailForm(evMailSndRequestDto);
+        String agree3 = formList.get(0).getEmail_form();
+
         model.addAttribute("agree1_contents", agree1);
         model.addAttribute("agree2_contents", agree2);
+        model.addAttribute("agree3_contents", agree3);
         model.addAttribute("page_clsf", "myp06");
 
         return "/mypage/myp061";

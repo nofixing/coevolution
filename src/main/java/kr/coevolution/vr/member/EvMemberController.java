@@ -129,7 +129,7 @@ public class EvMemberController {
 
             int result_code = evMemberService.member_insert(map);
 
-            resposeResult.put("result_code", "0");
+            resposeResult.put("result_code", result_code);
             resposeResult.put("result_msg", "성공!!");
 
         } catch (Exception e) {

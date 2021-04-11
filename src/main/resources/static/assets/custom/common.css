@@ -70,13 +70,6 @@ button.basic-btn{
 
 
 
-@media (max-width:991px){
-    .container{
-        padding-right: 1rem !important;
-        padding-left: 1rem !important;
-    }
-}
-
 
 /* 부트스트랩 */
 
@@ -518,7 +511,7 @@ button.basic-btn{
   .m-menu-shop li a span {
     margin-top: 5px;
     display: block;
-    font-size: 11px;
+    font-size: 13px;
     color: #111111;
   }
   
@@ -554,12 +547,12 @@ button.basic-btn{
   
   .m-menu-cate li a {
     display: block;
-    font-size: 11px;
+    font-size: 13px;
     color:#333;
     position: relative;
     padding: 15px 10px;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
   }
   
   .m-menu-cate li a:after {
@@ -583,9 +576,9 @@ button.basic-btn{
   }
   
   .m-menu-list li {
-    width: calc(50% - 10px);
+    width: calc(50% - 6px);
     float: left;
-    margin: 5px;
+    margin: 3px;
   }
   
   .m-menu-list li.m-login-area a {
@@ -594,12 +587,12 @@ button.basic-btn{
   
   .m-menu-list li a {
     display: block;
-    padding: 15px;
+    padding: 15px 10px;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
     background: #f2f5f6;
     color:#333;
-    font-size:11px;
+    font-size: 13px;
   }
   
   .m-menu-list li a span {
