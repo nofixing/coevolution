@@ -116,8 +116,16 @@ public class EvHomeController {
      */
     @RequestMapping("/index/terms")
     public String terms(Model model, HttpServletRequest request) {
+        String return_url = "/terms";
 
-        return "/terms";
+        HttpSession httpSession = request.getSession();
+        String lang = String.valueOf(httpSession.getAttribute("LANG"));
+
+        if(lang.equals("en")) {
+            return_url = "/termsEn";
+        }
+
+        return return_url;
     }
 
     /**
@@ -129,7 +137,15 @@ public class EvHomeController {
     @RequestMapping("/index/pirvatePolicy")
     public String pirvatePolicy(Model model, HttpServletRequest request) {
 
-        return "/pirvatePolicy";
+        String return_url = "/pirvatePolicy";
+        HttpSession httpSession = request.getSession();
+        String lang = String.valueOf(httpSession.getAttribute("LANG"));
+
+        if(lang.equals("en")) {
+            return_url = "/pirvatePolicyEn";
+        }
+
+        return return_url;
     }
     
     /**
@@ -776,6 +792,9 @@ public class EvHomeController {
      */
     @RequestMapping(value = "/index/lang", method = RequestMethod.GET)
     public String lang(Locale locale, HttpServletRequest request, Model model) {
+
+        HttpSession httpSession = request.getSession();
+        httpSession.setAttribute("LANG", request.getParameter("lang"));
 
         // RequestMapingHandler로 부터 받은 Locale 객체를 출력해 봅니다.
         model.addAttribute("clientLocale", locale);
