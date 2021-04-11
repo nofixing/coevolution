@@ -38,6 +38,7 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -168,12 +169,28 @@ public class EvHomeController {
     @RequestMapping("/member/login_form")
     public String login_form(Model model, HttpServletRequest request) {
 
+        String return_url = "/member/login_form";
+
         String url_prior_login = (String)request.getSession().getAttribute("url_prior_login");
         if(url_prior_login == null || "".equals(url_prior_login)) {
             request.getSession().setAttribute("url_prior_login", "/");
         }
 
-        return "/member/login_form";
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        
+        /* 로그인정보가 있을 경우 마이페이지로 이동 */
+        if(loginInfoDto != null && !"".equals(StringUtils.nvl(loginInfoDto.getCust_clsf_cd(),""))) {
+            if("202001".equals(loginInfoDto.getCust_clsf_cd())) {
+                return_url = "redirect:/mypage/favorts";
+            } else if("202002".equals(loginInfoDto.getCust_clsf_cd())) {
+                return_url = "redirect:/mypage/myc01";
+            } else if("202003".equals(loginInfoDto.getCust_clsf_cd())) {
+                return_url = "redirect:/mgnt/badge";
+            }
+        }
+
+        return return_url;
     }
 
     /**
@@ -242,9 +259,24 @@ public class EvHomeController {
     @RequestMapping("/member/join_form1")
     public String join_form1(Model model, HttpServletRequest request) {
 
+        String return_url = "/member/join_form1";
         request.getSession().setAttribute("url_prior_login", "/member/join_form2");
 
-        return "/member/join_form1";
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        /* 로그인정보가 있을 경우 마이페이지로 이동 */
+        if(loginInfoDto != null && !"".equals(StringUtils.nvl(loginInfoDto.getCust_clsf_cd(),""))) {
+            if("202001".equals(loginInfoDto.getCust_clsf_cd())) {
+                return_url = "redirect:/mypage/favorts";
+            } else if("202002".equals(loginInfoDto.getCust_clsf_cd())) {
+                return_url = "redirect:/mypage/myc01";
+            } else if("202003".equals(loginInfoDto.getCust_clsf_cd())) {
+                return_url = "redirect:/mgnt/badge";
+            }
+        }
+
+        return return_url;
     }
 
     /**
@@ -407,7 +439,7 @@ public class EvHomeController {
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
             request.getSession().setAttribute("url_prior_login", returnUrl);
-            return "redirect:/member/login_form";
+            return "redirect:/vr/vr_login_form";
         }
 
         try {
@@ -561,7 +593,7 @@ public class EvHomeController {
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
             request.getSession().setAttribute("url_prior_login", returnUrl);
-            return "redirect:/member/login_form";
+            return "redirect:/vr/vr_login_form";
         }
 
         try {

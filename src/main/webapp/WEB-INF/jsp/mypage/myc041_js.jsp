@@ -32,7 +32,10 @@ $(document).ready(function() {
 
 		sendForm("POST", "/vr/conslt/reply", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 			
-			if(message.result_code == 0) {
+			if(message == "parsererror") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/member/login_form";
+			} else if(message.result_code == 0) {
 				alert("상담문의내역 답변이 등록되었습니다.");
 				document.location.href="/mypage/conslt_list";
 			} else {

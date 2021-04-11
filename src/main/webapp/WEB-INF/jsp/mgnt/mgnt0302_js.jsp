@@ -47,7 +47,10 @@ function fnSearch() {
 	var pParamJson = "{}";
 	sendForm("POST", "/mypage/member/search", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/member/login_form";
+		} else if(message.result_code == 0) {
 			console.log(message);
 
 			lFormValue = message;
@@ -128,7 +131,10 @@ function fnUpdate() {
 
 		console.log("message : " + message.result_code);
 
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			var msg = "회원정보가 저장되었습니다.";
             alert(msg);
 			document.location.href="/mgnt/m_corp_search";

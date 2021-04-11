@@ -25,7 +25,10 @@ $(document).ready(function() {
 
         sendForm("POST", "/vr/favorts/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-            if(message.result_code == 0) {
+            if(message == "parsererror") {
+                alert("로그아웃되었습니다.");
+                document.location.href="/m.do";
+            } else  if(message.result_code == 0) {
                 
                 if(message.favorit_yn == "Y") {
                     lComm.setCssAdd("corpFavorit","text-warning");
@@ -56,7 +59,10 @@ $(document).ready(function() {
 
         sendForm("POST", "/vr/badge/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-            if(message.result_code == 0) {
+            if(message == "parsererror") {
+                alert("로그아웃되었습니다.");
+                document.location.href="/m.do";
+            } else  if(message.result_code == 0) {
                 
                 if(message.badge_yn == "Y") {
                     lComm.setCssAdd("corpBadge","text-warning");

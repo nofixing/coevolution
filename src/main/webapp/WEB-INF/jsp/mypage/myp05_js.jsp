@@ -33,7 +33,11 @@ $(document).ready(function() {
 
 		sendForm("POST", "/mypage/member/passwd", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 			
-			if(message.result_code == 0) {
+			if(message == "parsererror") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/member/login_form";
+			}
+			else if(message.result_code == 0) {
 				alert("비밀번호가 정상적으로 변경 되었습니다.");
 				//마이페이지 이동 필요
 			} else if(message.result_code == 1) {            

@@ -77,9 +77,10 @@ function fnUpdate() {
 
 	sendForm("POST", "/mgnt/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-		console.log("message : " + message.result_code);
-
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			var msg = "관리자가 등록되었습니다.";
             alert(msg);
 			document.location.href="/mgnt/user";
@@ -118,9 +119,10 @@ function fnDupCheck() {
 
 	sendForm("POST", "/mgnt/user_dup", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-		console.log("message : " + message.result_code);
-
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			if(message.dup_yn == "N") {
 				alert("사용가능한 ID입니다.");
 

@@ -18,7 +18,11 @@ $(document).ready(function() {
 function fnInit() {
 	sendForm("POST", "/mypage/member/agree_search", "application/json; charset=utf-8", "json", "{}", function(message) {
 	
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/member/login_form";
+		}
+		else if(message.result_code == 0) {
 			setValue("cust_nm",message.data[0].cust_nm);
 			//setValue("agree1_dtm_fm",message.data[0].agree1_dtm_fm);
 			setValue("agree1_dt_end",message.data[0].agree1_dt_end);

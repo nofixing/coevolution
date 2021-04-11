@@ -32,7 +32,10 @@ $(document).ready(function() {
 
 		sendForm("POST", "/vr/conslt/reply", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 			
-			if(message.result_code == 0) {
+			if(message == "parsererror") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/m.do";
+			} else if(message.result_code == 0) {
 				alert("상담문의내역 답변이 등록되었습니다.");
 				document.location.href="/mgnt/conslt";
 			} else {
@@ -53,7 +56,10 @@ $(document).ready(function() {
 
 		sendForm("POST", "/vr/conslt/delete", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 			
-			if(message.result_code == 0) {
+			if(message == "parsererror") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/m.do";
+			} else if(message.result_code == 0) {
 				alert("상담문의내역을 삭제하였습니다.");
 				document.location.href="/mgnt/conslt";
 			} else {
@@ -77,7 +83,10 @@ function fnInit() {
 		
 		var pFieldArry = ["board_subject","reg_dt","board_stat_nm","board_reply_ins_dtm","board_content","board_reply_content","conslt_cust_nm","email_id"];
 
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			 gfnSetField(message.data[0], pFieldArry);
 		} else {
 			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");

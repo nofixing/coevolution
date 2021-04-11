@@ -81,7 +81,10 @@ function fnSearch() {
 
 	sendForm("POST", "/mgnt/m_corp_custinfo", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			console.log(message);
 
 			lFormValue = message;
@@ -135,7 +138,10 @@ function fnSearchBooth() {
 
 	sendForm("POST", "/mypage/corpinfo", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 		
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			var pFieldArry = ["homepage_url", "about_company_kor", "about_company_eng", "video_url", "promtn_url", "scan_3d_url", "comrce_url"];
 
 			if(message.list.length > 0) {
@@ -205,9 +211,10 @@ function fnUpdate() {
 
 	sendForm("POST", "/mgnt/m_corp_custupdate", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-		console.log("message : " + message);
-
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			alert("회원정보가 수정되었습니다.");
 			fnSearch();
 		} else {
@@ -237,7 +244,10 @@ function fnUpdateBooth() {
 
 	sendForm("POST", "/mypage/corpsave", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			alert("부스 정보를 수정하였습니다.");
 			fnSearch();
 		} else {
@@ -351,7 +361,10 @@ function onClick_fileUpload() {
 
 	sendFormFile("/mgnt/m_corp_attach", formData, function(message){
 		/* 저장 완료 시 다시 조회한다 */
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			fnSearch();
 			alert("파일업로드를 완료하였습니다.");
 			$("#fileModal").modal("hide");
@@ -378,7 +391,10 @@ function fileDel(pAttachId) {
 
 	sendForm("POST", "/mypage/corpattachdel", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 		
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			alert("선택하신 파일을 삭제하였습니다.");
 			fnSearch();
 		} else {
@@ -449,7 +465,10 @@ function pwReset() {
 
 	sendForm("POST", "/mgnt/m_corp_pwreset", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 		
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			alert("비밀번호를 초기화하였습니다.");
 		} else {
 			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");

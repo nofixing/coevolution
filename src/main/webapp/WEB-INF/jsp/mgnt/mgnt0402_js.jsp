@@ -199,9 +199,9 @@ function fnUpdate() {
 			fnSearch();
             alert(msg);
 		} else {
-			if(message.session_yn == "N") {
-				alert("로그아웃되었습니다.");	
-				document.location.href="/index";
+			if(message == "parsererror") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/m.do";
 			} else {
 				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
 			}
@@ -256,7 +256,10 @@ function pwReset() {
 
 	sendForm("POST", "/mgnt/m_corp_pwreset", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 		
-		if(message.result_code == 0) {
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
 			alert("비밀번호를 초기화하였습니다.");
 		} else {
 			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");

@@ -39,7 +39,10 @@ $(document).ready(function() {
 
         sendForm("POST", "/vr/conslt/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
-            if(message.result_code == 0) {
+            if(message == "parsererror") {
+                alert("로그아웃되었습니다.");
+                document.location.href="/m.do";
+            } else if(message.result_code == 0) {
                 alert("상담등록이 완료되었습니다.");
             } else {
                 if(message == undefined) {

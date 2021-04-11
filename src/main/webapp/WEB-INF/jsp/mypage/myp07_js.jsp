@@ -33,7 +33,11 @@ $(document).ready(function() {
 
 		sendForm("POST", "/mypage/member/wdrwal", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 			
-			if(message.result_code == 0) {
+			if(message == "parsererror") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/member/login_form";
+			}
+			else if(message.result_code == 0) {
 				alert("회원 탈퇴가 완료되었습니다.");
 				document.location.href="/";
 			} else {
