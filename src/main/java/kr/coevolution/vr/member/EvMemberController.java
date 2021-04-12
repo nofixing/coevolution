@@ -163,7 +163,7 @@ public class EvMemberController {
         SessionUser user = (SessionUser)session.getAttribute("user");
 
         if(user != null) {
-            logger.info(map.toString());
+            logger.info("insert_social user is not null => user:"+map.toString());
 
             StringBuffer temp = new StringBuffer();
             Random rnd = new Random();
@@ -205,7 +205,7 @@ public class EvMemberController {
             }
 
             try {
-
+                logger.info("evMemberService.member_insert before");
                 int result_code = evMemberService.member_insert(map);
 
                 resposeResult.put("result_code", "0");

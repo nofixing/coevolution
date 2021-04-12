@@ -9,6 +9,8 @@ import kr.coevolution.vr.member.domain.EvMemberMapper;
 import kr.coevolution.vr.member.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,8 @@ public class EvMemberService {
 
     @Autowired
     private EvCommCodeMapper evCommCodeMapper;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * id중복체크
@@ -125,6 +129,8 @@ public class EvMemberService {
      * @return
      */
     public int member_insert(Map param) throws Exception{
+
+        logger.info("EvMember Service member_insert start");
 
         int return_code = 0;
         EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
