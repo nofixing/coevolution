@@ -189,6 +189,7 @@ public class EvMemberController {
 
             map.put("cust_id", user.getEmail());
             map.put("cust_pw", temp.toString());
+            map.put("cust_pw2", temp.toString());
 
             if ("google".equals(user.getProvider())) {
                 map.put("google_email", user.getEmail());
@@ -205,7 +206,7 @@ public class EvMemberController {
             }
 
             try {
-                logger.info("evMemberService.member_insert before");
+                logger.info("insert_social evMemberService.member_insert before");
                 int result_code = evMemberService.member_insert(map);
 
                 resposeResult.put("result_code", "0");

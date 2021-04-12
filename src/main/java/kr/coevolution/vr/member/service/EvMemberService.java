@@ -143,6 +143,7 @@ public class EvMemberService {
         String cust_pw2 = String.valueOf(param.get("cust_pw2"));
 
         if(!cust_pw.equals(cust_pw2)) {
+            logger.info("member_insert cust_pw is not equal to cust_pw2!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             return 6;
         }
 
@@ -150,6 +151,7 @@ public class EvMemberService {
         int pwResult = StringUtils.pwdRegularExpressionChk(cust_pw, "", String.valueOf(param.get("cust_id")));
 
         if(pwResult != 0) {
+            logger.info("비밀번호 체크 로직 통과 못함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             return pwResult;
         }
 

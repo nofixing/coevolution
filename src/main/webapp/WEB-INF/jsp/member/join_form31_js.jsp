@@ -233,23 +233,31 @@ function fnSignUp() {
 
 		console.log("message : " + message.result_code);
 
-		if(message.result_code == 0) {
-			var msg = "회원가입이 완료되었습니다. <br><br>";
-			msg += "참관등록하신 분들을 대상으로 <span style='color:red; font-weight:bold'>뱃지(10)</span>를 지급해드립니다. <br>";
-			msg += "뱃지는 제8회 국제전기자동차엑스포의 비추얼전시관 부스에 사용할 수 있습니다.   <br><br>";
-			msg += "주제/국가별 부스에 EV포인트 부여 시 추첨을 통해 경품 기회 제공합니다. <br>";
-			msg += "※ 지급된 뱃지는 마이페이지에서 확인가능합니다.<br>";
-            
-			gfnAlert ("alert", "회원가입완료", msg, function(rtnValue){
-				document.location.href="/member/login_form";
-			});
-			
-            //alert(msg);
-            //document.location.href="/member/login_form";
-		} else {
-			alert("[참관신청 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
-			lComm.setFocus("cust_nm");
-		}
+        if(message.result_code == 0) {
+            var msg = "회원가입이 완료되었습니다. <br><br>";
+            msg += "참관등록하신 분들을 대상으로 <span style='color:red; font-weight:bold'>뱃지(10)</span>를 지급해드립니다. <br>";
+            msg += "뱃지는 제8회 국제전기자동차엑스포의 비추얼전시관 부스에 사용할 수 있습니다.   <br><br>";
+            msg += "주제/국가별 부스에 EV포인트 부여 시 추첨을 통해 경품 기회 제공합니다. <br>";
+            msg += "※ 지급된 뱃지는 마이페이지에서 확인가능합니다.<br>";
+
+            gfnAlert ("alert", "회원가입완료", msg, function(rtnValue){
+                document.location.href="/member/login_form";
+            });
+
+        } else if(message.result_code == 1) {
+            alert("이전 비밀번호와 현재 비밀번호가 같습니다.");
+        } else if(message.result_code == 2) {
+            alert("비밀번호와 사용자ID가 같습니다.");
+        } else if(message.result_code == 3) {
+            alert("비밀번호를 특수문자, 영문, 숫자 조합으로 입력하시기 바랍니다.");
+        } else if(message.result_code == 4) {
+            alert("같은 문자를 연속하여 사용할 수 없습니다.");
+        } else if(message.result_code == 5) {
+            alert("비밀번호에 공백이 있습니다.");
+        } else {
+            alert("[참관신청 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
+            lComm.setFocus("cust_id");
+        }
 
 	});	
 }
