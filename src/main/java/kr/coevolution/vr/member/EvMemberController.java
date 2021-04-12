@@ -123,6 +123,8 @@ public class EvMemberController {
 
         Map resposeResult = new HashMap();
 
+        logger.info("member insert post start");
+
         log.debug(map.toString());
 
         try {
@@ -150,6 +152,8 @@ public class EvMemberController {
      */
     @PostMapping("/member/insert_social")
     public Map<String,Object> member_insert_social(@RequestBody Map map) {
+
+        logger.info("insert_social post start");
 
         Map resposeResult = new HashMap();
 
