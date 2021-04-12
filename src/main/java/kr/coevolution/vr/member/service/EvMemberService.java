@@ -148,7 +148,11 @@ public class EvMemberService {
         }
 
         /* 비밀번호체크 */
-        int pwResult = StringUtils.pwdRegularExpressionChk(cust_pw, "", String.valueOf(param.get("cust_id")));
+        int pwResult = 0;
+        String custOrigin = String.valueOf(param.get("cust_origin"));
+        if(!"nkfg".equals(custOrigin)) {
+            pwResult = StringUtils.pwdRegularExpressionChk(cust_pw, "", String.valueOf(param.get("cust_id")));
+        }
 
         if(pwResult != 0) {
             logger.info("비밀번호 체크 로직 통과 못함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

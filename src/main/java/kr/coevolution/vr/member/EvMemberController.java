@@ -190,6 +190,7 @@ public class EvMemberController {
             map.put("cust_id", user.getEmail());
             map.put("cust_pw", temp.toString());
             map.put("cust_pw2", temp.toString());
+            map.put("cust_origin", "nkfg");
 
             if ("google".equals(user.getProvider())) {
                 map.put("google_email", user.getEmail());
