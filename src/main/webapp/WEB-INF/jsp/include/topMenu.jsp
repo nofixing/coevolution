@@ -30,15 +30,15 @@
             <div class="m-menu-box">
                 <div class="m-menu-shop">
                     <ul class="clearfix">
-                        <li><a data-toggle="collapse" aria-expanded="false" href="#collapse_guide_m"><span>관람가이드</span></a></li>
-                        <li><a data-toggle="collapse" aria-expanded="false" href="#collapse_veh_m"><span>버추얼전시관</span></a></li>
+                        <li><a data-toggle="collapse" aria-expanded="false" href="#collapse_guide_m"><span><spring:message code="top.view.guid" text="관람가이드"/></span></a></li>
+                        <li><a data-toggle="collapse" aria-expanded="false" href="#collapse_veh_m"><span><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></span></a></li>
                     </ul>
                 </div>
             </div>
             <div class="m-menu-box" >
                 <div class="m-menu-cate" class="collapse collapse-item" id="collapse_guide_m">
                     <ul class="clearfix">
-                        <li><a href="#!">관람가이드</a></li>
+                        <li><a href="#!"><spring:message code="top.view.guid" text="관람가이드"/></a></li>
                     </ul>
                 </div>            
                 <div class="m-menu-cate"  class="collapse collapse-item" id="collapse_veh_m">
@@ -59,36 +59,36 @@
                         <c:choose>
                             <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
                             <li>
-                                <a href="/mypage/myc01"><strong>마이페이지</strong></a>
+                                <a href="/mypage/myc01"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
                             </li>
                             <li>
-                                <a href="/mypage/favortscorp">즐겨찾기 내역</a>
+                                <a href="/mypage/favortscorp"><spring:message code="top.all.menu.favorite.history2" text="즐겨찾기 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/badgecorp">뱃지 적립 내역</a>
+                                <a href="/mypage/badgecorp"><spring:message code="top.all.menu.badge.accrual.history" text="뱃지 적립 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/myc04">삼담문의 내역</a>
+                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation.inquiry" text="상담문의 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/myc05">내 정보 수정</a>
+                                <a href="/mypage/myc05"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                             </li>
                             </c:when>
                             <c:otherwise>
                             <li>
-                                <a href="/mypage/favorts"><strong>마이페이지</strong></a>
+                                <a href="/mypage/favorts"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
                             </li>
                             <li>
-                                <a href="/mypage/favorts">부스 즐겨찾기 내역</a>
+                                <a href="/mypage/favorts"><spring:message code="top.all.menu.favorite.history1" text="부스 즐겨찾기 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/badge">뱃지 사용 내역</a>
+                                <a href="/mypage/badge"><spring:message code="top.all.menu.badge.usage.history" text="뱃지 사용 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/conslt_list">문의 내역</a>
+                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.list.of.enquiries" text="문의 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/myp04">내 정보 수정</a>
+                                <a href="/mypage/myp04"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                             </li>
                             </c:otherwise>
                             
@@ -247,15 +247,15 @@
                     <div class="sitemap clearfix">
                         <ul>
                             <li>
-                                <a href="#!"><strong>관람가이드</strong></a>
+                                <a href="#!"><strong><spring:message code="top.view.guid" text="관람가이드"/></strong></a>
                             </li>
                             <li>
-                                <a href="#!">가이드 영상</a>
+                                <a href="#!"><spring:message code="top.all.menu.audience.guide" text="가이드 영상"/></a>
                             </li>
                         </ul>
                         <ul>
                             <li>
-                                <a href="#!"><strong>비주얼 아일랜드</strong></a>
+                                <a href="#!"><strong><spring:message code="top.all.menu.virtual.island" text="버추얼 아일랜드"/></strong></a>
                             </li>
                             <li>
                                 <a class="collapse-btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">e-mobility<span><i class="bi bi-chevron-down"></i></span></a>
@@ -298,36 +298,36 @@
                             <c:choose>
                                 <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
                                 <li>
-                                    <a href="/mypage/myc01"><strong>마이페이지</strong></a>
+                                    <a href="/mypage/myc01"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/favortscorp">즐겨찾기 내역</a>
+                                    <a href="/mypage/favortscorp"><spring:message code="top.all.menu.favorite.history2" text="즐겨찾기 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/badgecorp">뱃지 적립 내역</a>
+                                    <a href="/mypage/badgecorp"><spring:message code="top.all.menu.badge.accrual.history" text="뱃지 적립 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/myc04">삼담문의 내역</a>
+                                    <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation.inquiry" text="삼담문의 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/myc05">내 정보 수정</a>
+                                    <a href="/mypage/myc05"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                                 </li>
                                 </c:when>
                                 <c:otherwise>
                                 <li>
-                                    <a href="/mypage/favorts"><strong>마이페이지</strong></a>
+                                    <a href="/mypage/favorts"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/favorts">부스 즐겨찾기 내역</a>
+                                    <a href="/mypage/favorts"><spring:message code="top.all.menu.favorite.history1" text="부스 즐겨찾기 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/badge">뱃지 사용 내역</a>
+                                    <a href="/mypage/badge"><spring:message code="top.all.menu.badge.usage.history" text="뱃지 사용 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/conslt_list">문의 내역</a>
+                                    <a href="/mypage/conslt_list"><spring:message code="top.all.menu.list.of.enquiries" text="문의 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/myp04">내 정보 수정</a>
+                                    <a href="/mypage/myp04"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                                 </li>
                                 </c:otherwise>
                             </c:choose>

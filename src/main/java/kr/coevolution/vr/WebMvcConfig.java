@@ -93,7 +93,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         registry.addInterceptor(localeChangeInterceptor());
+
+        /* 접속로그 */
+        registry.addInterceptor(coevolutionLogInterceptor())
+                .excludePathPatterns("/assets/**")
+                .excludePathPatterns("/js/**")
+                .excludePathPatterns("/img/**")
+        ;
+    }
+
+    @Bean
+    public CoevolutionLogInterceptor coevolutionLogInterceptor() {
+        CoevolutionLogInterceptor interceptor = new CoevolutionLogInterceptor();
+        return interceptor;
     }
 
     /**

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script>
 
@@ -46,5 +48,9 @@ $(document).ready(function() {
     });
 
 });
+
+function fnPrtpct() {
+    alert("기업참가(부스)등록 기간이 아닙니다.");
+}
 
 </script>

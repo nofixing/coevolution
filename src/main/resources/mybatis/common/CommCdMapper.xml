@@ -29,4 +29,13 @@
 
     </select>
 
+    <insert id="I01_ACCESS_LOG" parameterType="map">
+        INSERT INTO access_log (
+            access_log_id, access_ip, access_user, access_dtm, access_info
+        ) VALUES (
+            null, #{access_ip}, #{access_user}, now(), #{access_info}
+        )
+
+    </insert>
+
 </mapper>
