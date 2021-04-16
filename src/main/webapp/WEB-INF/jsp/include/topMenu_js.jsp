@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
 
@@ -23,7 +25,35 @@ $(document).ready(function() {
 	$('#top_corp_search').on('click', function () {
 		searchCategori(1);
 	});	
+
+	/* 카테고리 코드 조회 */
+	searchCode();
 });
+
+/* 카테고리 코드 조회 */
+function searchCode() {
+
+	/* JSON 생성을 위해 입력*/
+	gfnPutObj("UPPER_CD", "106000");
+
+	/* global 변수 json으로 변환 */
+	var pParamJson = gfnGetJson();
+
+	sendForm("POST", "/member/com_cd", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message.result_code == 0) {
+			<c:if test="${sessionScope.LANG eq 'en'}">
+				setSelectOption("top_category", message.C106000, "", "ALL");
+			</c:if>
+			<c:if test="${sessionScope.LANG ne 'en'}">
+			setSelectOption("top_category", message.C106000, "", "전체");
+			</c:if>
+		} else {
+			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+		}
+
+	});		
+}
 
 /* 참가기업검색 */
 function searchCategori(pCurrentPage) {
@@ -145,7 +175,7 @@ function setCategoriHtml(corpList) {
 		vCategoriHtml += '    <div class="col-12 col-sm-4 text-left pr-0"> ';
 		vCategoriHtml += '        <!-- 즐겨찾기/관심뱃지 --> ';
 		vCategoriHtml += '        <div class="row col-12 justify-content-between"> ';
-		vCategoriHtml += '            <a href="'+ corpList[i].vr_shortcut_url+'" class="basic-btn">바로가기</a> '; 
+		vCategoriHtml += '            <a href="'+ corpList[i].vr_shortcut_url+'" class="basic-btn"><spring:message code="top.goto" text="바로가기"/></a> '; 
 
 		vCategoriHtml += '				<a href="javascript:top_favorit(\''+corpList[i].cust_id+'\')"> ';
 		if(corpList[i].favorts_yn == "Y") {

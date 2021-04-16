@@ -29,9 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.LocaleResolver;
@@ -39,9 +37,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.Utilities;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -98,13 +94,6 @@ public class EvHomeController {
         } else {
             logger.info("cust is null");
         }
-
-        /* 카테고리조회 */
-        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
-        evCommCodeRequestDto.setUpper_cd_id("106000");
-        List<EvCommCodeResponseDto> category = evCommCodeService.comm_code_search(evCommCodeRequestDto);
-
-        model.addAttribute("category_list", category);
 
         return "index";
     }
@@ -858,4 +847,32 @@ public class EvHomeController {
         return "index";
     }
 
+    /**
+     * 공통코드를 조회한다.
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/member/com_cd")
+    public Map<String, Object> comm_code(@RequestBody Map<String, String> param) {
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 카테고리조회 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id(param.get("UPPER_CD"));
+            List<EvCommCodeResponseDto> category = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+            resposeResult.put("C"+param.get("UPPER_CD"), category);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
 }

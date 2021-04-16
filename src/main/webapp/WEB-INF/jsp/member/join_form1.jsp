@@ -22,11 +22,20 @@
       <div class="container">
         <div class="form login_form">
             <div class="form_head">
+                <c:if test="${sessionScope.LANG eq 'en'}">
+                <p>Join Membership</p>
+                <h5 class="text-center mb-3">
+                    <small>By signing up as a member</small><br/>
+                    <small>you can conveniently use the various services of the Virtual Exhibition Hall.</small>
+                </h5>
+                </c:if>
+                <c:if test="${sessionScope.LANG ne 'en'}">
                 <p>회원가입</p>
                 <h5 class="text-center mb-3">
                     <small>회원으로 가입하시면 <strong>버추얼 전시관</strong> 정보 및 </small><br/>
                     <small>다양한 서비스를 편리하게 이용하실 수 있습니다.</small>
-                  </h5>
+                </h5>                
+                </c:if>
             </div>
             <div class="member_inner">
                 
@@ -51,7 +60,12 @@
                                 </div>
                                 
                                 <div class="card-item-name text-center">
-                                    <h5>참관등록</h5>
+                                <c:if test="${sessionScope.LANG eq 'en'}">
+                                  <h5>Admission</br>registration</h5>
+                                </c:if>
+                                <c:if test="${sessionScope.LANG ne 'en'}">                                
+                                  <h5>참관등록</h5>
+                                </c:if>
                                 </div>
                               
                               </div>
@@ -78,7 +92,12 @@
                                 
                                 <!-- Title -->
                                 <div class="card-item-name text-center bg-dark">
-                                    <h5>기업 참가(부스) 등록</h5>
+                                    <c:if test="${sessionScope.LANG eq 'en'}">
+                                      <h5>Register Participating Companies</h5>
+                                    </c:if>
+                                    <c:if test="${sessionScope.LANG ne 'en'}">                                
+                                      <h5>기업 참가(부스) 등록</h5>
+                                    </c:if>
                                 </div>
                               
                               </div>
@@ -91,35 +110,36 @@
         
                       </div>
                 </div>
-                <div class="sns_login bg-light">
+                <div class="sns_login bg-light pb-0">
                   <div class="sns_login_inner">
                       <ul class="clearfix">
                           <li>
                               <a href="#!">
                                   <img src="/assets/img/icons/naver_icon.png" id="naver_login" name="naver_login"/>
-                                  <span>네이버</span>
+                                  <span><spring:message code="login.naver" text="네이버"/></span>
                               </a>
                           </li>
                           <li>
                               <a href="#!">
                                   <img src="/assets/img/icons/kakao_icon.png" id="kakao_login" name="kakao_login"/>
-                                  <span>카카오톡</span>
+                                  <span><spring:message code="login.kakao" text="카카오톡"/></span>
                               </a>
                           </li>
                           <li>
                               <a href="#!">
                                   <img src="/assets/img/icons/facebook_icon.png" id="facebook_login" name="facebook_login"/>
-                                  <span>페이스북</span>
+                                  <span><spring:message code="login.facebook" text="페이스북"/></span>
                               </a>
                           </li>
                           <li>
                               <a href="#!">
                                   <img src="/assets/img/icons/google_icon.png" id="google_login" name="google_login">
-                                  <span>구글</span>
+                                  <span><spring:message code="login.google" text="구글"/></span>
                               </a>
                           </li>
                       </ul>
                   </div>
+                  <div class="text-center p-3"><h5 class="text-primary"><span><spring:message code="member.signup.social" text=""/></span></h5></div>
               </div>
             </div>
         </div>
