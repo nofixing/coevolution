@@ -60,7 +60,7 @@
 
         INSERT INTO ev_comm_code (
             cd_id, cd_nm, upper_cd_id, cd_val1, cd_val2, cd_val3, cd_val4, cd_val5, priority, use_yn, ins_user, ins_dtm, mod_user, mod_dtm
-        ) VALUES(#{cd_id}, #{cd_nm},  #{upper_cd_id}, #{cd_val1}, #{cd_val2}, #{cd_val3}, #{cd_val4}, #{cd_val5}, #{priority}, #{use_yn}, #{user_id}, now(), #{user_id}, now())
+        ) VALUES(#{cd_id}, #{cd_nm},  #{upper_cd_id}, #{cd_val1}, #{cd_val2}, #{cd_val3}, #{cd_val4}, #{cd_val5}, (case when #{priority} = '' then null else #{priority} end), #{use_yn}, #{user_id}, now(), #{user_id}, now())
 
     </insert>
 

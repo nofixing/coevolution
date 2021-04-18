@@ -273,7 +273,7 @@ function doViewPdf(pUrl) {
 
 
 /* 이미지 상세 */
-function doView(pUrl) {
+function doView(pFileClsfDtlCd) {
 
 	var pUrl = Array();
 	for(var i = 0; i < lfileList.length; i++) {

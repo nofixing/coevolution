@@ -80,7 +80,7 @@ function fnSearch() {
 			lFormValue = message;
 
 			/* 국가코드 */  
-			setSelectOption("country_cd", message.countrylist);
+			setSelectOption("country_cd", message.countrylist, "", "선택");
 			setValue("country_cd", "212032");
 
 			/* 관심분야 */

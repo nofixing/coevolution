@@ -2,6 +2,8 @@ package kr.coevolution.vr.board.service;
 
 import kr.coevolution.vr.board.domain.EvBoardMapper;
 import kr.coevolution.vr.board.dto.EvBoardRequestDto;
+import kr.coevolution.vr.board.dto.EvBoardSearchDto;
+import kr.coevolution.vr.board.dto.EvBoardTermsResponseDto;
 import kr.coevolution.vr.comm.domain.EvFileAttachMapper;
 import kr.coevolution.vr.comm.service.EvFileAttachService;
 import lombok.RequiredArgsConstructor;
@@ -58,5 +60,50 @@ public class EvBoardService {
 
         return return_code;
 
+    }
+
+    /**
+     * 파일업로드 없음
+     * @param evBoardRequestDto
+     * @return
+     * @throws Exception
+     */
+    public int insert (EvBoardRequestDto evBoardRequestDto) {
+
+        int return_code = 0;
+
+        /* 게시판 입력 */
+        return_code = evBoardMapper.I01_BOARD(evBoardRequestDto);
+
+        return return_code;
+    }
+
+    /**
+     * 개인정보처리방침,이용약관,마케팅동의 리스트
+     * @param evBoardSearchDto
+     * @return
+     * @throws Exception
+     */
+    public List<EvBoardTermsResponseDto> terms_list  (EvBoardSearchDto evBoardSearchDto) {
+        return evBoardMapper.S06_TERMS_LIST(evBoardSearchDto);
+    }
+
+    /**
+     * 개인정보처리방침,이용약관,마케팅동의 리스트 건수
+     * @param evBoardSearchDto
+     * @return
+     * @throws Exception
+     */
+    public List<EvBoardTermsResponseDto> terms_list_count  (EvBoardSearchDto evBoardSearchDto) {
+        return evBoardMapper.S06_TERMS_LIST_COUNT(evBoardSearchDto);
+    }
+
+    /**
+     * 개인정보처리방침,이용약관,마케팅동의 상세조회
+     * @param evBoardSearchDto
+     * @return
+     */
+    public List<EvBoardTermsResponseDto> terms_detail  (EvBoardSearchDto evBoardSearchDto) {
+        return evBoardMapper.S07_TERMS_DTL(evBoardSearchDto);
     }
 }

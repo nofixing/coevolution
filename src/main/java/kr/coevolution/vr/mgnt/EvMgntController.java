@@ -2,6 +2,8 @@ package kr.coevolution.vr.mgnt;
 
 import kr.coevolution.vr.board.dto.EvBoardConsltResponseDto;
 import kr.coevolution.vr.board.dto.EvBoardSearchDto;
+import kr.coevolution.vr.board.dto.EvBoardTermsResponseDto;
+import kr.coevolution.vr.board.service.EvBoardService;
 import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
@@ -61,6 +63,10 @@ public class EvMgntController {
 
     @Autowired
     private EvMypageBoardConsltService evMypageBoardConsltService;
+
+    @Autowired
+    private EvBoardService evBoardService;
+
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -1355,4 +1361,119 @@ public class EvMgntController {
 
         return resposeResult;
     }
+
+    /**
+     * 공콩코드 form
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/terms_list")
+    public String mgnt_terms_list (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt0701";
+
+        evBoardSearchDto.setBoard_clsf_cd(evBoardSearchDto.getT());
+
+        evBoardSearchDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+        Long page_row_start = StringUtils.page_start_row(evBoardSearchDto.getPage_current());
+        evBoardSearchDto.setPage_row_start(page_row_start);
+
+        List<EvBoardTermsResponseDto> list = evBoardService.terms_list(evBoardSearchDto);
+        List<EvBoardTermsResponseDto> listCnt = evBoardService.terms_list_count(evBoardSearchDto);
+
+        Long row_count = 0L;
+        if(listCnt != null && listCnt.size() > 0) {
+            row_count = listCnt.get(0).getRow_count();
+        }
+
+        if("".equals(StringUtils.nvl(evBoardSearchDto.getPage_current(),""))) {
+            evBoardSearchDto.setPage_current(1L);
+        }
+
+        model.addAttribute("termslist", list);
+        model.addAttribute("row_count", row_count); /* 총 개수 */
+        model.addAttribute("page_row_cnt", evBoardSearchDto.getPage_row_cnt());    /* 페이지 row 개수 */
+        model.addAttribute("page_current", evBoardSearchDto.getPage_current());    /* 현재페이지 */
+
+        model.addAttribute("board_clsf_cd",  evBoardSearchDto.getT()); //구분
+
+        if("101006".equals(evBoardSearchDto.getT())) {
+            model.addAttribute("page_clsf", "mgnt071"); //개인정보처리방침
+            model.addAttribute("page_clsf_nm", "개인정보처리방침"); //개인정보처리방침
+        } else if("101007".equals(evBoardSearchDto.getT())) {
+            model.addAttribute("page_clsf", "mgnt072"); //이용약관
+            model.addAttribute("page_clsf_nm", "이용약관"); //이용약관
+        } else if("101009".equals(evBoardSearchDto.getT())) {
+            model.addAttribute("page_clsf", "mgnt073"); //마케팅활용동의
+            model.addAttribute("page_clsf_nm", "마케팅활용동의"); //마케팅활용동의
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 약관상세
+     * @param evBoardSearchDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/terms_form")
+    public String mgnt_terms_form (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt0702";
+        model.addAttribute("board_clsf_cd",  evBoardSearchDto.getBoard_clsf_cd()); //구분
+
+        if("101006".equals(evBoardSearchDto.getBoard_clsf_cd())) {
+            model.addAttribute("page_clsf", "mgnt071"); //개인정보처리방침
+            model.addAttribute("page_clsf_nm", "개인정보처리방침"); //개인정보처리방침
+        } else if("101007".equals(evBoardSearchDto.getBoard_clsf_cd())) {
+            model.addAttribute("page_clsf", "mgnt072"); //이용약관
+            model.addAttribute("page_clsf_nm", "이용약관"); //이용약관
+        } else if("101009".equals(evBoardSearchDto.getBoard_clsf_cd())) {
+            model.addAttribute("page_clsf", "mgnt073"); //마케팅활용동의
+            model.addAttribute("page_clsf_nm", "마케팅활용동의"); //마케팅활용동의
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 공통코드 신규저장
+     * @param evBoardSearchDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/terms_detail")
+    public Map<String,Object> mgnt_terms_detail(@RequestBody EvBoardSearchDto evBoardSearchDto, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        try {
+            List<EvBoardTermsResponseDto> list = evBoardService.terms_detail(evBoardSearchDto);
+            resposeResult.put("data", list);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+            if("-1".equals(e.getMessage())) {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "비밀번호 오류!!");
+            } else {
+                resposeResult.put("result_code", "-99");
+                resposeResult.put("result_msg", "입력실패!!");
+            }
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
 }

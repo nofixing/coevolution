@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script>
 /**
@@ -9,6 +11,16 @@ $(document).ready(function() {
 	//초기 값 설정
 	lComm = new gfnComm();
 	var yyyyMMdd = lComm.getToday("-");
+
+    //로그인되어있는경우 MyPage로 이동
+    <c:choose>
+        <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202001'}">
+            document.location.href="/mypage/favorts";
+        </c:when>
+        <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
+            document.location.href="/mypage/myc01";
+        </c:when>
+    </c:choose>	
 
 	if("${agree_yn}" == "N") {
 		alert("필수항목 동의하시기 바랍니다.");

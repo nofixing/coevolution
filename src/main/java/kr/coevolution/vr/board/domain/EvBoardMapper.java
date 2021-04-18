@@ -3,6 +3,7 @@ package kr.coevolution.vr.board.domain;
 import kr.coevolution.vr.board.dto.EvBoardConsltResponseDto;
 import kr.coevolution.vr.board.dto.EvBoardRequestDto;
 import kr.coevolution.vr.board.dto.EvBoardSearchDto;
+import kr.coevolution.vr.board.dto.EvBoardTermsResponseDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -85,4 +86,26 @@ public interface EvBoardMapper {
      * @return
      */
     public List<EvBoardConsltResponseDto> S05_CONSLT_LIST_CNT (EvBoardSearchDto param);
+
+    /**
+     * 개인정보처리방침,이용약관,마케팅동의 (관리자 상담-리스트)
+     * @param param
+     * @return
+     */
+    public List<EvBoardTermsResponseDto> S06_TERMS_LIST (EvBoardSearchDto param);
+
+    /**
+     * 개인정보처리방침,이용약관,마케팅동의 건수 (관리자 상담-리스트)
+     * @param param
+     * @return
+     */
+    public List<EvBoardTermsResponseDto> S06_TERMS_LIST_COUNT (EvBoardSearchDto param);
+
+    /**
+     * 개인정보처리방침,이용약관,마케팅동의  상세조회
+     * @param param
+     * @return
+     */
+    public List<EvBoardTermsResponseDto> S07_TERMS_DTL (EvBoardSearchDto param);
+    
 }

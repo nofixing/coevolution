@@ -43,6 +43,8 @@ public class EvBoardSearchDto {
     private Long page_row_cnt;
     /* 현재페이지 */
     private Long page_current;
+    /* 구분코드 101006 개인정보처리방침, 101007 이용약관, 101009 개인정보 마케팅 활용 동의 */
+    private String t;
 
     private String ins_dt_fr;
     private String ins_dt_to;

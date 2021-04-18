@@ -311,4 +311,37 @@
 
     </select>
 
+    <select id="S06_TERMS_LIST" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="kr.coevolution.vr.board.dto.EvBoardTermsResponseDto">
+        select ROW_NUMBER() OVER(ORDER BY eb.ins_dtm DESC) as rn
+             , board_id
+             , board_clsf_cd
+             , board_content
+             , (select mgnt_nm from ev_mgnt_user where mgnt_id = eb.ins_user) as ins_user
+             , date_format(ins_dtm,'%Y-%m-%d %H:%i:%S') as ins_dtm
+          from ev_board eb
+        where board_clsf_cd = #{board_clsf_cd}
+        LIMIT #{page_row_start}, #{page_row_cnt}
+    </select>
+
+    <select id="S06_TERMS_LIST_COUNT" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="kr.coevolution.vr.board.dto.EvBoardTermsResponseDto">
+        select COUNT(*) AS row_count
+        from ev_board eb
+        where board_clsf_cd = #{board_clsf_cd}
+        LIMIT #{page_row_start}, #{page_row_cnt}
+    </select>
+
+    <select id="S07_TERMS_DTL" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="kr.coevolution.vr.board.dto.EvBoardTermsResponseDto">
+        select board_id
+             , board_clsf_cd
+             , board_content
+          from ev_board
+        where board_id = (
+                            select max(board_id)
+                              from ev_board eb
+                            where board_clsf_cd = #{board_clsf_cd}
+                              and use_yn = 'Y'
+                              and del_yn = 'N'
+                         )
+    </select>
+
 </mapper>
