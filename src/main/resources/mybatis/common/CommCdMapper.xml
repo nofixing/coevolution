@@ -22,12 +22,71 @@
                 and use_yn = #{use_yn}
             </if>
 
+            <if test="cd_id != null and cd_id != '' and upper_cd_id != null and upper_cd_id != '' ">
+                and 1 != 1
+            </if>
+
         </where>
 
         order by priority asc, cd_id asc
 
 
     </select>
+
+    <update id="U01_COMM_CD" parameterType="map">
+        UPDATE ev_comm_code
+            SET cd_nm       = #{cd_nm},
+                upper_cd_id = #{upper_cd_id},
+                cd_val1     = #{cd_val1},
+                cd_val2     = #{cd_val2},
+                cd_val3     = #{cd_val3},
+                priority    = #{priority},
+                use_yn      = #{use_yn},
+                mod_user    = #{user_id},
+                mod_dtm     = NOW()
+        WHERE cd_id = #{cd_id}
+    </update>
+
+    <insert id="I02_COMM_CD" parameterType="kr.coevolution.vr.comm.dto.EvCommCodeRequestDto">
+
+        <selectKey resultType="string" keyProperty="cd_id" order="BEFORE">
+            SELECT nvl(max(cd_id), #{upper_cd_id}) +
+                                                    case when 1 = #{levl} then 100000
+                                                         when 2 = #{levl} then 1000
+                                                         when 3 = #{levl} then 1
+                                                    end as cd_id
+             FROM ev_comm_code where upper_cd_id = #{upper_cd_id}
+        </selectKey>
+
+        INSERT INTO ev_comm_code (
+            cd_id, cd_nm, upper_cd_id, cd_val1, cd_val2, cd_val3, cd_val4, cd_val5, priority, use_yn, ins_user, ins_dtm, mod_user, mod_dtm
+        ) VALUES(#{cd_id}, #{cd_nm},  #{upper_cd_id}, #{cd_val1}, #{cd_val2}, #{cd_val3}, #{cd_val4}, #{cd_val5}, #{priority}, #{use_yn}, #{user_id}, now(), #{user_id}, now())
+
+    </insert>
+
+    <delete id="D01_COMM_CD" parameterType="kr.coevolution.vr.comm.dto.EvCommCodeRequestDto">
+        delete from ev_comm_code
+         where cd_id = #{cd_id}
+            or upper_cd_id = #{cd_id}
+            or upper_cd_id in (select cd_id from ev_comm_code where upper_cd_id = #{cd_id})
+    </delete>
+
+    <insert id="I02_COMM_CD_LOG" parameterType="kr.coevolution.vr.comm.dto.EvCommCodeRequestDto">
+
+        /* 로그입력 */
+        INSERT INTO ev_comm_code_log(
+            log_id, cd_id, cd_nm, upper_cd_id, cd_val1, cd_val2, cd_val3, cd_val4, cd_val5, priority, use_yn, ins_user, ins_dtm, mod_user, mod_dtm, create_user, create_dtm
+        )
+        select null, cd_id, cd_nm, upper_cd_id, cd_val1, cd_val2, cd_val3, cd_val4, cd_val5, priority, use_yn, ins_user, ins_dtm, mod_user, mod_dtm, #{user_id}, now()
+          from ev_comm_code
+        where cd_id = #{cd_id}
+
+        <if test="del_yn == 'Y'">
+            or upper_cd_id = #{cd_id}
+            or upper_cd_id in (select cd_id from ev_comm_code where upper_cd_id = #{cd_id})
+        </if>
+
+    </insert>
 
     <insert id="I01_ACCESS_LOG" parameterType="map">
         INSERT INTO access_log (

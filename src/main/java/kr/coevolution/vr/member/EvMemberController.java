@@ -464,6 +464,7 @@ public class EvMemberController {
             /* 국가코드조회 */
             EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
             evCommCodeRequestDto.setUpper_cd_id("212000");
+            evCommCodeRequestDto.setUse_yn("Y");
             List<EvCommCodeResponseDto> countrylist = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
             /* 관심분야 */

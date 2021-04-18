@@ -143,18 +143,21 @@
                                 <div class="tb-td">
                                   <div class="general_chk_box">
                                     <div class="input-chk form-check-inline d-flex justify-content-between">
-                                      <input type="checkbox" value="Y" name="S10001" id="S10001" ><label for="S10001"><span></span> 뱃지관리</label>
-                                      <input type="checkbox" value="Y" name="S10002" id="S10002" ><label for="S10002"><span></span> 상담문의내역</label>
-                                      <input type="checkbox" value="Y" name="S10004" id="S10004" ><label for="S10004"><span></span> 참관회원</label>
-                                      <input type="checkbox" value="Y" name="S10005" id="S10005" ><label for="S10005"><span></span> 참가회원</label>
-                                    </div>
-                                    <div class="input-chk form-check-inline d-flex justify-content-between">
-                                      <input type="checkbox" value="Y" name="S10006" id="S10006" ><label for="S10006"><span></span> 관리자</label>
-                                      <input type="checkbox" value="Y" name="S10008" id="S10008" ><label for="S10008"><span></span> 부스현황</label>
-                                      <input type="checkbox" value="Y" name="S10009" id="S10009" ><label for="S10009"><span></span> 구글애널리틱스</label>
-                                      <input type="checkbox" value="Y" name="S10010" id="S10010" ><label for="S10010"><span></span> 접속현황</label>
-                                    </div>
+                                      <input type="checkbox" value="Y" name="S10001" id="S10001" ><label for="S10001" style="width:200px"><span></span> 뱃지관리</label>
+                                      <input type="checkbox" value="Y" name="S10002" id="S10002" ><label for="S10002" style="width:200px"><span></span> 상담문의내역</label>
+                                      <input type="checkbox" value="Y" name="S10004" id="S10004" ><label for="S10004" style="width:200px"><span></span> 참관회원</label>
+                                      <input type="checkbox" value="Y" name="S10005" id="S10005" ><label for="S10005" style="width:200px"><span></span> 참가회원</label>
+                                      <input type="checkbox" value="Y" name="S10006" id="S10006" ><label for="S10006" style="width:200px"><span></span> 관리자</label>
+                                      <input type="checkbox" value="Y" name="S10011" id="S10011" ><label for="S10011" style="width:200px"><span></span> 코드관리</label>
+                                      <input type="checkbox" value="Y" name="S10008" id="S10008" ><label for="S10008" style="width:200px"><span></span> 부스현황</label>
+                                      <input type="checkbox" value="Y" name="S10009" id="S10009" ><label for="S10009" style="width:200px"><span></span> 구글애널리틱스</label>
+                                      <input type="checkbox" value="Y" name="S10010" id="S10010" ><label for="S10010" style="width:200px"><span></span> 접속현황</label>
+                                      <input type="checkbox" value="Y" name="S10013" id="S10013" ><label for="S10013" style="width:200px"><span></span> 개인정보처리방침</label>
+                                      <input type="checkbox" value="Y" name="S10014" id="S10014" ><label for="S10014" style="width:200px"><span></span> 이용약관</label>
+                                      <input type="checkbox" value="Y" name="S10015" id="S10015" ><label for="S10015" style="width:200px"><span></span> 구글애널리틱스</label>
+                                    </div>                                    
                                   </div>
+                                  </div>                                  
                                 </div>  
                               </td>
                           </tr>                                       

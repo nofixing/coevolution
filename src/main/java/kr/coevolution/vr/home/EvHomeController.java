@@ -860,6 +860,7 @@ public class EvHomeController {
             /* 카테고리조회 */
             EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
             evCommCodeRequestDto.setUpper_cd_id(param.get("UPPER_CD"));
+            evCommCodeRequestDto.setUse_yn("Y");
             List<EvCommCodeResponseDto> category = evCommCodeService.comm_code_search(evCommCodeRequestDto);
             resposeResult.put("C"+param.get("UPPER_CD"), category);
 

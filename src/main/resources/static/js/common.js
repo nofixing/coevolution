@@ -891,7 +891,11 @@ function gfnSetUnCheck(pId) {
  * @param {*} pId 
  * @param {*} pOptionList 
  */
-function setSelectOption(pId, pOptionList, pAddValue, pAddName) {
+function setSelectOption(pId, pOptionList, pAddValue, pAddName, pForm) {
+
+  if(pForm != "") {
+	$("form[name='"+pForm +  "'] select[name='"+pId+"'] option").remove();
+  }
 
   if(pAddValue != "" || pAddName != "") {
 	$("#"+pId).append("<option value='"+pAddValue+"'>"+pAddName+"</option>");
