@@ -287,8 +287,8 @@ public class EvMemberController {
             e.printStackTrace();
         }finally {
             try {
-                InetAddress local = InetAddress.getLocalHost();
-                String ip = local.getHostAddress();
+
+                String ip = StringUtils.getRemoteIP(request);
 
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("cust_id", evMemberLoginRequestDto.getUser_id());

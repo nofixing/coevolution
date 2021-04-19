@@ -38,8 +38,7 @@ public class CoevolutionLogInterceptor implements HandlerInterceptor {
                 vMap.put("access_user", loginInfoDto.getCust_id());
             }
 
-            InetAddress local = InetAddress.getLocalHost();
-            String ip = local.getHostAddress();
+            String ip = StringUtils.getRemoteIP(request);
 
             vMap.put("access_ip", ip);
             vMap.put("access_info", request.getRequestURI());
