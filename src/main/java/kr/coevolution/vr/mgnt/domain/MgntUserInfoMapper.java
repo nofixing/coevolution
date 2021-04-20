@@ -116,6 +116,18 @@ public interface MgntUserInfoMapper {
      * @return
      */
     public List<Map<String, String>> S08_MGNT_MENU_LIST (Map<String, String> param);
-    
 
+    /**
+     * 부스 현황 (뱃지, 즐겨찾기 현황등등)
+     * @param param
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> S09_BOOTH_LIST(EvMgntMemberRequestDto param);
+
+    /**
+     * 부스 현황 건수 (뱃지, 즐겨찾기 현황등등)
+     * @param param
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> S09_BOOTH_LIST_COUNT(EvMgntMemberRequestDto param);
 }

@@ -243,4 +243,22 @@ public class EvMgntService {
     public List<Map<String, String>> mgnt_user_menu_list (Map<String, String> param) {
         return mgntUserInfoMapper.S08_MGNT_MENU_LIST(param);
     }
+
+    /**
+     * 부스 현황 (뱃지, 즐겨찾기 현황등등)
+     * @param evMgntMemberRequestDto
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> mgnt_booth_list (EvMgntMemberRequestDto evMgntMemberRequestDto) {
+        return mgntUserInfoMapper.S09_BOOTH_LIST(evMgntMemberRequestDto);
+    }
+
+    /**
+     * 부스 현황 건수 (뱃지, 즐겨찾기 현황등등)
+     * @param evMgntMemberRequestDto
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> mgnt_booth_list_count (EvMgntMemberRequestDto evMgntMemberRequestDto) {
+        return mgntUserInfoMapper.S09_BOOTH_LIST_COUNT(evMgntMemberRequestDto);
+    }
 }

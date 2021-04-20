@@ -229,4 +229,90 @@
 
     </select>
 
+    <select id="S09_BOOTH_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        with cust as (
+            select (select cd_nm from ev_comm_code ecc2 where cd_id = ecm.category1) as caregori_nm
+                , ecm.cust_id
+                , ecm.cust_nm
+            from ev_cust_mst ecm
+            where ecm.cust_clsf_cd = '202002'
+            and ecm.cust_sts_cd = '105001'
+
+            <if test="cust_nm != null and cust_nm != ''">
+                and ecm.cust_nm like concat('%',#{cust_nm},'%')
+            </if>
+
+            <if test="category1 != null and category1 != ''">
+                and ecm.category1 = #{category1}
+            </if>
+
+            <if test="cust_id != null and cust_id != ''">
+                and ecm.cust_id = #{cust_id}
+            </if>
+
+        )
+        SELECT ROW_NUMBER() OVER(order by cust.caregori_nm, cust.cust_id, cust.cust_nm, fb.ins_dt) as rn
+            , cust.caregori_nm, cust.cust_id, cust.cust_nm, nvl(fb.ins_dt,#{ins_dt_fr}) AS ins_dt
+            , sum(case when fb.clsf_cd = 'F' then fb.cnt ELSE 0 END) AS favorts_cnt
+            , sum(case when fb.clsf_cd = 'B' then fb.cnt ELSE 0 END) AS badge_cnt
+            , 0 AS access01_cnt /* 접속건수 예) 기업정보 */
+            , 0 AS access02_cnt /* 접속건수 */
+            , 0 AS access03_cnt /* 접속건수 */
+            , 0 AS access04_cnt /* 접속건수 */
+            , 0 AS access05_cnt /* 접속건수 */
+            , 0 AS access06_cnt /* 접속건수 */
+            , 0 AS access07_cnt /* 접속건수 */
+            , 0 AS access08_cnt /* 접속건수 */
+            , 0 AS access09_cnt /* 접속건수 */
+            , 0 AS access10_cnt /* 접속건수 */
+            , 0 AS access10_cnt /* 접속건수 */
+            , 0 AS access12_cnt /* 접속건수 */
+            , 0 AS access13_cnt /* 접속건수 */
+            , 0 AS access14_cnt /* 접속건수 */
+            , 0 AS access15_cnt /* 접속건수 */
+        FROM cust
+        left outer join v_cust_favorts_badge fb
+        ON cust.cust_id = fb.cust_id
+        and fb.ins_dt between #{ins_dt_fr} and #{ins_dt_to}
+        group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, fb.ins_dt
+
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S09_BOOTH_LIST_COUNT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        with cust as (
+            select (select cd_nm from ev_comm_code ecc2 where cd_id = ecm.category1) as caregori_nm
+                , ecm.cust_id
+                , ecm.cust_nm
+        from ev_cust_mst ecm
+        where ecm.cust_clsf_cd = '202002'
+        and ecm.cust_sts_cd = '105001'
+
+        <if test="cust_nm != null and cust_nm != ''">
+            and ecm.cust_nm like concat('%',#{cust_nm},'%')
+        </if>
+
+        <if test="category1 != null and category1 != ''">
+            and ecm.category1 = #{category1}
+        </if>
+
+        <if test="cust_id != null and cust_id != ''">
+            and ecm.cust_id = #{cust_id}
+        </if>
+
+        )
+        select count(*) row_count
+          from (
+                SELECT cust.caregori_nm, cust.cust_id, cust.cust_nm, fb.ins_dt
+                FROM cust
+                left outer join v_cust_favorts_badge fb
+                ON cust.cust_id = fb.cust_id
+                and fb.ins_dt between #{ins_dt_fr} and #{ins_dt_to}
+                group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, fb.ins_dt
+            ) a
+    </select>
+
 </mapper>

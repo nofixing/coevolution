@@ -54,4 +54,22 @@ public class EvMgntMemberResponseDto {
     private Long tot_cnt; /* 총건수 */
     private int dup_cnt;
     private String use_yn;
+    private String caregori_nm;
+    private int favorts_cnt;
+    private int badge_cnt;
+    private int access01_cnt;
+    private int access02_cnt;
+    private int access03_cnt;
+    private int access04_cnt;
+    private int access05_cnt;
+    private int access06_cnt;
+    private int access07_cnt;
+    private int access08_cnt;
+    private int access09_cnt;
+    private int access10_cnt;
+    private int access11_cnt;
+    private int access12_cnt;
+    private int access13_cnt;
+    private int access14_cnt;
+    private int access15_cnt;
 }
