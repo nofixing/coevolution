@@ -25,4 +25,6 @@ public class EvMgntMemberRequestDto {
     private String mgnt_passwd1;
     private String mgnt_passwd2;
     private String mgnt_pw;
+    private String access_id;
+    private String access_nm;
 }

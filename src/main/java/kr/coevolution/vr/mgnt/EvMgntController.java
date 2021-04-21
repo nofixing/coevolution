@@ -1566,6 +1566,87 @@ public class EvMgntController {
 
     }
 
+    /**
+     * 접속로그
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/access")
+    public String mgnt_access_list(EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt0901";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            /* row 개수 */
+            evMgntMemberRequestDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+            Long page_row_start = StringUtils.page_start_row(evMgntMemberRequestDto.getPage_current(), StringUtils.page_row_cnt);
+            evMgntMemberRequestDto.setPage_row_start(page_row_start);
+
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getPage_current(),""))) {
+                evMgntMemberRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMgntMemberRequestDto.getPage_current()));  /* 현재페이지 */
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            Date nDt = new Date();
+
+            /* 최초 날짜가 null 인경우 */
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_fr(),""))) {
+                Date ftDt = StringUtils.addMonth(nDt,-1);
+                String strDt = sf.format(ftDt);
+                evMgntMemberRequestDto.setIns_dt_fr(strDt);
+            }
+
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_to(),""))) {
+                String strDt = sf.format(nDt);
+                evMgntMemberRequestDto.setIns_dt_to(strDt);
+            }
+
+            /* 접속현황 리스트 조회 */
+            List<EvMgntMemberResponseDto> list = evMgntService.mgnt_access_log_list(evMgntMemberRequestDto);
+            List<EvMgntMemberResponseDto> listCnt = evMgntService.mgnt_access_log_list_count(evMgntMemberRequestDto);
+
+            Long row_count = 0L;
+
+            if(listCnt != null && listCnt.size() > 0) {
+                row_count = listCnt.get(0).getRow_count();
+            }
+
+            model.addAttribute("page_clsf", "mgnt09");
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count); /* 총 개수 */
+            model.addAttribute("page_row_cnt", evMgntMemberRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
+
+            /* 검색조건 */
+            model.addAttribute("ins_dt_fr", evMgntMemberRequestDto.getIns_dt_fr());
+            model.addAttribute("ins_dt_to", evMgntMemberRequestDto.getIns_dt_to());
+            model.addAttribute("access_nm", evMgntMemberRequestDto.getAccess_nm());
+            model.addAttribute("access_id", evMgntMemberRequestDto.getAccess_id());
+
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+
+    }    
 
 
 }

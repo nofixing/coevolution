@@ -315,4 +315,52 @@
             ) a
     </select>
 
+    <select id="S10_ACCESS_LOG_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        /* 접속로그 */
+        select ROW_NUMBER() OVER() as rn
+            , ecll.cust_id
+            , ecm.cust_nm
+            , ecll.ip
+            , date_format(ecll.login_dtm , '%Y-%m-%d %H:%i:%s') as login_dtm
+        from ev_cust_login_log ecll
+        , ev_cust_mst ecm
+        where ecll.cust_id = ecm.cust_id
+
+        and date_format(ecll.login_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+
+        <if test="access_nm != null and access_nm != ''">
+            and ecm.cust_nm like concat('%',#{access_nm},'%')
+        </if>
+
+        <if test="access_id != null and access_id != ''">
+            and ecm.cust_id like concat('%',#{access_id},'%')
+        </if>
+
+        order by ecll.login_dtm DESC
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S10_ACCESS_LOG_LIST_COUNT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        /* 접속로그 건수 */
+        select count(*) as row_count
+        from ev_cust_login_log ecll
+           , ev_cust_mst ecm
+        where ecll.cust_id = ecm.cust_id
+
+        and date_format(ecll.login_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+
+        <if test="access_nm != null and access_nm != ''">
+            and ecm.cust_nm like concat('%',#{access_nm},'%')
+        </if>
+
+        <if test="access_id != null and access_id != ''">
+            and ecm.cust_id like concat('%',#{access_id},'%')
+        </if>
+
+    </select>
+
+
 </mapper>

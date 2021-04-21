@@ -72,4 +72,5 @@ public class EvMgntMemberResponseDto {
     private int access13_cnt;
     private int access14_cnt;
     private int access15_cnt;
+    private String ip;
 }

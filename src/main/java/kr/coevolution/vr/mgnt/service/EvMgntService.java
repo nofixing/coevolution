@@ -261,4 +261,22 @@ public class EvMgntService {
     public List<EvMgntMemberResponseDto> mgnt_booth_list_count (EvMgntMemberRequestDto evMgntMemberRequestDto) {
         return mgntUserInfoMapper.S09_BOOTH_LIST_COUNT(evMgntMemberRequestDto);
     }
+
+    /**
+     * 접속로그리스트
+     * @param evMgntMemberRequestDto
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> mgnt_access_log_list (EvMgntMemberRequestDto evMgntMemberRequestDto) {
+        return mgntUserInfoMapper.S10_ACCESS_LOG_LIST(evMgntMemberRequestDto);
+    }
+
+    /**
+     * 접속로그건수
+     * @param evMgntMemberRequestDto
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> mgnt_access_log_list_count (EvMgntMemberRequestDto evMgntMemberRequestDto) {
+        return mgntUserInfoMapper.S10_ACCESS_LOG_LIST_COUNT(evMgntMemberRequestDto);
+    }
 }

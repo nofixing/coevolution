@@ -130,4 +130,18 @@ public interface MgntUserInfoMapper {
      * @return
      */
     public List<EvMgntMemberResponseDto> S09_BOOTH_LIST_COUNT(EvMgntMemberRequestDto param);
+
+    /**
+     * 접속로그리스트
+     * @param param
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> S10_ACCESS_LOG_LIST(EvMgntMemberRequestDto param);
+
+    /**
+     * 접속로그건수
+     * @param param
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> S10_ACCESS_LOG_LIST_COUNT(EvMgntMemberRequestDto param);
 }
