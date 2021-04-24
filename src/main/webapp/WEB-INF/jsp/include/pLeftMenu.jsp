@@ -7,12 +7,12 @@
   <div class="bg-light p-4 member-info">
     <h6 class="text-center member-name"><strong>${sessionScope.login_session.cust_nm}</strong>님</h6>
     <dl>
-      <dt>아이디</dt>
-      <dd>${sessionScope.login_session.cust_id}</dd>
+      <dt class="d-flex justify-content-start">아이디</dt>
+      <dd class="d-flex justify-content-start pl-3">${sessionScope.login_session.cust_id}</dd>
     </dl>
     <dl>
-      <dt>가입일</dt>
-      <dd>${sessionScope.login_session.ins_dt}</dd>
+      <dt class="d-flex justify-content-start">가입일</dt>
+      <dd class="d-flex justify-content-start pl-3">${sessionScope.login_session.ins_dt}</dd>
     </dl>
     <!--정보수정-->
     <div class="text-center text-md-center pt-3">

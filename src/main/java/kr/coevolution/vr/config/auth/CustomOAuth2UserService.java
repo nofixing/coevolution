@@ -91,7 +91,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
             if (evMemberLoginInfoDtoList.size() == 1) {
                 logger.info("소셜 로그인으로 회원가입한 회원의 회원정보 세션 저장");
+                httpSession.setAttribute("social_login_yn", "Y");
                 httpSession.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
+            } else {
+                logger.info("소셜 로그인정보 없음");
+                httpSession.setAttribute("social_login_yn", "N");
             }
         }
 

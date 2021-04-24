@@ -161,9 +161,7 @@ public class EvHomeController {
         String return_url = "/member/login_form";
 
         String url_prior_login = (String)request.getSession().getAttribute("url_prior_login");
-        if(url_prior_login == null || "".equals(url_prior_login)) {
-            request.getSession().setAttribute("url_prior_login", "/");
-        }
+        request.getSession().setAttribute("url_prior_login", return_url);
 
         HttpSession httpSession = request.getSession();
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
@@ -281,6 +279,7 @@ public class EvHomeController {
 
         if ("dup_email".equals(session.getAttribute("email_check"))) {
             model.addAttribute("email_check", "dup_email");
+            session.setAttribute("url_prior_login", "/member/join_form2");
             return "/member/join_form1";
         } else {
 
