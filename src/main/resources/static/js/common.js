@@ -865,6 +865,10 @@ function setValue(pId, pValue) {
 
 }
 
+function setText(pId, pValue) {
+	$('#'+pId).text(pValue);
+}
+
 /**
  * 체크여부
  * @param {*} pId 
@@ -922,6 +926,32 @@ function setCheckRadioList(pClsf, vPrefix, valueList, pId, startHtml, endHtml) {
   }
 
   $("#"+pId).html(vHtml);  
+}
+
+
+/* websoket */
+var stompClient = null;
+
+/**
+ * 웹소켓접속
+ */
+function webSocketConnect(pSocketNm, callback) {
+
+  var socket = new SockJS('/ws');
+
+  stompClient = Stomp.over(socket);
+  stompClient.connect({}, function (frame) {
+
+    stompClient.subscribe('/topic/'+pSocketNm, function (chat) {
+    	
+      if(typeof callback === "function") {
+          callback(JSON.parse(chat.body));
+      }
+
+    });
+
+  });
+  
 }
 
 /**

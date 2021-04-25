@@ -363,4 +363,29 @@
     </select>
 
 
+    <insert id="I03_MGNT_ZOOM" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto">
+        /* ZOOM 관리 */
+        INSERT INTO ev_zoom_use_mgnt
+        (zoom_mgnt_id, cust_id, use_fr_dtm, use_to_dtm, zoom_url, use_yn, ins_user, ins_dtm, mod_user, mod_dtm)
+        VALUES (NULL, #{cust_id}, #{use_fr_dtm}, #{use_to_dtm}, #{zoom_url}, #{use_yn}, #{user_id}, NOW(), #{user_id}, NOW())
+    </insert>
+    
+    <update id="U03_MGNT_ZOOM" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto">
+        UPDATE ev_zoom_use_mgnt
+        SET use_fr_dtm=#{use_fr_dtm},
+            use_to_dtm=#{use_to_dtm},
+            zoom_url=#{zoom_url},
+            use_yn=#{use_yn},
+            mod_user=#{user_id},
+            mod_dtm=NOW()
+        WHERE zoom_mgnt_id = #{zoom_mgnt_id}
+    </update>
+
+    <select id="S11_MGNT_ZOOM" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntZoomResposeDto">
+        SELECT zoom_mgnt_id, cust_id, use_fr_dtm, use_to_dtm, zoom_url, use_yn
+        FROM ev_zoom_use_mgnt
+        WHERE cust_id = #{cust_id}
+        and use_yn = 'Y'
+    </select>
+
 </mapper>

@@ -5,6 +5,9 @@ import kr.coevolution.vr.comm.dto.EvFileAttachResponseDto;
 import kr.coevolution.vr.comm.service.EvFileAttachService;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
+import kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto;
+import kr.coevolution.vr.mgnt.dto.EvMgntZoomResposeDto;
+import kr.coevolution.vr.mgnt.service.EvMgntService;
 import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto;
 import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoResponseDto;
 import kr.coevolution.vr.mypage.service.EvMypageCustCorpInfoService;
@@ -34,6 +37,9 @@ public class EvMypageCustCorpInfoController {
     @Autowired
     private EvFileAttachService evFileAttachService;
 
+    @Autowired
+    private EvMgntService evMgntService;
+
     @PostMapping("/mypage/corpinfo")
     public Map<String,Object> mypage_corpinfo (@RequestBody EvMypageCustCorpInfoRequestDto evMypageCustCorpInfoRequestDto, HttpServletRequest request) {
         Map resposeResult = new HashMap();
@@ -43,13 +49,19 @@ public class EvMypageCustCorpInfoController {
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
+            EvMgntZoomRequestDto evMgntZoomRequestDto = new EvMgntZoomRequestDto();
+
             /* 관리자가 아닌경우 - 관리자의 경우 cust_id가 전달됨 */
             if("N".equals(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getM_yn(), "N"))) {
                 evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
+                evMgntZoomRequestDto.setCust_id(loginInfoDto.getCust_id());
             } 
 
             /* 내 부스정보 조회 */
             List<EvMypageCustCorpInfoResponseDto> list = evMypageCustCorpInfoService.mypage_cust_corp_info(evMypageCustCorpInfoRequestDto);
+
+            /* 줌 URL 조회 */
+            List<EvMgntZoomResposeDto> zoomList = evMgntService.mgnt_zoom_list(evMgntZoomRequestDto);
 
             List<EvFileAttachResponseDto> attachList = null;
 
@@ -65,6 +77,7 @@ public class EvMypageCustCorpInfoController {
 
             resposeResult.put("list", list);
             resposeResult.put("attachList", attachList);
+            resposeResult.put("zoomList", zoomList);
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
 
@@ -101,8 +114,6 @@ public class EvMypageCustCorpInfoController {
                 evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
                 evMypageCustCorpInfoRequestDto.setUser_id(loginInfoDto.getCust_id());
             }
-
-
 
             /* 내 부스정보 저장 */
             evMypageCustCorpInfoService.mypage_cust_corp_save(evMypageCustCorpInfoRequestDto);

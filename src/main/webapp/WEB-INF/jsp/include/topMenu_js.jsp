@@ -169,7 +169,8 @@ function setCategoriHtml(corpList) {
 		if(corpList[i].category2 != "" && corpList[i].category2 != null) {
 			vCategoriHtml += '        <h4><span class="badge bg-info "><small class="text-white"> ' + corpList[i].category2 + ' </small></span></h4> ';
 		}
-		
+		vCategoriHtml += '					<a href="javascript:doZoom(\''+corpList[i].cust_id+'\')"/><img src="/images/zoom.png" style="width:20px" id="img_'+corpList[i].cust_id+'"></a>';
+
 		vCategoriHtml += '        </p> ';
 		vCategoriHtml += '    </div> ';
 		vCategoriHtml += '    <div class="col-12 col-sm-4 text-left pr-0"> ';

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
@@ -145,12 +147,23 @@
                           <input type="text" name="comrce_url" id="comrce_url" placeholder="url을 입력해 주세요." maxlength="100">
                         </td>
                       </tr>
+                      <tr>
+                        <th>줌 URL</th>
+                        <td colspan="3">
+                          <input type="hidden" name="zoom_mgnt_id" id="zoom_mgnt_id">
+                          <input type="hidden" name="use_yn" id="use_yn">
+                          <input type="text" name="zoom_url" id="zoom_url" placeholder="줌 URL을 입력해 주세요." maxlength="100">
+                        </td>
+                      </tr>
 
                     </table>
                     <!-- Button -->
-                    <div class="text-right text-md-right p-1">
+                    <div class="text-right text-md-right p-3">
                       <button type="button" class="basic-btn" id="btnSave">저장</button>
                     </div>
+                    <div class="text-right text-md-right pt-3">
+                      <button type="button" class="basic-btn" id="btnZoom">ZOOM 미사용</button>
+                    </div>                    
 
                   </div> <!-- / .form-row -->   
 

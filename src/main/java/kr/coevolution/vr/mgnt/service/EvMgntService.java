@@ -8,6 +8,8 @@ import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
 import kr.coevolution.vr.mgnt.domain.MgntUserInfoMapper;
 import kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto;
 import kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto;
+import kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto;
+import kr.coevolution.vr.mgnt.dto.EvMgntZoomResposeDto;
 import kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto;
 import kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -278,5 +280,32 @@ public class EvMgntService {
      */
     public List<EvMgntMemberResponseDto> mgnt_access_log_list_count (EvMgntMemberRequestDto evMgntMemberRequestDto) {
         return mgntUserInfoMapper.S10_ACCESS_LOG_LIST_COUNT(evMgntMemberRequestDto);
+    }
+
+    /**
+     * 줌 사용설정 입력
+     * @param pMap
+     * @return
+     */
+    public int mgnt_zoom_insert(EvMgntZoomRequestDto pMap) {
+        return mgntUserInfoMapper.I03_MGNT_ZOOM(pMap);
+    }
+
+    /**
+     * 줌 사용설정 수정
+     * @param pMap
+     * @return
+     */
+    public int mgnt_zoom_update(EvMgntZoomRequestDto pMap) {
+        return mgntUserInfoMapper.U03_MGNT_ZOOM(pMap);
+    }
+
+    /**
+     * 줌 사용 건수
+     * @param evMgntZoomRequestDto
+     * @return
+     */
+    public List<EvMgntZoomResposeDto> mgnt_zoom_list (EvMgntZoomRequestDto evMgntZoomRequestDto) {
+        return mgntUserInfoMapper.S11_MGNT_ZOOM(evMgntZoomRequestDto);
     }
 }

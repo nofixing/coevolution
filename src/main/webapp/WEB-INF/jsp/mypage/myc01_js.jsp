@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <script>
 
 /**
@@ -47,9 +50,63 @@ $(document).ready(function() {
 		fnSave();
 	});	
 
+	$('#btnZoom').on('click', function () {
+		/* zoom 미팅 가능 */
+		sendChat();
+	});
+
+	/* 소켓설정 */
+	webSocketConnect("zoom_use_yn", function(message) {
+
+		setValue("use_yn", message.zoom_use_yn);
+
+		if(message.zoom_use_yn == "Y") {
+			setText("btnZoom", "ZOOM 사용중");
+			alert("ZOOM 미팅을 진행하실 수 있습니다.");
+		} else {
+			setText("btnZoom", "ZOOM 미사용");
+			alert("더이상 ZOOM 미팅을 진행할 수 없습니다.");
+		}
+	});	
+
 	/* 정보조회 */
 	fnSearch();
 });
+
+/* 메시지 전송 */
+function sendChat() {
+
+	var msg = "";
+	var useYn = "";
+	if(getValue("use_yn") == "Y") {
+		msg = "ZOOM 미사용 처리하시겠습니까?";
+		useYn = "N";
+	} else {
+		if(getValue("zoom_url") == "") {
+			alert("ZOOM URL를 입력하세요.");
+			return false;
+		}
+		msg = "ZOOM 사용 처리하시겠습니까?";
+		useYn = "Y";
+	}
+
+	if(confirm(msg)) {
+
+		gfnPutObj("zoom_use_yn", useYn);
+		gfnPutObj("zoom_mgnt_id", getValue("zoom_mgnt_id"));
+		gfnPutObj("cust_id", "${sessionScope.login_session.cust_id}");
+		gfnPutObj("user_id", "${sessionScope.login_session.cust_id}");
+		gfnPutObj("zoom_url", getValue("zoom_url"));
+
+		var pParamJson = gfnGetJson();
+
+		if(pParamJson.substring(0,1) == "[") {
+			pParamJson = pParamJson.substring(1, (pParamJson.length-1));
+		}		
+
+		stompClient.send("/app/zoom_use_yn", {}, pParamJson);
+	}
+}
 
 /* 이미지 상세 */
 function doView(pFileClsfDtlCd) {
@@ -152,6 +209,20 @@ function fnSearch() {
 				gfnSetField(message.list[0], pFieldArry);
 			}
 
+			/* zoom url 설정 */
+			var zoomList = message.zoomList;
+			if(zoomList.length > 0) {
+				pFieldArry = ["zoom_mgnt_id", "zoom_url", "use_yn"];
+				gfnSetField(zoomList[0], pFieldArry);
+
+				var useYn = getValue("use_yn");
+				if(useYn == "Y") {
+					setText("btnZoom", "ZOOM 사용중");
+				} else {
+					setText("btnZoom", "ZOOM 미사용");
+				}
+			}			
+
 			/* 이미지 셋팅 */
 			lfileList = message.attachList;
 			var imgCorpCi = "", corpProduct = "", corpGallery = "";
@@ -171,6 +242,8 @@ function fnSearch() {
             $("#imgCorpCi").html(imgCorpCi);
             $("#corpProduct").html(corpProduct);
             $("#corpGallery").html(corpGallery);
+
+			
 
 		} else {
 			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");

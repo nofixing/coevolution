@@ -3,6 +3,9 @@ package kr.coevolution.vr.mypage.service;
 import kr.coevolution.vr.board.dto.EvBoardRequestDto;
 import kr.coevolution.vr.comm.dto.EvFileAttachRequestDto;
 import kr.coevolution.vr.comm.service.EvFileAttachService;
+import kr.coevolution.vr.comm.util.StringUtils;
+import kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto;
+import kr.coevolution.vr.mgnt.service.EvMgntService;
 import kr.coevolution.vr.mypage.domain.EvMypageCustCorpInfoMapper;
 import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto;
 import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoResponseDto;
@@ -28,6 +31,9 @@ public class EvMypageCustCorpInfoService {
 
     @Autowired
     private EvFileAttachService evFileAttachService;
+
+    @Autowired
+    private EvMgntService evMgntService;
 
     /**
      * 내부스정보
@@ -110,6 +116,20 @@ public class EvMypageCustCorpInfoService {
         } else {
             /* 내부스정보수정 */
             rtnValue = evMypageCustCorpInfoMapper.U01_CORP_INFO(evMypageCustCorpInfoRequestDto);
+        }
+
+        /* 줌 URL 저장 */
+        EvMgntZoomRequestDto evMgntZoomRequestDto = new EvMgntZoomRequestDto();
+        evMgntZoomRequestDto.setCust_id(evMypageCustCorpInfoRequestDto.getCust_id());
+        evMgntZoomRequestDto.setUser_id(evMypageCustCorpInfoRequestDto.getCust_id());
+        evMgntZoomRequestDto.setZoom_url(evMypageCustCorpInfoRequestDto.getZoom_url());
+        evMgntZoomRequestDto.setUse_yn(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getUse_yn(),"Y"));
+
+        /* 줌 URL 저장 */
+        if("".equals(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getZoom_mgnt_id(), ""))) {
+            evMgntService.mgnt_zoom_insert(evMgntZoomRequestDto);
+        } else {
+            evMgntService.mgnt_zoom_update(evMgntZoomRequestDto);
         }
 
         return return_code;

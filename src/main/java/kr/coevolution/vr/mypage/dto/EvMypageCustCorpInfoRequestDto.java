@@ -21,4 +21,7 @@ public class EvMypageCustCorpInfoRequestDto {
     private String file_clsf_dtl_cd;
     private String file_cust_id;
     private String m_yn;
+    private String use_yn;
+    private Long zoom_mgnt_id;
+    private String zoom_url;
 }

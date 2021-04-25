@@ -4,6 +4,8 @@ import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
 import kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto;
 import kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto;
+import kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto;
+import kr.coevolution.vr.mgnt.dto.EvMgntZoomResposeDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -144,4 +146,25 @@ public interface MgntUserInfoMapper {
      * @return
      */
     public List<EvMgntMemberResponseDto> S10_ACCESS_LOG_LIST_COUNT(EvMgntMemberRequestDto param);
+
+    /**
+     * 줌설정입력
+     * @param param
+     * @return
+     */
+    public int I03_MGNT_ZOOM (EvMgntZoomRequestDto param);
+
+    /**
+     * 줌설정수정
+     * @param param
+     * @return
+     */
+    public int U03_MGNT_ZOOM (EvMgntZoomRequestDto param);
+
+    /**
+     * 줌사용여부
+     * @param param
+     * @return
+     */
+    public List<EvMgntZoomResposeDto> S11_MGNT_ZOOM(EvMgntZoomRequestDto param);
 }
