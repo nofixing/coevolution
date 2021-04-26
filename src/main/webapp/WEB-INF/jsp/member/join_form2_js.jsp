@@ -51,20 +51,38 @@ $(document).ready(function() {
 
 	$('#agree-all').on('click', function () {
 		//전체체크
-		if(checked("agree_1")) {
-			gfnSetUnCheck("agree_1");
-			gfnSetUnCheck("agree_2");
-			gfnSetUnCheck("agree_3");
-		} else {
+		if(checked("agree-all")) {
 			gfnSetCheck("agree_1");
 			gfnSetCheck("agree_2");
 			gfnSetCheck("agree_3");
+		} else {
+			gfnSetUnCheck("agree_1");
+			gfnSetUnCheck("agree_2");
+			gfnSetUnCheck("agree_3");			
 		}
 
 	});	
 
-	
+	$('#agree_1').on('click', function () {
+		fn_checked();
+	});
+
+	$('#agree_2').on('click', function () {
+		fn_checked();
+	});
+
+	$('#agree_3').on('click', function () {
+		fn_checked();
+	});
 
 });
+
+function fn_checked() {
+	if(checked("agree_1") && checked("agree_2") && checked("agree_3")) {
+		gfnSetCheck("agree-all");
+	} else {
+		gfnSetUnCheck("agree-all");
+	}
+}
 
 </script>
