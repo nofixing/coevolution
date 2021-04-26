@@ -5,6 +5,9 @@
 
 
 /* 공통 */
+.mblock{
+    display:none;
+}
 em.red{
     color:red;
     font-style:normal;
@@ -69,6 +72,16 @@ button.basic-btn{
 }
 
 
+
+@media (max-width:991px){
+    .mblock{
+        display:block;
+    }
+    .container{
+        padding-right: 1rem !important;
+        padding-left: 1rem !important;
+    }
+}
 
 
 /* 부트스트랩 */
@@ -229,10 +242,10 @@ button.basic-btn{
 .footer_link ul li a{
     color:rgba(255,255,255,0.80);
 }
-.footer_link ul li a:hover{
-    color:rgb(255, 255, 255);
+/* .footer_link ul li a:hover{
+    color:rgb(56, 45, 45);
     font-weight:700;
-}
+} */
 .footer_link li{
     display:inline-block;
 }
@@ -313,9 +326,6 @@ button.basic-btn{
 .footer_address li span{
     display:inline-block;
 }
-.footer_address li span + span{
-    margin:0 5px;
-}
 
 /* copyright */
 
@@ -343,19 +353,36 @@ button.basic-btn{
 }
 
 @media (max-width:991px){
+    .footer_logo{
+        display:none;
+    }
     .footer_inner{
         margin-top:15px;
     }
     .footer_menu > div{
         margin-bottom:10px;
+        margin-left:-15px;
+        margin-right:-15px;
     }
     .footer_link{
         float:none;
         text-align:center;
+        border-bottom:1px solid rgba(255,255,255,0.7);
+        padding-bottom:15px;
     }
     .footer_sns{
         float:none;
-        text-align:center;
+        text-align:right;
+        padding-right:15px;
+    }
+    .footer_sns span{
+        float:left;
+        color:#fff;
+        padding:0 15px;
+        box-sizing:border-box;
+    }
+    .footer_sns ul{
+        float:right;
     }
     .footer_info{
         margin:0;
@@ -365,18 +392,19 @@ button.basic-btn{
         position:relative;
     }
     .footer_info .footer_logo{
-        top:auto;
+        top:-30px;
         transform: translate(0);
+        left:0;
     }
     .footer_address{
         padding-left:0;
+        position:relative;
     }
     .footer_address ul{
         margin-top:15px;
     }
     .footer_address li span{
-        display:block;
-        text-align:center;
+        text-align:left;
         margin:0;
     }
     .footer_partner_logo{
@@ -437,7 +465,19 @@ button.basic-btn{
     position: relative;
   }
   .m-menu-top a{
+      position:absolute;
+      top:50%;
+      right:10px;
+      transform: translateY(-50%);
       color:#fff;
+  }
+  .m-menu-top span{
+      color:#fff;
+      box-sizing:border-box;
+  }
+  .m-menu-top svg{
+      vertical-align:top;
+      margin-top:1px;
   }
   
   .m-menu-top .m-menu-lm-box {
@@ -511,8 +551,9 @@ button.basic-btn{
   .m-menu-shop li a span {
     margin-top: 5px;
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     color: #111111;
+    font-weight:700;
   }
   
   .m-menu-popul {
@@ -547,12 +588,12 @@ button.basic-btn{
   
   .m-menu-cate li a {
     display: block;
-    font-size: 13px;
+    font-size: 11px;
     color:#333;
     position: relative;
     padding: 15px 10px;
     -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+            box-sizing: border-box;
   }
   
   .m-menu-cate li a:after {
@@ -576,23 +617,21 @@ button.basic-btn{
   }
   
   .m-menu-list li {
-    width: calc(50% - 6px);
-    float: left;
-    margin: 3px;
+    margin: 5px;
   }
   
   .m-menu-list li.m-login-area a {
     background: #dddddd;
   }
   
-  .m-menu-list li a {
+  .m-menu-list li > a {
     display: block;
-    padding: 15px 10px;
+    padding: 5px 15px;
     -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    background: #f2f5f6;
+            box-sizing: border-box;
     color:#333;
-    font-size: 13px;
+    font-size:14px;
+    font-weight:700;
   }
   
   .m-menu-list li a span {
@@ -614,6 +653,30 @@ button.basic-btn{
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
+  }
+  .m-menu-list li .m-menu-list-sub{
+      padding-left:15px;
+      box-sizing:border-box;
+  }
+  .m-menu-list li .m-menu-list-sub a{
+    padding: 5px 15px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    color:#333;
+    font-size:12px;
+    display:block;
+    position:relative;
+  }
+  .m-menu-list li .m-menu-list-sub a:before{
+      content:"";
+      display:block;
+      width:2px;
+      height:2px;
+      background:#333;
+      border-radius:50%;
+      position:absolute;
+      top:12px;
+      left:0;
   }
   
   .m-menu-list li a span.m-notice-icon:before {

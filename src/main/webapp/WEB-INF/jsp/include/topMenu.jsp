@@ -13,7 +13,7 @@
 
     <!-- M 메뉴 -->
     <div class="m-menu">
-        <div class="m-menu-top clearfix">
+        <div class="m-menu-top">
             <a href="#!">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x"
                     viewBox="0 0 16 16">
@@ -25,37 +25,91 @@
                 <a href="#!"> <i class="close-btn icon"></i>
                 </a>
             </div> -->
+            <span>
+            <c:choose>
+                <c:when test="${empty sessionScope.login_session.cust_nm}">
+                    로그인 해주세요
+                </c:when>
+
+                <c:otherwise>
+                    ${sessionScope.login_session.cust_nm}님 반갑습니다.
+                </c:otherwise>
+            </c:choose>
+            
+            </span>
         </div>
         <div class="m-menu-body">
             <div class="m-menu-box">
                 <div class="m-menu-shop">
                     <ul class="clearfix">
-                        <li><a data-toggle="collapse" aria-expanded="false" href="#collapse_guide_m"><span><spring:message code="top.view.guid" text="관람가이드"/></span></a></li>
-                        <li><a data-toggle="collapse" aria-expanded="false" href="#collapse_veh_m"><span><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></span></a></li>
+
+                        <c:choose>
+                            <c:when test="${empty sessionScope.login_session.cust_nm}">
+                                <li><a href="/member/login_form"><span><spring:message code="top.login" text="로그인"/></span></a></li>
+                            </c:when>
+
+                            <c:otherwise>
+                                <li><a href="/logout"><span><spring:message code="top.logout" text="로그아웃"/></span></a></li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        
+                        <c:choose>
+                            <c:when test="${empty sessionScope.login_session.cust_nm}">
+                                <li><a href="/member/join_form1"><span><spring:message code="top.visit.reg" text="참관등록"/></span></a></li>
+                            </c:when>
+
+                            <c:otherwise>
+                                <li>
+                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202001'}">
+                                    <a href="/mypage/favorts" class="nav-link nav-item-font">
+                                    </c:if>
+                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
+                                    <a href="/mypage/myc01" class="nav-link nav-item-font">
+                                    </c:if>    
+                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202003'}">
+                                    <a href="/mgnt/badge" class="nav-link nav-item-font">
+                                    </c:if>   
+
+                                    <span><spring:message code="top.mypage" text="마이페이지"/></span>
+
+                                    </a>
+                                </li>
+
+                            </c:otherwise>
+                        </c:choose>
+
+                        
                     </ul>
                 </div>
             </div>
             <div class="m-menu-box" >
-                <div class="m-menu-cate" class="collapse collapse-item" id="collapse_guide_m">
-                    <ul class="clearfix">
-                        <li><a href="#!"><spring:message code="top.view.guid" text="관람가이드"/></a></li>
-                    </ul>
-                </div>            
-                <div class="m-menu-cate"  class="collapse collapse-item" id="collapse_veh_m">
-                    <ul class="clearfix">
-                        <li><a href="#!">e-mobility</a></li>
-                        <li><a href="#!">charging infra</a></li>
-                        <li><a href="#!">component</a></li>
-                        <li><a href="#!">energy</a></li>
-                        <li><a href="#!">group</a></li>
-                        <li><a href="#!">additional</a></li>
+                <div class="m-menu-list">
+                    <ul>
+                        <li>
+                            <a href="#!">관람가이드</a>
+                            <div class="m-menu-list-sub">
+                                <a href="#!">가이드영상</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#!">버추얼전시관</a>
+                            <div class="m-menu-list-sub">
+                                <a href="#!">e-mobility</a>
+                                <a href="#!">charging infra</a>
+                                <a href="#!">component</a>
+                                <a href="#!">energy</a>
+                                <a href="#!">group</a>
+                                <a href="#!">additional</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="m-menu-box">
                 <div class="m-menu-list">
-                    <ul class="clearfix">
+                    <ul>
                         <c:choose>
                             <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
                             <li>
@@ -92,24 +146,6 @@
                             </li>
                             </c:otherwise>
                             
-                        </c:choose>
-
-                        <c:choose>
-                            <c:when test="${empty sessionScope.login_session.cust_nm}">
-                                <li>
-                                    <a href="/member/login_form">
-                                        <spring:message code="top.login" text="로그인"/>
-                                    </a>
-                                </li>
-                            </c:when>
-
-                            <c:otherwise>
-                                <li>
-                                    <a href="/logout">
-                                        <spring:message code="top.logout" text="로그아웃"/>
-                                    </a>
-                                </li>
-                            </c:otherwise>
                         </c:choose>
 
                     </ul>
