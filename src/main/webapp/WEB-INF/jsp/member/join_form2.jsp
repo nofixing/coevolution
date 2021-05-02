@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
@@ -58,9 +60,14 @@
                 </div>
                 <div class="form_inner">
                     <div class="register_section">
-                        <h4><strong>이용약관(필수)</strong></h4>
+                        <h4><strong><spring:message code="terms.and.conditions" text="이용약관(필수)"/>(필수)</strong></h4>
                         <div class="register_section_area">
+                          <c:if test="${sessionScope.LANG ne 'en'}">
                             ${agree1_contents}
+                          </c:if>
+                          <c:if test="${sessionScope.LANG eq 'en'}">
+                            ${agree1_contents_en}
+                          </c:if>
                         </div>
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" id="agree_1" name="agree_1" value="Y" class="custom-control-input">
@@ -68,9 +75,14 @@
                       </div>
                     </div>
                     <div class="register_section">
-                      <h4><strong>개인정보처리방침안내(필수)</strong></h4>
+                      <h4><strong><spring:message code="pirvate.policy" text="개인정보처리방침안내(필수)"/>(필수)</strong></h4>
                         <div class="register_section_area">
+                          <c:if test="${sessionScope.LANG ne 'en'}">
                             ${agree2_contents}
+                          </c:if>
+                          <c:if test="${sessionScope.LANG eq 'en'}">
+                            ${agree2_contents_en}
+                          </c:if>                        
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="agree_2" name="agree_2" value="Y" class="custom-control-input">
@@ -80,7 +92,12 @@
                     <div class="register_section">
                         <h4><strong>개인정보 마케팅 활용 동의(선택)</strong></h4>
                         <div class="register_section_area">
-                          ${agree3_contents}
+                          <c:if test="${sessionScope.LANG ne 'en'}">
+                            ${agree3_contents}
+                          </c:if>
+                          <c:if test="${sessionScope.LANG eq 'en'}">
+                            ${agree3_contents_en}
+                          </c:if>  
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="agree_3" name="agree_3" value="Y" class="custom-control-input">

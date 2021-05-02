@@ -385,7 +385,8 @@
         SELECT zoom_mgnt_id, cust_id, use_fr_dtm, use_to_dtm, zoom_url, use_yn
         FROM ev_zoom_use_mgnt
         WHERE cust_id = #{cust_id}
-        and use_yn = 'Y'
+        and del_yn = 'N'
+        order by cust_id, zoom_mgnt_id
     </select>
 
 </mapper>

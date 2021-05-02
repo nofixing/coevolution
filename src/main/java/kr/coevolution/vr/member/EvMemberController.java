@@ -546,11 +546,15 @@ public class EvMemberController {
             List<EvMemberCorpResposeDto> list = evMemberService.search_corp_search(evMemberSearchDto);
             List<EvMemberCorpResposeDto> listCount = evMemberService.search_corp_search_count(evMemberSearchDto);
 
+            /* zoom 리스트 조회 */
+            List<EvMemberZoomResposeDto> zoomList = evMemberService.search_zoom_search(evMemberSearchDto);
+
             resposeResult.put("row_count", listCount.get(0).getRow_count());            /* 총 건수 */
             resposeResult.put("page_row_cnt", evMemberSearchDto.getPage_row_cnt());     /* 페이지 row 개수 */
             resposeResult.put("page_current", evMemberSearchDto.getPage_current());     /* 현재페이지 */
 
             resposeResult.put("corpList", list);
+            resposeResult.put("zoomList", zoomList);
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
 

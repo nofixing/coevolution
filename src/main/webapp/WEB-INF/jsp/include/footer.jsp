@@ -24,13 +24,13 @@
                     <div class="footer_sns">
                         <ul>
                             <li>
-                                <a href="#!">
-                                    <img src="/assets/img/icons/footer_facebook.png" alt="">
+                                <a href="https://www.facebook.com/ievexpo.org" target="_blank">
+                                    <img src="/assets/img/icons/footer_facebook.png" alt="" style="width:38px;height:25px">
                                 </a>
                             </li>
-                            <li>
-                                <a href="#!">
-                                    <img src="/assets/img/icons/footer_youtube.png" alt="">
+                            <li class="ml-1">
+                                <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
+                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:38px;height:25px">
                                 </a>
                             </li>
                         </ul>
@@ -91,13 +91,13 @@
                     <div class="footer_sns">
                         <ul>
                             <li>
-                                <a href="#!">
-                                    <img src="/assets/img/icons/footer_facebook.png" alt="">
+                                <a href="https://www.facebook.com/ievexpo.org" target="_blank">
+                                    <img src="/assets/img/icons/footer_facebook.png" alt="" style="width:38px;height:25px">
                                 </a>
                             </li>
-                            <li>
-                                <a href="#!">
-                                    <img src="/assets/img/icons/footer_youtube.png" alt="">
+                            <li class="ml-1">
+                                <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
+                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:38px;height:25px">
                                 </a>
                             </li>
                         </ul>

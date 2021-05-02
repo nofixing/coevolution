@@ -466,6 +466,24 @@
 
     </select>
 
+    <select id="S09_ZOOM_LIST" parameterType="kr.coevolution.vr.member.dto.EvMemberSearchDto" resultType="kr.coevolution.vr.member.dto.EvMemberZoomResposeDto">
+        /* zoom 사용리스트 */
+        select zoom_mgnt_id
+            , concat('zoom', zoom_mgnt_id) as zoom_id
+            , cust_id
+            , zoom_url
+            , use_fr_dtm
+            , use_to_dtm
+            , use_yn
+        from ev_zoom_use_mgnt ezum
+        where del_yn = 'N'
 
+        <if test="cust_id != null and cust_id != ''">
+            and ezum.cust_id 			= #{cust_id}
+        </if>
+
+        order by cust_id, zoom_mgnt_id
+
+    </select>
 
 </mapper>

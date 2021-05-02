@@ -334,6 +334,7 @@
         select board_id
              , board_clsf_cd
              , board_content
+             , board_content2
           from ev_board
         where board_id = (
                             select max(board_id)

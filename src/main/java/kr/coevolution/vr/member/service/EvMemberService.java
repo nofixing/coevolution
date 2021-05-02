@@ -384,4 +384,13 @@ public class EvMemberService {
     public List<EvMemberCorpResposeDto> search_corp_search_count(EvMemberSearchDto evMemberSearchDto) {
         return evMemberMapper.S08_COPR_LIST_COUNT(evMemberSearchDto);
     }
+
+    /**
+     * zoom 사용 리스트
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberZoomResposeDto> search_zoom_search(EvMemberSearchDto evMemberSearchDto) {
+        return evMemberMapper.S09_ZOOM_LIST(evMemberSearchDto);
+    }
 }

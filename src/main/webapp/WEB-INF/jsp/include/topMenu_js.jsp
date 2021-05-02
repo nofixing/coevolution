@@ -69,7 +69,7 @@ function searchCategori(pCurrentPage) {
 	sendForm("POST", "/member/search_corp_search", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message.result_code == 0) {
-			setCategoriHtml(message.corpList);
+			setCategoriHtml(message.corpList, message.zoomList);
 
 			/* 총건수, 현재이지, view row, 호출할 function */
 			var pageHtml = setPaging(message.row_count, message.page_current, message.page_row_cnt, "searchCategori");
@@ -143,7 +143,7 @@ function top_badge(pCustId) {
 
 }
 
-function setCategoriHtml(corpList) {
+function setCategoriHtml(corpList, zoomList) {
 
 	/* 카테고리 */
 	vCategoriHtml = '';
@@ -169,7 +169,16 @@ function setCategoriHtml(corpList) {
 		if(corpList[i].category2 != "" && corpList[i].category2 != null) {
 			vCategoriHtml += '        <h4><span class="badge bg-info "><small class="text-white"> ' + corpList[i].category2 + ' </small></span></h4> ';
 		}
-		vCategoriHtml += '					<a href="javascript:doZoom(\''+corpList[i].cust_id+'\')"/><img src="/images/zoom.png" style="width:20px" id="img_'+corpList[i].cust_id+'"></a>';
+
+		for(var j = 0; j < zoomList.length; j++) {
+			if(corpList[i].cust_id == zoomList[j].cust_id) {
+				if(zoomList[j].use_yn == "Y") {
+					vCategoriHtml += '		<div style="display:inline;" id="'+zoomList[i].zoom_id+'"><img src="/images/zoom.png" style="width:30px;cursor:pointer"  onClick="doZoom(\''+zoomList[j].zoom_url+'\')"></div>';
+				} else {
+					vCategoriHtml += '		<div style="display:inline;" id="'+zoomList[i].zoom_id+'"><img src="/images/zoomx.png" style="width:30px;"></div> ';
+				}
+			}
+		}
 
 		vCategoriHtml += '        </p> ';
 		vCategoriHtml += '    </div> ';

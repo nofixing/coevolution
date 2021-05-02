@@ -233,4 +233,11 @@ public interface EvMemberMapper {
      * @return
      */
     public List<EvMemberCorpResposeDto> S08_COPR_LIST_COUNT(EvMemberSearchDto evMemberSearchDto);
+
+    /**
+     * zoom 리스트
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberZoomResposeDto> S09_ZOOM_LIST(EvMemberSearchDto evMemberSearchDto);
 }

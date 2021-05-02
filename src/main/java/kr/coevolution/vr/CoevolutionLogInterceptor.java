@@ -31,19 +31,22 @@ public class CoevolutionLogInterceptor implements HandlerInterceptor {
         HttpSession httpSession = request.getSession();
 
         try {
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
-            Map<String, String> vMap = new HashMap<String, String>();
-
-            if(loginInfoDto != null && !"".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
-                vMap.put("access_user", loginInfoDto.getCust_id());
-            }
-
             String ip = StringUtils.getRemoteIP(request);
 
-            vMap.put("access_ip", ip);
-            vMap.put("access_info", request.getRequestURI());
+            /* 172.31.*.* aws 서버 */
+            if(!ip.startsWith("172.31")) {
+                EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+                Map<String, String> vMap = new HashMap<String, String>();
 
-            evCommCodeService.access_log_insert(vMap);
+                if(loginInfoDto != null && !"".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                    vMap.put("access_user", loginInfoDto.getCust_id());
+                }
+
+                vMap.put("access_ip", ip);
+                vMap.put("access_info", request.getRequestURI());
+
+                evCommCodeService.access_log_insert(vMap);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
