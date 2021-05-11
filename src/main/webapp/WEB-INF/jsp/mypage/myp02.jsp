@@ -3,7 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
 <jsp:include page="/WEB-INF/jsp/include/session.jsp"></jsp:include>
 
 <!doctype html>
@@ -51,11 +50,9 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section">
+    <section class="section pt-0">
       <div class="container">
-        <div class="form_head">
-          <p>마이페이지</p>
-      </div>
+
         <div class="row">
           <div class="col-md-3">
             <!--left Menu -->
@@ -68,7 +65,7 @@
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
-              <h3 class="mb-4">
+              <h3 class="mt-4 mb-4">
                 <strong>
                   관심 뱃지 내역
                 </strong>

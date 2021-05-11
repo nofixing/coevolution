@@ -392,9 +392,9 @@
     </div><!-- /.modal -->
     <!-- NAVBAR
     ================================================= -->
-    <nav class="navbar navbar-expand-xl navbar-light  fixed-top">
+    <nav class="navbar navbar-expand-xl navbar-light  fixed-top p-1">
         <div class="container">
-            <h1 class="logo">
+            <h1 class="logo m-0">
                 <a href="/">
                     <img src="/assets/img/icons/header_logo.png" alt="">
                 </a>

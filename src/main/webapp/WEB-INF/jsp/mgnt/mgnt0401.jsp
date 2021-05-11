@@ -49,11 +49,9 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section">
+    <section class="section pt-0">
       <div class="container">
-        <div class="form_head">
-          <p>관리자페이지</p>
-        </div>
+
         <div class="row">
           <div class="col-md-3">
             
@@ -67,7 +65,7 @@
             <div class="pb-5 mb-5" id="animation">
               
               <!-- Heading -->
-              <h3 class="mb-4">
+              <h3 class="mt-4 mb-4">
                 <strong>
                   참관회원
                 </strong>
