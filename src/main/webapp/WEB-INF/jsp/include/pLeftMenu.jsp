@@ -35,7 +35,7 @@
       <a href="/mypage/badge" <c:if test="${page_clsf eq 'myp02'}">class="on"</c:if> ><strong>관심 뱃지 내역</strong></a>
     </li>
     <li class="text-xs text-uppercase border p-2">
-      <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myp03'}">class="on"</c:if> ><strong>삼담문의 내역</strong></a>
+      <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myp03'}">class="on"</c:if> ><strong>상담문의 내역</strong></a>
     </li>
 
     <li class="text-xs text-uppercase border p-2">

@@ -52,13 +52,13 @@
       <div class="container">
 
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-xl-3" id="gLeftMenu">
             
             <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/pLeftMenu.jsp"></jsp:include>
           </div>
 
-          <div class="col-md-9">
+          <div class="col-xl-9">
 
 
             <!-- 즐겨찾기 -->

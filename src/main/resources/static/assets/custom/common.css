@@ -763,4 +763,9 @@ button.basic-btn{
     .mobile-submenu{
         display:block;
     }
+
+    /* left 메뉴 숨기기 */
+    #gLeftMenu {
+        display:none;
+    }
 }

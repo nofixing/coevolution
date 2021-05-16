@@ -116,6 +116,9 @@
                                 <a href="/mypage/myc01"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
                             </li>
                             <li>
+                                <a href="/mypage/myc01"><strong><spring:message code="top.mypage.register.booth.information" text="내 부스 정보 등록"/></strong></a>
+                            </li>
+                            <li>
                                 <a href="/mypage/favortscorp"><spring:message code="top.all.menu.favorite.history2" text="즐겨찾기 내역"/></a>
                             </li>
                             <li>
@@ -127,6 +130,15 @@
                             <li>
                                 <a href="/mypage/myc05"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                             </li>
+                            <li>
+                                <a href="/mypage/myp05"><spring:message code="top.all.menu.modify.my.password" text="비밀번호변경"/></a>
+                            </li>
+                            <li>
+                                <a href="/mypage/myp06"><spring:message code="top.all.menu.re-agree.privacy" text="개인정보 재동의"/></a>
+                            </li>
+                            <li>
+                                <a href="/mypage/myp07"><spring:message code="top.all.menu.membership.withdrawal" text="회원탈퇴"/></a>
+                            </li>
                             </c:when>
                             <c:otherwise>
                             <li>
@@ -136,13 +148,22 @@
                                 <a href="/mypage/favorts"><spring:message code="top.all.menu.favorite.history1" text="부스 즐겨찾기 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/badge"><spring:message code="top.all.menu.badge.usage.history" text="뱃지 사용 내역"/></a>
+                                <a href="/mypage/badge"><spring:message code="top.all.menu.badge.of.interest" text="관심 뱃지 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.list.of.enquiries" text="문의 내역"/></a>
+                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.list.of.enquiries" text="상담 문의 내역"/></a>
                             </li>
                             <li>
-                                <a href="/mypage/myp04"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
+                                <a href="/mypage/myp04"><spring:message code="top.all.menu.modify.my.information" text="정보 수정"/></a>
+                            </li>
+                            <li>
+                                <a href="/mypage/myp05"><spring:message code="top.all.menu.modify.my.password" text="비밀번호변경"/></a>
+                            </li>
+                            <li>
+                                <a href="/mypage/myp06"><spring:message code="top.all.menu.re-agree.privacy" text="개인정보 재동의"/></a>
+                            </li>
+                            <li>
+                                <a href="/mypage/myp07"><spring:message code="top.all.menu.membership.withdrawal" text="회원탈퇴"/></a>
                             </li>
                             </c:otherwise>
                             
