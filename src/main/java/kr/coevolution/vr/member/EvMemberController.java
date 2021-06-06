@@ -148,7 +148,7 @@ public class EvMemberController {
 
                 /* 고객정보조회 */
                 EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
-                evMemberSearchDto.setUser_id(String.valueOf(map.get("cust_id")));
+                evMemberSearchDto.setCust_id(String.valueOf(map.get("cust_id")));
                 List<EvMemberResposeDto> list = evMemberService.search_cust_info(evMemberSearchDto);
                 evMemberResposeDto = list.get(0);
 
