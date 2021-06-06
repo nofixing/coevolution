@@ -372,6 +372,7 @@ public class EvMypageMemberController {
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
 
+
             /* 회원탈퇴 이메일 내용 조회 */
             EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
             evMailSndRequestDto.setEmail_form_id(6);
