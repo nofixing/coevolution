@@ -129,7 +129,50 @@ public class EvMemberController {
 
         try {
 
+            /* 회원정보입력 */
             int result_code = evMemberService.member_insert(map);
+
+            EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
+
+            /* 이메일 내용 조회 */
+            evMailSndRequestDto.setEmail_form_id(5);
+            List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
+
+            /* 고객정보조회 */
+            EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
+            evMemberSearchDto.setUser_id(String.valueOf(map.get("cust_id")));
+            List<EvMemberResposeDto> list = evMemberService.search_cust_info(evMemberSearchDto);
+            EvMemberResposeDto evMemberResposeDto = list.get(0);
+
+            String content = formList.get(0).getEmail_form();
+            content = content.replace("#reg_dtm#", evMemberResposeDto.getIns_dtm());
+            content = content.replace("#cust_nm#", evMemberResposeDto.getCust_nm());
+            content = content.replace("#cust_id#", evMemberResposeDto.getCust_id());
+
+            String title = "버추얼아일랜드 회원가입 완료";
+
+            String receiver = evMemberResposeDto.getEmail_id();
+            EmailDto email = new EmailDto(title, content, sender, receiver);
+
+            String sndYn = "";
+            try {
+                emailService.send(email);
+                sndYn = "Y";
+            }catch (Exception e1) {
+                logger.error("email send error: "+e1.toString());
+                sndYn = "N";
+                e1.printStackTrace();
+            }finally {
+                /* 이메일로그생성 */
+                evMailSndRequestDto.setRcv_snd_yn(sndYn);
+                evMailSndRequestDto.setUser_id(evMemberResposeDto.getCust_id());
+                evMailSndRequestDto.setCust_id(evMemberResposeDto.getCust_id());
+                evMailSndRequestDto.setRcv_email_id(receiver);
+                evMailSndRequestDto.setRcv_title_nm(title);
+                evMailSndRequestDto.setRcv_email_conts(content);
+
+                mailSndService.eMailsendLog (evMailSndRequestDto);
+            }
 
             resposeResult.put("result_code", result_code);
             resposeResult.put("result_msg", "성공!!");
@@ -392,6 +435,7 @@ public class EvMemberController {
 
                     String content = formList.get(0).getEmail_form();
                     content = content.replace("#passwd#", temp.toString());
+                    content = content.replace("#cust_nm#", evMemberLoginRequestDto.getCust_nm());
 
                     String title = "임시비밀번호 안내";
                     //String content = "회원님의 임시비밀번호는 "+temp.toString()+" 입니다.\n";

@@ -57,50 +57,23 @@ ${sessionScope.social_login_yn = ""}
             setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
         }
     });
+
+    $( "#user_id" ).keypress(function(event) {
+        if ( event.which == 13 ) {
+            lComm.setFocus("user_pw");
+        }
+    });
+
+    $( "#user_pw" ).keypress(function(event) {
+        if ( event.which == 13 ) {
+            login();
+        }
+    });
 	
 	//이벤트
 	$('#btnLogin').on('click', function () {
 		//로그인체크
-
-		/* 필수항목 체크 */
-		var chk = '['
-			+ '  {"id":"user_id","name":"아이디"} '
-			+ ', {"id":"user_pw","name":"비밀번호"} ';
-		chk += ']';
-
-		var jsonCheck = JSON.parse(chk);
-
-		if(!lComm.fnRequiredItems(jsonCheck)) {
-			return false;
-		}
-
-		/* form값 global 변수에 입력 */
-		gfnGetFormJSON();
-	
-		/* global 변수 json으로 변환 */
-		var pParamJson = gfnGetJson();
-
-		//console.log("pParamJson : " + pParamJson);
-	
-		sendForm("POST", "/member/login", "application/json; charset=utf-8", "json", pParamJson, function(message) {
-
-		    //console.log("message : " + message.result_code);
-			if(message.result_code == 0) {
-				if('${sessionScope.url_prior_login}' != '') {
-                    document.location.href = '${sessionScope.url_prior_login}';
-                } else {
-                    if (message.cust_clsf_cd == "202001") {
-                        document.location.href = "/mypage/favorts";
-                    } else if (message.cust_clsf_cd == "202002") {
-                        document.location.href = "/mypage/myc01";
-                    } 
-                }
-			} else {
-				alert("일치하는 정보가 없습니다.\r\n확인후 다시 입력해주세요.");
-			}
-
-		});
-
+        login();
 	});
 
     //social login google
@@ -141,5 +114,47 @@ ${sessionScope.social_login_yn = ""}
 	});
 
 });
+
+/*로그인처리*/
+function login() {
+    /* 필수항목 체크 */
+    var chk = '['
+        + '  {"id":"user_id","name":"아이디"} '
+        + ', {"id":"user_pw","name":"비밀번호"} ';
+    chk += ']';
+
+    var jsonCheck = JSON.parse(chk);
+
+    if(!lComm.fnRequiredItems(jsonCheck)) {
+        return false;
+    }
+
+    /* form값 global 변수에 입력 */
+    gfnGetFormJSON();
+
+    /* global 변수 json으로 변환 */
+    var pParamJson = gfnGetJson();
+
+    //console.log("pParamJson : " + pParamJson);
+
+    sendForm("POST", "/member/login", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+        //console.log("message : " + message.result_code);
+        if(message.result_code == 0) {
+            if('${sessionScope.url_prior_login}' != '') {
+                document.location.href = '${sessionScope.url_prior_login}';
+            } else {
+                if (message.cust_clsf_cd == "202001") {
+                    document.location.href = "/mypage/favorts";
+                } else if (message.cust_clsf_cd == "202002") {
+                    document.location.href = "/mypage/myc01";
+                } 
+            }
+        } else {
+            alert("일치하는 정보가 없습니다.\r\n확인후 다시 입력해주세요.");
+        }
+
+    });    
+}
 
 </script>

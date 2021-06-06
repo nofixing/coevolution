@@ -144,6 +144,7 @@
             , facebook_email
             , reg_provider
             , date_format(ins_dtm,'%Y-%m-%d')  as ins_dt
+            , date_format(ins_dtm,'%Y-%m-%d %H:%i:%s')  as ins_dtm
             , category1
             , nvl((select cd_val1 from ev_comm_code where cd_id = a.category1),'#!') as category1_value
             , category2

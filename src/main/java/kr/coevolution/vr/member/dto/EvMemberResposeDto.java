@@ -45,6 +45,7 @@ public class EvMemberResposeDto {
     private String cust_sts_cd;
     private String cust_sts_nm;
     private String ins_dt;
+    private String ins_dtm;
     private String category1;
     private String category1_value;
     private String category2;
