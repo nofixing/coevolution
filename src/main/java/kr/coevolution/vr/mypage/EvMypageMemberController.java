@@ -5,20 +5,26 @@ import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
-import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
-import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
-import kr.coevolution.vr.member.dto.EvMemberResposeDto;
-import kr.coevolution.vr.member.dto.EvMemberSearchDto;
+import kr.coevolution.vr.email.dto.EvMailSndRequestDto;
+import kr.coevolution.vr.email.dto.EvMailSndResposeDto;
+import kr.coevolution.vr.email.service.EvMailSndService;
+import kr.coevolution.vr.member.dto.*;
+import kr.coevolution.vr.member.service.EmailService;
 import kr.coevolution.vr.member.service.EvMemberService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +39,17 @@ public class EvMypageMemberController {
 
     @Autowired
     private EvCommCodeService evCommCodeService;
+
+    @Autowired
+    private EvMailSndService mailSndService;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Value("${mail.sender}")
+    private String sender;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 마이페이지 조회
@@ -342,6 +359,10 @@ public class EvMypageMemberController {
         evMemberLoginRequestDto.setUser_id(loginInfoDto.getCust_id());
         evMemberLoginRequestDto.setCust_id(loginInfoDto.getCust_id());
 
+        String custId = loginInfoDto.getCust_id();
+        String custNm = loginInfoDto.getCust_nm();
+        String emailId = loginInfoDto.getEmail_id();
+
         try {
             int result_code = evMemberService.member_wdral(evMemberLoginRequestDto);
 
@@ -350,6 +371,57 @@ public class EvMypageMemberController {
 
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
+
+            /* 회원탈퇴 이메일 내용 조회 */
+            EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
+            evMailSndRequestDto.setEmail_form_id(6);
+
+            String sndYn = "";
+            EvMemberResposeDto evMemberResposeDto = null;
+            String content = "";
+            String title = "";
+            String receiver = "";
+
+            try {
+                List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
+
+                SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+                String nDt = sf.format(new Date());
+
+                content = formList.get(0).getEmail_form();
+                content = content.replace("#cust_nm#", custNm);
+                content = content.replace("#YYYY#", nDt.substring(0,4));
+                content = content.replace("#MM#", nDt.substring(4,6));
+                content = content.replace("#DD#", nDt.substring(6,8));
+
+                title = "버추얼아일랜드 탈퇴 안내";
+
+                receiver = emailId;
+                EmailDto email = new EmailDto(title, content, sender, receiver);
+
+                emailService.send(email);
+                sndYn = "Y";
+
+            }catch (Exception e1) {
+                logger.error("email send error: "+e1.toString());
+                sndYn = "N";
+                e1.printStackTrace();
+            }finally {
+                try {
+                    /* 이메일로그생성 */
+                    evMailSndRequestDto.setRcv_snd_yn(sndYn);
+                    evMailSndRequestDto.setUser_id(custId);
+                    evMailSndRequestDto.setCust_id(custId);
+                    evMailSndRequestDto.setRcv_email_id(receiver);
+                    evMailSndRequestDto.setRcv_title_nm(title);
+                    evMailSndRequestDto.setRcv_email_conts(content);
+
+                    mailSndService.eMailsendLog(evMailSndRequestDto);
+                } catch (Exception e1) {
+                    logger.error("email 이메일로그생성 error: " + e1.toString());
+                    e1.printStackTrace();
+                }
+            }
 
         } catch (Exception e) {
 
