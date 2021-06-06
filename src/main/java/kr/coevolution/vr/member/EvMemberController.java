@@ -127,37 +127,44 @@ public class EvMemberController {
 
         log.debug(map.toString());
 
+        EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
+
         try {
 
             /* 회원정보입력 */
             int result_code = evMemberService.member_insert(map);
 
-            EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
-
             /* 이메일 내용 조회 */
             evMailSndRequestDto.setEmail_form_id(5);
-            List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
-
-            /* 고객정보조회 */
-            EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
-            evMemberSearchDto.setUser_id(String.valueOf(map.get("cust_id")));
-            List<EvMemberResposeDto> list = evMemberService.search_cust_info(evMemberSearchDto);
-            EvMemberResposeDto evMemberResposeDto = list.get(0);
-
-            String content = formList.get(0).getEmail_form();
-            content = content.replace("#reg_dtm#", evMemberResposeDto.getIns_dtm());
-            content = content.replace("#cust_nm#", evMemberResposeDto.getCust_nm());
-            content = content.replace("#cust_id#", evMemberResposeDto.getCust_id());
-
-            String title = "버추얼아일랜드 회원가입 완료";
-
-            String receiver = evMemberResposeDto.getEmail_id();
-            EmailDto email = new EmailDto(title, content, sender, receiver);
 
             String sndYn = "";
+            EvMemberResposeDto evMemberResposeDto = null;
+            String content = "";
+            String title = "";
+            String receiver = "";
+
             try {
+                List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
+
+                /* 고객정보조회 */
+                EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
+                evMemberSearchDto.setUser_id(String.valueOf(map.get("cust_id")));
+                List<EvMemberResposeDto> list = evMemberService.search_cust_info(evMemberSearchDto);
+                evMemberResposeDto = list.get(0);
+
+                content = formList.get(0).getEmail_form();
+                content = content.replace("#reg_dtm#", evMemberResposeDto.getIns_dtm());
+                content = content.replace("#cust_nm#", evMemberResposeDto.getCust_nm());
+                content = content.replace("#cust_id#", evMemberResposeDto.getCust_id());
+
+                title = "버추얼아일랜드 회원가입 완료";
+
+                receiver = evMemberResposeDto.getEmail_id();
+                EmailDto email = new EmailDto(title, content, sender, receiver);
+
                 emailService.send(email);
                 sndYn = "Y";
+
             }catch (Exception e1) {
                 logger.error("email send error: "+e1.toString());
                 sndYn = "N";
