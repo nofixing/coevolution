@@ -170,15 +170,20 @@ public class EvMemberController {
                 sndYn = "N";
                 e1.printStackTrace();
             }finally {
-                /* 이메일로그생성 */
-                evMailSndRequestDto.setRcv_snd_yn(sndYn);
-                evMailSndRequestDto.setUser_id(evMemberResposeDto.getCust_id());
-                evMailSndRequestDto.setCust_id(evMemberResposeDto.getCust_id());
-                evMailSndRequestDto.setRcv_email_id(receiver);
-                evMailSndRequestDto.setRcv_title_nm(title);
-                evMailSndRequestDto.setRcv_email_conts(content);
+                try {
+                    /* 이메일로그생성 */
+                    evMailSndRequestDto.setRcv_snd_yn(sndYn);
+                    evMailSndRequestDto.setUser_id(evMemberResposeDto.getCust_id());
+                    evMailSndRequestDto.setCust_id(evMemberResposeDto.getCust_id());
+                    evMailSndRequestDto.setRcv_email_id(receiver);
+                    evMailSndRequestDto.setRcv_title_nm(title);
+                    evMailSndRequestDto.setRcv_email_conts(content);
 
-                mailSndService.eMailsendLog (evMailSndRequestDto);
+                    mailSndService.eMailsendLog(evMailSndRequestDto);
+                }catch (Exception e1) {
+                    logger.error("email 이메일로그생성 error: "+e1.toString());
+                    e1.printStackTrace();
+                }
             }
 
             resposeResult.put("result_code", result_code);
