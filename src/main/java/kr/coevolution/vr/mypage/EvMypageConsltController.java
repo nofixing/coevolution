@@ -864,6 +864,7 @@ public class EvMypageConsltController {
 
                 evMypageConsultRequestDto.setConsult_avail_yn("Y");
                 evMypageConsultRequestDto.setConsult_rsv_cust_id(evMypageConsultRequestDto.getConsult_rsv_cust_id());
+                evMypageConsultRequestDto.setConsult_rsv_cust_id(evMypageConsultRequestDto.getConsult_rsv_cust_id());
                 evMypageConsultService.consult_shedule_insert(evMypageConsultRequestDto); /* 변경된 정보 입력 */
 
                 //취소, 반려인 경우 상태가 없는 내역으로 스케줄을 생성한다.
@@ -927,6 +928,7 @@ public class EvMypageConsltController {
             }
 
             model.addAttribute("schedule_id", evMypageConsultRequestDto.getSchedule_id());
+            model.addAttribute("consult_rsv_cust_id", evMypageConsultRequestDto.getConsult_rsv_cust_id());
 
         } catch (Exception e) {
 
@@ -996,7 +998,17 @@ public class EvMypageConsltController {
 
             /* 상담-설정조회 */
             EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
-            evMypageConsultRequestDto.setCust_id(evMypageConsultMsgRequestDto.getCust_id());
+
+            if("202001".equals(evMypageConsultMsgRequestDto.getCust_clsf_cd())) {
+                //참관고객인경우 - 참관마이페이지 신청에서 입력되므로 전송대상으로 변경우 다시 로그인ID로 변경한다.
+                evMypageConsultMsgRequestDto.setCust_id(evMypageConsultMsgRequestDto.getRcv_cust_id());
+                evMypageConsultRequestDto.setCust_id(evMypageConsultMsgRequestDto.getCust_id());
+
+                evMypageConsultMsgRequestDto.setCust_id(loginInfoDto.getCust_id());
+            } else {
+                evMypageConsultRequestDto.setCust_id(evMypageConsultMsgRequestDto.getCust_id());
+            }
+
             evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
 
             List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
@@ -1008,7 +1020,6 @@ public class EvMypageConsltController {
             }
 
             evMypageConsultMsgRequestDto.setConsult_time_id(consultTimeId);
-            evMypageConsultMsgRequestDto.setSchedule_id(null);
             evMypageConsultMsgRequestDto.setSnd_cust_id(evMypageConsultMsgRequestDto.getCust_id());
             evMypageConsultMsgRequestDto.setRcv_cust_id(evMypageConsultMsgRequestDto.getRcv_cust_id());
 

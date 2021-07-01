@@ -15,7 +15,11 @@ $(document).ready(function() {
 
 	//메시지전송
 	$('#btnMsgSnd').on('click', function () {
-		fnSndMsg();
+		if(lSndCustId != "") {
+			fnSndMsg();
+		} else {
+			alert("좌측 상담내역 전송 대상을 선택하세요.");
+		}
 	});
 
 	//soket설정

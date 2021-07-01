@@ -24,6 +24,10 @@ $(document).ready(function() {
 		fnSearch();
 	});
 
+	//soket설정
+	webSocketConnect("msg", function(pMsg) {
+	});
+
 });
 
 function fnSearch() {
@@ -78,12 +82,17 @@ function setRsvStatCd(pScheduleId, pConsultRsvStatCd) {
 			document.location.href="/member/login_form";
 		} else if(message.result_code == 0) {
             
+			var msg = "";
 			if(pConsultRsvStatCd == "215001") {
-				alert("상담 신청하였습니다.");
+				msg = "상담 신청하였습니다.";
 			} else if(pConsultRsvStatCd == "215004") {
-				alert("상담 신청 취소하였습니다.");
+				msg = "상담 신청 취소하였습니다.";
 			}
-            
+
+			fnSndMsg(pScheduleId, msg);
+
+			alert(msg);
+
             window.parent.parent.$('#showModal').modal('hide');
 
 			fnSearch();
@@ -108,6 +117,50 @@ function setRsvStatCd(pScheduleId, pConsultRsvStatCd) {
 
 	});	
 
+}
+
+
+/**
+	메시지 저장 및 전송
+*/
+function fnSndMsg(pSchedule_id, pMsg) {
+
+	gfnPutObj("message"			, pMsg);
+	gfnPutObj("snd_cust_id"		, getValue("consult_rsv_cust_id"));
+	gfnPutObj("rcv_cust_id"		, getValue("consultCustId"));
+	gfnPutObj("schedule_id"		, pSchedule_id);
+	gfnPutObj("cust_clsf_cd"	, "202001");
+
+	/* global 변수 json으로 변환 */
+	var pParamJson = gfnGetJson();
+
+    sendForm("POST", "/mypage/myc08M01", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/member/login_form";
+		} else if(message.result_code == 0) {
+
+			/* 메시지 전송 */
+			gfnPutObj("message"		, pMsg);
+			gfnPutObj("snd_cust_id"	, getValue("consult_rsv_cust_id"));
+			gfnPutObj("rcv_cust_id"	, getValue("consultCustId"));
+			gfnPutObj("schedule_id"	, pSchedule_id);
+
+			/* global 변수 json으로 변환 */
+			pParamJson = gfnGetJson().replace("[","").replace("]","");
+			//pParamJson = JSON.stringify({'snd_cust_id': getValue("cust_id"), 'rcv_cust_id': lSndCustId,'message': getValue("taMsgSnd")});
+			stompClient.send("/app/msg", {}, pParamJson);
+
+		} else {
+			if(message.session_yn == "N") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/index";
+			} else {
+				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+			}
+		}
+	});	
 }
 
 

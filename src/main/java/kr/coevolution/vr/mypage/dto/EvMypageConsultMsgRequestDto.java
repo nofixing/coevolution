@@ -16,4 +16,5 @@ public class EvMypageConsultMsgRequestDto {
     private String rcv_yn;
     private String cust_id;
     private int ev_expo_id;
+    private String cust_clsf_cd; //고객구분
 }
