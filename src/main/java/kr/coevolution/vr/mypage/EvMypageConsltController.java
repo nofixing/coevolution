@@ -1196,7 +1196,7 @@ public class EvMypageConsltController {
             /* 상담-설정조회 */
             List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_cust_settime_select(evMypageConsultRequestDto);
 
-            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "";
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "214019", consult_to_time = "214036";
 
             if(consultSetting != null && consultSetting.size() == 1) {
                 consultTimeId = consultSetting.get(0).getConsult_time_id();
