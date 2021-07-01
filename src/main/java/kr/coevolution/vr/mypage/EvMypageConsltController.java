@@ -3,9 +3,17 @@ package kr.coevolution.vr.mypage;
 import kr.coevolution.vr.board.dto.EvBoardConsltResponseDto;
 import kr.coevolution.vr.board.dto.EvBoardRequestDto;
 import kr.coevolution.vr.board.dto.EvBoardSearchDto;
+import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
+import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
+import kr.coevolution.vr.comm.dto.EvExpoResponseDto;
+import kr.coevolution.vr.comm.service.EvCommCodeService;
+import kr.coevolution.vr.comm.service.EvExpoService;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
+import kr.coevolution.vr.mypage.dto.*;
 import kr.coevolution.vr.mypage.service.EvMypageBoardConsltService;
+import kr.coevolution.vr.mypage.service.EvMypageConsultService;
+import kr.coevolution.vr.mypage.service.EvMypageCustCorpInfoService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +23,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @NoArgsConstructor
@@ -27,13 +35,17 @@ public class EvMypageConsltController {
     @Autowired
     private EvMypageBoardConsltService evMypageBoardConsltService;
 
+    @Autowired
+    private EvCommCodeService evCommCodeService;
 
-    /*
+    @Autowired
+    private EvExpoService evExpoService;
 
-    중복답글 처리 필요....
+    @Autowired
+    private EvMypageConsultService evMypageConsultService;
 
-     */
-
+    @Autowired
+    private EvMypageCustCorpInfoService evMypageCustCorpInfoService;
 
     /**
      * 마이페이지 상담문의 조회
@@ -251,5 +263,1597 @@ public class EvMypageConsltController {
 
         return resposeResult;
     }
-    
+
+    /**
+     * 상담설정-코드조회
+     * @param evBoardSearchDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/consltset")
+    public String mypage_conslt_set (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myc06";
+            }
+
+            /* 타임존 조회 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id("213000");
+            List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* Expo 정보조회 (예약가능일자조회) */
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search();
+            String consultFromDt = "";
+            String consultToDt = "";
+            String sunday = "";
+            int evExpoId = 0;
+
+            if(expoInfo != null && expoInfo.size() == 1) {
+                consultFromDt = expoInfo.get(0).getExpo_from_dt();
+                consultToDt = expoInfo.get(0).getExpo_to_dt();
+                evExpoId = expoInfo.get(0).getEv_expo_id();
+                sunday = expoInfo.get(0).getSunday();
+
+            }
+
+            EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+
+            /* 상담-설정조회 */
+            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "";
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultTimeId = consultSetting.get(0).getConsult_time_id();
+                tiemzone_cd = consultSetting.get(0).getTiemzone_cd();
+                consult_from_time = consultSetting.get(0).getConsult_from_time();
+                consult_to_time = consultSetting.get(0).getConsult_to_time();
+            }
+
+            /* 예약시간 조회 */
+            evCommCodeRequestDto.setUpper_cd_id("214000");
+            List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 상담가능기간 체크 */
+            evMypageConsultRequestDto.setExpo_from_dt(consultFromDt);
+            evMypageConsultRequestDto.setExpo_to_dt(consultToDt);
+            evMypageConsultRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+            evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
+            evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
+            evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+
+            /* 시간별 상담내역 */
+            Map<String,Object> consultMap = new HashMap<>();
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultMap = getTimeList(evMypageConsultRequestDto);
+            }
+
+            model.addAttribute("page_clsf", "myc06");
+            model.addAttribute("timezoneList", timezoneList);
+            model.addAttribute("consult_from_dt", consultFromDt);
+            model.addAttribute("consult_to_dt", consultToDt);
+            model.addAttribute("timeList", timeList);
+
+            /* 시간별 상담내역 - 헤더건수 */
+            model.addAttribute("header_cnt", consultMap.get("period"));
+
+            /* 시간별 상담내역 */
+            model.addAttribute("consultList", consultMap.get("newList"));
+
+            /* 상담-설정조회 */
+            model.addAttribute("consult_time_id", consultTimeId);
+            model.addAttribute("tiemzone_cd", tiemzone_cd);
+            model.addAttribute("consult_from_time", consult_from_time);
+            model.addAttribute("consult_to_time", consult_to_time);
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+
+    @ResponseBody
+    @PostMapping("/mypage/consult_settime")
+    public Map<String,Object> mypage_consult_settime (@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<String,Object>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getUser_id());
+            evMypageConsultRequestDto.setUser_id(loginInfoDto.getUser_id());
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+            String ndt = sf.format(new Date());
+
+            /* 상담가능기간 체크 */
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+            evMypageConsultRequestDto.setExpo_from_dt(evExpoResponseDto.getExpo_from_dt());
+            evMypageConsultRequestDto.setExpo_to_dt(evExpoResponseDto.getExpo_to_dt());
+
+            if(!evMypageConsultRequestDto.getConsult_from_dt().equals(evExpoResponseDto.getExpo_from_dt())
+                    || !evMypageConsultRequestDto.getConsult_to_dt().equals(evExpoResponseDto.getExpo_to_dt())) {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "상담 기간이 아닙니다.");
+            } else if(Long.parseLong(evExpoResponseDto.getApct_prod_from_dt().replace("-","")) > Long.parseLong(ndt)
+                    || Long.parseLong(evExpoResponseDto.getApct_prod_to_dt().replace("-","")) < Long.parseLong(ndt)) {
+                resposeResult.put("result_code", "-2");
+                resposeResult.put("result_msg", "상담설정 기간이 아닙니다.");
+            } else {
+                int return_code = 0;
+                evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+                if(Long.parseLong(StringUtils.nvl(evMypageConsultRequestDto.getConsult_time_id(),"0")) > 0) {
+                    return_code = evMypageConsultService.consult_settime_update(evMypageConsultRequestDto);
+                } else {
+                    return_code = evMypageConsultService.consult_settime_insert(evMypageConsultRequestDto);
+                }
+
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 상담시간 테이블 구성
+     * @param evMypageConsultRequestDto
+     * @return
+     */
+    private Map<String,Object> getTimeList(EvMypageConsultRequestDto evMypageConsultRequestDto) {
+
+        Map<String,Object> rtrMap = new HashMap<>();
+        List<Map<String,String>> newList = new ArrayList<>();
+        List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_shedule_search(evMypageConsultRequestDto);
+
+        String expoFromDt = evMypageConsultRequestDto.getExpo_from_dt();
+        String expoToDt = evMypageConsultRequestDto.getExpo_to_dt();
+        String sunday = evMypageConsultRequestDto.getSunday();
+        String formTimeCd = evMypageConsultRequestDto.getConsult_from_time();
+        String toTimeCd = evMypageConsultRequestDto.getConsult_to_time();
+
+        /* 예약시간 조회 */
+        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+
+        evCommCodeRequestDto.setUpper_cd_id("214000");
+        List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sf2 = new SimpleDateFormat("M/d (EEE)");
+        SimpleDateFormat sf3 = new SimpleDateFormat("E");
+
+        try {
+            Date dateExpoFromDt = sf.parse(expoFromDt);
+            Date dateExpoToDt = sf.parse(expoToDt);
+            Date sundayDt = sf.parse(sunday);
+
+            /* header 생성 */
+            int key = 0;
+            Map<String, String> headerMap = new HashMap<>();
+
+            /*
+            long diff = dateExpoToDt.getTime() - dateExpoFromDt.getTime() + 1;
+            TimeUnit time = TimeUnit.DAYS;
+            long period = time.convert(diff, TimeUnit.MILLISECONDS);
+            */
+
+            //시작일을 일요일로 설정한다.
+
+            long period = 7;
+            rtrMap.put("period",7);
+
+            headerMap.put("k" + (++key), "시간");
+
+            Calendar cal = Calendar.getInstance();
+            Date setFromDt = sundayDt;
+            for(int i = 0; i <= period; i++) {
+                headerMap.put("k" + (++key), sf2.format(setFromDt));
+
+                cal.setTime(setFromDt);
+                cal.add(Calendar.DATE, 1);
+                setFromDt = cal.getTime();
+            }
+
+            newList.add(headerMap);
+
+            for(EvCommCodeResponseDto evCommCodeResponseDto : timeList) {
+
+                if(Integer.parseInt(evCommCodeResponseDto.getCd_id()) < Integer.parseInt(formTimeCd)
+                        || Integer.parseInt(evCommCodeResponseDto.getCd_id()) > Integer.parseInt(toTimeCd)) {
+                    continue;
+                }
+
+                /* 시간설정 */
+                key = 0;
+                Map<String, String> consultMap = new HashMap<>();
+
+                consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_nm());
+
+                cal = Calendar.getInstance();
+                setFromDt = sundayDt;
+
+                for(int j = 0; j <= period; j++) {
+
+                    /* 상담시간리스트 */
+                    String formatFromDt = sf.format(setFromDt);
+                    boolean chkRow = false;
+                    for(EvMypageConsultScheduleResponseDto schedule : list) {
+                        /* 시간과 일자가 같을 경우 put */
+                        if(schedule.getConsult_dt().equals(formatFromDt) && schedule.getConsult_time_cd().equals(evCommCodeResponseDto.getCd_id())) {
+                            key++;
+                            consultMap.put("k" + key + "_scheduleId"        , StringUtils.nvl(schedule.getSchedule_id(),""));
+                            consultMap.put("k" + key + "_consultTimeId"     , StringUtils.nvl(schedule.getConsult_time_id(),""));
+                            consultMap.put("k" + key + "_consultRsvCustId"  , StringUtils.nvl(schedule.getConsult_rsv_cust_id(),""));
+                            consultMap.put("k" + key + "_consultRsvCustNm"  , StringUtils.nvl(schedule.getConsult_rsv_cust_nm(),""));
+                            consultMap.put("k" + key + "_consultAvailYn"    , StringUtils.nvl(schedule.getConsult_avail_yn(),""));
+                            consultMap.put("k" + key + "_consultRsvStatCd"  , StringUtils.nvl(schedule.getConsult_rsv_stat_cd(),""));
+                            consultMap.put("k" + key + "_telNo"             , StringUtils.nvl(schedule.getTel_no(),""));
+                            chkRow = true;
+                        }
+                    }
+
+                    if(!chkRow) ++key;
+
+                    //색상표를 위해 엑스포기간을 체크한다.
+                    if(Integer.parseInt(expoFromDt.replace("-","")) <= Integer.parseInt(formatFromDt.replace("-",""))
+                            && Integer.parseInt(expoToDt.replace("-","")) >= Integer.parseInt(formatFromDt.replace("-",""))) {
+                        consultMap.put("k" + key + "_expoYn"  , "Y");
+                    }
+
+                    cal.setTime(setFromDt);
+                    cal.add(Calendar.DATE, 1);
+                    setFromDt = cal.getTime();
+                }
+
+                newList.add(consultMap);
+            }
+
+            rtrMap.put("newList",newList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rtrMap;
+    }
+
+    /**
+     * 상담시간 설정
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mypage/consult_set_yn")
+    public Map<String,Object> mypage_consult_set_yn (@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<String,Object>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getUser_id());
+            evMypageConsultRequestDto.setUser_id(loginInfoDto.getUser_id());
+
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+            evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+
+            /* 현재상태체크 */
+            List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_shedule_search(evMypageConsultRequestDto);
+
+            if(list != null && list.size() == 1) {
+
+                EvMypageConsultScheduleResponseDto evMypageConsultScheduleResponseDto = list.get(0);
+                String availYn = evMypageConsultScheduleResponseDto.getConsult_avail_yn();
+
+                /* 기존정보를 입력 */
+                evMypageConsultService.consult_shedule_delete(evMypageConsultRequestDto); /* del_yn = 'Y' */
+
+                if("Y".equals(availYn))
+                    evMypageConsultRequestDto.setConsult_avail_yn("N");
+                else
+                    evMypageConsultRequestDto.setConsult_avail_yn("Y");
+
+                evMypageConsultService.consult_shedule_insert(evMypageConsultRequestDto); /* 변경된 정보 입력 */
+
+                log.debug("getSchedule_id() : " + evMypageConsultRequestDto.getSchedule_id());
+
+                resposeResult.put("schedule_id", evMypageConsultRequestDto.getSchedule_id());
+                resposeResult.put("consult_avail_yn", evMypageConsultRequestDto.getConsult_avail_yn());
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+
+            } else {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "해당내역이 없습니다.");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+    /**
+     * 상담예약현황
+     * @param evBoardSearchDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc07")
+    public String mypage_myc07 (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myc07";
+            }
+
+            /* 타임존 조회 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id("213000");
+            List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* Expo 정보조회 (예약가능일자조회) */
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search();
+            String consultFromDt = "";
+            String consultToDt = "";
+            String sunday = "";
+            int evExpoId = 0;
+
+            if(expoInfo != null && expoInfo.size() == 1) {
+                consultFromDt = expoInfo.get(0).getExpo_from_dt();
+                consultToDt = expoInfo.get(0).getExpo_to_dt();
+                evExpoId = expoInfo.get(0).getEv_expo_id();
+                sunday = expoInfo.get(0).getSunday();
+
+            }
+
+            EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+
+            /* 상담-설정조회 */
+            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "";
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultTimeId = consultSetting.get(0).getConsult_time_id();
+                tiemzone_cd = consultSetting.get(0).getTiemzone_cd();
+                consult_from_time = consultSetting.get(0).getConsult_from_time();
+                consult_to_time = consultSetting.get(0).getConsult_to_time();
+            }
+
+            /* 예약시간 조회 */
+            evCommCodeRequestDto.setUpper_cd_id("214000");
+            List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 상담가능기간 체크 */
+            evMypageConsultRequestDto.setExpo_from_dt(consultFromDt);
+            evMypageConsultRequestDto.setExpo_to_dt(consultToDt);
+            evMypageConsultRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+            evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
+            evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
+            evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+
+            /* 시간별 상담내역 */
+            Map<String,Object> consultMap = new HashMap<>();
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultMap = getTimeList(evMypageConsultRequestDto);
+            }
+
+            model.addAttribute("page_clsf", "myc07");
+            model.addAttribute("timezoneList", timezoneList);
+            model.addAttribute("consult_from_dt", consultFromDt);
+            model.addAttribute("consult_to_dt", consultToDt);
+            model.addAttribute("timeList", timeList);
+
+            /* 시간별 상담내역 - 헤더건수 */
+            model.addAttribute("header_cnt", consultMap.get("period"));
+
+            /* 시간별 상담내역 */
+            model.addAttribute("consultList", consultMap.get("newList"));
+
+            /* 상담-설정조회 */
+            model.addAttribute("consult_time_id", consultTimeId);
+            model.addAttribute("tiemzone_cd", tiemzone_cd);
+            model.addAttribute("consult_from_time", consult_from_time);
+            model.addAttribute("consult_to_time", consult_to_time);
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 예약자조회
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mypage/rsv_info")
+    public Map<String,Object> mypage_rsv_info (@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<String,Object>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getUser_id());
+            evMypageConsultRequestDto.setUser_id(loginInfoDto.getUser_id());
+
+            /* 예약자조회 */
+            List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_rsv_info_search(evMypageConsultRequestDto);
+
+            if(list != null && list.size() == 1) {
+
+                resposeResult.put("schedule_id"     , list.get(0).getSchedule_id());
+                resposeResult.put("cust_id"         , list.get(0).getCust_id());
+                resposeResult.put("cust_nm"         , list.get(0).getCust_nm());
+                resposeResult.put("tel_no"          , list.get(0).getTel_no());
+                resposeResult.put("result_code"     , "0");
+                resposeResult.put("result_msg"      , "성공!!");
+
+            } else {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "해당내역이 없습니다.");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+    /**
+     * 상담예약현황 팝업
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc07P01")
+    public String mypage_mypc07P01 (EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myc07P01";
+            }
+
+            /* 현재상태체크 */
+            List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_shedule_search(evMypageConsultRequestDto);
+
+            if(list != null && list.size() == 1) {
+                evMypageConsultRequestDto.setConsult_rsv_stat_cd(list.get(0).getConsult_rsv_stat_cd());
+                evMypageConsultRequestDto.setCust_id(list.get(0).getConsult_rsv_cust_id());
+                evMypageConsultRequestDto.setCust_nm(list.get(0).getConsult_rsv_cust_nm());
+                evMypageConsultRequestDto.setTel_no(list.get(0).getTel_no());
+            }
+
+            model.addAttribute("schedule_id"        , evMypageConsultRequestDto.getSchedule_id());
+            model.addAttribute("consult_rsv_stat_cd", evMypageConsultRequestDto.getConsult_rsv_stat_cd());
+            model.addAttribute("cust_id"            , evMypageConsultRequestDto.getCust_id());
+            model.addAttribute("cust_nm"            , evMypageConsultRequestDto.getCust_nm());
+            model.addAttribute("tel_no"             , evMypageConsultRequestDto.getTel_no());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 상담시간 설정
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mypage/myc07P01U01")
+    public Map<String,Object> mypage_myc07P01U01 (@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<String,Object>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getUser_id());
+            evMypageConsultRequestDto.setUser_id(loginInfoDto.getUser_id());
+
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+            evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+
+            /* 현재상태체크 */
+            List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_shedule_search(evMypageConsultRequestDto);
+
+            if(list != null && list.size() == 1) {
+
+                EvMypageConsultScheduleResponseDto evMypageConsultScheduleResponseDto = list.get(0);
+                String availYn = evMypageConsultScheduleResponseDto.getConsult_avail_yn();
+                String consultRsvStatCd = StringUtils.nvl(evMypageConsultScheduleResponseDto.getConsult_rsv_stat_cd(),"");
+
+                if(availYn.equals("N")) {
+                    resposeResult.put("result_code", "-2");
+                    resposeResult.put("result_msg", "사용할 수 없는 시간입니다.");
+                    return resposeResult;
+                }
+
+                if(consultRsvStatCd.equals("215003") || consultRsvStatCd.equals("215004")) {
+                    resposeResult.put("result_code", "-3");
+                    resposeResult.put("result_msg", "취소처리 또는 반려처리 되었습니다.");
+                    return resposeResult;
+                }
+
+                /* 기존정보를 입력 */
+                evMypageConsultService.consult_shedule_delete(evMypageConsultRequestDto); /* del_yn = 'Y' */
+
+                evMypageConsultRequestDto.setConsult_avail_yn("Y");
+                evMypageConsultRequestDto.setConsult_rsv_cust_id(evMypageConsultRequestDto.getConsult_rsv_cust_id());
+                evMypageConsultService.consult_shedule_insert(evMypageConsultRequestDto); /* 변경된 정보 입력 */
+
+                //취소, 반려인 경우 상태가 없는 내역으로 스케줄을 생성한다.
+                String rsvStatCd = evMypageConsultRequestDto.getConsult_rsv_stat_cd();
+                if(rsvStatCd.equals("215003") || rsvStatCd.equals("215004")) {
+                    EvMypageConsultRequestDto mypageConsultRequestDto = new EvMypageConsultRequestDto();
+                    mypageConsultRequestDto = evMypageConsultRequestDto;
+                    mypageConsultRequestDto.setConsult_avail_yn("Y");
+                    mypageConsultRequestDto.setConsult_rsv_stat_cd("");
+                    evMypageConsultRequestDto.setConsult_rsv_cust_id("");
+                    mypageConsultRequestDto.setRemarks("");
+                    evMypageConsultService.consult_shedule_insert(mypageConsultRequestDto); /* 변경된 정보 입력 */
+                }
+
+                log.debug("getSchedule_id() : " + evMypageConsultRequestDto.getSchedule_id());
+
+                resposeResult.put("schedule_id", evMypageConsultRequestDto.getSchedule_id());
+                resposeResult.put("consult_rsv_stat_cd", evMypageConsultRequestDto.getConsult_rsv_stat_cd());
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+
+            } else {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "해당내역이 없습니다.");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+    /**
+     * 상담반려 팝업
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc07P02")
+    public String mypage_mypc07P02 (EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myc07P02";
+            }
+
+            model.addAttribute("schedule_id", evMypageConsultRequestDto.getSchedule_id());
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 상담이력
+     * @param evBoardSearchDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myc08")
+    public String mypage_myc08 (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myc08";
+            }
+
+            model.addAttribute("page_clsf", "myc08");
+            model.addAttribute("cust_id", loginInfoDto.getCust_id());
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 메시지전송
+     * @param evMypageConsultMsgRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/myc08M01")
+    public Map<String,Object> mypage_myc08M01 (@RequestBody EvMypageConsultMsgRequestDto evMypageConsultMsgRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+
+            evMypageConsultMsgRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            /* 상담-설정조회 */
+            EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
+            evMypageConsultRequestDto.setCust_id(evMypageConsultMsgRequestDto.getCust_id());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+
+            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L;
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultTimeId = consultSetting.get(0).getConsult_time_id();
+            }
+
+            evMypageConsultMsgRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultMsgRequestDto.setSchedule_id(null);
+            evMypageConsultMsgRequestDto.setSnd_cust_id(evMypageConsultMsgRequestDto.getCust_id());
+            evMypageConsultMsgRequestDto.setRcv_cust_id(evMypageConsultMsgRequestDto.getRcv_cust_id());
+
+            /* 메시지 입력 */
+            evMypageConsultService.consult_msg_insert(evMypageConsultMsgRequestDto);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 메시지조회전송
+     * @param evMypageConsultMsgRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/myc08M02")
+    public Map<String,Object> mypage_myc08M02 (@RequestBody EvMypageConsultMsgRequestDto evMypageConsultMsgRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+
+            evMypageConsultMsgRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            /* 상담-설정조회 */
+            EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
+            evMypageConsultRequestDto.setCust_id(evMypageConsultMsgRequestDto.getCust_id());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+
+            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L;
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultTimeId = consultSetting.get(0).getConsult_time_id();
+            }
+
+            evMypageConsultMsgRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultMsgRequestDto.setRcv_cust_id(evMypageConsultMsgRequestDto.getCust_id());
+            evMypageConsultMsgRequestDto.setSnd_cust_id(evMypageConsultMsgRequestDto.getSnd_cust_id());
+
+            /* 상담내역조회 */
+            List<EvMypageConsultMsgResponseDto> list = evMypageConsultService.consult_msg_search(evMypageConsultMsgRequestDto);
+            
+            /* 상담건수조회 */
+            List<EvMypageConsultMsgResponseDto> listCnt = evMypageConsultService.consult_count(evMypageConsultMsgRequestDto);
+
+            resposeResult.put("consultList", list);
+            resposeResult.put("consultListCnt", listCnt);
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+    /**
+     * 메시지전송고객조회
+     * @param evMypageConsultMsgRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/myc08M03")
+    public Map<String,Object> mypage_myc08M03 (@RequestBody EvMypageConsultMsgRequestDto evMypageConsultMsgRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+
+            evMypageConsultMsgRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            /* 상담-설정조회 */
+            EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
+            evMypageConsultRequestDto.setCust_id(evMypageConsultMsgRequestDto.getCust_id());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+
+            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L;
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultTimeId = consultSetting.get(0).getConsult_time_id();
+            }
+
+            evMypageConsultMsgRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultMsgRequestDto.setCust_id(evMypageConsultMsgRequestDto.getCust_id());
+
+            /* 상담내역조회 */
+            List<EvMypageConsultMsgResponseDto> list = evMypageConsultService.consult_cust_msg_search(evMypageConsultMsgRequestDto);
+
+            resposeResult.put("consultCustList", list);
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+
+
+    /**
+     * 상담신청현황
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp08")
+    public String mypage_myp08 (HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myp08";
+            }
+
+            /* 타임존 조회 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id("213000");
+            List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* Expo 정보조회 (예약가능일자조회) */
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search();
+            String consultFromDt = "";
+            String consultToDt = "";
+            String sunday = "";
+            int evExpoId = 0;
+
+            if(expoInfo != null && expoInfo.size() == 1) {
+                consultFromDt = expoInfo.get(0).getExpo_from_dt();
+                consultToDt = expoInfo.get(0).getExpo_to_dt();
+                evExpoId = expoInfo.get(0).getEv_expo_id();
+                sunday = expoInfo.get(0).getSunday();
+
+            }
+
+            EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+
+            /* 상담-설정조회 */
+            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_cust_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "";
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultTimeId = consultSetting.get(0).getConsult_time_id();
+                tiemzone_cd = consultSetting.get(0).getTiemzone_cd();
+                consult_from_time = consultSetting.get(0).getConsult_from_time();
+                consult_to_time = consultSetting.get(0).getConsult_to_time();
+            }
+
+            /* 예약시간 조회 */
+            evCommCodeRequestDto.setUpper_cd_id("214000");
+            List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 상담가능기간 체크 */
+            evMypageConsultRequestDto.setExpo_from_dt(consultFromDt);
+            evMypageConsultRequestDto.setExpo_to_dt(consultToDt);
+            evMypageConsultRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+            evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
+            evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
+            evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+
+            /* 시간별 상담내역 */
+            Map<String,Object> consultMap = getCustTimeList(evMypageConsultRequestDto);
+
+            model.addAttribute("page_clsf", "myp08");
+            model.addAttribute("timezoneList", timezoneList);
+            model.addAttribute("consult_from_dt", consultFromDt);
+            model.addAttribute("consult_to_dt", consultToDt);
+            model.addAttribute("timeList", timeList);
+
+            /* 시간별 상담내역 - 헤더건수 */
+            model.addAttribute("header_cnt", consultMap.get("period"));
+
+            /* 시간별 상담내역 */
+            model.addAttribute("consultList", consultMap.get("newList"));
+
+            /* 상담-설정조회 */
+            model.addAttribute("consult_time_id", consultTimeId);
+            model.addAttribute("tiemzone_cd", tiemzone_cd);
+            model.addAttribute("consult_from_time", consult_from_time);
+            model.addAttribute("consult_to_time", consult_to_time);
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 참관 상담시간 테이블 구성
+     * @param evMypageConsultRequestDto
+     * @return
+     */
+    private Map<String,Object> getCustTimeList(EvMypageConsultRequestDto evMypageConsultRequestDto) {
+
+        Map<String,Object> rtrMap = new HashMap<>();
+        List<Map<String,Object>> newList = new ArrayList<>();
+        List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_cust_shedule_search(evMypageConsultRequestDto);
+
+        String expoFromDt = evMypageConsultRequestDto.getExpo_from_dt();
+        String expoToDt = evMypageConsultRequestDto.getExpo_to_dt();
+        String sunday = evMypageConsultRequestDto.getSunday();
+        String formTimeCd = evMypageConsultRequestDto.getConsult_from_time();
+        String toTimeCd = evMypageConsultRequestDto.getConsult_to_time();
+
+        /* 예약시간 조회 */
+        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+
+        evCommCodeRequestDto.setUpper_cd_id("214000");
+        List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sf2 = new SimpleDateFormat("M/d (EEE)");
+        SimpleDateFormat sf3 = new SimpleDateFormat("E");
+
+        try {
+            Date dateExpoFromDt = sf.parse(expoFromDt);
+            Date dateExpoToDt = sf.parse(expoToDt);
+            Date sundayDt = sf.parse(sunday);
+
+            /* header 생성 */
+            int key = 0;
+            Map<String, Object> headerMap = new HashMap<>();
+
+            /*
+            long diff = dateExpoToDt.getTime() - dateExpoFromDt.getTime() + 1;
+            TimeUnit time = TimeUnit.DAYS;
+            long period = time.convert(diff, TimeUnit.MILLISECONDS);
+            */
+
+            //시작일을 일요일로 설정한다.
+
+            long period = 7;
+            rtrMap.put("period",7);
+
+            headerMap.put("k" + (++key), "시간");
+
+            Calendar cal = Calendar.getInstance();
+            Date setFromDt = sundayDt;
+            for(int i = 0; i <= period; i++) {
+                headerMap.put("k" + (++key), sf2.format(setFromDt));
+
+                cal.setTime(setFromDt);
+                cal.add(Calendar.DATE, 1);
+                setFromDt = cal.getTime();
+            }
+
+            newList.add(headerMap);
+
+            for(EvCommCodeResponseDto evCommCodeResponseDto : timeList) {
+
+                if(Integer.parseInt(evCommCodeResponseDto.getCd_id()) < Integer.parseInt(formTimeCd)
+                        || Integer.parseInt(evCommCodeResponseDto.getCd_id()) > Integer.parseInt(toTimeCd)) {
+                    continue;
+                }
+
+                /* 시간설정 */
+                key = 0;
+                Map<String, Object> consultMap = new HashMap<>();
+
+                consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_nm());
+
+                cal = Calendar.getInstance();
+                setFromDt = sundayDt;
+
+                //같은날 같은시간 예약인 경우 처리를 위하여 List를 이용함.
+                List<Map<String, String>> vList = new ArrayList<>();
+
+                //값비교
+                String tempFormatFromDt = "", tempTimeCd = "";
+                for(int j = 0; j <= period; j++) {
+
+                    /* 상담시간리스트 */
+                    String formatFromDt = sf.format(setFromDt);
+                    boolean chkRow = false;
+
+                    for(EvMypageConsultScheduleResponseDto schedule : list) {
+                        /* 시간과 일자가 같을 경우 put */
+                        if(schedule.getConsult_dt().equals(formatFromDt) && schedule.getConsult_time_cd().equals(evCommCodeResponseDto.getCd_id())) {
+
+                            if(!tempFormatFromDt.equals(formatFromDt) || !tempTimeCd.equals(evCommCodeResponseDto.getCd_id())) {
+                                key++;
+                            }
+
+                            Map<String, String> vMap = new HashMap<>();
+
+                            vMap.put("k" + key + "_scheduleId"          , StringUtils.nvl(schedule.getSchedule_id(),""));
+                            vMap.put("k" + key + "_consultTimeId"       , StringUtils.nvl(schedule.getConsult_time_id(),""));
+                            vMap.put("k" + key + "_consultCustId"       , StringUtils.nvl(schedule.getConsult_cust_id(),""));
+                            vMap.put("k" + key + "_consultCustNm"       , StringUtils.nvl(schedule.getConsult_cust_nm(),""));
+                            vMap.put("k" + key + "_consultAvailYn"      , StringUtils.nvl(schedule.getConsult_avail_yn(),""));
+                            vMap.put("k" + key + "_consultRsvStatCd"    , StringUtils.nvl(schedule.getConsult_rsv_stat_cd(),""));
+
+                            vList.add(vMap);
+
+                            chkRow = true;
+
+                            tempFormatFromDt = formatFromDt;
+                            tempTimeCd = evCommCodeResponseDto.getCd_id();
+                        }
+                    }
+
+                    if(!chkRow) ++key;
+
+                    //색상표를 위해 엑스포기간을 체크한다.
+                    if(Integer.parseInt(expoFromDt.replace("-","")) <= Integer.parseInt(formatFromDt.replace("-",""))
+                            && Integer.parseInt(expoToDt.replace("-","")) >= Integer.parseInt(formatFromDt.replace("-",""))) {
+                        consultMap.put("k" + key + "_expoYn"  , "Y");
+                    }
+
+                    consultMap.put("custList", vList);
+
+                    cal.setTime(setFromDt);
+                    cal.add(Calendar.DATE, 1);
+                    setFromDt = cal.getTime();
+                }
+
+                newList.add(consultMap);
+            }
+
+            rtrMap.put("newList",newList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rtrMap;
+    }
+
+    /**
+     * 상담자조회
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mypage/consult_cust_info")
+    public Map<String,Object> mypage_consult_cust_info (@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<String,Object>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getUser_id());
+            evMypageConsultRequestDto.setUser_id(loginInfoDto.getUser_id());
+
+            /* 예약자조회 */
+            List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_cust_rsv_info_search(evMypageConsultRequestDto);
+
+            if(list != null && list.size() == 1) {
+
+                resposeResult.put("schedule_id"     , list.get(0).getSchedule_id());
+                resposeResult.put("cust_id"         , list.get(0).getCust_id());
+                resposeResult.put("cust_nm"         , list.get(0).getCust_nm());
+                resposeResult.put("tel_no"          , list.get(0).getTel_no());
+                resposeResult.put("result_code"     , "0");
+                resposeResult.put("result_msg"      , "성공!!");
+
+            } else {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "해당내역이 없습니다.");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+    /**
+     * 상담예약현황 팝업
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp08P01")
+    public String mypage_mypc08P01 (EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myp08P01";
+            }
+
+            /* 현재상태체크 */
+            List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_cust_rsv_info_search(evMypageConsultRequestDto);
+
+            if(list != null && list.size() == 1) {
+                evMypageConsultRequestDto.setConsult_rsv_stat_cd(list.get(0).getConsult_rsv_stat_cd());
+                evMypageConsultRequestDto.setCust_id(list.get(0).getCust_id());
+                evMypageConsultRequestDto.setCust_nm(list.get(0).getCust_nm());
+                evMypageConsultRequestDto.setTel_no(list.get(0).getTel_no());
+            }
+
+            model.addAttribute("schedule_id"        , evMypageConsultRequestDto.getSchedule_id());
+            model.addAttribute("consult_rsv_stat_cd", evMypageConsultRequestDto.getConsult_rsv_stat_cd());
+            model.addAttribute("cust_id"            , evMypageConsultRequestDto.getCust_id());
+            model.addAttribute("cust_nm"            , evMypageConsultRequestDto.getCust_nm());
+            model.addAttribute("tel_no"             , evMypageConsultRequestDto.getTel_no());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 상담취소 팝업
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp08P02")
+    public String mypage_myp08P02 (EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myp08P02";
+            }
+
+            model.addAttribute("schedule_id", evMypageConsultRequestDto.getSchedule_id());
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 상담예약현황
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp09")
+    public String mypage_mmyp09 (EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myp09";
+            }
+
+            /* 타임존 조회 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id("213000");
+            List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* Expo 정보조회 (예약가능일자조회) */
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search();
+            String consultFromDt = "";
+            String consultToDt = "";
+            String sunday = "";
+            int evExpoId = 0;
+
+            if(expoInfo != null && expoInfo.size() == 1) {
+                consultFromDt = expoInfo.get(0).getExpo_from_dt();
+                consultToDt = expoInfo.get(0).getExpo_to_dt();
+                evExpoId = expoInfo.get(0).getEv_expo_id();
+                sunday = expoInfo.get(0).getSunday();
+
+            }
+
+            /* 화면에서 넘겨주는 ID를 셋팅한다. */
+            evMypageConsultRequestDto.setCust_id(evMypageConsultRequestDto.getConsultCustId());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+
+            /* 상담-설정조회 */
+            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "";
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultTimeId = consultSetting.get(0).getConsult_time_id();
+                tiemzone_cd = consultSetting.get(0).getTiemzone_cd();
+                consult_from_time = consultSetting.get(0).getConsult_from_time();
+                consult_to_time = consultSetting.get(0).getConsult_to_time();
+            } else {
+                //default 설정
+                consultTimeId = 0L;
+                tiemzone_cd = "213001";
+                consult_from_time = "214019";
+                consult_to_time = "214036";
+            }
+
+            /* 예약시간 조회 */
+            evCommCodeRequestDto.setUpper_cd_id("214000");
+            List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 상담가능기간 체크 */
+            evMypageConsultRequestDto.setExpo_from_dt(consultFromDt);
+            evMypageConsultRequestDto.setExpo_to_dt(consultToDt);
+            evMypageConsultRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+            evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
+            evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
+            evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+
+            /* 시간별 상담내역 */
+            Map<String,Object> consultMap = new HashMap<>();
+
+            consultMap = getTimeList(evMypageConsultRequestDto);
+
+            model.addAttribute("page_clsf", "myp09");
+            model.addAttribute("timezoneList", timezoneList);
+            model.addAttribute("consult_from_dt", consultFromDt);
+            model.addAttribute("consult_to_dt", consultToDt);
+            model.addAttribute("timeList", timeList);
+
+            /* 시간별 상담내역 - 헤더건수 */
+            model.addAttribute("header_cnt", consultMap.get("period"));
+
+            /* 시간별 상담내역 */
+            model.addAttribute("consultList", consultMap.get("newList"));
+
+            /* 상담-설정조회 */
+            model.addAttribute("consult_time_id", consultTimeId);
+            model.addAttribute("tiemzone_cd", tiemzone_cd);
+            model.addAttribute("consult_from_time", consult_from_time);
+            model.addAttribute("consult_to_time", consult_to_time);
+            model.addAttribute("consultCustId", evMypageConsultRequestDto.getConsultCustId());
+            model.addAttribute("consultCustNm", evMypageConsultRequestDto.getConsultCustNm());
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 업체조회 팝업
+     * @param evMypageCustCorpInfoRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp09P01")
+    public String mypage_myp09P01 (EvMypageCustCorpInfoRequestDto evMypageCustCorpInfoRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myp09P01";
+            }
+
+            String consultCustNm = evMypageCustCorpInfoRequestDto.getConsultCustNm();
+
+            /* 참가업체 조회 - 팝업 */
+            if("N".equals(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getSearch_yn(),"N"))) {
+                evMypageCustCorpInfoRequestDto.setConsultCustNm("X");
+            }
+
+            List<EvMypageCustCorpInfoResponseDto> list = evMypageCustCorpInfoService.mypage_cust_corp_info_popup(evMypageCustCorpInfoRequestDto);
+
+            model.addAttribute("custList", list);
+            model.addAttribute("consultCustNm", consultCustNm);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 상담이력
+     * @param evBoardSearchDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mypage/myp10")
+    public String mypage_myp10 (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            } else {
+                returnUrl = "/mypage/myp10";
+            }
+
+            model.addAttribute("page_clsf", "myp10");
+            model.addAttribute("cust_id", loginInfoDto.getCust_id());
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 메시지전송
+     * @param evMypageConsultMsgRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/myp10M01")
+    public Map<String,Object> mypage_myp10M01 (@RequestBody EvMypageConsultMsgRequestDto evMypageConsultMsgRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+
+            evMypageConsultMsgRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            /* 상담-설정조회 */
+            EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
+            evMypageConsultRequestDto.setCust_id(evMypageConsultMsgRequestDto.getRcv_cust_id());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+
+            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L;
+
+            if(consultSetting != null && consultSetting.size() == 1) {
+                consultTimeId = consultSetting.get(0).getConsult_time_id();
+            }
+
+            evMypageConsultMsgRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultMsgRequestDto.setSchedule_id(null);
+            evMypageConsultMsgRequestDto.setSnd_cust_id(evMypageConsultMsgRequestDto.getCust_id());
+            evMypageConsultMsgRequestDto.setRcv_cust_id(evMypageConsultMsgRequestDto.getRcv_cust_id());
+
+            /* 메시지 입력 */
+            evMypageConsultService.consult_msg_insert(evMypageConsultMsgRequestDto);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 메시지조회전송
+     * @param evMypageConsultMsgRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/myp10M02")
+    public Map<String,Object> mypage_myp10M02 (@RequestBody EvMypageConsultMsgRequestDto evMypageConsultMsgRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+
+            evMypageConsultMsgRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMypageConsultMsgRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+            evMypageConsultMsgRequestDto.setRcv_cust_id(evMypageConsultMsgRequestDto.getCust_id());
+            evMypageConsultMsgRequestDto.setSnd_cust_id(evMypageConsultMsgRequestDto.getSnd_cust_id());
+
+            /* 상담내역조회 */
+            List<EvMypageConsultMsgResponseDto> list = evMypageConsultService.consult_msg_search2(evMypageConsultMsgRequestDto);
+
+            /* 상담건수조회 */
+            List<EvMypageConsultMsgResponseDto> listCnt = evMypageConsultService.consult_count2(evMypageConsultMsgRequestDto);
+
+            resposeResult.put("consultList", list);
+            resposeResult.put("consultListCnt", listCnt);
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+    /**
+     * 메시지전송고객조회
+     * @param evMypageConsultMsgRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/myp10M03")
+    public Map<String,Object> mypage_myp10M03 (@RequestBody EvMypageConsultMsgRequestDto evMypageConsultMsgRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+
+            evMypageConsultMsgRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMypageConsultMsgRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
+
+            /* 상담내역조회 */
+            List<EvMypageConsultMsgResponseDto> list = evMypageConsultService.consult_cust_msg_search2(evMypageConsultMsgRequestDto);
+
+            resposeResult.put("consultCustList", list);
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
 }

@@ -6,7 +6,9 @@ import kr.coevolution.vr.board.dto.EvBoardTermsResponseDto;
 import kr.coevolution.vr.board.service.EvBoardService;
 import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
+import kr.coevolution.vr.comm.dto.EvExpoResponseDto;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
+import kr.coevolution.vr.comm.service.EvExpoService;
 import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
@@ -67,6 +69,9 @@ public class EvMgntController {
     @Autowired
     private EvBoardService evBoardService;
 
+    @Autowired
+    private EvExpoService evExpoService;
+
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -92,6 +97,10 @@ public class EvMgntController {
 
                 /* sesstion 정보 입력 */
                 session.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
+
+                /* sesstion 정보 입력 expo 정보 */
+                List<EvExpoResponseDto> expoInfoList =  evExpoService.expo_info_search();
+                session.setAttribute(StringUtils.expo_info_session, expoInfoList.get(0));
 
                 UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(evMemberLoginRequestDto.getCust_nm(), userPw);
 

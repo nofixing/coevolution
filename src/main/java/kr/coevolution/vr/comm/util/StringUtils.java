@@ -14,6 +14,11 @@ public class StringUtils {
     public static String login_session = "login_session";
 
     /**
+     * expo 정보 세션
+     */
+    public static String expo_info_session = "expo_info_session";
+
+    /**
      * 페이징 개수
      */
     public static int page_row_cnt = 10;

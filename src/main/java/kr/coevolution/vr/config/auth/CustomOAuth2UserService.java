@@ -1,5 +1,7 @@
 package kr.coevolution.vr.config.auth;
 
+import kr.coevolution.vr.comm.dto.EvExpoResponseDto;
+import kr.coevolution.vr.comm.service.EvExpoService;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.dto.OAuthAttributes;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
@@ -31,6 +33,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     @Autowired
     private EvMemberService evMemberService;
+
+    @Autowired
+    private EvExpoService evExpoService;
 
     private final UserRepository userRepository;
     private final HttpSession httpSession;
@@ -93,6 +98,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 logger.info("소셜 로그인으로 회원가입한 회원의 회원정보 세션 저장");
                 httpSession.setAttribute("social_login_yn", "Y");
                 httpSession.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
+
+                /* sesstion 정보 입력 expo 정보 */
+                List<EvExpoResponseDto> expoInfoList =  evExpoService.expo_info_search();
+                httpSession.setAttribute(StringUtils.expo_info_session, expoInfoList.get(0));
+
             } else {
                 logger.info("소셜 로그인정보 없음");
                 httpSession.setAttribute("social_login_yn", "N");

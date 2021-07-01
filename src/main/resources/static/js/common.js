@@ -206,22 +206,22 @@ function gfnAlert (pType, pTitle, pContents, callback) {
 	  modlContents += '  <div class="modal-dialog modal-dialog-centered" role="document">';
       modlContents += '    <div class="modal-content">';
       modlContents += '      <div class="modal-header">';
-      modlContents += '         <h4 class="modal-title text-white" id="myModalLabel">'+pTitle+'</h4>';
+      modlContents += '         <h4 class="modal-title" id="myModalLabel">'+pTitle+'</h4>';
       modlContents += '         <button type="button" class="close" data-dismiss="modal" aria-label="Close">';
       modlContents += '           <span aria-hidden="true">&times;</span>';
       modlContents += '         </button>';
       modlContents += '      </div>';
-      modlContents += '      <div class="modal-body">';
+      modlContents += '      <div class="modal-body border border-1 pt-3">';
       modlContents += pContents
       modlContents += '      </div>';
       modlContents += '      <div class="modal-footer" id="showFooter">';
   
       if(pType.toUpperCase() == "CONFIRM") {
-        modlContents += '        <button type="button" class="btn btn-primary" id="showModalOK">확인</button>';
+        modlContents += '        <button type="button" class="basic-btn" id="showModalOK">확인</button>';
       }
       
       if(pType.toUpperCase() == "CONFIRM" || pType.toUpperCase() == "ALERT") {
-        modlContents += '        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="showModalClose">닫기</button>';
+        modlContents += '        <button type="button" class="basic-btn" data-bs-dismiss="modal" id="showModalClose">닫기</button>';
       }
       
       modlContents += '      </div>';
@@ -278,6 +278,46 @@ function gfnAlert (pType, pTitle, pContents, callback) {
         callback(false);
       });
     }
+}
+
+function gfnPopup (pUrl, pTitle, pWidth, pHeight, callback) {
+
+/* 기존 alert 창이 있으면 삭제 */
+	if(document.getElementById("showModal")) {
+		$("showModal").remove();
+	}
+
+	pContents = "<iframe height='"+pHeight+"' width='"+pWidth+"' src='"+pUrl+"' frameborder='0'></iframe>";
+
+	rtnValue = false;
+
+	var modlContents = "";
+	modlContents += '<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+	//modlContents += '  <div class="modal-dialog modal-dialog-centered modal-dialog-video modal-lg" role="document">'; 흰바탕없음
+	modlContents += '  <div class="modal-dialog modal-dialog-centered" role="document">';
+	modlContents += '    <div class="modal-content">';
+	modlContents += '      <div class="modal-header">';
+	modlContents += '         <h4 class="modal-title text-white" id="myModalLabel">'+pTitle+'</h4>';
+	modlContents += '         <button type="button" id="popupBtnClose" class="close" data-dismiss="modal" aria-label="Close">';
+	modlContents += '           <span aria-hidden="true">&times;</span>';
+	modlContents += '         </button>';
+	modlContents += '      </div>';
+	modlContents += '      <div class="modal-body">';
+	modlContents += pContents
+	modlContents += '      </div>';
+	modlContents += '    </div>';
+	modlContents += '  </div>';
+	modlContents += '</div>';
+
+	document.getElementById("mainBody").insertAdjacentHTML("afterend", modlContents);
+
+    if(typeof callback === "function") {
+      $('#showModal').on('hide.bs.modal', function () {
+        callback("close");
+      });
+    }
+
+	$("#showModal").modal();
 }
 
 /* global object 변수 */

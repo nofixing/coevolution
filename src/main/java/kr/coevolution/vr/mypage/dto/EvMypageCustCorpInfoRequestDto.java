@@ -24,4 +24,6 @@ public class EvMypageCustCorpInfoRequestDto {
     private String use_yn;
     private Long zoom_mgnt_id;
     private String zoom_url;
+    private String consultCustNm; //업체조회 팝업 (검색어)
+    private String search_yn;
 }

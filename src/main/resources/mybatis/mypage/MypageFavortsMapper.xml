@@ -80,6 +80,7 @@
         FROM ev_cust_favorts a
         WHERE a.del_yn = 'N'
         AND a.favorts_cust_id = #{cust_id}
+        and DATE_FORMAT(a.ins_dtm, '%Y-%m-%d') between #{favorts_ins_fr} and #{favorts_ins_to}
 
     </select>
 

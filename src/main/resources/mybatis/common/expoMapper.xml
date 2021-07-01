@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.coevolution.vr.comm.domain.EvExpoMapper">
+
+    <select id="S01_EXPO" resultType="kr.coevolution.vr.comm.dto.EvExpoResponseDto">
+
+        SELECT ev_expo_id
+            , ev_expo_nm
+            , apct_prod_from_dt
+            , apct_prod_to_dt
+            , expo_from_dt
+            , expo_to_dt
+            , use_yn
+            , (select count(*) from ev_expo where use_yn = 'Y') as cnt
+            , date_format(str_to_date(expo_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
+        FROM ev_expo
+        WHERE use_yn = 'Y'
+
+    </select>
+
+</mapper>

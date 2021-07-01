@@ -34,9 +34,22 @@
     <li class="text-xs text-uppercase border p-2">
       <a href="/mypage/badge" <c:if test="${page_clsf eq 'myp02'}">class="on"</c:if> ><strong>관심 뱃지 내역</strong></a>
     </li>
+    <!--
     <li class="text-xs text-uppercase border p-2">
       <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myp03'}">class="on"</c:if> ><strong>상담문의 내역</strong></a>
     </li>
+    -->
+
+    <li class="text-xs text-uppercase border p-2">
+      <a href="#conslt" data-toggle="collapse"><strong>상담문의</strong></a>
+      <div id="conslt" class="collapse show pl-3">
+        <ul class="list-group">
+          <li class="list-group"><a href="/mypage/myp08" <c:if test="${page_clsf eq 'myp08'}">class="on"</c:if> ><strong>상담신청현황</strong></a></li>
+          <li class="list-group"><a href="/mypage/myp09" <c:if test="${page_clsf eq 'myp09'}">class="on"</c:if> ><strong>상담신청</strong></a></li>
+          <li class="list-group"><a href="/mypage/myp10" <c:if test="${page_clsf eq 'myp10'}">class="on"</c:if> ><strong>상담이력</strong></a></li>
+        </ul>
+      </div>
+    </li>  
 
     <li class="text-xs text-uppercase border p-2">
       <a href="#update" data-toggle="collapse"><strong>내정보수정</strong></a>

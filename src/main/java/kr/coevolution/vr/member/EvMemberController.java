@@ -2,7 +2,9 @@ package kr.coevolution.vr.member;
 
 import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
+import kr.coevolution.vr.comm.dto.EvExpoResponseDto;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
+import kr.coevolution.vr.comm.service.EvExpoService;
 import kr.coevolution.vr.comm.util.SecureUtils;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.config.auth.dto.SessionUser;
@@ -62,6 +64,9 @@ public class EvMemberController {
 
     @Autowired
     private EvMgntService evMgntService;
+
+    @Autowired
+    private EvExpoService evExpoService;
 
     @Value("${mail.sender}")
     private String sender;
@@ -312,6 +317,10 @@ public class EvMemberController {
 
                 /* sesstion 정보 입력 */
                 session.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
+
+                /* sesstion 정보 입력 expo 정보*/
+                List<EvExpoResponseDto> expoInfoList =  evExpoService.expo_info_search();
+                session.setAttribute(StringUtils.expo_info_session, expoInfoList.get(0));
 
                 UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(evMemberLoginRequestDto.getCust_nm(), userPw);
 

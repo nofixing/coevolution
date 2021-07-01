@@ -135,6 +135,13 @@ public class EvMypageCustCorpInfoService {
         return return_code;
     }
 
-
+    /**
+     * 참가업체 조회 - 팝업
+     * @param evMypageCustCorpInfoRequestDto
+     * @return
+     */
+    public List<EvMypageCustCorpInfoResponseDto> mypage_cust_corp_info_popup (EvMypageCustCorpInfoRequestDto evMypageCustCorpInfoRequestDto) {
+        return evMypageCustCorpInfoMapper.S02_CORP_INFO(evMypageCustCorpInfoRequestDto);
+    }
 
 }

@@ -50,4 +50,18 @@
 
     </update>
 
+    <select id="S02_CORP_INFO" parameterType="kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoResponseDto">
+        /* 참가-고객 조회 팝업 */
+        select ecm.cust_id
+            , ecm.cust_nm
+            , ect.consult_time_id
+            , ect.ev_expo_id
+        , ROW_NUMBER() OVER (ORDER by ecm.cust_nm asc) as rn
+        from ev_consult_time ect
+            , ev_cust_mst ecm
+        where ect.cust_id = ecm.cust_id
+        and ecm.cust_nm like concat('%',#{consultCustNm},'%')
+
+    </select>
+
 </mapper>

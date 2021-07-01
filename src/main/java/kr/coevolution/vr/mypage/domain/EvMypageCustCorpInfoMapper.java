@@ -29,4 +29,11 @@ public interface EvMypageCustCorpInfoMapper {
      * @return
      */
     public List<EvMypageCustCorpInfoResponseDto> S01_CORP_INFO(EvMypageCustCorpInfoRequestDto param);
+
+    /**
+     * 참가업체 조회 (팝업)
+     * @param param
+     * @return
+     */
+    public List<EvMypageCustCorpInfoResponseDto> S02_CORP_INFO(EvMypageCustCorpInfoRequestDto param);
 }

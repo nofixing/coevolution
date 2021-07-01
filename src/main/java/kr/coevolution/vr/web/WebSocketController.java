@@ -6,6 +6,8 @@ import kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto;
 import kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto;
 import kr.coevolution.vr.mgnt.dto.EvMgntZoomResposeDto;
 import kr.coevolution.vr.mgnt.service.EvMgntService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +26,7 @@ public class WebSocketController  {
     @Autowired
     private EvMgntService evMgntService;
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * 줌 상담 가능여부 설정
      * @param chatMessage
@@ -47,6 +52,26 @@ public class WebSocketController  {
             evMgntZoomRequestDto.setUse_yn("N");
             evMgntService.mgnt_zoom_update(evMgntZoomRequestDto);
         }
+
+        return chatMessage;
+    }
+
+    /**
+     * 상담메시지를 브로드케스팅한다.
+     * @param chatMessage
+     * @return
+     */
+    @MessageMapping("/msg")
+    @SendTo("/topic/msg")
+    public Map<String, String> sendMessage2(Map<String, String> chatMessage) {
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        logger.info("snd_cust_id => " + chatMessage.get("snd_cust_id"));
+        logger.info("rcv_cust_id => " + chatMessage.get("rcv_cust_id"));
+        logger.info("message => " + chatMessage.get("message"));
+
+        chatMessage.put("ins_dtm", sf.format(new Date()));
 
         return chatMessage;
     }
