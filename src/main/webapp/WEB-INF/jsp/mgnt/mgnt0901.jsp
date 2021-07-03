@@ -104,15 +104,18 @@
                       <div class="col-2 text-center form-control-sm">
                         검색기간
                       </div>                  
-                      <div class="col">
+                      <div class="col-6">
                         <div class="form-inline">
                           <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_fr" name="ins_dt_fr" value="${ins_dt_fr}"> <span class="pl-2 pr-2">~</span>
                           <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
                         </div>
                       </div>
-                      <div class="col-2 text-right">
+                      <div class="col-2">
                         <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
-                      </div>                        
+                      </div>
+                      <div class="col-2">
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 7rem;" id="btnExcel">액셀 다운로드</button>
+                      </div>
                   </div>                  
 
 

@@ -27,6 +27,11 @@ import kr.coevolution.vr.mypage.service.EvMypageBoardConsltService;
 import kr.coevolution.vr.mypage.service.EvMypageCustCorpInfoService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +46,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.net.InetAddress;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -1655,7 +1661,78 @@ public class EvMgntController {
 
         return returnUrl;
 
-    }    
+    }
+
+
+    @RequestMapping("/mgnt/access_xlsx")
+    public void excelDownload(EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletResponse response) throws IOException {
+
+        evMgntMemberRequestDto.setPage_row_cnt(100000L);
+        evMgntMemberRequestDto.setPage_row_start(0L);
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Date nDt = new Date();
+
+        /* 최초 날짜가 null 인경우 */
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_fr(),""))) {
+            Date ftDt = StringUtils.addMonth(nDt,-1);
+            String strDt = sf.format(ftDt);
+            evMgntMemberRequestDto.setIns_dt_fr(strDt);
+        }
+
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_to(),""))) {
+            String strDt = sf.format(nDt);
+            evMgntMemberRequestDto.setIns_dt_to(strDt);
+        }
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell = row.createCell(1);
+        cell.setCellValue("접속자명");
+        cell = row.createCell(2);
+        cell.setCellValue("접속ID");
+        cell = row.createCell(3);
+        cell.setCellValue("접속IP");
+        cell = row.createCell(4);
+        cell.setCellValue("접속일시");
+
+        /* 접속현황 리스트 조회 */
+        List<EvMgntMemberResponseDto> list = evMgntService.mgnt_access_log_list(evMgntMemberRequestDto);
+
+        // Body
+        for (int i=0; i < list.size(); i++) {
+            EvMgntMemberResponseDto dto = list.get(i);
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(dto.getRn());
+            cell = row.createCell(1);
+            cell.setCellValue(dto.getCust_nm());
+            cell = row.createCell(2);
+            cell.setCellValue(dto.getCust_id());
+            cell = row.createCell(3);
+            cell.setCellValue(dto.getIp());
+            cell = row.createCell(4);
+            cell.setCellValue(dto.getLogin_dtm());
+        }
+
+        String strDt = sf.format(nDt);
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=access_log_"+strDt+".xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
 
 
 }
