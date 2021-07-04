@@ -23,7 +23,7 @@
             <div class="">
                 <div class="form login_form">
                     <div class="form_head">
-                        <p>LOGIN</p>
+                        <p>로그인</p>
                     </div>
                     <div class="login_inner">
                         <div class="form_inner">
@@ -68,7 +68,7 @@
                                 <a href="/member/join_form1" class="member_page"><spring:message code="login.pw.join" text="회원가입"/></a>
                             </div>
                         </div>                        
-                        <div class="sns_login bg-light pb-0">
+                        <div class="sns_login bg-light">
                             <div class="sns_login_inner">
                                 <ul class="clearfix">
                                     <li>
@@ -96,7 +96,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="text-center p-3"><h5 class="text-primary"><span><spring:message code="login.social" text=""/></span></h5></div>
+                                <!-- <div class="text-center p-3"><h5 class="text-primary"><span><spring:message code="login.social" text=""/></span></h5></div> -->
                             </div>
                         </div>
                     </div>

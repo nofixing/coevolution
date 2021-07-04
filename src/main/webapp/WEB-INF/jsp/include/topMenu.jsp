@@ -85,7 +85,7 @@
             </div>
             <div class="m-menu-box" >
                 <div class="m-menu-list">
-                    <ul>
+                    <ul class="m-menu-depth">
                         <li>
                             <a href="#!">관람가이드</a>
                             <div class="m-menu-list-sub">
@@ -93,7 +93,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#!">버추얼전시관</a>
+                            <a href="#!">버추얼 아일랜드</a>
                             <div class="m-menu-list-sub">
                                 <a href="#!">e-mobility</a>
                                 <a href="#!">charging infra</a>
@@ -232,7 +232,7 @@
                     <div class="pb-3">
                         <div class="form-inline">
                             <div class="input-group col-sm-4 pl-0 pr-1 mb-2">
-                                <select class="form-control" id="top_category"></select>
+                                <select class="glyphicon glyphicon-menu-down form-control dropdown-btn" id="top_category"></select>
                             </div>
                             <div class="input-group col-sm-8 pl-0 pr-1 mb-2">
                                 <input type="text" name="top_keyword" id="top_keyword" class="form-control" placeholder="<c:if test="${sessionScope.LANG eq 'en'}">Enter Company Name</c:if><c:if test="${sessionScope.LANG ne 'en'}">기업명을 입력해 주세요</c:if>">
@@ -254,20 +254,20 @@
                                 <c:if test="${sessionScope.LANG ne 'en'}">[기준] 부스 별 관심 뱃지 순위</c:if>
                             </span>
                         </div>
-                        <div class="col-sm-4 text-right mobile-hidden">
-                            <div>
+                        <div class="col-sm-4 text-right">
+                            <div class="mobile-flex">
                             <c:if test="${sessionScope.LANG ne 'en'}">
-                                <span class="small" >즐겨찾기</span>
-                                <span class="small" style="margin:0 25px 0 15px">관심뱃지</span>
+                                <span class="small mobile-flex-item" >즐겨찾기</span>
+                                <span class="small mobile-flex-item" style="margin:0 25px 0 15px">관심뱃지</span>
                             </c:if>
 
                             <c:if test="${sessionScope.LANG eq 'en'}">
-                                <span class="small">
+                                <span class="small mobile-flex-item">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-star text-primary" viewBox="0 0 16 16">                 
                                         <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"></path>                 
                                         <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>             
                                     </svg> Favorite</span>
-                                <span class="small">
+                                <span class="small mobile-flex-item">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-award text-primary" viewBox="0 0 16 16">                 
                                         <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"></path>                 
                                         <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"></path>             
@@ -428,7 +428,14 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
 
                     <!-- Links -->
-                    <ul class="navbar-nav ml-auto">
+                    <c:choose>
+                        <c:when test="${sessionScope.LANG eq 'en'}">
+                            <ul class="navbar-nav ml-auto en-navbar-nav">
+                        </c:when>
+                        <c:otherwise>
+                            <ul class="navbar-nav ml-auto ">
+                        </c:otherwise>
+                    </c:choose>
                         <li class="nav-item ">
                             <a href="#" class="nav-link nav-item-font">
                                 <strong><spring:message code="top.view.guid" text="관람가이드"/></strong>
@@ -442,7 +449,7 @@
 
                         <c:choose>
                             <c:when test="${empty sessionScope.login_session.cust_nm}">
-                                <li class="nav-item ">
+                                <li class="nav-item nav-item-small">
                                     <a href="/member/login_form" class="nav-link nav-item-font">
                                         <strong><spring:message code="top.login" text="로그인"/></strong>
                                     </a>
@@ -450,7 +457,7 @@
                             </c:when>
 
                             <c:otherwise>
-                                <li class="nav-item ">
+                                <li class="nav-item nav-item-small">
                                     <a href="/logout" class="nav-link nav-item-font">
                                         <strong><spring:message code="top.logout" text="로그아웃"/></strong>
                                     </a>
@@ -460,7 +467,7 @@
 
                         <c:choose>
                             <c:when test="${empty sessionScope.login_session.cust_nm}">
-                                <li class="nav-item ">
+                                <li class="nav-item nav-item-small">
                                     <a href="/member/join_form1" class="nav-link nav-item-font">
                                         <strong><spring:message code="top.visit.reg" text="참관등록"/></strong>
                                     </a>
@@ -468,7 +475,7 @@
                             </c:when>
 
                             <c:otherwise>
-                                <li class="nav-item ">
+                                <li class="nav-item nav-item-small">
                                     <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202001'}">
                                     <a href="/mypage/favorts" class="nav-link nav-item-font">
                                     </c:if>
@@ -527,5 +534,19 @@
 
         </div> <!-- / .container -->
     </nav>
+
+    <script>
+        $(function(){
+            $(".m-menu-depth li a").on("click", function(){
+                $(this).toggleClass("on");
+                if($(this).hasClass("on")){
+                    $(this).next().slideDown(300);
+                } else {
+                    $(this).next().slideUp(300);
+                }
+            });
+        });
+    </script>
+
     <jsp:include page="topMenu_js.jsp"></jsp:include>
     <div id="mainBody"></div>

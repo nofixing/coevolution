@@ -2,6 +2,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 
+/* 20210704 추가*/
+
+.form-flex{
+    display:flex;
+}
+.form-flex-item{
+    flex:1;
+    padding:0 15px;
+    box-sizing:border-box;
+}
+
+@media (max-width:750px){
+    .form-flex{
+        margin:0 -20px;
+    }
+    .form-flex-item{
+        padding:0 5px;
+    }
+}
+
+
 /*
 ********************************* 
     common ê³µí†µ ëª¨ìŒ 
@@ -29,7 +50,7 @@ line-height: 1;}
     margin-bottom:40px;
 }
 .form_head p{
-    font-size:32px;
+    font-size:28px;
     color:#222222;
     font-weight:700;
 }
@@ -127,6 +148,9 @@ line-height: 1;}
     .form_inner{
         margin-bottom:20px;
         padding: 0 15px;
+    }
+    .form_head{
+        margin-bottom:20px;
     }
 }
 
@@ -312,7 +336,7 @@ line-height: 1;}
     display:block;
 }
 .sns_login_inner li a img{
-    max-width:70px;
+    max-width:60px;
     width:100%;
 }
 
@@ -1038,7 +1062,7 @@ line-height: 1;}
 .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .select-box select::-ms-expand {display:none;}
 .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk-btn {width:100px; height:35px; border-radius:5px; background:#0070ba; text-align:center; margin-right:0;}
 html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk-btn{width:150px;}
-.member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk-btn a {display:block; font-size:16px; line-height:35px; color:#fff;}
+.member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk-btn a {display:block; font-size:16px; line-height:40px; color:#fff;}
 .member .join-form-area .form-box .join-form-tb .tb-tr.tr-half .half-box {font-size:0;}
 .member .join-form-area .form-box .join-form-tb .tb-tr.tr-half .half-box > * {display:inline-block; vertical-align:middle; box-sizing:border-box;}
 .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .input-phone {width:100%; font-size:0;}

@@ -25,12 +25,12 @@
                         <ul>
                             <li>
                                 <a href="https://www.facebook.com/ievexpo.org" target="_blank">
-                                    <img src="/assets/img/icons/footer_facebook.png" alt="" style="width:38px;height:25px">
+                                    <img src="/assets/img/icons/footer_facebook.png" alt="" style="width:30px;height:20px; vertical-align:middle;">
                                 </a>
                             </li>
                             <li class="ml-1">
                                 <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
-                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:38px;height:25px">
+                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:1px;">
                                 </a>
                             </li>
                         </ul>
@@ -75,7 +75,7 @@
         <footer class="footer">
             <div class="container">
                 <div class="footer_menu clearfix">
-                    <div class="footer_link">
+                    <div class="footer_link footer_link_en">
                         <ul>
                             <li>
                                 <a href="/index/pirvatePolicy">Privacy Policy</a>
@@ -88,16 +88,16 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="footer_sns">
+                    <div class="footer_sns footer_sns_pc">
                         <ul>
                             <li>
                                 <a href="https://www.facebook.com/ievexpo.org" target="_blank">
-                                    <img src="/assets/img/icons/footer_facebook.png" alt="" style="width:38px;height:25px">
+                                    <img src="/assets/img/icons/footer_facebook.png" alt="" style="width:30px;height:20px; vertical-align:middle;">
                                 </a>
                             </li>
                             <li class="ml-1">
                                 <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
-                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:38px;height:25px">
+                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:1px;">
                                 </a>
                             </li>
                         </ul>
@@ -123,6 +123,20 @@
                                     <span>TEL： +82-64-702-1580</span>
                                     <span>Fax : +82-64-702-1576</span>
                                     <span>E-mail：ieve@ievexpo.org</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer_sns footer_sns_mobile">
+                            <ul>
+                                <li>
+                                    <a href="https://www.facebook.com/ievexpo.org" target="_blank">
+                                        <img src="/assets/img/icons/footer_facebook.png" alt="" style="width:30px;height:20px; vertical-align:middle;">
+                                    </a>
+                                </li>
+                                <li class="ml-1">
+                                    <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
+                                        <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:1px;">
+                                    </a>
                                 </li>
                             </ul>
                         </div>

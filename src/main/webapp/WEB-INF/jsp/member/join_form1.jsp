@@ -42,8 +42,8 @@
                 <div class="form_inner">
                     <div class="form-group">
                 
-                        <div class="row">
-                          <div class="col-lg-6">
+                        <div class="form-flex">
+                          <div class="form-flex-item">
                             
                             <!-- Card -->
                             <a href="/member/join_form2" class="card">
@@ -74,7 +74,7 @@
                             </a> <!-- / .card -->
                 
                           </div>
-                          <div class="col-lg-6">
+                          <div class="form-flex-item">
                 
                             <!-- Card -->
                             <a href="javascript:fnPrtpct()" class="card">
@@ -110,7 +110,7 @@
         
                       </div>
                 </div>
-                <div class="sns_login bg-light pb-0">
+                <div class="sns_login bg-light">
                   <div class="sns_login_inner">
                       <ul class="clearfix">
                           <li>
@@ -139,7 +139,7 @@
                           </li>
                       </ul>
                   </div>
-                  <div class="text-center p-3"><h5 class="text-primary"><span><spring:message code="member.signup.social" text=""/></span></h5></div>
+                  <!-- <div class="text-center p-3"><h5 class="text-primary"><span><spring:message code="member.signup.social" text=""/></span></h5></div> -->
               </div>
             </div>
         </div>
