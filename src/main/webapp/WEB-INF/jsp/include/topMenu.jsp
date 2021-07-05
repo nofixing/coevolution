@@ -103,72 +103,37 @@
                                 <a href="#!">additional</a>
                             </div>
                         </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="m-menu-box">
-                <div class="m-menu-list">
-                    <ul>
                         <c:choose>
-                            <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
-                            <li>
-                                <a href="/mypage/myc01"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
-                            </li>
-                            <li>
+                        <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
+                        <li>
+                            <a href="#!"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
+                            <div class="m-menu-list-sub">
                                 <a href="/mypage/myc01"><strong><spring:message code="top.mypage.register.booth.information" text="내 부스 정보 등록"/></strong></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/favortscorp"><spring:message code="top.all.menu.favorite.history2" text="즐겨찾기 내역"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/badgecorp"><spring:message code="top.all.menu.badge.accrual.history" text="뱃지 적립 내역"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation.inquiry" text="상담문의 내역"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/myc05"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/myp05"><spring:message code="top.all.menu.modify.my.password" text="비밀번호변경"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/myp06"><spring:message code="top.all.menu.re-agree.privacy" text="개인정보 재동의"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/myp07"><spring:message code="top.all.menu.membership.withdrawal" text="회원탈퇴"/></a>
-                            </li>
-                            </c:when>
-                            <c:otherwise>
-                            <li>
-                                <a href="/mypage/favorts"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
-                            </li>
-                            <li>
+                            </div>
+                        </li>
+                        </c:when>
+                        <c:otherwise>
+                        <li>
+                            <a href="#!"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
+                            <div class="m-menu-list-sub">
                                 <a href="/mypage/favorts"><spring:message code="top.all.menu.favorite.history1" text="부스 즐겨찾기 내역"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/badge"><spring:message code="top.all.menu.badge.of.interest" text="관심 뱃지 내역"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/conslt_list"><spring:message code="top.all.menu.list.of.enquiries" text="상담 문의 내역"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/myp04"><spring:message code="top.all.menu.modify.my.information" text="정보 수정"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/myp05"><spring:message code="top.all.menu.modify.my.password" text="비밀번호변경"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/myp06"><spring:message code="top.all.menu.re-agree.privacy" text="개인정보 재동의"/></a>
-                            </li>
-                            <li>
                                 <a href="/mypage/myp07"><spring:message code="top.all.menu.membership.withdrawal" text="회원탈퇴"/></a>
-                            </li>
-                            </c:otherwise>
-                            
-                        </c:choose>
-
+                            </div>
+                        </li>
+                        </c:otherwise>
+                    </c:choose>
                     </ul>
                 </div>
             </div>

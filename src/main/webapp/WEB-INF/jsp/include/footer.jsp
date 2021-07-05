@@ -21,7 +21,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="footer_sns">
+                    <div class="footer_sns footer_sns_pc">
                         <ul>
                             <li>
                                 <a href="https://www.facebook.com/ievexpo.org" target="_blank">
@@ -30,7 +30,7 @@
                             </li>
                             <li class="ml-1">
                                 <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
-                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:1px;">
+                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:2px;">
                                 </a>
                             </li>
                         </ul>
@@ -56,6 +56,20 @@
                                     <span>TEL：064-702-1580</span>
                                     <span>Fax : 064-702-1576</span>
                                     <span>E-mail：ieve@ievexpo.org</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer_sns footer_sns_mobile">
+                            <ul>
+                                <li>
+                                    <a href="https://www.facebook.com/ievexpo.org" target="_blank">
+                                        <img src="/assets/img/icons/footer_facebook.png" alt="" style="width:30px;height:20px; vertical-align:middle;">
+                                    </a>
+                                </li>
+                                <li class="ml-1">
+                                    <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
+                                        <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:2px;">
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -97,7 +111,7 @@
                             </li>
                             <li class="ml-1">
                                 <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
-                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:1px;">
+                                    <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:2px;">
                                 </a>
                             </li>
                         </ul>
@@ -135,7 +149,7 @@
                                 </li>
                                 <li class="ml-1">
                                     <a href="https://www.youtube.com/channel/UCVFricWGl9TFQgN7aPLQ5gA" target="_blank">
-                                        <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:1px;">
+                                        <img src="/assets/img/icons/footer_youtube.png" alt="" style="width:30px;height:21px; vertical-align:bottom; margin-bottom:2px;">
                                     </a>
                                 </li>
                             </ul>

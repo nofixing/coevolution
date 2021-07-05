@@ -20,6 +20,9 @@
     .form-flex-item{
         padding:0 5px;
     }
+    .mobile-flex-item{
+        margin:0 15px !important;
+    }
 }
 
 
@@ -965,24 +968,11 @@ line-height: 1;}
     border-top:1px solid #ddd;
 }
 
-
-
 @media (max-width:991px){
     .find_area{
         padding:30px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* íšŒì›ê°€ìž… í¼ì˜´ */
@@ -1417,8 +1407,6 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     padding:0 5px;
     text-align:center;
 }
-
-
 .secret-info-tit{
     font-size:24px;
     margin-bottom:30px;
@@ -1485,7 +1473,6 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
 .table-des p{
     margin:0;
 }
-
 .table-striped td{
     vertical-align:middle !important;
 }
@@ -1516,6 +1503,13 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     font-weight:500;
 }
 
+
+/* mypage common */
+.breadcrumb{
+    margin-bottom:30px !important;
+}
+
+
 @media (max-width:1200px){
     .search-tab{
         margin-top:20px;
@@ -1530,6 +1524,9 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     .member-info dl dd{
         display:block;
         width:100%;
+    }
+    .breadcrumb-heading{
+        display:none;
     }
 }
 
