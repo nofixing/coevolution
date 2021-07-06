@@ -35,12 +35,40 @@
 
     </update>
 
+    <update id="U01_SET_TIMEZONE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto">
+
+        UPDATE ev_consult_time
+           SET tiemzone_cd      = #{tiemzone_cd}
+            , mod_user          = #{user_id}
+            , mod_dtm           = NOW()
+        WHERE consult_time_id = #{consult_time_id}
+
+    </update>
+
     <select id="S01_SET_TIME" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultResponseDto">
 
         select consult_time_id,	ev_expo_id,	cust_id, consult_from_dt, consult_to_dt, tiemzone_cd, consult_from_time, consult_to_time
-          from ev_consult_time
-        where cust_id       = #{cust_id}
-          and ev_expo_id    = #{ev_expo_id}
+               , case   when tiemzone_cd = '213001' then
+                            (select cd_nm from ev_comm_code ecc where cd_id = ect.consult_from_time)
+                        when tiemzone_cd = '213002' then
+                            (select cd_val1 from ev_comm_code ecc where cd_id = ect.consult_from_time)
+                        when tiemzone_cd = '213003' then
+                            (select cd_val2 from ev_comm_code ecc where cd_id = ect.consult_from_time)
+                        when tiemzone_cd = '213004' then
+                            (select cd_val3 from ev_comm_code ecc where cd_id = ect.consult_from_time)
+                    end as timezone_hhmm_fr
+               , case   when tiemzone_cd = '213001' then
+                            (select cd_nm from ev_comm_code ecc where cd_id = ect.consult_to_time)
+                        when tiemzone_cd = '213002' then
+                            (select cd_val1 from ev_comm_code ecc where cd_id = ect.consult_to_time)
+                        when tiemzone_cd = '213003' then
+                            (select cd_val2 from ev_comm_code ecc where cd_id = ect.consult_to_time)
+                        when tiemzone_cd = '213004' then
+                            (select cd_val3 from ev_comm_code ecc where cd_id = ect.consult_to_time)
+                    end as timezone_hhmm_to
+          from ev_consult_time ect
+         where cust_id       = #{cust_id}
+           and ev_expo_id    = #{ev_expo_id}
 
     </select>
 
@@ -148,14 +176,44 @@
     </update>
 
     <select id="S01_CONSULT_SCHEDULE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultScheduleResponseDto">
+        with cd as (
+            select nvl(max(cd_val1),'213001')  as cd_val1
+              from ev_consult_time ect
+                 , ev_comm_code ecc
+             where ev_expo_id = (select ev_expo_id from ev_expo where use_yn = 'Y')
+               and ect.tiemzone_cd  = ecc.cd_id
 
+            <if test="consult_time_id != null and consult_time_id != ''">
+                and ect.consult_time_id = #{consult_time_id}
+            </if>
+
+            <if test="consult_time_id == null or consult_time_id == ''">
+                and ect.consult_time_id = (select max(consult_time_id) from ev_consult_schedule where schedule_id = #{schedule_id})
+            </if>
+
+        )
         select ecs.schedule_id
             , ect.ev_expo_id
             , ect.consult_time_id
             , ect.cust_id
-            , ecs.consult_dt
+            /*, ecs.consult_dt*/
+            , (
+                date_format(
+                    date_add(
+                        str_to_date(
+                            concat(replace(ecs.consult_dt,'-',''), replace((select cd_nm from ev_comm_code where cd_id = ecs.consult_time_cd),':',''))
+                        , '%Y%m%d%H%i')
+                    ,interval nvl(cd.cd_val1,'0') hour)
+                ,'%Y-%m-%d')
+            ) as consult_dt
             , ecs.consult_time_cd
-            , (select cd_nm from ev_comm_code ecc where cd_id = ecs.consult_time_cd) as consult_time_nm
+            , (select case  when ect.tiemzone_cd = '213001' then cd_nm
+                            when ect.tiemzone_cd = '213002' then cd_val1
+                            when ect.tiemzone_cd = '213003' then cd_val2
+                            when ect.tiemzone_cd = '213004' then cd_val3
+                       end
+                  from ev_comm_code ecc
+                 where cd_id = ecs.consult_time_cd)                                             as consult_time_nm
             , ecs.consult_avail_yn
             , case when ecs.consult_avail_yn = 'N' then '' else ecs.consult_rsv_cust_id end     as consult_rsv_cust_id
             , case when ecs.consult_avail_yn = 'N' then '' else ecm.cust_nm end                 as consult_rsv_cust_nm
@@ -165,10 +223,11 @@
         left outer join ev_cust_mst ecm
           on ecs.consult_rsv_cust_id = ecm.cust_id
             , ev_consult_time ect
+            , cd
         where ecs.consult_time_id       = ect.consult_time_id
 
         <if test="schedule_id != null and schedule_id != ''">
-            and schedule_id = #{schedule_id}
+            and ecs.schedule_id = #{schedule_id}
         </if>
 
         <if test="schedule_id == null or schedule_id == ''">
@@ -293,37 +352,90 @@
 
     <select id="S04_CUST_SET_TIME" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultResponseDto">
         /* 참관고객 상담시간 설정 */
-        select ecs.ev_expo_id
-            , nvl(ecs.consult_rsv_cust_id,#{cust_id})	as cust_id
-            , max(eep.expo_from_dt)					    as expo_from_dt
-            , max(eep.expo_to_dt)						as expo_to_dt
-            , case when nvl(min(ecs.consult_time_cd),'214019') >= '214019' then '214019' else nvl(min(ecs.consult_time_cd),'214019') end as consult_from_time
-            , <![CDATA[ case when nvl(max(ecs.consult_time_cd),'214036') <= '214036' then '214036' else nvl(max(ecs.consult_time_cd),'214036') end ]]> as consult_to_time
-        from ev_expo				            eep
-       inner join ev_consult_schedule 	        ecs
-          on ecs.ev_expo_id             = eep.ev_expo_id
-         and ecs.consult_rsv_cust_id    = #{cust_id}
-         and ecs.del_yn                 = 'N'
-         and ecs.consult_rsv_stat_cd    in ('215001','215002')
-       where eep.ev_expo_id             = #{ev_expo_id}
-       group by ecs.ev_expo_id, ecs.consult_rsv_cust_id
+        select a.ev_expo_id
+             , a.cust_id
+             , a.expo_from_dt
+             , a.expo_to_dt
+             , a.consult_from_time
+             , a.consult_to_time
+             , case when a.tiemzone_cd = '213001' then
+                        (select cd_nm from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when a.tiemzone_cd = '213002' then
+                        (select cd_val1 from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when a.tiemzone_cd = '213003' then
+                        (select cd_val2 from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when a.tiemzone_cd = '213004' then
+                        (select cd_val3 from ev_comm_code ecc where cd_id = a.consult_from_time)
+                end as timezone_hhmm_fr
+            , case  when a.tiemzone_cd = '213001' then
+                        (select cd_nm from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when a.tiemzone_cd = '213002' then
+                        (select cd_val1 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when a.tiemzone_cd = '213003' then
+                        (select cd_val2 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when a.tiemzone_cd = '213004' then
+                        (select cd_val3 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                end as timezone_hhmm_to
+              , a.tiemzone_cd
+          from (
+                    select ecs.ev_expo_id
+                        , nvl(ecs.consult_rsv_cust_id,#{cust_id})	as cust_id
+                        , max(eep.expo_from_dt)					    as expo_from_dt
+                        , max(eep.expo_to_dt)						as expo_to_dt
+                        , case when nvl(min(ecs.consult_time_cd),'214019') >= '214019' then '214019' else nvl(min(ecs.consult_time_cd),'214019') end as consult_from_time
+                        , <![CDATA[ case when nvl(max(ecs.consult_time_cd),'214036') <= '214036' then '214036' else nvl(max(ecs.consult_time_cd),'214036') end ]]> as consult_to_time
+                        , (select nvl(tiemzone_cd,'213001') from ev_cust_mst where cust_id = #{cust_id}) as tiemzone_cd
+                    from ev_expo				            eep
+                   inner join ev_consult_schedule 	        ecs
+                      on ecs.ev_expo_id             = eep.ev_expo_id
+                     and ecs.consult_rsv_cust_id    = #{cust_id}
+                     and ecs.del_yn                 = 'N'
+                     and ecs.consult_rsv_stat_cd    in ('215001','215002')
+                   where eep.ev_expo_id             = #{ev_expo_id}
+                   group by ecs.ev_expo_id, ecs.consult_rsv_cust_id
+            ) a
 
     </select>
 
     <select id="S04_CONSULT_SCHEDULE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultScheduleResponseDto">
+        with cd as (
+            select nvl(cd_val1,'0')     as cd_val1
+                 , nvl(cd_id,'213001')  as cd_id
+              from ev_cust_mst ecm
+                 , ev_comm_code ecc
+             where ecm.cust_id = #{cust_id}
+               and ecm.tiemzone_cd  = ecc.cd_id
+        )
         select ecs.schedule_id
             , ect.ev_expo_id
             , ect.consult_time_id
             , ecm.cust_id           as consult_cust_id
             , ecm.cust_nm           as consult_cust_nm
-            , ecs.consult_dt
+            /* , ecs.consult_dt */
+            , (
+                date_format(
+                    date_add(
+                    str_to_date(
+                        concat(replace(ecs.consult_dt,'-',''), replace((select cd_nm from ev_comm_code where cd_id = ecs.consult_time_cd),':',''))
+                        , '%Y%m%d%H%i')
+                    ,interval nvl(cd.cd_val1,'0') hour)
+                ,'%Y-%m-%d')
+            ) as consult_dt
             , ecs.consult_time_cd
-            , (select cd_nm from ev_comm_code ecc where cd_id = ecs.consult_time_cd) as consult_time_nm
+        , (select case  when cd.cd_id = '213001' then cd_nm
+                        when cd.cd_id = '213002' then cd_val1
+                        when cd.cd_id = '213003' then cd_val2
+                        when cd.cd_id = '213004' then cd_val3
+                  end
+             from ev_comm_code ecc
+            where cd_id = ecs.consult_time_cd)                                             as consult_time_nm
+            /* , (select cd_nm from ev_comm_code ecc where cd_id = ecs.consult_time_cd) as consult_time_nm */
             , ecs.consult_avail_yn
             , ecs.consult_rsv_stat_cd
         from ev_consult_schedule	ecs
             , ev_consult_time 		ect
             , ev_cust_mst 			ecm
+            , cd
         where ecs.consult_time_id       = ect.consult_time_id
           and ect.cust_id 				= ecm.cust_id
           and ecs.consult_rsv_cust_id   = #{cust_id}
@@ -429,6 +541,69 @@
                and del_yn = 'N'
                and consult_rsv_stat_cd in ('215001','215002')
         ) as consult_time
+    </select>
+
+    <select id="S06_CONSULT_SCHEDULE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultScheduleResponseDto">
+        with cd as (
+            select nvl(cd_val1,'0')     as cd_val1
+                 , nvl(cd_id,'213001')  as cd_id
+              from ev_cust_mst ecm
+                 , ev_comm_code ecc
+             where ecm.cust_id = #{consult_rsv_cust_id}
+               and ecm.tiemzone_cd  = ecc.cd_id
+        )
+        select ecs.schedule_id
+             , ect.ev_expo_id
+             , ect.consult_time_id
+             , ect.cust_id
+             /*, ecs.consult_dt*/
+             , (
+                date_format(
+                    date_add(
+                    str_to_date(
+                        concat(replace(ecs.consult_dt,'-',''), replace((select cd_nm from ev_comm_code where cd_id = ecs.consult_time_cd),':',''))
+                        , '%Y%m%d%H%i')
+                    ,interval nvl(cd.cd_val1,'0') hour)
+                ,'%Y-%m-%d')
+              ) as consult_dt
+            , ecs.consult_time_cd
+            , (select case  when cd.cd_id = '213001' then cd_nm
+                            when cd.cd_id = '213002' then cd_val1
+                            when cd.cd_id = '213003' then cd_val2
+                            when cd.cd_id = '213004' then cd_val3
+                       end
+                from ev_comm_code ecc
+               where cd_id = ecs.consult_time_cd)                                               as consult_time_nm
+            , ecs.consult_avail_yn
+            , case when ecs.consult_avail_yn = 'N' then '' else ecs.consult_rsv_cust_id end     as consult_rsv_cust_id
+            , case when ecs.consult_avail_yn = 'N' then '' else ecm.cust_nm end                 as consult_rsv_cust_nm
+            , case when ecs.consult_avail_yn = 'N' then '' else ecs.consult_rsv_stat_cd end     as consult_rsv_stat_cd
+            , case when ecs.consult_avail_yn = 'N' then '' else nvl(ecm.hp_no, ecm.tel_no) end  as tel_no
+        from ev_consult_schedule ecs
+        left outer join ev_cust_mst ecm
+          on ecs.consult_rsv_cust_id = ecm.cust_id
+           , ev_consult_time ect
+           , cd
+        where ecs.consult_time_id       = ect.consult_time_id
+
+        <if test="schedule_id == null or schedule_id == ''">
+            and ect.consult_time_id     = #{consult_time_id}
+            and ect.ev_expo_id          = #{ev_expo_id}
+            and (ecs.consult_avail_yn = 'Y' or ecs.consult_time_cd between ect.consult_from_time and ect.consult_to_time)
+        </if>
+
+        and nvl(ecs.consult_rsv_stat_cd,'') in ('','215001','215002')
+        and ecs.del_yn              = 'N'
+        order by consult_time_nm asc
+
+    </select>
+
+    <select id="S07_CONSULT_SCHEDULE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultScheduleResponseDto">
+
+        select schedule_id, ev_expo_id, consult_time_id, consult_dt, consult_time_cd, consult_rsv_cust_id, consult_rsv_stat_cd, consult_avail_yn, del_yn
+        from ev_consult_schedule ecs
+        where schedule_id = #{schedule_id}
+
     </select>
 
 </mapper>

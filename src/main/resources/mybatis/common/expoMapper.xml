@@ -3,18 +3,49 @@
 
 <mapper namespace="kr.coevolution.vr.comm.domain.EvExpoMapper">
 
-    <select id="S01_EXPO" resultType="kr.coevolution.vr.comm.dto.EvExpoResponseDto">
+    <select id="S01_EXPO" parameterType="kr.coevolution.vr.comm.dto.EvExpoRequestDto" resultType="kr.coevolution.vr.comm.dto.EvExpoResponseDto">
 
+        with cd as (
+            select nvl(max(cd_val1),'0')  as cd_val1
+              from ev_consult_time ect
+                 , ev_comm_code ecc
+            where ev_expo_id = (select ev_expo_id from ev_expo where use_yn = 'Y')
+              and ect.tiemzone_cd  = ecc.cd_id
+              and cust_id = #{cust_id}
+        )
+        SELECT ev_expo_id
+             , ev_expo_nm
+             , apct_prod_from_dt
+             , apct_prod_to_dt
+             , date_format(date_add(str_to_date(concat(replace(expo_from_dt,'-',''),replace(expo_from_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')  as expo_from_dt
+             , date_format(date_add(str_to_date(concat(replace(expo_to_dt,'-',''),replace(expo_to_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')      as expo_to_dt
+             , use_yn
+             , (select count(*) from ev_expo where use_yn = 'Y') as cnt
+             , date_format(str_to_date(expo_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
+          FROM ev_expo, cd
+        WHERE use_yn = 'Y'
+
+    </select>
+
+    <select id="S01_EXPO_CUST" parameterType="kr.coevolution.vr.comm.dto.EvExpoRequestDto" resultType="kr.coevolution.vr.comm.dto.EvExpoResponseDto">
+
+        with cd as (
+            select nvl(max(cd_val1),'0')  as cd_val1
+              from ev_cust_mst ecm
+                 , ev_comm_code ecc
+             where ecm.cust_id = #{cust_id}
+               and ecm.tiemzone_cd  = ecc.cd_id
+        )
         SELECT ev_expo_id
             , ev_expo_nm
             , apct_prod_from_dt
             , apct_prod_to_dt
-            , expo_from_dt
-            , expo_to_dt
+            , date_format(date_add(str_to_date(concat(replace(expo_from_dt,'-',''),replace(expo_from_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')  as expo_from_dt
+            , date_format(date_add(str_to_date(concat(replace(expo_to_dt,'-',''),replace(expo_to_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')      as expo_to_dt
             , use_yn
             , (select count(*) from ev_expo where use_yn = 'Y') as cnt
             , date_format(str_to_date(expo_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
-        FROM ev_expo
+        FROM ev_expo, cd
         WHERE use_yn = 'Y'
 
     </select>

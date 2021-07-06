@@ -12,6 +12,11 @@ $(document).ready(function() {
 	lComm = new gfnComm();
 	var yyyyMMdd = lComm.getToday("-");
 
+	//타임존변경
+	$('#tiemzone_cd').on('change', function () {
+		fnTimeZoneSave();
+	});
+
 });
 
 /* 상담시간 설정 내역 조회 */
@@ -56,5 +61,31 @@ function scheduleClick(pScheduleId) {
 
 }
 
+/* 타임존 저장 */
+function fnTimeZoneSave() {
+
+	/* global 변수 json으로 변환 */
+	gfnPutObj("tiemzone_cd"		, getValue("tiemzone_cd"));
+	
+	var pParamJson = gfnGetJson();
+
+	sendForm("POST", "/mypage/setTimeZoneCust", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/member/login_form";
+		} else if(message.result_code == 0) {
+			fnSearch();
+		} else {
+			if(message.session_yn == "N") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/index";
+			} else {
+				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+			}
+		}
+
+	});	
+}
 
 </script>

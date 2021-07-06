@@ -44,6 +44,16 @@ public class EvMypageConsultService {
     }
 
     /**
+     * 참가기업 상담 시간 설정 수정
+     * @param evMypageConsultRequestDto
+     * @return
+     */
+    public int consult_settime_update2 (EvMypageConsultRequestDto evMypageConsultRequestDto) {
+        int insertCnt  = evMypageConsultMapper.U01_SET_TIMEZONE(evMypageConsultRequestDto);
+        return insertCnt;
+    }
+
+    /**
      * 참가기업 상담시간 조회
      * @param evMypageConsultRequestDto
      * @return
@@ -202,4 +212,25 @@ public class EvMypageConsultService {
         List<EvMypageConsultMsgResponseDto> list  = evMypageConsultMapper.S05_MSG_CNT(evMypageConsultMsgRequestDto);
         return list;
     }
+
+    /**
+     * 참관 상담시간 조회 - 상담신청
+     * @param evMypageConsultRequestDto
+     * @return
+     */
+    public List<EvMypageConsultScheduleResponseDto> consult_cust_shedule_search2 (EvMypageConsultRequestDto evMypageConsultRequestDto) {
+        List<EvMypageConsultScheduleResponseDto> list = evMypageConsultMapper.S06_CONSULT_SCHEDULE(evMypageConsultRequestDto);
+        return list;
+    }
+
+    /**
+     * 참관스케줄정보
+     * @param evMypageConsultRequestDto
+     * @return
+     */
+    public List<EvMypageConsultScheduleResponseDto> consult_shedule (EvMypageConsultRequestDto evMypageConsultRequestDto) {
+        List<EvMypageConsultScheduleResponseDto> list = evMypageConsultMapper.S07_CONSULT_SCHEDULE(evMypageConsultRequestDto);
+        return list;
+    }
+
 }

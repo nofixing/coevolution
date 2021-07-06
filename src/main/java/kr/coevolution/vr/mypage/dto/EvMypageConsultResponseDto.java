@@ -15,4 +15,8 @@ public class EvMypageConsultResponseDto {
     private String consult_from_time;
     private String consult_to_time;
     private String mod_user;
+    private String consult_from_time_org;
+    private String consult_to_time_org;
+    private String timezone_hhmm_fr;
+    private String timezone_hhmm_to;
 }

@@ -50,5 +50,6 @@ public class EvMemberResposeDto {
     private String category1_value;
     private String category2;
     private String category3;
+    private String tiemzone_cd;
     private int cnt;
 }

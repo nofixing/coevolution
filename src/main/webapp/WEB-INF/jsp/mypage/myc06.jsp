@@ -119,10 +119,32 @@
                     <select name="consult_from_time" id="consult_from_time" class="bg-white form-control form-control-sm" style="width: 11rem;">
                       <c:forEach var="list" items="${timeList}">
                         <c:if test="${consult_from_time eq list.cd_id}">
-                          <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                          <c:if test="${tiemzone_cd eq '213001'}">
+                            <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213002'}">
+                            <option value="${list.cd_id}" selected>${list.cd_val1}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213003'}">
+                            <option value="${list.cd_id}" selected>${list.cd_val2}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213004'}">
+                            <option value="${list.cd_id}" selected>${list.cd_val3}</option>
+                          </c:if>
                         </c:if>
                         <c:if test="${consult_from_time ne list.cd_id}">
-                          <option value="${list.cd_id}">${list.cd_nm}</option>
+                          <c:if test="${tiemzone_cd eq '213001'}">
+                            <option value="${list.cd_id}">${list.cd_nm}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213002'}">
+                            <option value="${list.cd_id}">${list.cd_val1}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213003'}">
+                            <option value="${list.cd_id}">${list.cd_val2}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213004'}">
+                            <option value="${list.cd_id}">${list.cd_val3}</option>
+                          </c:if>
                         </c:if>
                       </c:forEach>
                     </select>
@@ -132,10 +154,32 @@
                     <select name="consult_to_time" id="consult_to_time" class="bg-white form-control form-control-sm" style="width: 11rem;">
                       <c:forEach var="list" items="${timeList}">
                         <c:if test="${consult_to_time eq list.cd_id}">
-                          <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                          <c:if test="${tiemzone_cd eq '213001'}">
+                            <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213002'}">
+                            <option value="${list.cd_id}" selected>${list.cd_val1}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213003'}">
+                            <option value="${list.cd_id}" selected>${list.cd_val2}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213004'}">
+                            <option value="${list.cd_id}" selected>${list.cd_val3}</option>
+                          </c:if>
                         </c:if>
                         <c:if test="${consult_to_time ne list.cd_id}">
-                          <option value="${list.cd_id}">${list.cd_nm}</option>
+                          <c:if test="${tiemzone_cd eq '213001'}">
+                            <option value="${list.cd_id}">${list.cd_nm}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213002'}">
+                            <option value="${list.cd_id}">${list.cd_val1}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213003'}">
+                            <option value="${list.cd_id}">${list.cd_val2}</option>
+                          </c:if>
+                          <c:if test="${tiemzone_cd eq '213004'}">
+                            <option value="${list.cd_id}">${list.cd_val3}</option>
+                          </c:if>
                         </c:if>
                       </c:forEach>
                     </select>  

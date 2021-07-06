@@ -28,6 +28,11 @@ $(document).ready(function() {
 	webSocketConnect("msg", function(pMsg) {
 	});
 
+	//타임존변경
+	$('#tiemzone_cd').on('change', function () {
+		fnTimeZoneSave();
+	});
+
 });
 
 function fnSearch() {
@@ -42,27 +47,43 @@ function fnSearch() {
 function scheduleClick(pScheduleId, pConsultRsvStatCd) {
 
 	if(pScheduleId == "") return;
-	if(lComm.isNull(getValue("consultCustId"))) return;
 
 	//스케줄ID 체크
+	gfnPutObj("schedule_id", pScheduleId);
 
-	if(pConsultRsvStatCd == "215001" || pConsultRsvStatCd == "215002") {
-		//상담신청, 상담확정
-		gfnAlert ("CONFIRM", "상담신청 취소", "상담신청을 취소하시겠습니까?", function(pRtn) {
-			if(pRtn) {
-				//상담신청 취소하기
-				setRsvStatCd(pScheduleId, "215004");
+	/* global 변수 json으로 변환 */
+	var pParamJson = gfnGetJson();
+
+    sendForm("POST", "/mypage/myc09CustChk", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/member/login_form";
+		} else if(message.result_code == 0) {
+			
+			if(pConsultRsvStatCd == "215001" || pConsultRsvStatCd == "215002") {
+				//상담신청, 상담확정
+				gfnAlert ("CONFIRM", "상담신청 취소", "상담신청을 취소하시겠습니까?", function(pRtn) {
+					if(pRtn) {
+						//상담신청 취소하기
+						setRsvStatCd(pScheduleId, "215004");
+					}
+				});
+			} else if(pConsultRsvStatCd == "") {
+				//상담내역이 없을 경우
+				gfnAlert ("CONFIRM", "상담신청 요청", "상담 신청하시겠습니까?", function(pRtn) {
+					if(pRtn) {
+						//상담신청하기
+						setRsvStatCd(pScheduleId, "215001");
+					}
+				});
 			}
-		});
-	} else if(pConsultRsvStatCd == "") {
-		//상담내역이 없을 경우
-		gfnAlert ("CONFIRM", "상담신청 요청", "상담 신청하시겠습니까?", function(pRtn) {
-			if(pRtn) {
-				//상담신청하기
-				setRsvStatCd(pScheduleId, "215001");
-			}
-		});
-	}
+		} else if(message.result_code == "-1") {
+			alert("상담신청내역이 없습니다.");
+		} else if(message.result_code == "-2") {
+			alert("상담신청내역이 아닙니다");
+		}
+	});
 }
 
 /* 상태변경하기 */
@@ -163,5 +184,32 @@ function fnSndMsg(pSchedule_id, pMsg) {
 	});	
 }
 
+
+/* 타임존 저장 */
+function fnTimeZoneSave() {
+
+	/* global 변수 json으로 변환 */
+	gfnPutObj("tiemzone_cd"		, getValue("tiemzone_cd"));
+	
+	var pParamJson = gfnGetJson();
+
+	sendForm("POST", "/mypage/setTimeZoneCust", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/member/login_form";
+		} else if(message.result_code == 0) {
+			fnSearch();
+		} else {
+			if(message.session_yn == "N") {
+				alert("로그아웃되었습니다.");
+				document.location.href="/index";
+			} else {
+				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+			}
+		}
+
+	});	
+}
 
 </script>

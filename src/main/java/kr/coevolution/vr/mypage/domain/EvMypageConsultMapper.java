@@ -14,6 +14,9 @@ public interface EvMypageConsultMapper {
     /* 참가업체 상담시간설정 수정 */
     public int U01_SET_TIME(EvMypageConsultRequestDto param);
 
+    /* 참가업체 상담시간설정 - 타임존 수정 */
+    public int U01_SET_TIMEZONE(EvMypageConsultRequestDto param);
+
     /* 참가업체 상담시간설정 조회 */
     public List<EvMypageConsultResponseDto> S01_SET_TIME(EvMypageConsultRequestDto param);
 
@@ -61,4 +64,12 @@ public interface EvMypageConsultMapper {
 
     /* 참관 상담 건수 */
     public List<EvMypageConsultMsgResponseDto> S05_MSG_CNT(EvMypageConsultMsgRequestDto param);
+
+    /* 참관 상담스케줄 조회 - 상담신청 */
+    public List<EvMypageConsultScheduleResponseDto> S06_CONSULT_SCHEDULE(EvMypageConsultRequestDto param);
+
+    /* 참관 스케줄 정보 */
+    public List<EvMypageConsultScheduleResponseDto> S07_CONSULT_SCHEDULE(EvMypageConsultRequestDto param);
+
+
 }

@@ -393,4 +393,20 @@ public class EvMemberService {
     public List<EvMemberZoomResposeDto> search_zoom_search(EvMemberSearchDto evMemberSearchDto) {
         return evMemberMapper.S09_ZOOM_LIST(evMemberSearchDto);
     }
+
+    /**
+     * 아이디 찾기
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    public int update_timezone(EvMemberLoginRequestDto evMemberLoginRequestDto) {
+        int updateCnt = evMemberMapper.U10_SET_TIMEZONE(evMemberLoginRequestDto);
+
+        /* 회원로그입력 */
+        Map<String, String> param = new HashMap<>();
+        param.put("cust_id", evMemberLoginRequestDto.getCust_id());
+        evMemberMapper.I03_CUST_LOG(param);
+
+        return updateCnt;
+    }
 }

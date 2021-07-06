@@ -164,49 +164,84 @@
 
                       <div class="row m-0" style="width: 100%;">
                         <div class="border border-top-0 border-right-0 text-center pt-1 pb-1" style="width:16%;">${list.k1}</div> 
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k2_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k2_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k2_expoYn eq 'Y'}">bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k2_scheduleId}" onClick="scheduleClick('${list.k2_scheduleId}','${list.k2_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
+                          <c:choose>
+                            <c:when test = "${list.k2_consultRsvStatCd eq '215001' && list.k2_consultRsvCustId eq sessionScope.login_session.cust_id}">purple-100</c:when>
+                            <c:when test = "${list.k2_consultRsvStatCd eq '215002' && list.k2_consultRsvCustId eq sessionScope.login_session.cust_id}">yellow-200</c:when>
+                            <c:when test = "${list.k2_expoYn eq 'Y'}">bd-gray-200</c:when>
+                          </c:choose>" style="width:12%;" id="div_${list.k2_scheduleId}" <c:if test="${list.k2_consultRsvCustId eq sessionScope.login_session.cust_id || empty list.k2_consultRsvCustId}">onClick="scheduleClick('${list.k2_scheduleId}','${list.k2_consultRsvStatCd}')" </c:if>>
                           <c:choose>
                             <c:when test = "${list.k2_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k2_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
                             <c:when test = "${list.k2_expoYn eq 'Y' && empty list.k2_scheduleId && !empty consultCustId}">상담불가</c:when>
                           </c:choose>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k3_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k3_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k3_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k3_scheduleId}" onClick="scheduleClick('${list.k3_scheduleId}','${list.k3_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
+                          <c:choose>
+                            <c:when test = "${list.k3_consultRsvStatCd eq '215001' && list.k3_consultRsvCustId eq sessionScope.login_session.cust_id}">purple-100</c:when>
+                            <c:when test = "${list.k3_consultRsvStatCd eq '215002' && list.k3_consultRsvCustId eq sessionScope.login_session.cust_id}">yellow-200</c:when>
+                            <c:when test = "${list.k3_expoYn eq 'Y'}"> bd-gray-200</c:when>
+                          </c:choose>" style="width:12%;" id="div_${list.k3_scheduleId}" <c:if test="${list.k3_consultRsvCustId eq sessionScope.login_session.cust_id || empty list.k3_consultRsvCustId}">onClick="scheduleClick('${list.k3_scheduleId}','${list.k3_consultRsvStatCd}')" </c:if>>
                           <c:choose>
                             <c:when test = "${list.k3_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k3_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
                             <c:when test = "${list.k3_expoYn eq 'Y' && empty list.k3_scheduleId && !empty consultCustId}">상담불가</c:when>
                           </c:choose>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k4_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k4_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k4_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k4_scheduleId}" onClick="scheduleClick('${list.k4_scheduleId}','${list.k4_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
+                          <c:choose>
+                            <c:when test = "${list.k4_consultRsvStatCd eq '215001' && list.k4_consultRsvCustId eq sessionScope.login_session.cust_id}">purple-100</c:when>
+                            <c:when test = "${list.k4_consultRsvStatCd eq '215002' && list.k4_consultRsvCustId eq sessionScope.login_session.cust_id}">yellow-200</c:when>
+                            <c:when test = "${list.k4_expoYn eq 'Y'}"> bd-gray-200</c:when>
+                          </c:choose>" style="width:12%;" id="div_${list.k4_scheduleId}" <c:if test="${list.k4_consultRsvCustId eq sessionScope.login_session.cust_id || empty list.k4_consultRsvCustId}">onClick="scheduleClick('${list.k4_scheduleId}','${list.k4_consultRsvStatCd}')" </c:if>>
                           <c:choose>
                             <c:when test = "${list.k4_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k4_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
                             <c:when test = "${list.k4_expoYn eq 'Y' && empty list.k4_scheduleId && !empty consultCustId}">상담불가</c:when>
                           </c:choose>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k5_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k5_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k5_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k5_scheduleId}" onClick="scheduleClick('${list.k5_scheduleId}','${list.k5_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
+                          <c:choose>
+                            <c:when test = "${list.k5_consultRsvStatCd eq '215001' && list.k5_consultRsvCustId eq sessionScope.login_session.cust_id}">purple-100</c:when>
+                            <c:when test = "${list.k5_consultRsvStatCd eq '215002' && list.k5_consultRsvCustId eq sessionScope.login_session.cust_id}">yellow-200</c:when>
+                            <c:when test = "${list.k5_expoYn eq 'Y'}"> bd-gray-200</c:when>
+                          </c:choose>" style="width:12%;" id="div_${list.k5_scheduleId}" <c:if test="${list.k5_consultRsvCustId eq sessionScope.login_session.cust_id || empty list.k5_consultRsvCustId}">onClick="scheduleClick('${list.k5_scheduleId}','${list.k5_consultRsvStatCd}')" </c:if>>
                           <c:choose>
                             <c:when test = "${list.k5_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k5_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
                             <c:when test = "${list.k5_expoYn eq 'Y' && empty list.k5_scheduleId && !empty consultCustId}">상담불가</c:when>
                           </c:choose>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k6_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k6_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k6_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k6_scheduleId}" onClick="scheduleClick('${list.k6_scheduleId}','${list.k6_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
+                          <c:choose>
+                            <c:when test = "${list.k6_consultRsvStatCd eq '215001' && list.k6_consultRsvCustId eq sessionScope.login_session.cust_id}">purple-100</c:when>
+                            <c:when test = "${list.k6_consultRsvStatCd eq '215002' && list.k6_consultRsvCustId eq sessionScope.login_session.cust_id}">yellow-200</c:when>
+                            <c:when test = "${list.k6_expoYn eq 'Y'}"> bd-gray-200</c:when>
+                          </c:choose>" style="width:12%;" id="div_${list.k6_scheduleId}" <c:if test="${list.k6_consultRsvCustId eq sessionScope.login_session.cust_id || empty list.k6_consultRsvCustId}">onClick="scheduleClick('${list.k6_scheduleId}','${list.k6_consultRsvStatCd}')" </c:if>>
                           <c:choose>
                             <c:when test = "${list.k6_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k6_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
                             <c:when test = "${list.k6_expoYn eq 'Y' && empty list.k6_scheduleId && !empty consultCustId}">상담불가</c:when>
                           </c:choose>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k7_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k7_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k7_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k7_scheduleId}" onClick="scheduleClick('${list.k7_scheduleId}','${list.k7_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
+                          <c:choose>
+                            <c:when test = "${list.k7_consultRsvStatCd eq '215001' && list.k7_consultRsvCustId eq sessionScope.login_session.cust_id}">purple-100</c:when>
+                            <c:when test = "${list.k7_consultRsvStatCd eq '215002' && list.k7_consultRsvCustId eq sessionScope.login_session.cust_id}">yellow-200</c:when>
+                            <c:when test = "${list.k7_expoYn eq 'Y'}"> bd-gray-200</c:when>
+                          </c:choose>" style="width:12%;" id="div_${list.k7_scheduleId}" <c:if test="${list.k7_consultRsvCustId eq sessionScope.login_session.cust_id || empty list.k7_consultRsvCustId}">onClick="scheduleClick('${list.k7_scheduleId}','${list.k7_consultRsvStatCd}')" </c:if>>
                           <c:choose>
                             <c:when test = "${list.k7_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k7_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
                             <c:when test = "${list.k7_expoYn eq 'Y' && empty list.k7_scheduleId && !empty consultCustId}">상담불가</c:when>
                           </c:choose>
                         </div>
-                        <div class="border border-top-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k8_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k8_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k8_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k8_scheduleId}" onClick="scheduleClick('${list.k8_scheduleId}','${list.k8_consultRsvStatCd}')">
+                        <div class="border border-top-0 text-center pt-1 pb-1 
+                          <c:choose>
+                            <c:when test = "${list.k8_consultRsvStatCd eq '215001' && list.k8_consultRsvCustId eq sessionScope.login_session.cust_id}">purple-100</c:when>
+                            <c:when test = "${list.k8_consultRsvStatCd eq '215002' && list.k8_consultRsvCustId eq sessionScope.login_session.cust_id}">yellow-200</c:when>
+                            <c:when test = "${list.k8_expoYn eq 'Y'}"> bd-gray-200</c:when>
+                          </c:choose>" style="width:12%;" id="div_${list.k8_scheduleId}" <c:if test="${list.k8_consultRsvCustId eq sessionScope.login_session.cust_id|| empty list.k8_consultRsvCustId}">onClick="scheduleClick('${list.k8_scheduleId}','${list.k8_consultRsvStatCd}')" </c:if>>
                           <c:choose>
                             <c:when test = "${list.k8_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k8_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>

@@ -23,5 +23,6 @@ public class EvMypageConsultScheduleResponseDto {
     private String tel_no;
     private String consult_cust_id;
     private String consult_cust_nm;
+    private String del_yn;
 
 }

@@ -97,4 +97,35 @@
 
     </insert>
 
+    <select id="S02_COMM_CD_SORT" parameterType="kr.coevolution.vr.comm.dto.EvCommCodeRequestDto" resultType="kr.coevolution.vr.comm.dto.EvCommCodeResponseDto">
+
+        /* 정렬순서지정 */
+        select cd_id, cd_nm, upper_cd_id, cd_val1, cd_val2, cd_val3, cd_val4, cd_val5, priority, use_yn
+        from ev_comm_code
+
+        <where>
+
+            <if test="cd_id != null and cd_id != ''">
+                and cd_id = #{cd_id}
+            </if>
+
+            <if test="upper_cd_id != null and upper_cd_id != ''">
+                and upper_cd_id = #{upper_cd_id}
+            </if>
+
+            <if test="use_yn != null and use_yn != ''">
+                and use_yn = #{use_yn}
+            </if>
+
+            <if test="cd_id != null and cd_id != '' and upper_cd_id != null and upper_cd_id != '' ">
+                and 1 != 1
+            </if>
+
+        </where>
+
+        order by ${order_by}
+
+
+    </select>
+
 </mapper>

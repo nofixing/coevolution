@@ -206,22 +206,22 @@ function gfnAlert (pType, pTitle, pContents, callback) {
 	  modlContents += '  <div class="modal-dialog modal-dialog-centered" role="document">';
       modlContents += '    <div class="modal-content">';
       modlContents += '      <div class="modal-header">';
-      modlContents += '         <h4 class="modal-title" id="myModalLabel">'+pTitle+'</h4>';
+      modlContents += '         <h4 class="modal-title text-white" id="myModalLabel">'+pTitle+'</h4>';
       modlContents += '         <button type="button" class="close" data-dismiss="modal" aria-label="Close">';
       modlContents += '           <span aria-hidden="true">&times;</span>';
       modlContents += '         </button>';
       modlContents += '      </div>';
-      modlContents += '      <div class="modal-body border border-1 pt-3">';
+      modlContents += '      <div class="modal-body">';
       modlContents += pContents
       modlContents += '      </div>';
       modlContents += '      <div class="modal-footer" id="showFooter">';
   
       if(pType.toUpperCase() == "CONFIRM") {
-        modlContents += '        <button type="button" class="basic-btn" id="showModalOK">확인</button>';
+        modlContents += '        <button type="button" class="btn btn-primary" id="showModalOK">확인</button>';
       }
       
       if(pType.toUpperCase() == "CONFIRM" || pType.toUpperCase() == "ALERT") {
-        modlContents += '        <button type="button" class="basic-btn" data-bs-dismiss="modal" id="showModalClose">닫기</button>';
+        modlContents += '        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="showModalClose">닫기</button>';
       }
       
       modlContents += '      </div>';

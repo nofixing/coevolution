@@ -149,6 +149,7 @@
             , nvl((select cd_val1 from ev_comm_code where cd_id = a.category1),'#!') as category1_value
             , category2
             , category3
+            , tiemzone_cd
         FROM ev_cust_mst a
         where cust_id = #{cust_id}
 
@@ -486,5 +487,16 @@
         order by cust_id, zoom_mgnt_id
 
     </select>
+
+    <update id="U10_SET_TIMEZONE" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto">
+
+        /* 상담예약-타임존 셋팅 */
+        UPDATE ev_cust_mst
+        SET tiemzone_cd  = #{tiemzone_cd}
+            , mod_user = #{user_id}
+            , mod_dtm  = NOW()
+        WHERE cust_id  = #{cust_id}
+
+    </update>
 
 </mapper>

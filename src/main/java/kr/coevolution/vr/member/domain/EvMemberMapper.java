@@ -240,4 +240,11 @@ public interface EvMemberMapper {
      * @return
      */
     public List<EvMemberZoomResposeDto> S09_ZOOM_LIST(EvMemberSearchDto evMemberSearchDto);
+
+    /**
+     * 상담예약-타임존 셋팅
+     * @param evMemberLoginRequestDto
+     * @return
+     */
+    public int U10_SET_TIMEZONE(EvMemberLoginRequestDto evMemberLoginRequestDto);
 }

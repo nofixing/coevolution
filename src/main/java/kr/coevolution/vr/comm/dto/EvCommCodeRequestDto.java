@@ -22,4 +22,5 @@ public class EvCommCodeRequestDto {
     private String code_clsf2;
     private String code_clsf3;
     private String levl;
+    private String order_by;
 }

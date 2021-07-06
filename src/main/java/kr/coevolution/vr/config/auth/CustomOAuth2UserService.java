@@ -1,5 +1,6 @@
 package kr.coevolution.vr.config.auth;
 
+import kr.coevolution.vr.comm.dto.EvExpoRequestDto;
 import kr.coevolution.vr.comm.dto.EvExpoResponseDto;
 import kr.coevolution.vr.comm.service.EvExpoService;
 import kr.coevolution.vr.comm.util.StringUtils;
@@ -100,7 +101,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 httpSession.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
 
                 /* sesstion 정보 입력 expo 정보 */
-                List<EvExpoResponseDto> expoInfoList =  evExpoService.expo_info_search();
+                EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
+                evExpoRequestDtoDto.setCust_id(evMemberLoginInfoDtoList.get(0).getCust_id());
+                List<EvExpoResponseDto> expoInfoList =  evExpoService.expo_info_search(evExpoRequestDtoDto);
                 httpSession.setAttribute(StringUtils.expo_info_session, expoInfoList.get(0));
 
             } else {

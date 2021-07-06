@@ -26,4 +26,5 @@ public class EvMemberLoginRequestDto {
     private String cust_id_pw;
     private String cust_nm_pw;
     private String email_id_pw;
+    private String tiemzone_cd;
 }

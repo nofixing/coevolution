@@ -5,11 +5,16 @@ import kr.coevolution.vr.board.dto.EvBoardRequestDto;
 import kr.coevolution.vr.board.dto.EvBoardSearchDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
+import kr.coevolution.vr.comm.dto.EvExpoRequestDto;
 import kr.coevolution.vr.comm.dto.EvExpoResponseDto;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.service.EvExpoService;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
+import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
+import kr.coevolution.vr.member.dto.EvMemberResposeDto;
+import kr.coevolution.vr.member.dto.EvMemberSearchDto;
+import kr.coevolution.vr.member.service.EvMemberService;
 import kr.coevolution.vr.mypage.dto.*;
 import kr.coevolution.vr.mypage.service.EvMypageBoardConsltService;
 import kr.coevolution.vr.mypage.service.EvMypageConsultService;
@@ -46,6 +51,10 @@ public class EvMypageConsltController {
 
     @Autowired
     private EvMypageCustCorpInfoService evMypageCustCorpInfoService;
+
+    @Autowired
+    private EvMemberService evMemberService;
+
 
     /**
      * 마이페이지 상담문의 조회
@@ -266,13 +275,13 @@ public class EvMypageConsltController {
 
     /**
      * 상담설정-코드조회
-     * @param evBoardSearchDto
+     * @param evMypageConsultRequestDto
      * @param request
      * @param model
      * @return
      */
     @RequestMapping("/mypage/consltset")
-    public String mypage_conslt_set (EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+    public String mypage_conslt_set (EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request, Model model) {
 
         String returnUrl = "";
 
@@ -294,7 +303,9 @@ public class EvMypageConsltController {
             List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
             /* Expo 정보조회 (예약가능일자조회) */
-            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search();
+            EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
+            evExpoRequestDtoDto.setCust_id(loginInfoDto.getCust_id());
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search(evExpoRequestDtoDto);
             String consultFromDt = "";
             String consultToDt = "";
             String sunday = "";
@@ -305,26 +316,28 @@ public class EvMypageConsltController {
                 consultToDt = expoInfo.get(0).getExpo_to_dt();
                 evExpoId = expoInfo.get(0).getEv_expo_id();
                 sunday = expoInfo.get(0).getSunday();
-
             }
 
-            EvMypageConsultRequestDto evMypageConsultRequestDto = new EvMypageConsultRequestDto();
             evMypageConsultRequestDto.setCust_id(loginInfoDto.getCust_id());
             evMypageConsultRequestDto.setEv_expo_id(evExpoId);
 
             /* 상담-설정조회 */
             List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
 
-            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "";
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "", timezone_hhmm_fr = "", timezone_hhmm_to = "";
 
             if(consultSetting != null && consultSetting.size() == 1) {
                 consultTimeId = consultSetting.get(0).getConsult_time_id();
                 tiemzone_cd = consultSetting.get(0).getTiemzone_cd();
                 consult_from_time = consultSetting.get(0).getConsult_from_time();
                 consult_to_time = consultSetting.get(0).getConsult_to_time();
+
+                /* 타이존시간 00:00, 00:30 ... */
+                timezone_hhmm_fr = consultSetting.get(0).getTimezone_hhmm_fr();
+                timezone_hhmm_to = consultSetting.get(0).getTimezone_hhmm_to();
             }
 
-            /* 예약시간 조회 */
+            /* 예약시간 조회 한국:cd_nm, 중국상하이:cd_val1, 영국런던:cd_val2, 미국뉴욕:cd_val3*/
             evCommCodeRequestDto.setUpper_cd_id("214000");
             List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
@@ -336,6 +349,10 @@ public class EvMypageConsltController {
             evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
             evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
             evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+            evMypageConsultRequestDto.setTiemzone_cd(tiemzone_cd);
+            evMypageConsultRequestDto.setTimezone_hhmm_fr(timezone_hhmm_fr);
+            evMypageConsultRequestDto.setTimezone_hhmm_to(timezone_hhmm_to);
+            evMypageConsultRequestDto.setPage_clsf("consltset");
 
             /* 시간별 상담내역 */
             Map<String,Object> consultMap = new HashMap<>();
@@ -435,19 +452,38 @@ public class EvMypageConsltController {
 
         Map<String,Object> rtrMap = new HashMap<>();
         List<Map<String,String>> newList = new ArrayList<>();
-        List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_shedule_search(evMypageConsultRequestDto);
+        List<EvMypageConsultScheduleResponseDto> list = null;
+
+        if("myp09".equals(evMypageConsultRequestDto.getPage_clsf())) {
+            list = evMypageConsultService.consult_cust_shedule_search2(evMypageConsultRequestDto);
+        } else {
+            list = evMypageConsultService.consult_shedule_search(evMypageConsultRequestDto);
+        }
 
         String expoFromDt = evMypageConsultRequestDto.getExpo_from_dt();
         String expoToDt = evMypageConsultRequestDto.getExpo_to_dt();
         String sunday = evMypageConsultRequestDto.getSunday();
         String formTimeCd = evMypageConsultRequestDto.getConsult_from_time();
         String toTimeCd = evMypageConsultRequestDto.getConsult_to_time();
+        String timezone_hhmm_fr = expoFromDt.replace("-","") + evMypageConsultRequestDto.getTimezone_hhmm_fr().replace(":","");
+        String timezone_hhmm_to = expoToDt.replace("-","") + evMypageConsultRequestDto.getTimezone_hhmm_to().replace(":","");
 
         /* 예약시간 조회 */
         EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
 
         evCommCodeRequestDto.setUpper_cd_id("214000");
-        List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        if("213001".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //대한민국,서울
+            evCommCodeRequestDto.setOrder_by("cd_nm asc");
+        } else if("213002".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //중국,상하이
+            evCommCodeRequestDto.setOrder_by("cd_val1 asc");
+        } else if("213003".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //영국,런던
+            evCommCodeRequestDto.setOrder_by("cd_val2 asc");
+        } else if("213004".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //미국,뉴욕
+            evCommCodeRequestDto.setOrder_by("cd_val3 asc");
+        }
+
+        List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search_sort(evCommCodeRequestDto);
 
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sf2 = new SimpleDateFormat("M/d (EEE)");
@@ -496,9 +532,18 @@ public class EvMypageConsltController {
 
                 /* 시간설정 */
                 key = 0;
+                String frhhmm = "", tohhmm = "";
                 Map<String, String> consultMap = new HashMap<>();
 
-                consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_nm());
+                if("213001".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //대한민국,서울
+                    consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_nm());
+                } else if("213002".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //중국,상하이
+                    consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_val1());
+                } else if("213003".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //영국,런던
+                    consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_val2());
+                } else if("213004".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //미국,뉴욕
+                    consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_val3());
+                }
 
                 cal = Calendar.getInstance();
                 setFromDt = sundayDt;
@@ -509,8 +554,16 @@ public class EvMypageConsltController {
                     String formatFromDt = sf.format(setFromDt);
                     boolean chkRow = false;
                     for(EvMypageConsultScheduleResponseDto schedule : list) {
+
                         /* 시간과 일자가 같을 경우 put */
-                        if(schedule.getConsult_dt().equals(formatFromDt) && schedule.getConsult_time_cd().equals(evCommCodeResponseDto.getCd_id())) {
+                        //if(schedule.getConsult_dt().equals(formatFromDt) && schedule.getConsult_time_cd().equals(evCommCodeResponseDto.getCd_id())) {
+
+                        String cYMDHM = StringUtils.nvl(schedule.getConsult_dt(),"").replace("-","") + StringUtils.nvl(schedule.getConsult_time_nm(),"").replace(":","");
+
+                        if(schedule.getConsult_dt().equals(formatFromDt)
+                                && schedule.getConsult_time_cd().equals(evCommCodeResponseDto.getCd_id())
+                                && Long.parseLong(timezone_hhmm_fr) <= Long.parseLong(cYMDHM)
+                                && Long.parseLong(cYMDHM) <= Long.parseLong(timezone_hhmm_to)) {
                             key++;
                             consultMap.put("k" + key + "_scheduleId"        , StringUtils.nvl(schedule.getSchedule_id(),""));
                             consultMap.put("k" + key + "_consultTimeId"     , StringUtils.nvl(schedule.getConsult_time_id(),""));
@@ -642,7 +695,9 @@ public class EvMypageConsltController {
             List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
             /* Expo 정보조회 (예약가능일자조회) */
-            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search();
+            EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
+            evExpoRequestDtoDto.setCust_id(loginInfoDto.getCust_id());
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search(evExpoRequestDtoDto);
             String consultFromDt = "";
             String consultToDt = "";
             String sunday = "";
@@ -663,13 +718,17 @@ public class EvMypageConsltController {
             /* 상담-설정조회 */
             List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
 
-            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "";
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "", timezone_hhmm_fr = "", timezone_hhmm_to = "";
 
             if(consultSetting != null && consultSetting.size() == 1) {
                 consultTimeId = consultSetting.get(0).getConsult_time_id();
                 tiemzone_cd = consultSetting.get(0).getTiemzone_cd();
                 consult_from_time = consultSetting.get(0).getConsult_from_time();
                 consult_to_time = consultSetting.get(0).getConsult_to_time();
+
+                /* 타이존시간 00:00, 00:30 ... */
+                timezone_hhmm_fr = consultSetting.get(0).getTimezone_hhmm_fr();
+                timezone_hhmm_to = consultSetting.get(0).getTimezone_hhmm_to();
             }
 
             /* 예약시간 조회 */
@@ -684,6 +743,10 @@ public class EvMypageConsltController {
             evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
             evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
             evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+            evMypageConsultRequestDto.setTiemzone_cd(tiemzone_cd);
+            evMypageConsultRequestDto.setTimezone_hhmm_fr(timezone_hhmm_fr);
+            evMypageConsultRequestDto.setTimezone_hhmm_to(timezone_hhmm_to);
+            evMypageConsultRequestDto.setPage_clsf("myc07");
 
             /* 시간별 상담내역 */
             Map<String,Object> consultMap = new HashMap<>();
@@ -1186,7 +1249,9 @@ public class EvMypageConsltController {
             List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
             /* Expo 정보조회 (예약가능일자조회) */
-            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search();
+            EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
+            evExpoRequestDtoDto.setCust_id(loginInfoDto.getCust_id());
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search2(evExpoRequestDtoDto);
             String consultFromDt = "";
             String consultToDt = "";
             String sunday = "";
@@ -1207,16 +1272,20 @@ public class EvMypageConsltController {
             /* 상담-설정조회 */
             List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_cust_settime_select(evMypageConsultRequestDto);
 
-            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "214019", consult_to_time = "214036";
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "214019", consult_to_time = "214036", timezone_hhmm_fr = "", timezone_hhmm_to = "";
 
             if(consultSetting != null && consultSetting.size() == 1) {
                 consultTimeId = consultSetting.get(0).getConsult_time_id();
-                tiemzone_cd = consultSetting.get(0).getTiemzone_cd();
+                tiemzone_cd = StringUtils.nvl(consultSetting.get(0).getTiemzone_cd(),"213001"); /* 대한민국,서울 */
                 consult_from_time = consultSetting.get(0).getConsult_from_time();
                 consult_to_time = consultSetting.get(0).getConsult_to_time();
+
+                /* 타이존시간 00:00, 00:30 ... */
+                timezone_hhmm_fr = consultSetting.get(0).getTimezone_hhmm_fr();
+                timezone_hhmm_to = consultSetting.get(0).getTimezone_hhmm_to();
             }
 
-            /* 예약시간 조회 */
+            /* 예약시간 조회 한국:cd_nm, 중국상하이:cd_val1, 영국런던:cd_val2, 미국뉴욕:cd_val3*/
             evCommCodeRequestDto.setUpper_cd_id("214000");
             List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
@@ -1228,6 +1297,9 @@ public class EvMypageConsltController {
             evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
             evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
             evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+            evMypageConsultRequestDto.setTiemzone_cd(tiemzone_cd);
+            evMypageConsultRequestDto.setTimezone_hhmm_fr(timezone_hhmm_fr);
+            evMypageConsultRequestDto.setTimezone_hhmm_to(timezone_hhmm_to);
 
             /* 시간별 상담내역 */
             Map<String,Object> consultMap = getCustTimeList(evMypageConsultRequestDto);
@@ -1277,12 +1349,24 @@ public class EvMypageConsltController {
         String sunday = evMypageConsultRequestDto.getSunday();
         String formTimeCd = evMypageConsultRequestDto.getConsult_from_time();
         String toTimeCd = evMypageConsultRequestDto.getConsult_to_time();
+        String timezone_hhmm_fr = expoFromDt.replace("-","") + evMypageConsultRequestDto.getTimezone_hhmm_fr().replace(":","");
+        String timezone_hhmm_to = expoToDt.replace("-","") + evMypageConsultRequestDto.getTimezone_hhmm_to().replace(":","");
 
         /* 예약시간 조회 */
         EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
 
         evCommCodeRequestDto.setUpper_cd_id("214000");
         List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        if("213001".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //대한민국,서울
+            evCommCodeRequestDto.setOrder_by("cd_nm asc");
+        } else if("213002".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //중국,상하이
+            evCommCodeRequestDto.setOrder_by("cd_val1 asc");
+        } else if("213003".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //영국,런던
+            evCommCodeRequestDto.setOrder_by("cd_val2 asc");
+        } else if("213004".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //미국,뉴욕
+            evCommCodeRequestDto.setOrder_by("cd_val3 asc");
+        }
 
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sf2 = new SimpleDateFormat("M/d (EEE)");
@@ -1333,7 +1417,15 @@ public class EvMypageConsltController {
                 key = 0;
                 Map<String, Object> consultMap = new HashMap<>();
 
-                consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_nm());
+                if("213001".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //대한민국,서울
+                    consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_nm());
+                } else if("213002".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //중국,상하이
+                    consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_val1());
+                } else if("213003".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //영국,런던
+                    consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_val2());
+                } else if("213004".equals(evMypageConsultRequestDto.getTiemzone_cd())) { //미국,뉴욕
+                    consultMap.put("k" + (++key), evCommCodeResponseDto.getCd_val3());
+                }
 
                 cal = Calendar.getInstance();
                 setFromDt = sundayDt;
@@ -1351,7 +1443,12 @@ public class EvMypageConsltController {
 
                     for(EvMypageConsultScheduleResponseDto schedule : list) {
                         /* 시간과 일자가 같을 경우 put */
-                        if(schedule.getConsult_dt().equals(formatFromDt) && schedule.getConsult_time_cd().equals(evCommCodeResponseDto.getCd_id())) {
+                        //if(schedule.getConsult_dt().equals(formatFromDt) && schedule.getConsult_time_cd().equals(evCommCodeResponseDto.getCd_id())) {
+                        String cYMDHM = StringUtils.nvl(schedule.getConsult_dt(),"").replace("-","") + StringUtils.nvl(schedule.getConsult_time_nm(),"").replace(":","");
+                        if(schedule.getConsult_dt().equals(formatFromDt)
+                                && schedule.getConsult_time_cd().equals(evCommCodeResponseDto.getCd_id())
+                                && Long.parseLong(timezone_hhmm_fr) <= Long.parseLong(cYMDHM)
+                                && Long.parseLong(cYMDHM) <= Long.parseLong(timezone_hhmm_to)) {
 
                             if(!tempFormatFromDt.equals(formatFromDt) || !tempTimeCd.equals(evCommCodeResponseDto.getCd_id())) {
                                 key++;
@@ -1561,7 +1658,9 @@ public class EvMypageConsltController {
             List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
             /* Expo 정보조회 (예약가능일자조회) */
-            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search();
+            EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
+            evExpoRequestDtoDto.setCust_id(loginInfoDto.getCust_id());
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search2(evExpoRequestDtoDto);
             String consultFromDt = "";
             String consultToDt = "";
             String sunday = "";
@@ -1576,25 +1675,42 @@ public class EvMypageConsltController {
             }
 
             /* 화면에서 넘겨주는 ID를 셋팅한다. */
-            evMypageConsultRequestDto.setCust_id(evMypageConsultRequestDto.getConsultCustId());
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getCust_id());
             evMypageConsultRequestDto.setEv_expo_id(evExpoId);
 
             /* 상담-설정조회 */
-            List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(evMypageConsultRequestDto);
+            List<EvMypageConsultResponseDto> consultSettingCust = evMypageConsultService.consult_cust_settime_select(evMypageConsultRequestDto);
 
-            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "";
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "", timezone_hhmm_fr = "", timezone_hhmm_to = "";
 
-            if(consultSetting != null && consultSetting.size() == 1) {
-                consultTimeId = consultSetting.get(0).getConsult_time_id();
-                tiemzone_cd = consultSetting.get(0).getTiemzone_cd();
-                consult_from_time = consultSetting.get(0).getConsult_from_time();
-                consult_to_time = consultSetting.get(0).getConsult_to_time();
+            if(consultSettingCust != null && consultSettingCust.size() == 1) {
+
+                EvMypageConsultRequestDto consultRequestDto = new EvMypageConsultRequestDto();
+                consultRequestDto.setCust_id(evMypageConsultRequestDto.getConsultCustId());
+                consultRequestDto.setEv_expo_id(evExpoId);
+                List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(consultRequestDto);
+
+                if(consultSetting != null && consultSetting.size() == 1) {
+                    consultTimeId = consultSetting.get(0).getConsult_time_id();
+                } else {
+                    consultTimeId = 0L;
+                }
+
+                tiemzone_cd = consultSettingCust.get(0).getTiemzone_cd();
+                consult_from_time = consultSettingCust.get(0).getConsult_from_time();
+                consult_to_time = consultSettingCust.get(0).getConsult_to_time();
+
+                /* 타이존시간 00:00, 00:30 ... */
+                timezone_hhmm_fr = consultSettingCust.get(0).getTimezone_hhmm_fr();
+                timezone_hhmm_to = consultSettingCust.get(0).getTimezone_hhmm_to();
             } else {
                 //default 설정
                 consultTimeId = 0L;
                 tiemzone_cd = "213001";
                 consult_from_time = "214019";
                 consult_to_time = "214036";
+                timezone_hhmm_fr = "09:00";
+                timezone_hhmm_to = "17:30";
             }
 
             /* 예약시간 조회 */
@@ -1602,6 +1718,7 @@ public class EvMypageConsltController {
             List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
             /* 상담가능기간 체크 */
+            evMypageConsultRequestDto.setCust_id(evMypageConsultRequestDto.getConsultCustId());
             evMypageConsultRequestDto.setExpo_from_dt(consultFromDt);
             evMypageConsultRequestDto.setExpo_to_dt(consultToDt);
             evMypageConsultRequestDto.setConsult_time_id(consultTimeId);
@@ -1609,11 +1726,13 @@ public class EvMypageConsltController {
             evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
             evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
             evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+            evMypageConsultRequestDto.setTiemzone_cd(tiemzone_cd);
+            evMypageConsultRequestDto.setTimezone_hhmm_fr(timezone_hhmm_fr);
+            evMypageConsultRequestDto.setTimezone_hhmm_to(timezone_hhmm_to);
+            evMypageConsultRequestDto.setPage_clsf("myp09");
 
             /* 시간별 상담내역 */
-            Map<String,Object> consultMap = new HashMap<>();
-
-            consultMap = getTimeList(evMypageConsultRequestDto);
+            Map<String,Object> consultMap = getTimeList(evMypageConsultRequestDto);
 
             model.addAttribute("page_clsf", "myp09");
             model.addAttribute("timezoneList", timezoneList);
@@ -1855,6 +1974,128 @@ public class EvMypageConsltController {
             resposeResult.put("consultCustList", list);
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+    /**
+     * 타임존 설정
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/setTimeZone")
+    public Map<String,Object> mypage_setTimeZone (@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            evMypageConsultRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            evMypageConsultService.consult_settime_update2(evMypageConsultRequestDto);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+    /**
+     * 타임존 설정
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/setTimeZoneCust")
+    public Map<String,Object> mypage_setTimeZoneCust (@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            evMypageConsultRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            EvMemberLoginRequestDto evMemberLoginRequestDto = new EvMemberLoginRequestDto();
+            evMemberLoginRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMemberLoginRequestDto.setUser_id(loginInfoDto.getCust_id());
+            evMemberLoginRequestDto.setTiemzone_cd(evMypageConsultRequestDto.getTiemzone_cd());
+            evMemberService.update_timezone(evMemberLoginRequestDto);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+
+    }
+
+
+    /**
+     * 상담신청 사용자 체크
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/mypage/myc09CustChk")
+    public Map<String,Object> mypage_myc09CustChk (@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request) {
+
+        Map<String,Object> resposeResult = new HashMap<>();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            evMypageConsultRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            /* 상담내역조회 */
+            List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_shedule(evMypageConsultRequestDto);
+
+            if("Y".equals(list.get(0).getDel_yn()) || list == null || list.size() <= 0) {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "상담신청내역이 없습니다.");
+            } else if("".equals(StringUtils.nvl(list.get(0).getConsult_rsv_cust_id(),""))) {
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            } else if(!list.get(0).getConsult_rsv_cust_id().equals(loginInfoDto.getCust_id())) {
+                resposeResult.put("result_code", "-2");
+                resposeResult.put("result_msg", "상담신청내역이 아닙니다");
+            } else {
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            }
 
         } catch (Exception e) {
 

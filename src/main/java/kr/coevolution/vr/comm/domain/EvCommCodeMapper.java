@@ -18,6 +18,13 @@ public interface EvCommCodeMapper {
     public List<EvCommCodeResponseDto> S01_COMM_CD(EvCommCodeRequestDto param);
 
     /**
+     * 공통코드조회-정렬추가
+     * @param param
+     * @return
+     */
+    public List<EvCommCodeResponseDto> S02_COMM_CD_SORT(EvCommCodeRequestDto param);
+
+    /**
      * 접속로그
      * @return
      */

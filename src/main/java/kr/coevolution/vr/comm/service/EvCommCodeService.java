@@ -30,6 +30,17 @@ public class EvCommCodeService {
     }
 
     /**
+     * 공통코드조회
+     * @param evCommCodeRequestDto
+     * @return
+     * @throws Exception
+     */
+    public List<EvCommCodeResponseDto> comm_code_search_sort (EvCommCodeRequestDto evCommCodeRequestDto) {
+        List<EvCommCodeResponseDto> commCodeList = evCommCodeMapper.S02_COMM_CD_SORT(evCommCodeRequestDto);
+        return commCodeList;
+    }
+
+    /**
      * access로저 저장
      * @param param
      * @return

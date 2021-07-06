@@ -28,4 +28,7 @@ public class EvMypageConsultRequestDto {
     private String remarks;
     private String consultCustId;
     private String consultCustNm;
+    private String timezone_hhmm_fr;
+    private String timezone_hhmm_to;
+    private String page_clsf;
 }
