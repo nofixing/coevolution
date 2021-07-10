@@ -93,14 +93,14 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#!">버추얼 아일랜드</a>
+                            <a href="#!"><strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong></a>
                             <div class="m-menu-list-sub">
-                                <a href="#!">e-mobility</a>
-                                <a href="#!">charging infra</a>
-                                <a href="#!">component</a>
-                                <a href="#!">energy</a>
-                                <a href="#!">group</a>
-                                <a href="#!">additional</a>
+                                <a href="/index/ieve2021">e-mobility</a>
+                                <a href="/index/ieve2021">charging infra</a>
+                                <a href="/index/ieve2021">component</a>
+                                <a href="/index/ieve2021">energy</a>
+                                <a href="/index/ieve2021">group</a>
+                                <a href="/index/ieve2021">additional</a>
                             </div>
                         </li>
                         <c:choose>
@@ -407,7 +407,7 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="#" class="nav-link nav-item-font">
+                            <a href="/index/ieve2021" class="nav-link nav-item-font">
                                 <strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong>
                             </a>
                         </li>

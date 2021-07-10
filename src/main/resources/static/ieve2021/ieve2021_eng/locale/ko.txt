@@ -1,0 +1,100 @@
+#: locale=ko
+
+## Tour
+
+### Description
+
+### Title
+tour.name = IEVE SAMPLE
+
+## Skin
+
+### Button
+Button_9251F0B3_897E_35D1_41D9_9BFA8F8BDC9E.label = KOR
+Button_92A074D3_897A_5D51_4189_4F74B3FF3EEA.label = ENG
+Button_B8CD31AA_A67B_25F8_41A1_1DA92E7396BD.label = Contact Information
+Button_B8CD31AA_A67B_25F8_41A1_1DA92E7396BD_mobile.label = Contact Information
+Button_B8CD51AA_A67B_25F8_41D0_FC38592F5404.label = Photoalbum
+Button_B8CD51AA_A67B_25F8_41D0_FC38592F5404_mobile.label = Photoalbum
+Button_B8CD71AA_A67B_25F8_41D1_5E2CB366D187.label = Floorplan
+Button_B8CD71AA_A67B_25F8_41D1_5E2CB366D187_mobile.label = Floorplan
+Button_B8D2A1A9_A67B_25F8_41D7_68B0CEC0319A.label = Location
+Button_B8D2A1A9_A67B_25F8_41D7_68B0CEC0319A.pressedLabel = Location
+Button_B8D2A1A9_A67B_25F8_41D7_68B0CEC0319A_mobile.label = Location
+Button_B8D2A1A9_A67B_25F8_41D7_68B0CEC0319A_mobile.pressedLabel = Location
+Button_B8D2C1A9_A67B_25F8_41A6_43D35B0CC77B.label = Panorama List
+Button_B8D2C1A9_A67B_25F8_41A6_43D35B0CC77B_mobile.label = Panorama List
+
+### Multiline Text
+HTMLText_7498AF0F_65E8_70D5_41D6_45BB29B64564.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:right;font-size:2.4400000000000004vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:2.44vmin;font-family:Arial, Helvetica, sans-serif;">Right</SPAN></DIV></div>
+HTMLText_7498AF0F_65E8_70D5_41D6_45BB29B64564_mobile.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:right;font-size:2.4400000000000004vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:2.44vmin;font-family:Arial, Helvetica, sans-serif;">Right</SPAN></DIV></div>
+HTMLText_7499DF0D_65E8_70D5_41AF_DEF31366F3EF.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:left;font-size:2.4400000000000004vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:2.44vmin;font-family:Arial, Helvetica, sans-serif;">Left</SPAN></DIV></div>
+HTMLText_7499DF0D_65E8_70D5_41AF_DEF31366F3EF_mobile.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:left;font-size:2.4400000000000004vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:2.44vmin;font-family:Arial, Helvetica, sans-serif;">Left</SPAN></DIV></div>
+HTMLText_B8CDF1AA_A67B_25F8_41E3_4071411E1B12.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:left;font-size:12px;"><SPAN STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#ffffff;font-family:'Noto Sans KR Regular';"><I>부산광역시 해운대구 센텀동로 41 센텀벤처타운 205호</I></SPAN></SPAN></DIV><DIV STYLE="text-align:left;font-size:12px;"><SPAN STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#ffffff;font-family:'Noto Sans KR Regular';"><I>TEL) 051-731-6660</I></SPAN></SPAN></DIV><DIV STYLE="text-align:left;font-size:12px;"><SPAN STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#ffffff;font-family:'Noto Sans KR Regular';"><I>FAX) 051-731-6664</I></SPAN></SPAN></DIV></div>
+HTMLText_B8CDF1AA_A67B_25F8_41E3_4071411E1B12_mobile.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:left;font-size:6px;"><SPAN STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-size:6px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#ffffff;font-family:'Noto Sans KR Regular';"><I>부산광역시 해운대구 센텀동로 41 센텀벤처타운 205호</I></SPAN></SPAN></DIV><DIV STYLE="text-align:left;font-size:6px;"><SPAN STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-size:6px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#ffffff;font-family:'Noto Sans KR Regular';"><I>TEL) 051-731-6660</I></SPAN></SPAN></DIV><DIV STYLE="text-align:left;font-size:6px;"><SPAN STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-size:6px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#ffffff;font-family:'Noto Sans KR Regular';"><I>FAX) 051-731-6664</I></SPAN></SPAN></DIV></div>
+
+### Label
+Label_F8D31F85_E418_89CC_41EB_53ACAF78844C.text = SAMPLE
+Label_F8D31F85_E418_89CC_41EB_53ACAF78844C_mobile.text = SAMPLE
+Label_F8DB5F79_E418_8944_41CE_BB7A3781A0A6.text = IEVE 실내 기본 부스
+Label_F8DB5F79_E418_8944_41CE_BB7A3781A0A6_mobile.text = IEVE 실내 기본 부스
+
+### Tooltip
+IconButton_9CCBB727_88A6_3CF0_41D6_C19EB5ED6D27.toolTip = Minimap
+
+## Media
+
+### Title
+album_F81DD3B3_E438_99C4_41D7_7E719BBDD3E0.label = Photo Album AJ_Kiosk
+album_F81DD3B3_E438_99C4_41D7_7E719BBDD3E0_0.label = AJ_Kiosk
+album_F81DD3B3_E438_99C4_41D7_7E719BBDD3E0_1.label = AJ_test
+album_FE221C46_E438_8F4C_41D8_FA34BE6FE87D.label = Photo Album AJ_Image_1
+album_FE221C46_E438_8F4C_41D8_FA34BE6FE87D_0.label = AJ_Image_1
+album_FE221C46_E438_8F4C_41D8_FA34BE6FE87D_1.label = AJ_Image_2
+album_FE221C46_E438_8F4C_41D8_FA34BE6FE87D_2.label = AJ_Image_3
+map_FEFE98F0_E408_B744_41D2_43DD3B260015.label = KakaoTalk_20201206_225943700
+panorama_30B10D2F_2C4E_1D8A_41BE_4486EBD04863.label = KakaoTalk_20210621_122552882
+panorama_86C683DB_88EA_FB50_41DF_B9D7D1B52122.label = IEVE 샘플 기본 부스
+panorama_9F7ED97D_895A_D750_41BC_9976347A6341.label = IEVE SAMPLE BASIC BOOTH
+panorama_CFB20242_E408_BB44_41E7_4AECCEC3548B.label = KakaoTalk_20210607_153531647
+video_F75C4A7F_E418_8B3C_41D2_A3D080ED1E67.label = AJ셀카_홍보영상
+
+## Hotspot
+
+### Tooltip
+HotspotPanoramaOverlayArea_866A5C01_88EE_CCB0_41A1_F7119BA8F86F.toolTip = 기업정보
+HotspotPanoramaOverlayArea_866C6CE8_88EF_CD7F_41D3_123B357B745E.toolTip = 상담문의
+HotspotPanoramaOverlayArea_8691DB28_88EE_54FF_41E0_D522509E7872.toolTip = 홍보갤러리
+HotspotPanoramaOverlayArea_86AC3DF1_88EE_CF51_41DB_239BB7D33001.toolTip = 홍보동영상
+HotspotPanoramaOverlayArea_87EAD756_88ED_DB50_41C3_85ADB765A119.toolTip = 쇼핑몰 바로가기
+HotspotPanoramaOverlayArea_9F48C989_895A_D7B0_41C0_F9E65FFE0F74.toolTip = Information
+HotspotPanoramaOverlayArea_9F49C989_895A_D7B0_418C_F767F810DDA6.toolTip = Video
+HotspotPanoramaOverlayArea_9F51B991_895A_D7D0_4161_434A9748F0B6.toolTip = Go To Shop
+HotspotPanoramaOverlayArea_9F52B990_895A_D7D0_41DC_D8633F3452EF.toolTip = Q&A
+HotspotPanoramaOverlayArea_9F535990_895A_D7D0_41A2_5E83BADF1B01.toolTip = Photo
+
+## Action
+
+### URL
+LinkBehaviour_302B9FDE_2C41_FC8A_419E_96CD53A634AF.source = https://www.ajsellcar.co.kr/sellmycar/sellMycar.do?incomingcode=195&_C_=89&ACE_REF=adwords_g&ACE_KW=aj%EC%85%80%EC%B9%B4&gclid=Cj0KCQjw5PGFBhC2ARIsAIFIMNcxSxSCwpznKv32EpN-G0eslX99hTPAxzPJSJyGNlf2Uj9PD5JUZeMaAlizEALw_wcB
+LinkBehaviour_8F000029_AC28_8CC9_41D7_37293A03B6CE.source = https://www.baeulang.kr/content/complex_room.php
+LinkBehaviour_9EC01ADD_895A_7551_41D9_AA96F4E26877.source = http://bmac.kr/02_test/test01.asp
+LinkBehaviour_9EC03AE1_895A_7571_41CD_CEBF74DAD194.source = https://www.baeulang.kr/content/complex_room.php
+LinkBehaviour_9EC19AD5_895A_7551_41D1_CFD6EFA291E9.source = http://bmac.kr/02_test/test02.asp
+LinkBehaviour_9EC1CAD6_895A_7553_41D6_AC9CA3E9381E.source = https://www.baeulang.kr/content/complex_equip.php
+LinkBehaviour_9EC35AE5_895A_7571_41DC_6EA939ADCBBC.source = https://www.baeulang.kr/content/complex_room.php
+LinkBehaviour_9EC5AABA_895A_75D3_41AE_2868808A0858.source = http://www.busanit.or.kr/
+LinkBehaviour_9EC72ACB_895A_75B1_41DC_1B75686FB484.source = https://www.baeulang.kr/content/complex_room.php
+LinkBehaviour_BC7E4264_AB40_1B28_41DA_C6CB0CF9D725.source = http://www.busanit.or.kr/
+LinkBehaviour_C998A49B_D48C_F833_41E2_4F1405F6279D.source = http://bmac.kr/02_test/test01.asp
+LinkBehaviour_CE1C0E9B_D484_A833_41EA_9A41FD9D3DD3.source = https://www.baeulang.kr/content/complex_room.php
+LinkBehaviour_CEC9043B_D485_B872_41D4_7E0E72D80DB3.source = https://www.baeulang.kr/content/complex_equip.php
+LinkBehaviour_CEE2080A_D48C_E81D_41E0_129A596A365A.source = https://www.baeulang.kr/content/complex_room.php
+LinkBehaviour_CF47264F_D485_B812_41E0_B9A438FC467C.source = http://bmac.kr/02_test/test02.asp
+LinkBehaviour_CF8FA433_E408_9EC4_41C0_204E1A71B253.source = https://www.ajsellcar.co.kr/sellmycar/sellMycar.do?incomingcode=195&_C_=89&ACE_REF=adwords_g&ACE_KW=aj%EC%85%80%EC%B9%B4&gclid=Cj0KCQjw5PGFBhC2ARIsAIFIMNcxSxSCwpznKv32EpN-G0eslX99hTPAxzPJSJyGNlf2Uj9PD5JUZeMaAlizEALw_wcB
+PopupWebFrameBehaviour_30303FE2_2C41_FCBA_41B1_6559AB8F7335.url = https://sketchfab.com/models/ec6e1c7a9d5b4c5f9a192b40fa8afec7/embed
+PopupWebFrameBehaviour_303E4FE0_2C41_FCB6_41C3_3C68A52DB427.url = //www.youtube.com/embed/pSYq1B8oQQA
+PopupWebFrameBehaviour_86A4EDF3_88EE_CF51_41E0_0CE271356758.url = //www.youtube.com/embed/BrX6a7ePc9U?v=BrX6a7ePc9U
+PopupWebFrameBehaviour_9F50298F_895A_D7B0_41DB_1C869352F54B.url = //www.youtube.com/embed/BrX6a7ePc9U?v=BrX6a7ePc9U
+PopupWebFrameBehaviour_CFE01436_E408_9ECC_41EB_7BAF7D9FCFCD.url = //www.youtube.com/embed/pSYq1B8oQQA
+PopupWebFrameBehaviour_CFE51438_E408_9EC4_41D8_3B6A73890BBC.url = https://sketchfab.com/models/ec6e1c7a9d5b4c5f9a192b40fa8afec7/embed

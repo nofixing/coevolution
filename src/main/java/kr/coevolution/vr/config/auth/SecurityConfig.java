@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/m.do","/email","/upload/**", "/mgnt/login","/files/**", "/comm/code","/zoom_use_yn").permitAll()
                 .antMatchers("/vr/vr_corp_sh","/vr/vr_login_form","/vr/vr_corp_form","/vr/vr_coslt_form","/vr/badge/insert","/vr/favorts/insert").permitAll()
                 .antMatchers("/google29c9c8f0fdf11de8.html").permitAll()
+                .antMatchers("/ieve2021/**").permitAll()
                 //.antMatchers("/vr/vr_coslt_form","/vr/vr_corp_form","/vr/conslt/delete","/vr/conslt/reply","/mail/send").permitAll() /* 테스트 후 삭제하기 */
                 //.antMatchers("/mypage/**").permitAll() /* 테스트 후 삭제하기 */
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name())

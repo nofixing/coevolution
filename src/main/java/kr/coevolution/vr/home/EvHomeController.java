@@ -157,6 +157,20 @@ public class EvHomeController {
         return "/map";
     }
 
+
+    /**
+     * 버추얼전시관
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping("/index/ieve2021")
+    public String ieve2021(Model model, HttpServletRequest request) {
+        String return_url = "/ieve2021";
+
+        return return_url;
+    }
+
     /**
      * 로그인
      * @param model
