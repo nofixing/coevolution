@@ -359,6 +359,20 @@ public class EvHomeController {
         String agree_2 = StringUtils.nvl(evMemberJoinForm3.getAgree_2(),"N");
         String agree_3 = StringUtils.nvl(evMemberJoinForm3.getAgree_3(),"N");
 
+        /* 연령대 */
+        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+        evCommCodeRequestDto.setUpper_cd_id("204000");
+        List<EvCommCodeResponseDto> ageList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        model.addAttribute("ageList", ageList);
+
+        /* 연령대 */
+        evCommCodeRequestDto = new EvCommCodeRequestDto();
+        evCommCodeRequestDto.setUpper_cd_id("205000");
+        List<EvCommCodeResponseDto> visitPupsList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        model.addAttribute("visitPupsList", visitPupsList);
+
         /* 필수약관동의가 'N'인 경우 */
         if("N".equals(agree_1) || "N".equals(agree_2)) {
             model.addAttribute("agree_yn", "N");

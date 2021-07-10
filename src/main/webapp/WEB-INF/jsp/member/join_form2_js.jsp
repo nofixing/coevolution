@@ -28,7 +28,6 @@ $(document).ready(function() {
 
 	//이벤트
 	$('#btnSignUp').on('click', function () {
-		//로그인체크
 
 		/* 필수항목 체크 */
 		var chk = '['

@@ -61,8 +61,4 @@ $(document).ready(function() {
 
 });
 
-function fnPrtpct() {
-    alert("기업참가(부스)등록 기간이 아닙니다.");
-}
-
 </script>

@@ -8,6 +8,7 @@ import lombok.Setter;
 public class EvCommCodeRequestDto {
     private String cd_id;
     private String cd_nm;
+    private String cd_nm_en;
     private String upper_cd_id;
     private String cd_val1;
     private String cd_val2;

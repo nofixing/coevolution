@@ -80,23 +80,23 @@ function fnSearch() {
 			lFormValue = message;
 
 			/* 국가코드 */  
-			setSelectOption("country_cd", message.countrylist, "", "선택");
-			setValue("country_cd", "212032");
+			setSelectOption("country_cd", message.countrylist, "", "<spring:message code='join_form2.optional' text='선택'/>","","${sessionScope.LANG}");
+			setValue("country_cd", "212029");
 
 			/* 관심분야 */
-			setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 종사분야 */
-			setCheckRadioList("checkbox", "S", message.list2, "list2", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list2, "list2", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 업무(구매)권한 */
-			setCheckRadioList("checkbox", "S", message.list3, "list3", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list3, "list3", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 방문목적 */
-			setCheckRadioList("checkbox", "S", message.list4, "list4", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list4, "list4", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 인지경로 */
-			setCheckRadioList("checkbox", "S", message.list5, "list5", "<li>", "</li>");			
+			setCheckRadioList("checkbox", "S", message.list5, "list5", "<li>", "</li>","${sessionScope.LANG}");			
 			
 		} else {
 			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
@@ -308,15 +308,34 @@ function fnSignUp() {
 		console.log("message : " + message.result_code);
 
 		if(message.result_code == 0) {
-			var msg = "회원가입이 완료되었습니다. <br><br>";
-			msg += "참관등록하신 분들을 대상으로 <span style='color:red; font-weight:bold'>뱃지(10)</span>를 지급해드립니다. <br>";
-			msg += "뱃지는 제8회 국제전기자동차엑스포의 비추얼전시관 부스에 사용할 수 있습니다.   <br><br>";
-			msg += "주제/국가별 부스에 EV포인트 부여 시 추첨을 통해 경품 기회 제공합니다. <br>";
-			msg += "※ 지급된 뱃지는 마이페이지에서 확인가능합니다.<br>";
-            
-			gfnAlert ("alert", "회원가입완료", msg, function(rtnValue){
-				document.location.href="/member/login_form";
-			});
+			var msg = "";
+
+			<c:if test="${sessionScope.LANG eq 'en'}">
+
+				msg += "Your Visitor registration has been completed. <br><br>";
+				msg += "We provide <span style='color:red; font-weight:bold'>10 badges</span>for those who registered to the 8th Virtual IEVE(International Electric Vehicle Expo).<br>";
+				msg += "Badges can be used at the Virtual Exhibition Hall booth at the 8th IEVE.<br><br>";
+				msg += "If you give points to booths, you will get a chance to win a prize through a raffle. <br>";
+				msg += "※ You can check the provided badges on My Page.<br>";
+
+				gfnAlert ("alert", "Register Completed", msg, function(rtnValue){
+					document.location.href="/member/login_form";
+				});
+
+			</c:if>
+			<c:if test="${sessionScope.LANG ne 'en'}">
+
+				msg += "회원가입이 완료되었습니다. <br><br>";
+				msg += "참관등록하신 분들을 대상으로 <span style='color:red; font-weight:bold'>뱃지(10)</span>를 지급해드립니다. <br>";
+				msg += "뱃지는 제8회 국제전기자동차엑스포의 비추얼전시관 부스에 사용할 수 있습니다.   <br><br>";
+				msg += "주제/국가별 부스에 EV포인트 부여 시 추첨을 통해 경품 기회 제공합니다. <br>";
+				msg += "※ 지급된 뱃지는 마이페이지에서 확인가능합니다.<br>";
+
+				gfnAlert ("alert", "회원가입완료", msg, function(rtnValue){
+					document.location.href="/member/login_form";
+				});
+
+			</c:if>
 			
 		} else if(message.result_code == 1) {            
 			alert("이전 비밀번호와 현재 비밀번호가 같습니다.");

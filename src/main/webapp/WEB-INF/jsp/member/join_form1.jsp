@@ -61,7 +61,7 @@
                                 
                                 <div class="card-item-name text-center">
                                 <c:if test="${sessionScope.LANG eq 'en'}">
-                                  <h5>Admission</br>registration</h5>
+                                  <h5>Visitor<br>Registration</h5>
                                 </c:if>
                                 <c:if test="${sessionScope.LANG ne 'en'}">                                
                                   <h5>참관등록</h5>
@@ -77,7 +77,7 @@
                           <div class="form-flex-item">
                 
                             <!-- Card -->
-                            <a href="javascript:fnPrtpct()" class="card">
+                            <a href="http://www.ievexpo.org/site/ieve2018/kor/contents/index.php?mid=0310" target="_blank" class="card">
                               
                               <!-- Body -->
                               <div class="form_card">
@@ -93,10 +93,10 @@
                                 <!-- Title -->
                                 <div class="card-item-name text-center bg-dark">
                                     <c:if test="${sessionScope.LANG eq 'en'}">
-                                      <h5>Register Participating Companies</h5>
+                                      <h5>Exhibitor<br>Registration</h5>
                                     </c:if>
                                     <c:if test="${sessionScope.LANG ne 'en'}">                                
-                                      <h5>기업 참가(부스) 등록</h5>
+                                      <h5>기업 부스 신청</h5>
                                     </c:if>
                                 </div>
                               

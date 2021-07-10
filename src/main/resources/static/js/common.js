@@ -206,12 +206,12 @@ function gfnAlert (pType, pTitle, pContents, callback) {
 	  modlContents += '  <div class="modal-dialog modal-dialog-centered" role="document">';
       modlContents += '    <div class="modal-content">';
       modlContents += '      <div class="modal-header">';
-      modlContents += '         <h4 class="modal-title text-white" id="myModalLabel">'+pTitle+'</h4>';
+      modlContents += '         <h4 class="modal-title" id="myModalLabel">'+pTitle+'</h4>';
       modlContents += '         <button type="button" class="close" data-dismiss="modal" aria-label="Close">';
       modlContents += '           <span aria-hidden="true">&times;</span>';
       modlContents += '         </button>';
       modlContents += '      </div>';
-      modlContents += '      <div class="modal-body">';
+      modlContents += '      <div class="modal-body border pt-3">';
       modlContents += pContents
       modlContents += '      </div>';
       modlContents += '      <div class="modal-footer" id="showFooter">';
@@ -935,7 +935,7 @@ function gfnSetUnCheck(pId) {
  * @param {*} pId 
  * @param {*} pOptionList 
  */
-function setSelectOption(pId, pOptionList, pAddValue, pAddName, pForm) {
+function setSelectOption(pId, pOptionList, pAddValue, pAddName, pForm, pLang) {
 
   if(pForm != "") {
 	$("form[name='"+pForm +  "'] select[name='"+pId+"'] option").remove();
@@ -946,7 +946,11 @@ function setSelectOption(pId, pOptionList, pAddValue, pAddName, pForm) {
   }
 
   for(var i = 0; i < pOptionList.length; i++) {
-    $("#"+pId).append("<option value='"+pOptionList[i].cd_id+"'>"+pOptionList[i].cd_nm+"</option>");
+	  if(pLang == "en")	{
+	    $("#"+pId).append("<option value='"+pOptionList[i].cd_id+"'>"+pOptionList[i].cd_nm_en+"</option>");
+	  } else {
+		$("#"+pId).append("<option value='"+pOptionList[i].cd_id+"'>"+pOptionList[i].cd_nm+"</option>");
+	  }
   } 
 
 }
@@ -959,10 +963,14 @@ function setSelectOption(pId, pOptionList, pAddValue, pAddName, pForm) {
  * @param {*} valueList 
  * @param {*} pId 
  */
-function setCheckRadioList(pClsf, vPrefix, valueList, pId, startHtml, endHtml) {
+function setCheckRadioList(pClsf, vPrefix, valueList, pId, startHtml, endHtml, pLang) {
   var vHtml = "";
   for(var i = 0; i < valueList.length; i++) {
-    vHtml += startHtml+"<input type='"+pClsf+"' name='"+vPrefix + valueList[i].upper_cd_id+"' id='"+vPrefix + valueList[i].cd_id+"' value='"+valueList[i].cd_id+"'> <label for='"+vPrefix + valueList[i].cd_id+"'><span></span><p>"+valueList[i].cd_nm+"</p></label>"+endHtml;
+	  if(pLang == "en")	{
+		vHtml += startHtml+"<input type='"+pClsf+"' name='"+vPrefix + valueList[i].upper_cd_id+"' id='"+vPrefix + valueList[i].cd_id+"' value='"+valueList[i].cd_id+"'> <label for='"+vPrefix + valueList[i].cd_id+"'><span></span><p>"+valueList[i].cd_nm_en+"</p></label>"+endHtml;
+	  } else {
+	    vHtml += startHtml+"<input type='"+pClsf+"' name='"+vPrefix + valueList[i].upper_cd_id+"' id='"+vPrefix + valueList[i].cd_id+"' value='"+valueList[i].cd_id+"'> <label for='"+vPrefix + valueList[i].cd_id+"'><span></span><p>"+valueList[i].cd_nm+"</p></label>"+endHtml;
+	  }
   }
 
   $("#"+pId).html(vHtml);  
