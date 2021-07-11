@@ -37,7 +37,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              상담이력
+              <spring:message code="left.menu.meeting.history" text="상담이력"/> 
             </h5>
 
           </div>
@@ -48,10 +48,10 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              상담이력
+              <spring:message code="left.menu.meeting.history" text="상담이력"/> 
             </span>            
           
           </div>
@@ -80,7 +80,7 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  상담이력
+                  <spring:message code="left.menu.meeting.history" text="상담이력"/> 
                 </strong>
               </h3>
 
@@ -92,21 +92,21 @@
 
                     <div class="border m-2 pt-3 div-sum">
                         <div style="height:4.5rem">                                
-                            <h6 class="m-0"><b><span>채팅수</span></b></h6>
+                            <h6 class="m-0"><b><span><spring:message code="form.meet.meetings" text="채팅수"/> </span></b></h6>
                             <h3 class="m-0"><b><span id="chat_cnt"></span></b></h3>
                         </div>
                     </div>
 
                     <div class="border m-2 pt-3 div-sum">
                         <div style="height:4.5rem">
-                            <h6 class="m-0"><b><span>상담 예약 건수</span></b></h6>
+                            <h6 class="m-0"><b><span><spring:message code="form.meet.reservations" text="상담 예약 건수"/></span></b></h6>
                             <h3 class="m-0"><b><span id="consult_cnt"></span></b></h3>
                         </div>
                     </div>
 
                     <div class="border m-2 pt-3 div-sum">
                         <div style="height:4.5rem">
-                            <h6 class="m-0"><b><span>상담 예약 총 시간</span></b></h6>
+                            <h6 class="m-0"><b><span><spring:message code="form.meet.total.meeting.hours" text="상담 예약 총 시간"/></span></b></h6>
                             <h3 class="m-0"><b><span id="consult_time"></span></b></h3>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                             <textarea class="form-control form-control-sm" id="taMsgSnd" maxlength=1000 row=3></textarea>
                         </div>
                         <div class="pt-2 d-flex justify-content-end" id="nav-tabContent">
-                            <button type="button" class="basic-btn" style="width: 6rem;" id="btnMsgSnd">전송</button>
+                            <button type="button" class="basic-btn" style="width: 6rem;" id="btnMsgSnd"><spring:message code="form.send" text="전송"/></button>
                         </div>
                     </div>
                 </div>

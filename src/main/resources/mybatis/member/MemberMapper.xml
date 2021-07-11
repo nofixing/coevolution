@@ -111,7 +111,7 @@
             , cust_id as user_id
             , cust_clsf_cd
             , cust_sts_cd
-            , (select cd_nm from ev_comm_code where cd_id = a.cust_sts_cd) as cust_sts_nm
+            , (select case when #{lang} = 'en' then cd_nm_en else cd_nm end from ev_comm_code where cd_id = a.cust_sts_cd) as cust_sts_nm
             , cust_nm
             , company_nm
             , dept_nm

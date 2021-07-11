@@ -36,14 +36,14 @@
 
             <!-- Heading -->
             <div class="modal-header p-3  text-center">
-                <h2 class="text-center" style="width:100%;">참가업체조회</h2>
+                <h2 class="text-center" style="width:100%;"><spring:message code="form.meet.exhibitor.booth" text="참가업체"/> <spring:message code="form.search" text="조회"/></h2>
             </div>              
 
             <div class="input-group pb-3">
                 <input type="text" class="form-control form-control-sm p-1" id="consultCustNm" name="consultCustNm" value="${consultCustNm}">
                 <input type="hidden" id="search_yn" name="search_yn" value="Y"/>
                 <div class="input-group-append">
-                    <button class="basic-btn" type="button" id="btnCustInfo">참가업체조회</button>
+                    <button class="basic-btn" type="button" id="btnCustInfo"><spring:message code="form.meet.company.search" text="참가업체조회"/></button>
                 </div>
             </div>
 
@@ -51,9 +51,9 @@
             <div style="overflow: auto;height:360px">
                 <table class="basic-table-fix table-sm" id="tbList">
                     <tr>
-                        <th style="width:15%"><span>번호</span></th>
-                        <th style="width:55%"><span>업체명</span></th>
-                        <th style="width:30%"><span>아이디</span></th>
+                        <th style="width:15%"><span><spring:message code="form.favorite.booths.no" text="번호"/></span></th>
+                        <th style="width:55%"><span><spring:message code="form.meet.exhibitor" text="업체명"/></span></th>
+                        <th style="width:30%"><span><spring:message code="left.menu.login.id" text="아이디"/></span></th>
                     </tr>
 
                     <c:forEach var="list" items="${custList}" varStatus="status">
@@ -68,7 +68,7 @@
 
                     <c:if test="${fn:length(custList) eq 0}">
                     <tr>
-                        <td class="text-center" colspan="3">조회된 내역이 없습니다.</td>
+                        <td class="text-center" colspan="3"><spring:message code="form.no.search" text="조회된 내용이 없습니다."/></td>
                     </tr>
                     </c:if>
                     
@@ -79,7 +79,7 @@
             <div class="form-group bt-1">
                 <div class="text-center text-md-center" style="padding-top: 1.0rem;">
                     <button type="button" class="basic-btn" style="width: 7rem;background:#bebebe" id="btnClose">
-                        닫기
+                        <spring:message code="form.close" text="닫기"/>
                     </button>
                 </div> 
             </div>

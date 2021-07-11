@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script language="javascript">
 
@@ -50,22 +53,22 @@ function fnSearch() {
 			lFormValue = message;
 
 			/* 국가코드 */  
-			setSelectOption("country_cd", message.countrylist);
+			setSelectOption("country_cd", message.countrylist, "", "<spring:message code='join_form2.optional' text='선택'/>","","${sessionScope.LANG}");
 
 			/* 관심분야 */
-			setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 종사분야 */
-			setCheckRadioList("checkbox", "S", message.list2, "list2", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list2, "list2", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 업무(구매)권한 */
-			setCheckRadioList("checkbox", "S", message.list3, "list3", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list3, "list3", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 방문목적 */
-			setCheckRadioList("checkbox", "S", message.list4, "list4", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list4, "list4", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 인지경로 */
-			setCheckRadioList("checkbox", "S", message.list5, "list5", "<li>", "</li>");			
+			setCheckRadioList("checkbox", "S", message.list5, "list5", "<li>", "</li>","${sessionScope.LANG}");			
 
 			/* 필드값입력 */
 			var pFieldArry = ["cust_id","cust_nm","email_id","addr_1","addr_2","tel_no","hp_no","company_nm","dept_nm","posn_nm","country_cd","city_nm","rcmder_cust_id","ins_dt","cust_sts_nm"];
@@ -88,16 +91,16 @@ function fnSearch() {
 
 			/* 개인정보수집이용동의 */
 			if(message.custInfo[0].agree_1 == "Y") {
-				setValue("agree_1", "동의");
+				setValue("agree_1", "<spring:message code='form.myinfo.update.agree' text='동의'/>");
 			} else {
-				setValue("agree_1", "미동의");
+				setValue("agree_1", "<spring:message code='form.myinfo.update.disagree' text='미동의'/>");
 			}
 
 			/* 마케팅활용동의 */
 			if(message.custInfo[0].agree_3 == "Y") {
-				setValue("agree_3", "동의");
+				setValue("agree_3", "<spring:message code='form.myinfo.update.agree' text='동의'/>");
 			} else {
-				setValue("agree_3", "미동의");
+				setValue("agree_3", "<spring:message code='form.myinfo.update.disagree' text='미동의'/>");
 			}
 
 		} else {

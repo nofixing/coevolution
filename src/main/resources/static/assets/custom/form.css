@@ -1428,12 +1428,12 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     font-size:14px;
     font-weight:700;
     display:table-cell;
-    width:50%;
+    width:100%;
     text-align:center;
     padding:0 5px;
 }
 .member-info dl dd{
-    font-size:12px;
+    font-size:14px;
     display:table-cell;
     text-align:left;
     padding:0 5px;

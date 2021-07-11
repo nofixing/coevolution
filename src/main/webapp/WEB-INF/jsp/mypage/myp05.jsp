@@ -24,7 +24,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              비밀번호 변경
+              <spring:message code="left.menu.change.password" text="비밀번호 변경"/>
             </h5>
 
           </div>
@@ -35,10 +35,10 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              비밀번호 변경
+              <spring:message code="left.menu.change.password" text="비밀번호 변경"/>
             </span>            
           
           </div>
@@ -65,16 +65,28 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  비밀번호 변경
+                  <spring:message code="left.menu.change.password" text="비밀번호 변경"/>
                 </strong>
               </h3>
 
               <div class="form-row col-sm-12 pt-2 pl-2 mb-4">
                 <div class="col-sm-12 text-center"> 
-                  고객님의 개인정보보호와 안전한 사용을 위해 90일 마다
+                  <c:if test="${sessionScope.LANG ne 'en'}">
+                    고객님의 개인정보보호와 안전한 사용을 위해 90일 마다
+                  </c:if>
+                  <c:if test="${sessionScope.LANG eq 'en'}">
+                    Please change the password for your privacy and safe use.
+                  </c:if>
+                  
                 </div>
                 <div class="col-sm-12 text-center"> 
-                  비밀번호 변경을 권장하고 있으니 비밀번호를 변경해 주시기 바랍니다.
+                  <c:if test="${sessionScope.LANG ne 'en'}">
+                    비밀번호 변경을 권장하고 있으니 비밀번호를 변경해 주시기 바랍니다.
+                  </c:if>
+                  <c:if test="${sessionScope.LANG eq 'en'}">
+                    We recommend to change the password every 90 days.
+                  </c:if>
+                  
                 </div>
               </div>
               
@@ -82,7 +94,7 @@
                 <div class="form-style-small">
                   <div class="form-group">
                     <div class="input-group">
-                      <input type="password" class="form-control order-1" placeholder="현재 비밀번호" id="user_current_pw">
+                      <input type="password" class="form-control order-1" placeholder="<spring:message code='form.pw.current' text='현재 비밀번호'/>" id="user_current_pw">
                       <div class="input-group-append order-0">
                         <div class="input-group-text">
                           <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -95,7 +107,7 @@
   
                   <div class="form-group">
                     <div class="input-group">
-                      <input type="password" class="form-control order-1" placeholder="새 비밀번호" id="user_change_pw1">
+                      <input type="password" class="form-control order-1" placeholder="<spring:message code='form.pw.new' text='새 비밀번호'/>" id="user_change_pw1">
                       <div class="input-group-append order-0">
                         <div class="input-group-text">
                           <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -108,7 +120,7 @@
   
                   <div class="form-group">
                     <div class="input-group">
-                      <input type="password" class="form-control order-1" placeholder="새 비밀번호 확인" id="user_change_pw2">
+                      <input type="password" class="form-control order-1" placeholder="<spring:message code='form.pw.new.confirm' text='새 비밀번호 확인'/>" id="user_change_pw2">
                       <div class="input-group-append order-0">
                         <div class="input-group-text">
                           <svg class="input-group-icon icon-offset icon icon-lock" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -122,13 +134,37 @@
 
                 <div class="form-group">
                   <div class="input-group">
-                    <li>비밀번호는 영문, 숫자, 특수문자를 혼용하여 6~12자 이내로 입력해주세요.</li>
+                    <li>
+                      <c:if test="${sessionScope.LANG ne 'en'}">
+                        비밀번호는 영문, 숫자, 특수문자를 혼용하여 6~12자 이내로 입력해주세요.
+                      </c:if>
+                      <c:if test="${sessionScope.LANG eq 'en'}">
+                        Enter the password within 6 to 12 characters by mixing English, numbers, and special characters.
+                      </c:if>
+                      
+                    </li>
                   </div>  
                   <div class="input-group">
-                    <li>아이디와 동일한 비밀번호는 사용할 수 없습니다.</li>
+                    <li>
+                      <c:if test="${sessionScope.LANG ne 'en'}">
+                        아이디와 동일한 비밀번호는 사용할 수 없습니다.
+                      </c:if>
+                      <c:if test="${sessionScope.LANG eq 'en'}">
+                        You cannot use the same password as your ID.
+                      </c:if>
+                      
+                    </li>
                   </div>
                   <div class="input-group">
-                    <li>현재 비밀번호와 다른 비밀번호를 사용하세요.</li>
+                    <li>
+                      <c:if test="${sessionScope.LANG ne 'en'}">
+                        현재 비밀번호와 다른 비밀번호를 사용하세요.
+                      </c:if>
+                      <c:if test="${sessionScope.LANG eq 'en'}">
+                        Use different password than your current password.
+                      </c:if>
+                      
+                    </li>
                   </div>                                        
                 </div>                
               
@@ -138,7 +174,7 @@
                     <!-- Button -->
                     <div class="text-center text-md-right p-1">
                       <button type="button" class="basic-btn" style="width:7rem" id="btnChange">
-                        변경하기
+                        <spring:message code="form.pw.new.change" text="변경하기"/>
                       </button>
                     </div>
   

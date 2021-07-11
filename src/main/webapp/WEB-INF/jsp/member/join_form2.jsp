@@ -23,7 +23,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              참관등록
+              <spring:message code="join_form2.visitor.registration" text="참관등록"/>
             </h5>
 
           </div>

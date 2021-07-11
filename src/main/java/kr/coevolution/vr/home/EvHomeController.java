@@ -366,7 +366,7 @@ public class EvHomeController {
 
         model.addAttribute("ageList", ageList);
 
-        /* 연령대 */
+        /* 방문목적 */
         evCommCodeRequestDto = new EvCommCodeRequestDto();
         evCommCodeRequestDto.setUpper_cd_id("205000");
         List<EvCommCodeResponseDto> visitPupsList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
@@ -750,6 +750,20 @@ public class EvHomeController {
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        /* 연령대 */
+        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+        evCommCodeRequestDto.setUpper_cd_id("204000");
+        List<EvCommCodeResponseDto> ageList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        model.addAttribute("ageList", ageList);
+
+        /* 방문목적 */
+        evCommCodeRequestDto = new EvCommCodeRequestDto();
+        evCommCodeRequestDto.setUpper_cd_id("205000");
+        List<EvCommCodeResponseDto> visitPupsList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        model.addAttribute("visitPupsList", visitPupsList);
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
             returnUrl = "/member/login_form";

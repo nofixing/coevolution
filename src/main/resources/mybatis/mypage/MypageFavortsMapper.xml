@@ -6,18 +6,20 @@
             resultType="kr.coevolution.vr.mypage.dto.EvMypageFavortsResponseDto">
 
         /* 마이페이지 개인 부스 즐겨찾기*/
-        SELECT ROW_NUMBER() OVER() as rn
-             , a.favorts_id
-             , a.cust_id
-             , a.favorts_cust_id
-             , CONCAT(nvl((select concat(cd_nm,' > ') from ev_comm_code where cd_id = b.category1),''), b.cust_nm) AS favorts_cust_nm
-             , nvl((select cd_val1 from ev_comm_code where cd_id = b.category1),"#!") as shortcut_url /* 바로가기 */
-          FROM ev_cust_favorts a
-             , ev_cust_mst b
-         WHERE a.favorts_cust_id = b.cust_id
-           and a.del_yn = 'N'
-           AND a.cust_id = #{cust_id}
-         ORDER BY a.ins_dtm DESC
+        select *
+           from (
+                    SELECT ROW_NUMBER() OVER(order by a.ins_dtm desc) as rn
+                         , a.favorts_id
+                         , a.cust_id
+                         , a.favorts_cust_id
+                         , CONCAT(nvl((select concat(cd_nm,' > ') from ev_comm_code where cd_id = b.category1),''), b.cust_nm) AS favorts_cust_nm
+                         , nvl((select cd_val1 from ev_comm_code where cd_id = b.category1),"#!") as shortcut_url /* 바로가기 */
+                      FROM ev_cust_favorts a
+                         , ev_cust_mst b
+                     WHERE a.favorts_cust_id = b.cust_id
+                       and a.del_yn = 'N'
+                       AND a.cust_id = #{cust_id}
+                ) a
          LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>

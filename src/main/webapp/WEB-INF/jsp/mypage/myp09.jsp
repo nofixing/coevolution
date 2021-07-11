@@ -45,7 +45,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              상담신청
+              <spring:message code="left.menu.meeting.reservation" text="상담신청"/>
             </h5>
 
           </div>
@@ -56,10 +56,10 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              상담신청
+              <spring:message code="left.menu.meeting.reservation" text="상담신청"/>
             </span>            
           
           </div>
@@ -88,7 +88,7 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  상담신청
+                  <spring:message code="left.menu.meeting.reservation" text="상담신청"/>
                 </strong>
               </h3>
 
@@ -99,26 +99,36 @@
                 <div class="col-md col-sm-12 pt-1 pr-0 d-flex justify-content-end">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill purple-100-color" viewBox="0 0 16 16">
                       <path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-                    </svg> 상담신청
+                    </svg> <spring:message code="form.meet.req" text="상담신청"/>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill yellow-200-color" viewBox="0 0 16 16">
                       <path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-                    </svg> 상담확정
+                    </svg> <spring:message code="form.meet.fix.meet" text="상담확정"/>
                 </div>
 
                 <!--상담시간설정-->
                 <div class="form-row align-items-center pb-3">
                     <div class="col-md-2 col-sm-12 pt-1">
-                        <span class="form-control form-control-sm" style="background-color:#f7f7f7">타임존</span>
+                        <span class="form-control form-control-sm" style="background-color:#f7f7f7"><spring:message code="form.meet.timezone" text="타임존"/></span>
                     </div>
 
                     <div class="col-md-3 col-sm-12 pt-1">
                         <select name="tiemzone_cd" id="tiemzone_cd" class="form-control form-control-sm" style="width: 11rem;">
                           <c:forEach var="list" items="${timezoneList}">
                             <c:if test="${tiemzone_cd eq list.cd_id}">
-                              <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                               <c:if test="${sessionScope.LANG ne 'en'}">
+                               <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                              </c:if>
+                              <c:if test="${sessionScope.LANG eq 'en'}">
+                                <option value="${list.cd_id}" selected>${list.cd_nm_en}</option>
+                              </c:if> 
                             </c:if>
                             <c:if test="${tiemzone_cd ne list.cd_id}">
-                              <option value="${list.cd_id}">${list.cd_nm}</option>
+                              <c:if test="${sessionScope.LANG ne 'en'}">
+                               <option value="${list.cd_id}">${list.cd_nm}</option>
+                              </c:if>
+                              <c:if test="${sessionScope.LANG eq 'en'}">
+                                <option value="${list.cd_id}">${list.cd_nm_en}</option>
+                              </c:if> 
                             </c:if>
                           </c:forEach>
                         </select>
@@ -130,8 +140,8 @@
                         <input type="text" class="form-control form-control-sm" id="consultCustNm" name="consultCustNm" readonly value="${consultCustNm}">
                         <input type="hidden" class="form-control form-control-sm" id="consultCustId" name="consultCustId" value="${consultCustId}">
                         <div class="input-group-append">
-                          <button class="basic-btn ml-1" type="button" id="btnCustInfo">참가업체</button>
-                          <button class="basic-btn ml-1" type="button" id="btnSearch">조회</button>
+                          <button class="basic-btn ml-1" type="button" id="btnCustInfo"><spring:message code="form.meet.exhibitor.booth" text="참가업체"/></button>
+                          <button class="basic-btn ml-1" type="button" id="btnSearch"><spring:message code="form.go.search" text="조회"/></button>
                         </div>
                       </div>
 

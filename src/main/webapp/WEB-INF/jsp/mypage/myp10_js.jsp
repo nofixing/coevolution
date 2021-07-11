@@ -18,7 +18,7 @@ $(document).ready(function() {
 		if(lSndCustId != "") {
 			fnSndMsg();
 		} else {
-			alert("좌측 상담내역 전송 대상을 선택하세요.");
+			alert("<spring:message code='form.meet.select.left' text='전송'/>");
 		}
 	});
 

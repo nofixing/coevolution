@@ -82,6 +82,7 @@ public class EvMypageMemberController {
             EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
             evMemberSearchDto.setUser_id(loginInfoDto.getCust_id());
             evMemberSearchDto.setCust_id(loginInfoDto.getCust_id());
+            evMemberSearchDto.setLang(StringUtils.nvl(httpSession.getAttribute("LANG"),"ko"));
 
             /* 고객정보조회 */
             List<EvMemberResposeDto> custInfo = evMemberService.search_cust_info(evMemberSearchDto);

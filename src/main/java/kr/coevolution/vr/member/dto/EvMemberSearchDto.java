@@ -9,6 +9,7 @@ public class EvMemberSearchDto {
     /* 고객id/로그인id */
     private String cust_id;
     private Long cust_seq;
+    private String lang;
 
     /* 패스워드 */
     private String cust_pw;

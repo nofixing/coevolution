@@ -108,45 +108,46 @@
     <select id="S04_BADGE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
             resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
         /* 기업 뱃지 적립내역 */
-        SELECT ROW_NUMBER() OVER() as rn
-        , a.badge_id
-        , a.cust_id
-        , ecm.cust_nm
-        , a.give_cust_id
-        , case when a.badge_clsf_cd in ('211001','211002') then '부여'
-                when a.badge_clsf_cd in ('211003') then '사용'
-                when a.badge_clsf_cd in ('211004') then '회수'
-          end AS badge_clsf_nm
-        , concat (nvl(
-            (select cd_nm from ev_comm_code where cd_id = a.badge_clsf_cd)
-            ,''),
-            case when a.badge_clsf_cd = '211002' then concat(a.give_cust_id, ' 등록')
-                when a.badge_clsf_cd = '211001' then '뱃지부여'
-                when a.badge_clsf_cd in ('211003','211004') then
-                    concat(' ', nvl((select cd_nm from ev_comm_code ecc where cd_id = ecm.category1), ''), ' ', ecm.cust_nm)
-            end
-          ) AS badge_conts
-        , case when a.badge_clsf_cd IN ('211001','211002','211004') then a.badge_cnt ELSE 0 END AS badge_recv_cnt
-        , case when a.badge_clsf_cd IN ('211003') then a.badge_cnt ELSE 0 END AS badge_use_cnt
-        , date_format(a.ins_dtm,'%Y-%m-%d') AS ins_dt
-        FROM ev_cust_badge a
-        left outer join ev_cust_mst ecm
-        on a.cust_id = ecm.cust_id
-        WHERE a.give_cust_id = #{cust_id}
-        AND date_format(a.ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        select *
+          from (
+                    SELECT ROW_NUMBER() OVER(order by a.ins_dtm) as rn
+                    , a.badge_id
+                    , a.cust_id
+                    , ecm.cust_nm
+                    , a.give_cust_id
+                    , case when a.badge_clsf_cd in ('211001','211002') then '부여'
+                            when a.badge_clsf_cd in ('211003') then '사용'
+                            when a.badge_clsf_cd in ('211004') then '회수'
+                      end AS badge_clsf_nm
+                    , concat (nvl(
+                        (select cd_nm from ev_comm_code where cd_id = a.badge_clsf_cd)
+                        ,''),
+                        case when a.badge_clsf_cd = '211002' then concat(a.give_cust_id, ' 등록')
+                            when a.badge_clsf_cd = '211001' then '뱃지부여'
+                            when a.badge_clsf_cd in ('211003','211004') then
+                                concat(' ', nvl((select cd_nm from ev_comm_code ecc where cd_id = ecm.category1), ''), ' ', ecm.cust_nm)
+                        end
+                      ) AS badge_conts
+                    , case when a.badge_clsf_cd IN ('211001','211002','211004') then a.badge_cnt ELSE 0 END AS badge_recv_cnt
+                    , case when a.badge_clsf_cd IN ('211003') then a.badge_cnt ELSE 0 END AS badge_use_cnt
+                    , date_format(a.ins_dtm,'%Y-%m-%d') AS ins_dt
+                    FROM ev_cust_badge a
+                    left outer join ev_cust_mst ecm
+                    on a.cust_id = ecm.cust_id
+                    WHERE a.give_cust_id = #{cust_id}
+                    AND date_format(a.ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
 
-        <if test="slt_badge_clsf != null and slt_badge_clsf != ''">
-            <choose>
-                <when test="slt_badge_clsf == '211001'">
-                    and a.badge_clsf_cd in ('211001','211002')
-                </when>
-                <otherwise>
-                    and a.badge_clsf_cd = #{slt_badge_clsf}
-                </otherwise>
-            </choose>
-        </if>
-
-        ORDER BY a.ins_dtm DESC
+                    <if test="slt_badge_clsf != null and slt_badge_clsf != ''">
+                        <choose>
+                            <when test="slt_badge_clsf == '211001'">
+                                and a.badge_clsf_cd in ('211001','211002')
+                            </when>
+                            <otherwise>
+                                and a.badge_clsf_cd = #{slt_badge_clsf}
+                            </otherwise>
+                        </choose>
+                    </if>
+            ) a
         LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>

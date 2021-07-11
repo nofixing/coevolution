@@ -25,7 +25,7 @@
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
               <strong>
-                관심 뱃지 내역
+                <spring:message code="top.all.menu.badge.of.interest" text="관심 뱃지 내역"/>
               </strong>
             </h5>
 
@@ -37,10 +37,10 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              관심 뱃지 내역
+              <spring:message code="top.all.menu.badge.of.interest" text="관심 뱃지 내역"/>
             </span>            
           
           </div>
@@ -67,7 +67,7 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  관심 뱃지 내역
+                  <spring:message code="top.all.menu.badge.of.interest" text="관심 뱃지 내역"/>
                 </strong>
               </h3>
 
@@ -80,7 +80,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
                       <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
                       <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                    </svg> 관심뱃지 <strong>${tot_badge}</strong>개
+                    </svg>
+
+                    <c:if test="${sessionScope.LANG ne 'en'}">
+                      관심뱃지 <strong>${tot_badge}</strong>개
+                    </c:if>
+                    <c:if test="${sessionScope.LANG eq 'en'}">
+                    <strong>${tot_badge}</strong> Badges
+                    </c:if> 
+                    
                   </h4>
                 </div>
 
@@ -98,14 +106,14 @@
                       <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
                     </div>                   
                     <div class="col-md-auto col-sm-12">
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch"><spring:message code="form.go.search" text="조회"/></button>
                     </div>
                     <div class="col-md-auto col-sm-12 ml-auto text-right search-tab">
                       <input type="hidden" name="slt_badge_clsf" id="slt_badge_clsf" value="${slt_badge_clsf}">
-                      <a id="slt_badge_clsf1" href="javascript:setBadgeClsf('', 'slt_badge_clsf1')"      <c:if test="${slt_badge_clsf eq '' || slt_badge_clsf eq null}">class="on"</c:if>>전체</a>
-                      <a id="slt_badge_clsf2" href="javascript:setBadgeClsf('211001','slt_badge_clsf2')" <c:if test="${slt_badge_clsf eq '211001'}">class="on"</c:if>>부여</a>
-                      <a id="slt_badge_clsf3" href="javascript:setBadgeClsf('211004','slt_badge_clsf3')" <c:if test="${slt_badge_clsf eq '211004'}">class="on"</c:if>>회수</a>
-                      <a id="slt_badge_clsf4" href="javascript:setBadgeClsf('211003','slt_badge_clsf4')" <c:if test="${slt_badge_clsf eq '211003'}">class="on"</c:if>>사용</a>
+                      <a id="slt_badge_clsf1" href="javascript:setBadgeClsf('', 'slt_badge_clsf1')"      <c:if test="${slt_badge_clsf eq '' || slt_badge_clsf eq null}">class="on"</c:if>><spring:message code="form.badges.search.clsf1" text="전체"/></a>
+                      <a id="slt_badge_clsf2" href="javascript:setBadgeClsf('211001','slt_badge_clsf2')" <c:if test="${slt_badge_clsf eq '211001'}">class="on"</c:if>><spring:message code="form.badges.search.clsf2" text="부여"/></a>
+                      <a id="slt_badge_clsf3" href="javascript:setBadgeClsf('211004','slt_badge_clsf3')" <c:if test="${slt_badge_clsf eq '211004'}">class="on"</c:if>><spring:message code="form.badges.search.clsf3" text="회수"/></a>
+                      <a id="slt_badge_clsf4" href="javascript:setBadgeClsf('211003','slt_badge_clsf4')" <c:if test="${slt_badge_clsf eq '211003'}">class="on"</c:if>><spring:message code="form.badges.search.clsf4" text="사용"/></a>
                     </div>
                   </div>
                 </form>            
@@ -113,10 +121,10 @@
                 <table class="table table-striped table-hover table-sm border-bottom">
                   <thead class="table-light">
                     <tr>
-                      <th scope="col" class="text-center">부여일(유효기간)</th>
-                      <th scope="col" class="text-center">내용</th>
-                      <th scope="col" class="text-center">뱃지 부여/회수</th>
-                      <th scope="col" class="text-center">뱃지 사용</th>
+                      <th scope="col" class="text-center"><spring:message code="form.badges.date" text="부여일"/></th>
+                      <th scope="col" class="text-center"><spring:message code="form.badges.contents" text="내용"/></th>
+                      <th scope="col" class="text-center"><spring:message code="form.badges.provided.withdrawn" text="뱃지 부여/회수"/></th>
+                      <th scope="col" class="text-center"><spring:message code="form.badges.use" text="뱃지 사용"/></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -133,7 +141,7 @@
                     </c:forEach>
                     <c:if test="${fn:length(list) == 0}">
                     <tr>
-                      <th scope="row" class="text-center" colspan="4">조회된 내용이 없습니다.</th>
+                      <th scope="row" class="text-center" colspan="4"><spring:message code="form.no.search" text="조회된 내용이 없습니다."/></th>
                     </tr>
                     </c:if>                    
                   </tbody>
