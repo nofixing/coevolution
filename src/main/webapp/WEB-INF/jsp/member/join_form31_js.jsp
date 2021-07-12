@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script language="javascript">
 
@@ -72,23 +75,23 @@ function fnSearch() {
 			lFormValue = message;
 
 			/* 국가코드 */  
-			setSelectOption("country_cd", message.countrylist);
-			setValue("country_cd", "212032");
+			setSelectOption("country_cd", message.countrylist, "", "<spring:message code='join_form2.optional' text='선택'/>","","${sessionScope.LANG}");
+			setValue("country_cd", "212029");
 
 			/* 관심분야 */
-			setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list1, "list1", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 종사분야 */
-			setCheckRadioList("checkbox", "S", message.list2, "list2", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list2, "list2", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 업무(구매)권한 */
-			setCheckRadioList("checkbox", "S", message.list3, "list3", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list3, "list3", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 방문목적 */
-			setCheckRadioList("checkbox", "S", message.list4, "list4", "<li>", "</li>");
+			setCheckRadioList("checkbox", "S", message.list4, "list4", "<li>", "</li>","${sessionScope.LANG}");
 
 			/* 인지경로 */
-			setCheckRadioList("checkbox", "S", message.list5, "list5", "<li>", "</li>");			
+			setCheckRadioList("checkbox", "S", message.list5, "list5", "<li>", "</li>","${sessionScope.LANG}");			
 			
 		} else {
 			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");

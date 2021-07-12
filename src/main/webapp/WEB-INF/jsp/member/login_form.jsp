@@ -23,7 +23,7 @@
             <div class="">
                 <div class="form login_form">
                     <div class="form_head">
-                        <p>로그인</p>
+                        <p><spring:message code="login.pw.login" text="로그인"/></p>
                     </div>
                     <div class="login_inner">
                         <div class="form_inner">

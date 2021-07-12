@@ -388,7 +388,7 @@ public class EvHomeController {
                 model.addAttribute("email_id2", email_id[1]);
                 return "/member/join_form31";
             } else {
-                return "/member/join_form3";
+                return "/member/join_form31";
             }
         }
     }
