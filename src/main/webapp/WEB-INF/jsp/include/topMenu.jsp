@@ -28,11 +28,15 @@
             <span>
             <c:choose>
                 <c:when test="${empty sessionScope.login_session.cust_nm}">
-                    로그인 해주세요
+                    <spring:message code="login.please.log.in" text="로그인 해주세요"/>
                 </c:when>
-
                 <c:otherwise>
+                  <c:if test="${sessionScope.LANG ne 'en'}">
                     ${sessionScope.login_session.cust_nm}님 반갑습니다.
+                  </c:if>
+                  <c:if test="${sessionScope.LANG eq 'en'}">
+                    Welcome to ${sessionScope.login_session.cust_nm}
+                  </c:if>
                 </c:otherwise>
             </c:choose>
             
@@ -87,7 +91,7 @@
                 <div class="m-menu-list">
                     <ul class="m-menu-depth">
                         <li>
-                            <a href="#!">관람가이드</a>
+                            <a href="#!"><spring:message code="top.view.guid" text="관람가이드"/></a>
                             <div class="m-menu-list-sub">
                                 <a href="#!">가이드영상</a>
                             </div>
@@ -111,7 +115,7 @@
                                 <a href="/mypage/myc01"><strong><spring:message code="top.mypage.register.booth.information" text="내 부스 정보 등록"/></strong></a>
                                 <a href="/mypage/favortscorp"><spring:message code="top.all.menu.favorite.history2" text="즐겨찾기 내역"/></a>
                                 <a href="/mypage/badgecorp"><spring:message code="top.all.menu.badge.accrual.history" text="뱃지 적립 내역"/></a>
-                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation.inquiry" text="상담문의 내역"/></a>
+                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation" text="1:1 상담"/></a>
                                 <a href="/mypage/myc05"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                                 <a href="/mypage/myp05"><spring:message code="top.all.menu.modify.my.password" text="비밀번호변경"/></a>
                                 <a href="/mypage/myp06"><spring:message code="top.all.menu.re-agree.privacy" text="개인정보 재동의"/></a>
@@ -125,7 +129,12 @@
                             <div class="m-menu-list-sub">
                                 <a href="/mypage/favorts"><spring:message code="top.all.menu.favorite.history1" text="부스 즐겨찾기 내역"/></a>
                                 <a href="/mypage/badge"><spring:message code="top.all.menu.badge.of.interest" text="관심 뱃지 내역"/></a>
-                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.list.of.enquiries" text="상담 문의 내역"/></a>
+
+                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation" text="1:1 상담"/></a>
+                                <a href="/mypage/myp08"><spring:message code="top.all.menu.meeting.reservation" text="상담신청현황"/></a>
+                                <a href="/mypage/myp09"><spring:message code="top.all.menu.meeting.request" text="상담신청"/></a>
+                                <a href="/mypage/myp10"><spring:message code="top.all.menu.meeting.history" text="상담이력"/></a>
+
                                 <a href="/mypage/myp04"><spring:message code="top.all.menu.modify.my.information" text="정보 수정"/></a>
                                 <a href="/mypage/myp05"><spring:message code="top.all.menu.modify.my.password" text="비밀번호변경"/></a>
                                 <a href="/mypage/myp06"><spring:message code="top.all.menu.re-agree.privacy" text="개인정보 재동의"/></a>

@@ -288,6 +288,7 @@ public class EvMypageMemberController {
         evMemberSearchDto.setCust_id(loginInfoDto.getCust_id());
 
         try {
+            evMemberSearchDto.setLang(StringUtils.nvl(httpSession.getAttribute("LANG"),"ko"));
             List<EvMemberResposeDto> memberResposeDto = evMemberService.search_cust_info(evMemberSearchDto);
 
             Map<String, String> pMap = new HashMap<String, String>();

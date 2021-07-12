@@ -24,7 +24,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              개인정보 재동의
+              <spring:message code="left.menu.extend.privacy" text="개인정보 재동의"/>
             </h5>
 
           </div>
@@ -35,10 +35,10 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              개인정보 재동의
+              <spring:message code="left.menu.extend.privacy" text="개인정보 재동의"/>
             </span>            
           
           </div>
@@ -67,30 +67,44 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  개인정보 재동의에 따른 약관 동의
+                  <spring:message code="left.menu.extend.privacy" text="개인정보 재동의"/>
                 </strong>
               </h3>
               
               <form class="form-styled">
 
                 <div class="register_section">
-                  <h4><strong>이용약관(필수)</strong></h4>
-                  <div class="register_section_area" id="agree_1_contents">${agree1_contents}</div>
+                  <h4><strong><spring:message code="terms.and.conditions" text="이용약관"/><spring:message code="join_form2.required" text="(필수)"/></strong></h4>
+                  <div class="register_section_area" id="agree_1_contents">
+                    <c:if test="${sessionScope.LANG ne 'en'}">
+                      ${agree1_contents}
+                    </c:if>
+                    <c:if test="${sessionScope.LANG eq 'en'}">
+                      ${agree1_contents_en}
+                    </c:if>  
+                  </div>
                   <div class="custom-control custom-checkbox">
                     <input type="checkbox" value="Y" name="agree_1" id="agree_1" class="custom-control-input">
-                    <label class="custom-control-label" for="agree_1">이용약관에 동의합니다.(필수)</label>
+                    <label class="custom-control-label" for="agree_1"><spring:message code="terms.and.conditions.agreement" text="이용약관에 동의합니다."/><spring:message code="join_form2.required" text="(필수)"/></label>
                   </div>
                 </div>
                 <div class="register_section">
-                  <h4><strong>개인정보처리방침안내(필수)</strong></h4>
-                  <div class="register_section_area" id="agree_2_contents">${agree2_contents}</div>
+                  <h4><strong><spring:message code="pirvate.policy" text="개인정보처리방침안내"/><spring:message code="join_form2.required" text="(필수)"/></strong></h4>
+                  <div class="register_section_area" id="agree_2_contents">
+                    <c:if test="${sessionScope.LANG ne 'en'}">
+                      ${agree2_contents}
+                    </c:if>
+                    <c:if test="${sessionScope.LANG eq 'en'}">
+                      ${agree2_contents_en}
+                    </c:if> 
+                  </div>
                   <div class="custom-control custom-checkbox">
                     <input type="checkbox" value="Y" name="agree_2" id="agree_2" class="custom-control-input">
-                    <label class="custom-control-label" for="agree_2">개인정보처리방침에 동의합니다.(필수)</label>
+                    <label class="custom-control-label" for="agree_2"><spring:message code="pirvate.policy.agreement" text="개인정보처리방침에 동의합니다."/><spring:message code="join_form2.required" text="(필수)"/></label>
                   </div>
                 </div>
                 <div class="register_page">
-                    <button type="button" class="register_page_submit" id="btnAgree">확인</button>
+                    <button type="button" class="register_page_submit" id="btnAgree"><spring:message code="form.confirm" text="확인"/></button>
                 </div>
 
               </form>

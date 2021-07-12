@@ -701,23 +701,24 @@ public class EvHomeController {
         EvMailSndRequestDto evMailSndRequestDto = new EvMailSndRequestDto();
 
         /* 이용약관 */
-        evMailSndRequestDto.setEmail_form_id(2);
-        List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
-        String agree1 = formList.get(0).getEmail_form();
+        EvBoardSearchDto evBoardSearchDto = new EvBoardSearchDto();
+        evBoardSearchDto.setBoard_clsf_cd("101007");
+        List <EvBoardTermsResponseDto> formList = evBoardService.terms_detail(evBoardSearchDto);
+        String agree1 = formList.get(0).getBoard_content();
+        String agree1en = formList.get(0).getBoard_content2();
 
         /* 개인정보처리방침 */
-        evMailSndRequestDto.setEmail_form_id(3);
-        formList = mailSndService.searchMailForm(evMailSndRequestDto);
-        String agree2 = formList.get(0).getEmail_form();
-
-        /* 개인정보 마케팅 활용 동의(선택) */
-        evMailSndRequestDto.setEmail_form_id(4);
-        formList = mailSndService.searchMailForm(evMailSndRequestDto);
-        String agree3 = formList.get(0).getEmail_form();
+        evBoardSearchDto.setBoard_clsf_cd("101006");
+        formList = evBoardService.terms_detail(evBoardSearchDto);
+        String agree2 = formList.get(0).getBoard_content();
+        String agree2en = formList.get(0).getBoard_content2();
 
         model.addAttribute("agree1_contents", agree1);
         model.addAttribute("agree2_contents", agree2);
-        model.addAttribute("agree3_contents", agree3);
+
+        model.addAttribute("agree1_contents_en", agree1en);
+        model.addAttribute("agree2_contents_en", agree2en);
+
         model.addAttribute("page_clsf", "myp06");
 
         return "/mypage/myp061";

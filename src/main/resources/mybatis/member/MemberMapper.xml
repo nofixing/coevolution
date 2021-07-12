@@ -132,8 +132,8 @@
             , agree_1
             , agree_dtm_1
             , date_format(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH),'%Y-%m-%d %H:%i:%s')   as agree1_dtm_fm
-            , date_format(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH),'%Y년%m월%d일')         as agree1_dt_end
-            , date_format(DATE_ADD(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH), INTERVAL 1 DAY),'%Y년%m월%d일')  as agree1_dt_expr
+            , date_format(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH), case when #{lang} = 'en' then '%Y-%m-%d' else '%Y년%m월%d일' end)                              as agree1_dt_end
+            , date_format(DATE_ADD(DATE_ADD(agree_dtm_1, INTERVAL 24 MONTH), INTERVAL 1 DAY), case when #{lang} = 'en' then '%Y-%m-%d' else '%Y년%m월%d일' end)    as agree1_dt_expr
             , agree_2
             , agree_dtm_2
             , agree_3
