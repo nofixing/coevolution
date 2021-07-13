@@ -196,6 +196,7 @@
                 , upper_menu_id
                 , menu_lvel
                 , menu_on_clsf
+                , target
             from ev_menu_mgnt a
             where menu_id like '1%'
             and use_yn = 'Y'
@@ -208,6 +209,7 @@
             , a.menu_lvel
             , a.menu_on_clsf
             , (select count(*) from ev_menu_mgnt emm where upper_menu_id = a.menu_id and use_yn = 'Y') as cnt
+            , a.target
         from (
             select distinct z.*
             from (
@@ -220,6 +222,7 @@
                         , upper_menu_id
                         , menu_lvel
                         , menu_on_clsf
+                        , target
                     from ev_menu_mgnt a
                     where menu_id in (select upper_menu_id from menu)
             ) z

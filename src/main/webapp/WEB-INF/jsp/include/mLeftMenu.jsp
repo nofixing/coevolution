@@ -28,7 +28,7 @@
               <ul class="list-group">
                 <c:forEach var="list2" items="${sessionScope.MGNT_MENU_LEVL2}">
                   <c:if test="${list1.menu_id eq list2.upper_menu_id}">
-                    <li class="list-group"><a href="${list2.menu_url}" <c:if test="${list2.menu_on_clsf eq page_clsf}">class="on"</c:if>><strong>${list2.menu_nm}</strong></a></li>
+                    <li class="list-group"><a href="${list2.menu_url}" <c:if test="${list2.target ne ''}">target="${list2.target}"</c:if> <c:if test="${list2.menu_on_clsf eq page_clsf}">class="on"</c:if>><strong>${list2.menu_nm}</strong></a></li>
                   </c:if>
                 </c:forEach>
               </ul>

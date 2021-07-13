@@ -24,7 +24,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              상담문의 내역
+              <spring:message code="left.menu.consultation" text="1:1 상담"/>
             </h5>
 
           </div>
@@ -35,10 +35,10 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              상담문의 내역
+              <spring:message code="left.menu.consultation" text="1:1 상담"/>
             </span>            
           
           </div>
@@ -65,7 +65,7 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  상담문의 내역
+                  <spring:message code="left.menu.consultation" text="1:1 상담"/>
                 </strong>
               </h3>
 
@@ -80,17 +80,17 @@
                   <div class="form-row align-items-center">
                     <div class="col-sm-2">
                       <select class="form-control form-control-sm mb-2" id="board_stat_cd" name="board_stat_cd">
-                        <option value="" <c:if test="${board_stat_cd eq ''}">selected</c:if>>진행상태</option>
-                        <option value="104001" <c:if test="${board_stat_cd eq '104001'}">selected</c:if>>답변대기</option>
-                        <option value="104002" <c:if test="${board_stat_cd eq '104002'}">selected</c:if>>답변완료</option>
+                        <option value="" <c:if test="${board_stat_cd eq ''}">selected</c:if>><spring:message code="form.consultation.list.status" text="진행상태"/></option>
+                        <option value="104001" <c:if test="${board_stat_cd eq '104001'}">selected</c:if>><spring:message code="form.consultation.list.waiting" text="답변대기"/></option>
+                        <option value="104002" <c:if test="${board_stat_cd eq '104002'}">selected</c:if>><spring:message code="form.consultation.list.replied" text="답변완료"/></option>
                       </select>
                     </div>
 
                     <div class="col-sm-2">
                       <select class="form-control form-control-sm mb-2" id="keyword_clsf_cd" name="keyword_clsf_cd">
-                        <option value="" <c:if test="${keyword_clsf_cd eq ''}">selected</c:if>>전체</option>
-                        <option value="subject" <c:if test="${keyword_clsf_cd eq 'subject'}">selected</c:if>>제목</option>
-                        <option value="content" <c:if test="${keyword_clsf_cd eq 'content'}">selected</c:if>>내용</option>
+                        <option value="" <c:if test="${keyword_clsf_cd eq ''}">selected</c:if>><spring:message code="form.consultation.list.all" text="전체"/></option>
+                        <option value="subject" <c:if test="${keyword_clsf_cd eq 'subject'}">selected</c:if>><spring:message code="form.consultation.list.title" text="제목"/></option>
+                        <option value="content" <c:if test="${keyword_clsf_cd eq 'content'}">selected</c:if>><spring:message code="form.consultation.list.conten" text="내용"/></option>
                       </select>
                     </div>
 
@@ -99,7 +99,7 @@
                     </div>
 
                     <div class="col-sm-2">
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" id="btnSearch">검색</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" id="btnSearch"><spring:message code="form.search" text="검색"/></button>
                     </div>
                   </div>
                 </form>            
@@ -112,11 +112,11 @@
                   <table class="table table-striped table-hover table-sm border-bottom">
                     <thead class="table-light">
                       <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-center">제목</th>
-                        <th scope="col" class="text-center">부스명</th>
-                        <th scope="col" class="text-center">등록일</th>
-                        <th scope="col" class="text-center">진행상태</th>
+                        <th scope="col" class="text-center"><spring:message code="form.favorite.booths.no" text="번호"/></th>
+                        <th scope="col" class="text-center"><spring:message code="form.consultation.list.title" text="제목"/></th>
+                        <th scope="col" class="text-center"><spring:message code="form.consultation.booths" text="부스명"/></th>
+                        <th scope="col" class="text-center"><spring:message code="form.consultation.date" text="등록일"/></th>
+                        <th scope="col" class="text-center"><spring:message code="form.consultation.list.status" text="진행상태"/></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -131,7 +131,7 @@
                       </c:forEach>    
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <th scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</th>
+                        <th scope="row" class="text-center" colspan="5"><spring:message code="form.no.search" text="조회된 내용이 없습니다."/></th>
                       </tr>
                       </c:if>                                                                                                                                                                                                                                                                          
                     </tbody>

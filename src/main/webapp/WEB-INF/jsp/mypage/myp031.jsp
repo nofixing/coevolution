@@ -24,7 +24,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              상담문의 내역
+              <spring:message code="left.menu.consultation" text="1:1 상담"/>
             </h5>
 
           </div>
@@ -35,10 +35,10 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              상담문의 내역
+              <spring:message code="left.menu.consultation" text="1:1 상담"/>
             </span>            
           
           </div>
@@ -64,7 +64,7 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  상담문의 내역
+                  <spring:message code="left.menu.consultation" text="1:1 상담"/>
                 </strong>
               </h3>
 
@@ -74,28 +74,26 @@
                 </div>
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
-                  <div class="col-sm-6 small">부스명 | <span id="conslt_cust_nm"></span> </div>
-                  <div class="col-sm-3 small">등록일 | <span id="reg_dt"></span></div>
-                  <div class="col-sm-3 small">상태 | <span><em class="basic-em" id="board_stat_nm"></em></span></div>
+                  <div class="col-sm-6 small"><spring:message code="form.consultation.booths" text="부스명"/> | <span id="conslt_cust_nm"></span> </div>
+                  <div class="col-sm-3 small"><spring:message code="form.consultation.date" text="등록일"/> | <span id="reg_dt"></span></div>
+                  <div class="col-sm-3 small"><spring:message code="form.consultation.status" text="상태"/> | <span><em class="basic-em" id="board_stat_nm"></em></span></div>
                 </div>
 
-                <div class="form-row col-sm-12 border-bottom p-2" id="board_content"></div>              
+                <div class="form-row col-sm-12 border-bottom p-2" id="board_content" style="white-space:pre-wrap"></div>              
 
                 <div class="form-row col-sm-12 pt-3 justify-content-between">
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList">목록</button>
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnDtl">삭제</button>
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList"><spring:message code="form.consultation.list" text="목록"/></button>
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnDtl"><spring:message code="form.consultation.delete" text="삭제"/></button>
                 </div>
                 
                 <div class="form-row col-sm-12 border-bottom pt-3 pl-2">
-                  <div class="col-sm-12"> <strong>답변내용</strong></div>
+                  <div class="col-sm-12"> <strong><spring:message code="form.consultation.reply" text="답변내용"/></strong></div>
                 </div>  
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
-                  <div class="col-sm-5 small">답변일자 | <span id="board_reply_ins_dtm"></span></div>
+                  <div class="col-sm-5 small"><spring:message code="form.consultation.reply.date" text="답변일자"/> | <span id="board_reply_ins_dtm"></span></div>
                 </div>    
-                
-                <div class="form-row col-sm-12 border-bottom p-2" id="board_reply_content"></div>               
-
+                <div class="form-row col-sm-12 border-bottom p-2" id="board_reply_content" style="white-space:pre-wrap"></div>               
               </div>
 
             </form>
