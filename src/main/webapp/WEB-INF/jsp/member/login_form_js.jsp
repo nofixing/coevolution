@@ -22,7 +22,8 @@ $(document).ready(function() {
 </c:choose>	
 
 <c:if test="${sessionScope.social_login_yn eq 'N'}">
-    alert("일치하는 회원정보가 없습니다.\r\n소셜 회원가입 후 로그인하시기 바랍니다.");
+    alert("<spring:message code='login.notMatch' text='일치하는 정보가 없습니다.'/>"+"\r\n"+"<spring:message code='login.notMatch2' text='소셜 회원가입 후 로그인하시기 바랍니다.'/>"
+    );
 </c:if>
 
 ${sessionScope.social_login_yn = ""}
@@ -119,13 +120,13 @@ ${sessionScope.social_login_yn = ""}
 function login() {
     /* 필수항목 체크 */
     var chk = '['
-        + '  {"id":"user_id","name":"아이디"} '
-        + ', {"id":"user_pw","name":"비밀번호"} ';
+        + '  {"id":"user_id","name":"아이디","name2":"ID","lang":"${sessionScope.LANG}"} '
+        + ', {"id":"user_pw","name":"비밀번호","name2":"Password","lang":"${sessionScope.LANG}"} ';
     chk += ']';
 
     var jsonCheck = JSON.parse(chk);
 
-    if(!lComm.fnRequiredItems(jsonCheck)) {
+    if(!lComm.fnRequiredItems2(jsonCheck)) {
         return false;
     }
 
@@ -151,7 +152,8 @@ function login() {
                 } 
             }
         } else {
-            alert("일치하는 정보가 없습니다.\r\n확인후 다시 입력해주세요.");
+            alert("<spring:message code='login.notMatch' text='일치하는 정보가 없습니다.'/>"+"\r\n"+"<spring:message code='login.notMatch3' text='확인후 다시 입력해주세요.'/>"
+            );
         }
 
     });    

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script>
 
@@ -44,13 +46,13 @@
 
             /* 필수항목 체크 */
             var chk = '['
-                + '  {"id":"cust_nm","name":"이름"} '
-                + ', {"id":"email_id","name":"이메일"} ';
+                + '  {"id":"cust_nm","name":"이름","name2":"Name","lang":"${sessionScope.LANG}"} '
+                + ', {"id":"email_id","name":"이메일","name2":"E-mail","lang":"${sessionScope.LANG}"} ';
             chk += ']';
 
             var jsonCheck = JSON.parse(chk);
 
-            if(!lComm.fnRequiredItems(jsonCheck)) {
+            if(!lComm.fnRequiredItems2(jsonCheck)) {
                 return false;
             }
 
@@ -67,7 +69,7 @@
                 if(message.result_code == 0) {
                     document.location.href="/member/id_sh_form2?id="+message.cust_id;
                 } else {
-                    alert("입력하신 정보에 해당하는 아이디가 없습니다.\r\n디시 시도하시거나 관리자에게 문의해 주십시오.");
+                    alert("<spring:message code='login.notMatchID' text='입력하신 정보에 해당하는 아이디가 없습니다.'/>"+"\r\n"+"<spring:message code='login.notMatchID2' text='다시 시도하시거나 관리자에게 문의해 주십시오.'/>");
                 }
 
             });
@@ -80,16 +82,16 @@
 
             /* 필수항목 체크 */
             var chk = '['
-                + '  {"id":"cust_id_pw","name":"아이디"} '
-                + ', {"id":"cust_nm_pw","name":"이름"} '
-                + ', {"id":"email_id_pw","name":"이메일"} ';
+                + '  {"id":"cust_id_pw","name":"아이디","name2":"ID","lang":"${sessionScope.LANG}"} '
+                + ', {"id":"cust_nm_pw","name":"이름","name2":"Name","lang":"${sessionScope.LANG}"} '
+                + ', {"id":"email_id_pw","name":"이메일","name2":"E-mail","lang":"${sessionScope.LANG}"} ';
             chk += ']';
 
             var jsonCheck = JSON.parse(chk);
 
             //return false;
 
-            if(!lComm.fnRequiredItems(jsonCheck)) {
+            if(!lComm.fnRequiredItems2(jsonCheck)) {
                 console.log("fnRequiredItems break");
                 return false;
             }
@@ -108,7 +110,7 @@
                     alert("success");
                     //document.location.href="/member/pw_sh_form2";
                 } else {
-                    alert("처리중 오류가 발생하였습니다.\r\n관리자에게 문의해 주십시오.");
+                    alert("<spring:message code='join.form30' text='처리중 오류가 발생하였습니다.'/>"+"\r\n"+"<spring:message code='join.form31' text='관리자에게 문의해 주십시오.'/>");
                 }
 
             });
@@ -121,13 +123,13 @@
     function idFind() {
         /* 필수항목 체크 */
         var chk = '['
-            + '  {"id":"cust_nm","name":"이름"} '
-            + ', {"id":"email_id","name":"이메일"} ';
+            + '  {"id":"cust_nm","name":"이름","name2":"Name","lang":"${sessionScope.LANG}"} '
+            + ', {"id":"email_id","name":"이메일","name2":"E-mail","lang":"${sessionScope.LANG}"} ';
         chk += ']';
 
         var jsonCheck = JSON.parse(chk);
 
-        if(!lComm.fnRequiredItems(jsonCheck)) {
+        if(!lComm.fnRequiredItems2(jsonCheck)) {
             return false;
         }
 
@@ -144,7 +146,7 @@
             if(message.result_code == 0) {
                 document.location.href="/member/id_sh_form2?id="+message.cust_id;
             } else {
-                alert("입력하신 정보에 해당하는 아이디가 없습니다.\r\n디시 시도하시거나 관리자에게 문의해 주십시오.");
+                alert("<spring:message code='login.notMatchID' text='입력하신 정보에 해당하는 아이디가 없습니다.'/>"+"\r\n"+"<spring:message code='login.notMatchID2' text='다시 시도하시거나 관리자에게 문의해 주십시오.'/>");
             }
 
         });
@@ -155,9 +157,9 @@
 
         /* 필수항목 체크 */
         var chk = '['
-            + '  {"id":"cust_id_pw","name":"아이디"} '
-            + ', {"id":"cust_nm_pw","name":"이름"} '
-            + ', {"id":"email_id_pw","name":"이메일"} ';
+            + '  {"id":"cust_id_pw","name":"아이디","name2":"ID","lang":"${sessionScope.LANG}"} '
+            + ', {"id":"cust_nm_pw","name":"이름","name2":"Name","lang":"${sessionScope.LANG}"} '
+            + ', {"id":"email_id_pw","name":"이메일","name2":"E-mail","lang":"${sessionScope.LANG}"} ';
         chk += ']';
 
         var jsonCheck = JSON.parse(chk);
@@ -182,7 +184,7 @@
             if(message.result_code == 0) {
                 document.location.href="/member/id_sh_form3";
             } else {
-                alert("입력하신 정보에 해당하는 회원이 없습니다.\r\n디시 시도하시거나 관리자에게 문의해 주십시오.");
+                alert("<spring:message code='login.notMatchID' text='입력하신 정보에 해당하는 아이디가 없습니다.'/>"+"\r\n"+"<spring:message code='login.notMatchID2' text='다시 시도하시거나 관리자에게 문의해 주십시오.'/>");
             }
 
         });

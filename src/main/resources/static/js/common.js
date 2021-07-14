@@ -643,6 +643,28 @@ gfnComm.prototype = {
 
     return true;
   }
+
+  ,
+  /**
+   * 필수항목체크
+   * @param {*} pRequiredItems
+   */
+  fnRequiredItems2 : function (pRequiredItems) {
+
+    for(var irow in pRequiredItems) {
+      if(this.isNull(getValue(pRequiredItems[irow].id))) {
+        if(pRequiredItems[irow].lang == "en") {
+          alert(pRequiredItems[irow].name2 + "  is requried information.");
+        } else {
+          alert(pRequiredItems[irow].name + " 은(는) 필수 항목입니다.");
+        }
+        this.setFocus(pRequiredItems[irow].id);
+        return false;
+      }
+    }
+
+    return true;
+  }
   ,
   fnRequiredItemsChkRdo : function (pRequiredItems) {
 
@@ -654,6 +676,26 @@ gfnComm.prototype = {
         return false;
       }
       
+    }
+
+    return true;
+  }
+
+  ,
+  fnRequiredItemsChkRdo2 : function (pRequiredItems) {
+
+    for(var irow in pRequiredItems) {
+
+      if(!checked(pRequiredItems[irow].id)) {
+        if(pRequiredItems[irow].lang == "en") {
+          alert(pRequiredItems[irow].name2 + "  is requried information.");
+        } else {
+          alert(pRequiredItems[irow].name + " 은(는) 필수 항목입니다.");
+        }
+        this.setFocus(pRequiredItems[irow].id);
+        return false;
+      }
+
     }
 
     return true;

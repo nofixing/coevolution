@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script>
 /**
@@ -11,7 +13,7 @@ $(document).ready(function() {
 	var yyyyMMdd = lComm.getToday("-");
 
 	if("${agree_yn}" == "N") {
-		alert("필수항목 동의하시기 바랍니다.");
+        alert("<spring:message code='join.form' text='필수항목 동의하시기 바랍니다.'/>");
 	}
 
 	//이벤트
@@ -20,13 +22,13 @@ $(document).ready(function() {
 
 		/* 필수항목 체크 */
 		var chk = '['
-			+ '  {"id":"agree_1","name":"이용약관 동의"} '
-			+ ', {"id":"agree_2","name":"개인정보처리방침 동의"} ';
+			+ '  {"id":"agree_1","name":"이용약관 동의","name2":"Agree Terms of Use","lang":"${sessionScope.LANG}"} '
+			+ ', {"id":"agree_2","name":"개인정보처리방침 동의","name2":"Agree with the privacy processing policy","lang":"${sessionScope.LANG}"} ';
 		chk += ']';
 
 		var jsonCheck = JSON.parse(chk);
 
-		if(!lComm.fnRequiredItemsChkRdo(jsonCheck)) {
+		if(!lComm.fnRequiredItemsChkRdo2(jsonCheck)) {
 			return false;
 		} else {
 			var frm = document.forms[0];

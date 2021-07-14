@@ -99,7 +99,7 @@ function fnSearch() {
 			setCheckRadioList("checkbox", "S", message.list5, "list5", "<li>", "</li>","${sessionScope.LANG}");			
 			
 		} else {
-			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+            alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 		}
 
 	});	
@@ -133,7 +133,7 @@ function fnDupCheck() {
 
 		if(message.result_code == 0) {
 			if(message.dup_yn == "N") {
-				alert("사용가능한 ID입니다.");
+				alert("<spring:message code='join.form4' text='사용가능한 ID입니다.'/>");
 
 				/* ID 중복체크여부 임시저장 */
 				lfnPutObj(lDataObjectPutGet, "cust_id", getValue("cust_id"));
@@ -142,11 +142,11 @@ function fnDupCheck() {
 				console.log(lfnGetObj(lDataObjectPutGet, "dup_yn"));
 
 			} else {
-				alert("중복된 아이디가 있습니다.\r\n아이디를 다시 입력해주세요.");
+                alert("<spring:message code='join.form5' text='중복된 아이디가 있습니다.'/>"+"\r\n"+"<spring:message code='join.form6' text='아이디를 다시 입력해주세요.'/>");
 				lComm.setFocus("cust_id");
 			}
 		} else {
-			alert("[중복체크 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
+            alert("<spring:message code='join.form7' text='[중복체크 오류]'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			lComm.setFocus("cust_id");
 		}
 
@@ -177,17 +177,17 @@ function fnRrcmderCustId() {
 
 		if(message.result_code == 0) {
 			if(message.dup_yn == "Y") {
-				alert(getValue("rcmder_cust_id") + "은 추천인(ID)로 등록 가능합니다");
+				alert(getValue("rcmder_cust_id") + "<spring:message code='join.form8' text='은 추천인(ID)로 등록 가능합니다.'/>");
 
 				/* ID 중복체크여부 임시저장 */
 				lfnPutObj(lDataObjectPutGet, "rcmder_cust_id", getValue("rcmder_cust_id"));
 
 			} else {
-				alert("추천인ID를 정확하게 다시 입력해주세요");
+                alert("<spring:message code='join.form9' text='추천인ID를 정확하게 다시 입력해주세요.'/>");
 				lComm.setFocus("cust_id");
 			}
 		} else {
-			alert("[중복체크 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
+            alert("<spring:message code='join.form7' text='[중복체크 오류]'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			lComm.setFocus("cust_id");
 		}
 
@@ -199,46 +199,46 @@ function fnSignUp() {
 
 	/* 필수체크 */
 	var chk = '['
-		+ '  {"id":"cust_id","name":"아이디"}'
-		+ ', {"id":"cust_pw","name":"비밀번호"}'
-		+ ', {"id":"cust_pw2","name":"비밀번호 확인"}'
-		+ ', {"id":"cust_nm","name":"이름"}'
-		+ ', {"id":"company_nm","name":"소속"}'
-		+ ', {"id":"dept_nm","name":"부서"}'
-		+ ', {"id":"hp_no","name":"전화번호"}'
+		+ '  {"id":"cust_id","name":"아이디","name2":"ID","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"cust_pw","name":"비밀번호","name2":"Password","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"cust_pw2","name":"비밀번호 확인","name2":"Password Confirm","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"cust_nm","name":"이름","name2":"Name","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"company_nm","name":"소속","name2":"Affiliation","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"dept_nm","name":"부서","name2":"Department","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"hp_no","name":"전화번호","name2":"Phone number","lang":"${sessionScope.LANG}"}'
 		//+ ', {"id":"tel_no","name":"연락처"}'
-		+ ', {"id":"email_id1","name":"이메일 주소"}'
-		+ ', {"id":"email_id2","name":"이메일 주소"}'
-		+ ', {"id":"country_cd","name":"국가"}'
-		+ ', {"id":"city_nm","name":"시도"}'
+		+ ', {"id":"email_id1","name":"이메일 주소","name2":"E-mail","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"email_id2","name":"이메일 주소","name2":"E-mail","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"country_cd","name":"국가","name2":"Nation","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"city_nm","name":"시도","name2":"City Province","lang":"${sessionScope.LANG}"}'
 	chk += ']';
 
 	var jsonCheck = JSON.parse(chk);
 
-	if(!lComm.fnRequiredItems(jsonCheck)) {
+	if(!lComm.fnRequiredItems2(jsonCheck)) {
 		return false;
 	}
 
 	/* 비밀번호 확인 체크 */
 	if(getValue("cust_pw") != getValue("cust_pw2")) {
-		alert("정확한 비밀번호를 입력하세요.")
+        alert("<spring:message code='join.form10' text='정확한 비밀번호를 입력하세요.'/>");
 		return false;
 	}
 
 	/* 인증받은 ID 체크 */
 	if(lfnGetObj(lDataObjectPutGet, "dup_yn") != "N") {
-		alert("중복확인을 진행하시기 바랍니다.")
+        alert("<spring:message code='join.form11' text='중복확인을 진행하시기 바랍니다.'/>");
 		return false;
 	} else if(lfnGetObj(lDataObjectPutGet, "cust_id") != getValue("cust_id")) {
-		alert("인증받은 아이디와 같지 않습니다.\r\n다시 중복확인 하시기 바랍니다.")
+        alert("<spring:message code='join.form12' text='인증받은 아이디와 같지 않습니다.'/>"+"\r\n"+"<spring:message code='join.form13' text='다시 중복확인 하시기 바랍니다.'/>");
 		return false;
 	}
 
 	/* 추천인 ID 체크 */
 	if(getValue("rcmder_cust_id") != "") {
 		if(lfnGetObj(lDataObjectPutGet, "rcmder_cust_id") != getValue("rcmder_cust_id")) {
-			alert("인증받은 추천인ID가 같지 않습니다.\r\n다시 추천인 검색을 진행하시기 바랍니다.")
-			return false;
+            alert("<spring:message code='join.form14' text='인증받은 추천인ID가 같지 않습니다.'/>"+"\r\n"+"<spring:message code='join.form15' text='다시 추천인 검색을 진행하시기 바랍니다.'/>");
+		    return false;
 		}
 	}
 	
@@ -248,7 +248,7 @@ function fnSignUp() {
 	arry = codeList(lFormValue.list1, arry);
 
 	if(chkYn(arry) == "N") {
-		alert("관심분야를 선택하세요.");
+        alert("<spring:message code='join.form16' text='관심분야를 선택하세요.'/>");
 		return false;
 	}
 
@@ -257,7 +257,7 @@ function fnSignUp() {
 	arry = codeList(lFormValue.list2, arry);
 
 	if(chkYn(arry) == "N") {
-		alert("종사분야를 선택하세요.");
+        alert("<spring:message code='join.form17' text='종사분야를 선택하세요.'/>");
 		return false;
 	}
 
@@ -266,7 +266,7 @@ function fnSignUp() {
 	arry = codeList(lFormValue.list3, arry);
 
 	if(chkYn(arry) == "N") {
-		alert("업무(구매)권한를 선택하세요.");
+        alert("<spring:message code='join.form18' text='업무(구매)권한를 선택하세요.'/>");
 		return false;
 	}	
 
@@ -276,7 +276,7 @@ function fnSignUp() {
 
 
 	if(chkYn(arry) == "N") {
-		alert("방문목적을 선택하세요.");
+        alert("<spring:message code='join.form19' text='방문목적을 선택하세요.'/>");
 		return false;
 	}	
 
@@ -286,14 +286,14 @@ function fnSignUp() {
 
 
 	if(chkYn(arry) == "N") {
-		alert("인지경로을 선택하세요.");
+        alert("<spring:message code='join.form21' text='인지경로을 선택하세요.'/>");
 		return false;
 	}
 
 	if(getValue("email_id1") != "" && getValue("email_id2") != "") {
 		gfnPutObj('email_id', getValue("email_id1")+"@"+getValue("email_id2"));
 	} else if((getValue("email_id1") != "" && getValue("email_id2") == "") || (getValue("email_id1") == "" && getValue("email_id2") != "")) {
-		alert("정확한 이메일 주소를 입력하세요.")
+        alert("<spring:message code='join.form22' text='정확한 이메일 주소를 입력하세요.'/>");
 		return false;
 	}
 
@@ -337,18 +337,18 @@ function fnSignUp() {
 
 			</c:if>
 			
-		} else if(message.result_code == 1) {            
-			alert("이전 비밀번호와 현재 비밀번호가 같습니다.");
-		} else if(message.result_code == 2) {            
-			alert("비밀번호와 사용자ID가 같습니다.");
-		} else if(message.result_code == 3) {            
-			alert("비밀번호를 특수문자, 영문, 숫자 조합으로 입력하시기 바랍니다.");
-		} else if(message.result_code == 4) {            
-			alert("같은 문자를 연속하여 사용할 수 없습니다.");	
-		} else if(message.result_code == 5) {            
-			alert("비밀번호에 공백이 있습니다.");						
+		} else if(message.result_code == 1) {
+            alert("<spring:message code='join.form23' text='이전 비밀번호와 현재 비밀번호가 같습니다.'/>");
+		} else if(message.result_code == 2) {
+            alert("<spring:message code='join.form24' text='비밀번호와 사용자ID가 같습니다.'/>");
+		} else if(message.result_code == 3) {
+            alert("<spring:message code='join.form25' text='비밀번호를 특수문자, 영문, 숫자 조합으로 입력하시기 바랍니다.'/>");
+		} else if(message.result_code == 4) {
+            alert("<spring:message code='join.form26' text='같은 문자를 연속하여 사용할 수 없습니다.'/>");
+		} else if(message.result_code == 5) {
+            alert("<spring:message code='join.form27' text='비밀번호에 공백이 있습니다.'/>");
 		} else {
-			alert("[참관신청 오류]\r\n잠시 후 다시 진행하시기 바랍니다.");
+            alert("<spring:message code='join.form28' text='[참관신청 오류]'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			lComm.setFocus("cust_id");
 		}
 

@@ -23,7 +23,7 @@ $(document).ready(function() {
     </c:choose>	
 
 	if("${agree_yn}" == "N") {
-		alert("필수항목 동의하시기 바랍니다.");
+        alert("<spring:message code='join.form' text='필수항목 동의하시기 바랍니다.'/>");
 	}
 
 	//이벤트
@@ -31,8 +31,8 @@ $(document).ready(function() {
 
 		/* 필수항목 체크 */
 		var chk = '['
-			+ '  {"id":"agree_1","name":"이용약관 동의"} '
-			+ ', {"id":"agree_2","name":"개인정보처리방침 동의"} ';
+			+ '  {"id":"agree_1","name":"이용약관 동의","name2":"ID","lang":"${sessionScope.LANG}"} '
+			+ ', {"id":"agree_2","name":"개인정보처리방침 동의","name2":"ID","lang":"${sessionScope.LANG}"} ';
 		chk += ']';
 
 		var jsonCheck = JSON.parse(chk);

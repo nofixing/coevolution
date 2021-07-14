@@ -25,8 +25,8 @@ $(document).ready(function() {
     ${sessionScope.email_check = ""}
 
 	if (email_check == 'dup_email') {
-	    alert('이미 소셜 로그인으로 회원가입된 회원이 있습니다. \n가입된 소셜 로그인으로 로그인하셔서 계정연결하실 수 있습니다.');
-    }
+        alert("<spring:message code='login.pw.find8' text='이미 소셜 로그인으로 회원가입된 회원이 있습니다.'/>"+"\r\n"+"<spring:message code='login.pw.find9' text='가입된 소셜 로그인으로 로그인하셔서 계정연결하실 수 있습니다.'/>");
+	}
 
     $('#google_login').on('click', function () {
 
