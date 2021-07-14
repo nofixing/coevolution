@@ -100,7 +100,7 @@
     <select id="S02_COMM_CD_SORT" parameterType="kr.coevolution.vr.comm.dto.EvCommCodeRequestDto" resultType="kr.coevolution.vr.comm.dto.EvCommCodeResponseDto">
 
         /* 정렬순서지정 */
-        select cd_id, cd_nm, upper_cd_id, cd_val1, cd_val2, cd_val3, cd_val4, cd_val5, priority, use_yn
+        select cd_id, cd_nm, cd_nm_en, upper_cd_id, cd_val1, cd_val2, cd_val3, cd_val4, cd_val5, priority, use_yn
         from ev_comm_code
 
         <where>

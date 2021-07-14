@@ -9,6 +9,13 @@
 <html lang="en">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
+
+    <style>
+      select {
+        background-image:none;
+      }
+    </style>
+
   </head>
   <body>
   <form>
@@ -294,7 +301,7 @@
                       </div>
                       <div class="register_page">
                         <button type="button" class="register_page_submit" id="btnSignUp"><spring:message code="form.confirm" text="확인"/></button>
-                        <button type="button" class="register_page_btn" id="btnCncl"><spring:message code="form.cancel" text="취소"/></button>
+                        <button type="button" class="register_page_btn" id="btnCncl"><spring:message code="form.cancel" text="취소"/></button> 
                       </div>
                   </form>
                 </div>

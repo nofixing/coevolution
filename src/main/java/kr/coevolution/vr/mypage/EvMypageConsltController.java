@@ -1283,6 +1283,14 @@ public class EvMypageConsltController {
                 /* 타이존시간 00:00, 00:30 ... */
                 timezone_hhmm_fr = consultSetting.get(0).getTimezone_hhmm_fr();
                 timezone_hhmm_to = consultSetting.get(0).getTimezone_hhmm_to();
+            } else {
+                    //default 설정
+                    consultTimeId = 0L;
+                    tiemzone_cd = "213001";
+                    consult_from_time = "214019";
+                    consult_to_time = "214036";
+                    timezone_hhmm_fr = "09:00";
+                    timezone_hhmm_to = "17:30";
             }
 
             /* 예약시간 조회 한국:cd_nm, 중국상하이:cd_val1, 영국런던:cd_val2, 미국뉴욕:cd_val3*/

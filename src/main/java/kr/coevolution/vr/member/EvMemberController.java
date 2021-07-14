@@ -533,11 +533,23 @@ public class EvMemberController {
         Map resposeResult = new HashMap();
 
         try {
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+
+            String lang = StringUtils.nvl(session.getAttribute("LANG"),"");
+
             /* 국가코드조회 */
             EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
             evCommCodeRequestDto.setUpper_cd_id("212000");
             evCommCodeRequestDto.setUse_yn("Y");
-            List<EvCommCodeResponseDto> countrylist = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            if("en".equals(lang)) {
+                evCommCodeRequestDto.setOrder_by("cd_nm_en asc");
+            } else {
+                evCommCodeRequestDto.setOrder_by("cd_nm asc");
+            }
+
+            List<EvCommCodeResponseDto> countrylist = evCommCodeService.comm_code_search_sort(evCommCodeRequestDto);
 
             /* 관심분야 */
             evCommCodeRequestDto.setUpper_cd_id("206000");
