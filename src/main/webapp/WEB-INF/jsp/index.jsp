@@ -17,7 +17,7 @@
     <!-- FULLPAGE
     ================================================== -->
     <div class="main-video">
-        <video muted autoplay loop style="display:block; width:100vw; height: 100vh">
+        <video muted autoplay loop style="display:block;">
             <source src="/files/video/main-video.mp4" type="video/mp4">
         </video>
     </div>
