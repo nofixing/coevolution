@@ -16,8 +16,8 @@
     
     <!-- FULLPAGE
     ================================================== -->
-    <div class="main-video text-center">
-        <video muted autoplay loop>
+    <div class="main-video">
+        <video muted autoplay loop style="display:block; width:100vw; height: 100vh">
             <source src="/files/video/main-video.mp4" type="video/mp4">
         </video>
     </div>
