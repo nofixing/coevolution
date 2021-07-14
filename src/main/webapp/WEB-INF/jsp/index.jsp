@@ -16,28 +16,11 @@
     
     <!-- FULLPAGE
     ================================================== -->
-    <section class="section section-full section-top bg-light">
-
-        <!-- Content -->
-        <div class="container">
-            <div class="justify-content-center text-center">
-                <div class="main-img">
-                    <c:if test="${sessionScope.LANG eq 'en'}">
-                    <a href="/index/ieve2021">
-                        <img src="/assets/img/icons/main-img_en.png" alt="">
-                    </a>
-                    </c:if>
-                    <c:if test="${sessionScope.LANG ne 'en'}">
-                    <a href="/index/ieve2021">
-                        <img src="/assets/img/icons/main-img.png" alt="">
-                    </a>
-                    </c:if>
-                </div>
-            </div>
-        </div> <!-- / .row -->
-        </div> <!-- / .container -->
-
-    </section>
+    <div class="main-video">
+        <video muted autoplay loop style="display:block;width:100vW">
+            <source src="/files/video/main-video.mp4" type="video/mp4">
+        </video>
+    </div>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
 
