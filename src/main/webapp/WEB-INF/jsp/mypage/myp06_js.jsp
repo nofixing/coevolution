@@ -22,8 +22,8 @@ function fnInit() {
 	sendForm("POST", "/mypage/member/agree_search", "application/json; charset=utf-8", "json", "{}", function(message) {
 	
 		if(message == "parsererror") {
-				alert("로그아웃되었습니다.");
-				document.location.href="/member/login_form";
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
+            document.location.href="/member/login_form";
 		}
 		else if(message.result_code == 0) {
 			setValue("cust_nm",message.data[0].cust_nm);
@@ -47,13 +47,13 @@ function fnInit() {
 			}
 
 			if(list.length <= 0) {
-				vHtml += "<tr><td colspan='3'>재동의 이력이 없습니다.</td></tr>";
+				vHtml += "<tr><td colspan='3'><spring:message code='mypage.member5' text='재동의 이력이 없습니다.'/></td></tr>";
 			}
 
 			$("#tbodyAgree").html(vHtml);
 
 		} else {
-			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+            alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 		}
 
 	});	

@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script language="javascript">
 
@@ -64,7 +67,7 @@ function consult_cust_search() {
     sendForm("POST", "/mypage/myp10M03", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message == "parsererror") {
-			alert("로그아웃되었습니다.");
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 			document.location.href="/member/login_form";
 		} else if(message.result_code == 0) {
 
@@ -87,10 +90,10 @@ function consult_cust_search() {
 
 		} else {
 			if(message.session_yn == "N") {
-				alert("로그아웃되었습니다.");
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/index";
 			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			}
 		}
 	});	
@@ -107,7 +110,7 @@ function consult_search(pSndCustId) {
     sendForm("POST", "/mypage/myp10M02", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message == "parsererror") {
-			alert("로그아웃되었습니다.");
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 			document.location.href="/member/login_form";
 		} else if(message.result_code == 0) {
 
@@ -139,10 +142,10 @@ function consult_search(pSndCustId) {
 
 		} else {
 			if(message.session_yn == "N") {
-				alert("로그아웃되었습니다.");
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/index";
 			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			}
 		}
 	});	
@@ -163,7 +166,7 @@ function fnSndMsg() {
     sendForm("POST", "/mypage/myp10M01", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message == "parsererror") {
-			alert("로그아웃되었습니다.");
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 			document.location.href="/member/login_form";
 		} else if(message.result_code == 0) {
 
@@ -179,10 +182,10 @@ function fnSndMsg() {
 
 		} else {
 			if(message.session_yn == "N") {
-				alert("로그아웃되었습니다.");
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/index";
 			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			}
 		}
 	});	

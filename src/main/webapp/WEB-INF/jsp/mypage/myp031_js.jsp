@@ -25,19 +25,19 @@ $(document).ready(function() {
 		//삭제
 		var pParamJson = '{"board_id":"${board_id}"}';
 
-		if(!confirm("삭제하시겠습니까?")) return false;
+		if(!confirm("<spring:message code='mypage.member24' text='삭제하시겠습니까?'/>")) return false;
 
 		sendForm("POST", "/vr/conslt/delete", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 			
 			if(message == "parsererror") {
-				alert("로그아웃되었습니다.");
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/member/login_form";
 			}
 			else if(message.result_code == 0) {
-				alert("삭제하였습니다.");
+				alert("<spring:message code='mypage.member25' text='삭제하였습니다.'/>");
 				document.location.href="/mypage/conslt_list";
 			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			}
 
 		});			
@@ -58,13 +58,13 @@ function fnInit() {
 		var pFieldArry = ["board_subject","reg_dt","board_stat_nm","board_reply_ins_dtm","board_content","board_reply_content","conslt_cust_nm"];
 
 		if(message == "parsererror") {
-				alert("로그아웃되었습니다.");
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/member/login_form";
 		}
 		else if(message.result_code == 0) {
 			 gfnSetField(message.data[0], pFieldArry);
 		} else {
-			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+            alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 		}
 	});	
 }

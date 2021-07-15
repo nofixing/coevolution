@@ -44,8 +44,8 @@ function fnSearch() {
 	sendForm("POST", "/mypage/member/search", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message == "parsererror") {
-				alert("로그아웃되었습니다.");
-				document.location.href="/member/login_form";
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
+            document.location.href="/member/login_form";
 		}
 		else if(message.result_code == 0) {
 			//console.log(message);
@@ -105,10 +105,10 @@ function fnSearch() {
 
 		} else {
 			if(message.session_yn == "N") {
-				alert("로그아웃되었습니다.");	
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/index";
 			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			}
 		}
 
@@ -120,19 +120,19 @@ function fnUpdate() {
 
 	/* 필수체크 */
 	var chk = '['
-		+ '  {"id":"email_id","name":"이메일 주소"}'
-		+ ', {"id":"addr_1","name":"주소"}'
-		+ ', {"id":"company_nm","name":"소속"}'
-		+ ', {"id":"dept_nm","name":"부서"}'
-		+ ', {"id":"hp_no","name":"전화번호"}'
+		+ '  {"id":"email_id","name":"이메일 주소","name2":"E-mail","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"addr_1","name":"주소","name2":"Address","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"company_nm","name":"소속","name2":"Affiliation","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"dept_nm","name":"부서","name2":"Department","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"hp_no","name":"전화번호","name2":"Phone number","lang":"${sessionScope.LANG}"}'
 		//+ ', {"id":"tel_no","name":"연락처"}'
-		+ ', {"id":"country_cd","name":"국가"}'
-		+ ', {"id":"city_nm","name":"시도"}'
+		+ ', {"id":"country_cd","name":"국가","name2":"Nation","lang":"${sessionScope.LANG}"}'
+		+ ', {"id":"city_nm","name":"시도","name2":"City Province","lang":"${sessionScope.LANG}"}'
 	chk += ']';
 
 	var jsonCheck = JSON.parse(chk);
 
-	if(!lComm.fnRequiredItems(jsonCheck)) {
+	if(!lComm.fnRequiredItems2(jsonCheck)) {
 		return false;
 	}
 
@@ -141,7 +141,7 @@ function fnUpdate() {
 	arry = codeList(lFormValue.list1, arry);
 
 	if(chkYn(arry) == "N") {
-		alert("관심분야를 선택하세요.");
+        alert("<spring:message code='join.form16' text='관심분야를 선택하세요.'/>");
 		return false;
 	}
 
@@ -150,7 +150,7 @@ function fnUpdate() {
 	arry = codeList(lFormValue.list2, arry);
 
 	if(chkYn(arry) == "N") {
-		alert("종사분야를 선택하세요.");
+        alert("<spring:message code='join.form17' text='종사분야를 선택하세요.'/>");
 		return false;
 	}
 
@@ -159,7 +159,7 @@ function fnUpdate() {
 	arry = codeList(lFormValue.list3, arry);
 
 	if(chkYn(arry) == "N") {
-		alert("업무(구매)권한를 선택하세요.");
+        alert("<spring:message code='join.form18' text='업무(구매)권한를 선택하세요.'/>");
 		return false;
 	}	
 
@@ -169,7 +169,7 @@ function fnUpdate() {
 
 
 	if(chkYn(arry) == "N") {
-		alert("방문목적을 선택하세요.");
+        alert("<spring:message code='join.form19' text='방문목적을 선택하세요.'/>");
 		return false;
 	}	
 
@@ -179,7 +179,7 @@ function fnUpdate() {
 
 
 	if(chkYn(arry) == "N") {
-		alert("인지경로을 선택하세요.");
+        alert("<spring:message code='join.form21' text='인지경로을 선택하세요.'/>");
 		return false;
 	}
 
@@ -194,19 +194,18 @@ function fnUpdate() {
 		console.log("message : " + message.result_code);
 
 		if(message == "parsererror") {
-				alert("로그아웃되었습니다.");
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/member/login_form";
 		}
 		else if(message.result_code == 0) {
-			var msg = "회원정보가 수정되었습니다.";
 			fnSearch();
-            alert(msg);
+            alert("<spring:message code='mypage.member2' text='회원정보가 수정되었습니다.'/>");
 		} else {
 			if(message.session_yn == "N") {
-				alert("로그아웃되었습니다.");	
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/index";
 			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			}
 		}
 

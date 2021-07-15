@@ -39,13 +39,13 @@ function fnSearchMyp02(pPageCurrent) {
 
 	/* 필수항목 체크 */
 	var chk = '['
-		+ '  {"id":"ins_dt_fr","name":"조회 시작일자"} '
-		+ ', {"id":"ins_dt_to","name":"조회 종료일자"} ';
+		+ '  {"id":"ins_dt_fr","name":"조회 시작일자","name2":"from","lang":"${sessionScope.LANG}"} '
+		+ ', {"id":"ins_dt_to","name":"조회 종료일자","name2":"to","lang":"${sessionScope.LANG}"} ';
 	chk += ']';
 
 	var jsonCheck = JSON.parse(chk);
 
-	if(!lComm.fnRequiredItems(jsonCheck)) {
+	if(!lComm.fnRequiredItems2(jsonCheck)) {
 		return false;
 	}
 

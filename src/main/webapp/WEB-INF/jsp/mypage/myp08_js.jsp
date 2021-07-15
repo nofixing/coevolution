@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <script language="javascript">
 
@@ -39,21 +42,21 @@ function scheduleClick(pScheduleId) {
 	sendForm("POST", "/mypage/consult_cust_info", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message == "parsererror") {
-			alert("로그아웃되었습니다.");
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 			document.location.href="/member/login_form";
 		} else if(message.result_code == 0) {
 
 			var vUrl = "/mypage/myp08P01?schedule_id="+pScheduleId+"&cust_id="+message.cust_id+"&cust_nm="+message.cust_nm+"&tel_no="+message.tel_no;
-			gfnPopup (vUrl, "상담예약 내역", "100%", "260px", function() {
+			gfnPopup (vUrl, "<spring:message code='mypage.member7' text='상담예약 내역'/>", "100%", "260px", function() {
 				document.location.href="/mypage/myp08";
 			 });
 
 		} else {
 			if(message.session_yn == "N") {
-				alert("로그아웃되었습니다.");
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/index";
 			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			}
 		}
 
@@ -72,16 +75,16 @@ function fnTimeZoneSave() {
 	sendForm("POST", "/mypage/setTimeZoneCust", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message == "parsererror") {
-			alert("로그아웃되었습니다.");
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 			document.location.href="/member/login_form";
 		} else if(message.result_code == 0) {
 			fnSearch();
 		} else {
 			if(message.session_yn == "N") {
-				alert("로그아웃되었습니다.");
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
 				document.location.href="/index";
 			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			}
 		}
 
