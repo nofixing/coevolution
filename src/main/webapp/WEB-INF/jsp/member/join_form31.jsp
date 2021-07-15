@@ -9,6 +9,13 @@
 <html lang="en">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
+
+    <style>
+      select {
+        background-image:none;
+      }
+    </style>
+        
   </head>
   <body>
   <form>
