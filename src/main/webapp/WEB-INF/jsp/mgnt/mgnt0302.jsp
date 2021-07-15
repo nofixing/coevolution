@@ -14,6 +14,10 @@
       .form_height1 {
         height:calc(1.9rem + 2px);
       }
+
+      select {
+        background-image:none;
+      }
     </style>
 
   </head>
@@ -87,28 +91,30 @@
 
                         <table class="basic-table">
                           <tr>
-                              <th>아이디</th>
+                              <th>* 아이디</th>
                               <td>
                                   <div class="form-inline">
-                                      <input type="text" style="ime-mode:disabled" minlength="6" maxlength="10" id="cust_id" name="cust_id" class="input-box col-lg-6 col-9" placeholder="아이디를 입력하세요">
-                                      <div class="chk-btn idchk-btn"><a href="#!" id="btnDupCheck" class="p-2">중복확인</a></div>
+                                      <input type="text" style="ime-mode:disabled" minlength="6" maxlength="50" id="cust_id" name="cust_id" class="input-box col-lg-6 col-9" placeholder="아이디를 입력하세요">
+                                      <div class="chk-btn idchk-btn p-1 m-1"> 
+                                        <button type="button" class="basic-btn" id="btnDupCheck">중복확인</button>
+                                      </div>
                                   </div>
                               </td>
                           </tr>
                           <tr>
-                              <th>비밀번호</th>
+                              <th>* 비밀번호</th>
                               <td>
-                                <input type="password" id="cust_pw" name="cust_pw" minlength="6" maxlength="10" class="input-box col-lg-6" placeholder="비밀번호를 입력하세요">
+                                <input type="password" id="cust_pw" name="cust_pw" minlength="6" maxlength="20" class="input-box col-lg-6" placeholder="비밀번호를 입력하세요">
                               </td>
                           </tr>
                           <tr>
-                              <th>비밀번호 확인</th>
+                              <th>* 비밀번호 확인</th>
                               <td>
-                                <input type="password" id="cust_pw2" name="cust_pw2" minlength="6" maxlength="10" class="input-box col-lg-6" placeholder="비밀번호를 입력하세요.">
+                                <input type="password" id="cust_pw2" name="cust_pw2" minlength="6" maxlength="20" class="input-box col-lg-6" placeholder="비밀번호를 입력하세요.">
                               </td>
                           </tr>                            
                           <tr>
-                              <th>기업명</th>
+                              <th>* 기업명</th>
                               <td>
                                 <input type="text" name="cust_nm" id="cust_nm" maxlength="50" class="input-box col-lg-6" placeholder="기업명을 입력하세요">
                               </td>
@@ -124,7 +130,11 @@
                               <td>
                                   <input type="text" name="rep_nm" id="rep_nm" maxlength="50" class="input-box col-lg-6" placeholder="담당자를 입력하세요">
                               </td>
-                          </tr>                             
+                          </tr>          
+                          <tr>
+                              <th>전화번호</th>
+                              <td><input type="text" name="tel_no" id="tel_no" maxlength="13" class="input-box col-lg-6" placeholder="전화번호를 입력하세요"></td>
+                          </tr>                   
                           <tr>
                               <th>휴대폰</th>
                               <td><input type="text" name="hp_no" id="hp_no" maxlength="13" class="input-box col-lg-6" placeholder="휴대폰을 입력하세요"></td>

@@ -232,7 +232,7 @@
                             </div>
                             <div class="terms_article">
                               <h3 class="terms_article_title">제13조(개인정보 처리방침 시행 및 변경)</h3>
-                              <p>이 개인정보 처리방침은 2021. 3. 20일부터 적용됩니다.</p>
+                              <p>이 개인정보 처리방침은 2021.07.16일부터 적용됩니다.</p>
                             </div>
                           </div>
                       </div>

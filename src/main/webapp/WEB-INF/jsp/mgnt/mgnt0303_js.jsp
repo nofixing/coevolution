@@ -96,7 +96,7 @@ function fnSearch() {
 			setSelectOption("category1", message.category1, "", "선택");			
 
 			/* 필드값입력 */
-			var pFieldArry = ["cust_id","cust_nm","email_id","hp_no","dept_nm","rep_nm","country_cd","category1","ins_dt","cust_sts_nm"];
+			var pFieldArry = ["cust_id","cust_nm","email_id","tel_no","hp_no","dept_nm","rep_nm","country_cd","category1","ins_dt","cust_sts_nm"];
 			gfnSetField(message.custInfo[0], pFieldArry);
 
 			setValue("vr_corpinfo_url", message.vr_corpinfo_url);
@@ -194,11 +194,11 @@ function fnUpdate() {
 		+ ', {"id":"country_cd","name":"국가"}'
 	chk += ']';
 
-	var jsonCheck = JSON.parse(chk);
+	/*var jsonCheck = JSON.parse(chk);
 
 	if(!lComm.fnRequiredItems(jsonCheck)) {
 		return false;
-	}
+	}*/
 
 	/* form값 global 변수에 입력 */
 	gfnGetFormJSON();

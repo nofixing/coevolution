@@ -81,6 +81,13 @@ public interface EvMemberMapper {
     public int U01_CUST(Map param);
 
     /**
+     * 참가회원 수정
+     * @param param
+     * @return
+     */
+    public int U11_CUST(Map param);    
+
+    /**
      * 회원관심사항을 입력한다.
      * @param param
      * @return

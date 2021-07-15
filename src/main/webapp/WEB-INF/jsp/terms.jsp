@@ -200,8 +200,8 @@
                             </ol>
                           </div>
                           <div class="terms_article">
-                            <h3 class="terms_article_title">부칙 (제2021-1호, 2021.3.20)</h3>
-                            <p>(시행일) 이 약관은 2021. 3. 20일부터 시행합니다.</p>
+                            <h3 class="terms_article_title">부칙 (제2021-1호, 2021.07.16)</h3>
+                            <p>(시행일) 이 약관은 2021.07.16일부터 시행합니다.</p>
                           </div>
                         </div>
                     </div>

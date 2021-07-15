@@ -280,6 +280,24 @@ public class EvMemberService {
     }
 
     /**
+     * 관리자 회원정보수정
+     * @param param
+     * @return
+     */
+    public int member_update2(Map param) throws Exception {
+
+        int return_code = 0;
+
+        /* 회원정보수정 */
+        evMemberMapper.U11_CUST(param);
+
+        /* 회원로그입력 */
+        evMemberMapper.I03_CUST_LOG(param);
+
+        return return_code;
+    }
+
+    /**
      * 비밀번호 변경
      * @param evMemberLoginRequestDto
      * @return

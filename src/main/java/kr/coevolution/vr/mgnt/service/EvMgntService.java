@@ -308,4 +308,21 @@ public class EvMgntService {
     public List<EvMgntZoomResposeDto> mgnt_zoom_list (EvMgntZoomRequestDto evMgntZoomRequestDto) {
         return mgntUserInfoMapper.S11_MGNT_ZOOM(evMgntZoomRequestDto);
     }
+
+    /**
+     * 참가 고객 정보 입력
+     * @param param
+     * @return
+     */
+    public int cust_user_insert(Map<String, String> param) {
+        int return_code = 0;
+
+        /* 회원정보입력 */
+        evMemberMapper.I01_CUST(param);
+
+        /* 회원로그입력 */
+        evMemberMapper.I03_CUST_LOG(param);
+
+        return return_code;
+    }
 }

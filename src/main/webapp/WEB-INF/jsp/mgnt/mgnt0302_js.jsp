@@ -17,13 +17,9 @@ $(document).ready(function() {
 		fnUpdate();
 	});
 
-	$('#btnList1').on('click', function () {
+	$('#btnList').on('click', function () {
 		document.location.href="/mgnt/m_corp_search";
 	});
-
-	$('#btnList2').on('click', function () {
-		document.location.href="/mgnt/m_corp_search";
-	});	
 
 	//중복확인
 	$('#btnDupCheck').on('click', function () {
@@ -40,12 +36,11 @@ $(document).ready(function() {
 
 });
 
-/* 회원정보조회 */
 var lFormValue;
 function fnSearch() {
 	
 	var pParamJson = "{}";
-	sendForm("POST", "/mypage/member/search", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+	sendForm("POST", "/mgnt/mgnt0301S01", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message == "parsererror") {
 			alert("로그아웃되었습니다.");
@@ -61,16 +56,8 @@ function fnSearch() {
 			/* 카테고리1 */  
 			setSelectOption("category1", message.category1, "", "선택");
 
-			/* 필드값입력 */
-			var pFieldArry = ["cust_id","cust_nm","email_id","hp_no","dept_nm","rep_nm","country_cd"];
-
-			if(message.custInfo != "undefined" && message.custInfo != "") {
-				gfnSetField(message.custInfo[0], pFieldArry);
-			} else {
-				setValue("country_cd", "212032");
-				setValue("category1", "");
-			}
-
+			setValue("country_cd", "212029");
+			setValue("category1", "");
 
 		} else {
 			if(message.session_yn == "N") {
@@ -93,11 +80,11 @@ function fnUpdate() {
 		+ ', {"id":"cust_pw","name":"비밀번호"}'
 		+ ', {"id":"cust_pw2","name":"비밀번호 확인"}'
 		+ ', {"id":"cust_nm","name":"기업명"}'
-		+ ', {"id":"dept_nm","name":"부서"}'
-		+ ', {"id":"rep_nm","name":"담당자명"}'
-		+ ', {"id":"hp_no","name":"휴대전화번호"}'
-		+ ', {"id":"email_id","name":"이메일주소"}'
-		+ ', {"id":"country_cd","name":"국가"}'
+		//+ ', {"id":"dept_nm","name":"부서"}'
+		//+ ', {"id":"rep_nm","name":"담당자명"}'
+		//+ ', {"id":"hp_no","name":"휴대전화번호"}'
+		//+ ', {"id":"email_id","name":"이메일주소"}'
+		//+ ', {"id":"country_cd","name":"국가"}'
 	chk += ']';
 
 	var jsonCheck = JSON.parse(chk);
@@ -127,7 +114,7 @@ function fnUpdate() {
 		return false;
 	}
 	
-	sendForm("POST", "/member/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+	sendForm("POST", "/mgnt/mgnt0301001", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		console.log("message : " + message.result_code);
 

@@ -125,12 +125,13 @@ public class EvMypageCustCorpInfoService {
         evMgntZoomRequestDto.setZoom_url(evMypageCustCorpInfoRequestDto.getZoom_url());
         evMgntZoomRequestDto.setUse_yn(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getUse_yn(),"Y"));
 
-        /* 줌 URL 저장 */
+        /* 줌 URL 저장
         if("".equals(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getZoom_mgnt_id(), ""))) {
             evMgntService.mgnt_zoom_insert(evMgntZoomRequestDto);
         } else {
             evMgntService.mgnt_zoom_update(evMgntZoomRequestDto);
         }
+        */
 
         return return_code;
     }

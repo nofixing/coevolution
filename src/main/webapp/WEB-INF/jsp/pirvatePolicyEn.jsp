@@ -324,7 +324,7 @@
                             <div class="terms_article">
                               <h3 class="terms_article_title">Article 13 (Enforcement and Modification of Personal Information Processing Policies)
                             </h3>
-                              <p>This privacy policy will take effect on March 20, 2021.</p>
+                              <p>This privacy policy will take effect on July 16, 2021.</p>
                             </div>
                           </div>
                       </div>

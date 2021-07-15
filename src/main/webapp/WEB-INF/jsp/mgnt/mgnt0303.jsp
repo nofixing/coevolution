@@ -123,6 +123,10 @@
                               </td>
                           </tr>
                           <tr>
+                              <th>전화번호</th>
+                              <td><input type="text" name="tel_no" id="tel_no" maxlength="13" style="width:50%" class="input-box" placeholder="전화번호를 입력하세요"></td>
+                          </tr>  
+                          <tr>
                               <th>휴대폰</th>
                               <td><input type="text" name="hp_no" id="hp_no" maxlength="13" style="width:50%" class="input-box" placeholder="-없이 숫자만 입력하세요"></td>
                           </tr>                            

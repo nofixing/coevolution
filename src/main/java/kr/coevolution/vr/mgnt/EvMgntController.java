@@ -626,7 +626,7 @@ public class EvMgntController {
             map.put("cust_id", map.get("cust_id"));
             map.put("user_id", loginInfoDto.getCust_id());
 
-            int result_code = evMemberService.member_update(map);
+            int result_code = evMemberService.member_update2(map);
 
             if(result_code < 0) {
                 throw new RuntimeException();
@@ -1738,5 +1738,89 @@ public class EvMgntController {
         wb.close();
     }
 
+
+    /**
+     * 참가회원등록 공통코드 조회
+     * @param map
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/mgnt0301S01")
+    public Map<String,Object> mgnt_mgnt0301S01(@RequestBody Map map, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        try {
+            EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
+            evMemberSearchDto.setUser_id(loginInfoDto.getCust_id());
+            evMemberSearchDto.setCust_id(loginInfoDto.getCust_id());
+            evMemberSearchDto.setLang(StringUtils.nvl(httpSession.getAttribute("LANG"),"ko"));
+
+            /* 국가코드조회 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id("212000");
+            List<EvCommCodeResponseDto> countrylist = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+            /* 카테고리 */
+            evCommCodeRequestDto.setUpper_cd_id("106000");
+            List<EvCommCodeResponseDto> category1 = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            resposeResult.put("countrylist", countrylist);
+            resposeResult.put("category1", category1);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+
+    /**
+     * 참가회원등록
+     * @param map
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/mgnt0301001")
+    public Map<String,Object> mgnt_mgnt0301001(@RequestBody Map map, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        try {
+            map.put("cust_sts_cd", "105001"); //정상
+            map.put("cust_clsf_cd", "202002"); //참가고객
+            map.put("user_id", loginInfoDto.getCust_id());
+            evMgntService.cust_user_insert(map);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
 
 }

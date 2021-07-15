@@ -212,8 +212,8 @@
                             </ol>
                           </div>
                           <div class="terms_article">
-                            <h3 class="terms_article_title">Attachment (2021-1, 2021.3.20)</h3>
-                            <p>(Effective Date) These Terms and Conditions are effective from March 20th, 2021.</p>
+                            <h3 class="terms_article_title">Attachment (2021-1, 2021.07.16)</h3>
+                            <p>(Effective Date) These Terms and Conditions are effective from July 16th, 2021.</p>
                           </div>
                         </div>
                     </div>

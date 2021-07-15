@@ -31,6 +31,7 @@
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="/assets/css/theme.min.css">
+    <link rel="stylesheet" href="/assets/css/theme-brown.min.css">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>

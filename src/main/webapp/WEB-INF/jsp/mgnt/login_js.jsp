@@ -15,40 +15,56 @@ $(document).ready(function() {
 	//이벤트
 	$('#btnLogin').on('click', function () {
 		//로그인체크
-
-		/* 필수항목 체크 */
-		var chk = '['
-			+ '  {"id":"user_id","name":"아이디"} '
-			+ ', {"id":"user_pw","name":"비밀번호"} ';
-		chk += ']';
-
-		var jsonCheck = JSON.parse(chk);
-
-		if(!lComm.fnRequiredItems(jsonCheck)) {
-			return false;
-		}
-
-		/* form값 global 변수에 입력 */
-		gfnGetFormJSON();
-	
-		/* global 변수 json으로 변환 */
-		var pParamJson = gfnGetJson();
-
-		//console.log("pParamJson : " + pParamJson);
-	
-		sendForm("POST", "/mgnt/login", "application/json; charset=utf-8", "json", pParamJson, function(message) {
-
-		    //console.log("message : " + message.result_code);
-			if(message.result_code == 0) {
-				document.location.href="/mgnt/badge";
-			} else {
-				alert("일치하는 정보가 없습니다.\r\n확인후 다시 입력해주세요.");
-			}
-
-		});
-
+		login();
 	});
+
+    $( "#user_id" ).keypress(function(event) {
+        if ( event.which == 13 ) {
+            lComm.setFocus("user_pw");
+        }
+    });
+
+    $( "#user_pw" ).keypress(function(event) {
+        if ( event.which == 13 ) {
+            login();
+        }
+    });
 	
 });
+
+function login() {
+
+	/* 필수항목 체크 */
+	var chk = '['
+		+ '  {"id":"user_id","name":"아이디"} '
+		+ ', {"id":"user_pw","name":"비밀번호"} ';
+	chk += ']';
+
+	var jsonCheck = JSON.parse(chk);
+
+	if(!lComm.fnRequiredItems(jsonCheck)) {
+		return false;
+	}
+
+	/* form값 global 변수에 입력 */
+	gfnGetFormJSON();
+
+	/* global 변수 json으로 변환 */
+	var pParamJson = gfnGetJson();
+
+	//console.log("pParamJson : " + pParamJson);
+
+	sendForm("POST", "/mgnt/login", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		//console.log("message : " + message.result_code);
+		if(message.result_code == 0) {
+			document.location.href="/mgnt/badge";
+		} else {
+			alert("일치하는 정보가 없습니다.\r\n확인후 다시 입력해주세요.");
+		}
+
+	});
+
+}
 
 </script>

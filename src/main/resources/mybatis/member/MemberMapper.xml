@@ -499,4 +499,20 @@
 
     </update>
 
+    <update id="U11_CUST" parameterType="map">
+
+        /* 회원정보수정 */
+        UPDATE ev_cust_mst
+        SET email_id            = #{email_id}
+            , tel_no            = #{tel_no}
+            , hp_no             = #{hp_no}
+            , dept_nm           = #{dept_nm}
+            , rep_nm            = #{rep_nm}
+            , country_cd        = #{country_cd}
+            , category1         = #{category1}
+            , mod_user          = #{user_id}
+            , mod_dtm           = NOW()
+        WHERE cust_id           = #{cust_id}
+    </update>
+
 </mapper>
