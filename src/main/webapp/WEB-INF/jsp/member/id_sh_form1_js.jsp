@@ -166,7 +166,7 @@
 
         //return false;
 
-        if(!lComm.fnRequiredItems(jsonCheck)) {
+        if(!lComm.fnRequiredItems2(jsonCheck)) {
             console.log("fnRequiredItems break");
             return false;
         }
