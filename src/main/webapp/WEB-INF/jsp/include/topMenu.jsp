@@ -93,7 +93,8 @@
                         <li>
                             <a href="#!"><spring:message code="top.view.guid" text="관람가이드"/></a>
                             <div class="m-menu-list-sub">
-                                <a href="#!">가이드영상</a>
+                                <a href="http://www.ievexpo.org/site/ieve2018/kor/contents/index.php?mid=0310" target="_blank"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
+                                <a href="javascript:alert('<spring:message code="top.all.updated.soon.alert" text="준비중입니다."/>')"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
                             </div>
                         </li>
                         <li>
@@ -127,18 +128,18 @@
                         <li>
                             <a href="#!"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
                             <div class="m-menu-list-sub">
-                                <a href="/mypage/favorts"><spring:message code="top.all.menu.favorite.history1" text="부스 즐겨찾기 내역"/></a>
-                                <a href="/mypage/badge"><spring:message code="top.all.menu.badge.of.interest" text="관심 뱃지 내역"/></a>
+                                <a href="/mypage/favorts"><spring:message code="left.menu.favorite.booths" text="부스 즐겨찾기 내역"/></a>
+                                <a href="/mypage/badge"><spring:message code="left.menu.badges.history" text="관심 뱃지 내역"/></a>
 
-                                <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation" text="1:1 상담"/></a>
-                                <a href="/mypage/myp08"><spring:message code="top.all.menu.meeting.reservation" text="상담신청현황"/></a>
-                                <a href="/mypage/myp09"><spring:message code="top.all.menu.meeting.request" text="상담신청"/></a>
-                                <a href="/mypage/myp10"><spring:message code="top.all.menu.meeting.history" text="상담이력"/></a>
+                                <a href="/mypage/conslt_list"><spring:message code="left.menu.consultation" text="1:1 상담"/></a>
+                                <a href="/mypage/myp08"><spring:message code="left.menu.meeting.reservation" text="상담신청현황"/></a>
+                                <a href="/mypage/myp09"><spring:message code="left.menu.meeting.request" text="상담신청"/></a>
+                                <a href="/mypage/myp10"><spring:message code="left.menu.meeting.history" text="상담이력"/></a>
 
-                                <a href="/mypage/myp04"><spring:message code="top.all.menu.modify.my.information" text="정보 수정"/></a>
-                                <a href="/mypage/myp05"><spring:message code="top.all.menu.modify.my.password" text="비밀번호변경"/></a>
-                                <a href="/mypage/myp06"><spring:message code="top.all.menu.re-agree.privacy" text="개인정보 재동의"/></a>
-                                <a href="/mypage/myp07"><spring:message code="top.all.menu.membership.withdrawal" text="회원탈퇴"/></a>
+                                <a href="/mypage/myp04"><spring:message code="left.menu.edit.personal.info" text="정보 수정"/></a>
+                                <a href="/mypage/myp05"><spring:message code="left.menu.change.password" text="비밀번호변경"/></a>
+                                <a href="/mypage/myp06"><spring:message code="left.menu.extend.privacy" text="개인정보 재동의"/></a>
+                                <a href="/mypage/myp07"><spring:message code="left.menu.withdrawal" text="회원탈퇴"/></a>
                             </div>
                         </li>
                         </c:otherwise>
@@ -298,7 +299,10 @@
                                 <a href="#!"><strong><spring:message code="top.view.guid" text="관람가이드"/></strong></a>
                             </li>
                             <li>
-                                <a href="#!"><spring:message code="top.all.menu.audience.guide" text="가이드 영상"/></a>
+                                <a href="http://www.ievexpo.org/site/ieve2018/kor/contents/index.php?mid=0310" target="_blank"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
+                            </li>
+                            <li>
+                                <a href="javascript:alert('<spring:message code="top.all.updated.soon.alert" text="준비중입니다."/>')"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
                             </li>
                         </ul>
                         <ul>
@@ -366,16 +370,16 @@
                                     <a href="/mypage/favorts"><strong><spring:message code="top.mypage" text="마이페이지"/></strong></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/favorts"><spring:message code="top.all.menu.favorite.history1" text="부스 즐겨찾기 내역"/></a>
+                                    <a href="/mypage/favorts"><spring:message code="left.menu.favorite.booths" text="부스 즐겨찾기 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/badge"><spring:message code="top.all.menu.badge.usage.history" text="뱃지 사용 내역"/></a>
+                                    <a href="/mypage/badge"><spring:message code="left.menu.badges.history" text="뱃지 사용 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/conslt_list"><spring:message code="top.all.menu.list.of.enquiries" text="문의 내역"/></a>
+                                    <a href="/mypage/conslt_list"><spring:message code="left.menu.consultation" text="문의 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/myp04"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
+                                    <a href="/mypage/myp04"><spring:message code="left.menu.edit.personal.info" text="내 정보 수정"/></a>
                                 </li>
                                 </c:otherwise>
                             </c:choose>
