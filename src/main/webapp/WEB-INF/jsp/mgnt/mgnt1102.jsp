@@ -14,6 +14,22 @@
       .form_height1 {
         height:calc(1.9rem + 2px);
       }
+
+      #tableList {
+          border-collapse: collapse;
+      }
+      #tableList th {
+          position: sticky;
+          background-color:#e7e7e7;
+          top: 0px;
+      }
+      .basic-table-fix td {
+          padding:5px 10px;
+          border-bottom:1px solid #e7e7e7;
+          border-left:0px solid #e7e7e7;
+          box-sizing:border-box;
+      }
+
     </style>
 
   </head>
@@ -31,7 +47,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              ${page_clsf_nm}
+              엑스포참가업체관리
             </h5>
 
           </div>
@@ -45,7 +61,7 @@
               관리자페이지
             </span>
             <span class="breadcrumb-item active">
-              ${page_clsf_nm}
+              엑스포참가업체관리
             </span>            
           
           </div>
@@ -71,62 +87,58 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  ${page_clsf_nm}
+                  엑스포참가업체관리
                 </strong>
               </h3>
-
               <form name="form1" class="form-styled">
-                <input type="hidden" name="page_current" id="page_current">
-                <div class="form-row d-flex justify-content-end pb-2">
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnUpdate">등록</button>
-                </div> 
+                
+                <div class="form-inline d-flex justify-content-between">
+                  <input type="text" class="form-control form-control-sm mb-2" id="ev_expo_nm" name="ev_expo_nm" value="${expo_dtl.ev_expo_nm}" style="width: 20rem;" readonly>
+                  <input type="hidden" id="ev_expo_id" name="ev_expo_id" value="${expo_dtl.ev_expo_id}">
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnUpdate">저장</button>
+                </div>  
 
-                <div class="table-responsive pt-3" style="overflow-x: auto; white-space:nowrap">
-                  <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
-                    <thead class="table-light">
+                <div class="table-responsive" style="overflow-x: auto; overflow-y: auto;white-space:nowrap; height: 30rem;">
+                  <table class="table table-sm border-bottom basic-table-fix" id="tableList">
+                    <thead>
                       <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-left">최근등록일</th>
-                        <th scope="col" class="text-center">등록자</th>
-                      </tr>
+                        <th class="text-center">번호</th>
+                        <th class="text-center">선택</th>
+                        <th class="text-center">아이디</th>
+                        <th class="text-left">참가업체명</th>
+                        <th class="text-center">상태</th>
+                      </tr>               
                     </thead>
                     <tbody id="codeList">
 
-                      <c:forEach var="list" items="${termslist}" varStatus="status">
+                      <c:forEach var="list" items="${list}" varStatus="status">
 
                       <tr>
                         <td class="text-center">${list.rn}</td>
-                        <td class="text-left">${list.ins_dtm}</td>
-                        <td class="text-center">${list.ins_user}</td>
+                        <td class="text-center"><input type="checkbox" id="chk_${list.cust_id}" name="chk_${list.cust_id}" value="Y" <c:if test="${list.reg_stat eq 'Y'}">checked</c:if>/></td>
+                        <td class="text-center">${list.cust_id}</td>
+                        <td class="text-left">${list.cust_nm}</td>
+                        <td class="text-center"><c:if test="${list.reg_stat eq 'Y'}">등록</c:if><c:if test="${list.reg_stat eq 'N'}">미등록</c:if></td>
                       </tr>   
 
                       </c:forEach>
 
-                      <c:if test="${fn:length(termslist) == 0}">
+                      <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <td scope="row" class="text-center" colspan="3">조회된 내용이 없습니다.</td>
-                      </tr>
+                        <td scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</td>
+                      </tr>                
                       </c:if> 
                     </tbody>
                   </table>
-                </div>
 
-                <!-- paging -->
-                <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3" id="pagingList"></ul>
-                  </nav>
-                </div>                
-
-            </form>
-            
+              </form>
           </div>
         </div> <!-- / .row -->
       </div> <!-- / .container -->
     </section>
 
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
-  <jsp:include page="mgnt0701_js.jsp"></jsp:include>   
+  <jsp:include page="mgnt1102_js.jsp"></jsp:include>   
 
   </body>
 </html>

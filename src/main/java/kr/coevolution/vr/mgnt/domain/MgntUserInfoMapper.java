@@ -2,10 +2,7 @@ package kr.coevolution.vr.mgnt.domain;
 
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntZoomResposeDto;
+import kr.coevolution.vr.mgnt.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -167,4 +164,61 @@ public interface MgntUserInfoMapper {
      * @return
      */
     public List<EvMgntZoomResposeDto> S11_MGNT_ZOOM(EvMgntZoomRequestDto param);
+
+    /**
+     * 엑스포리스트
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> S12_EXPO_LIST(EvMgntExpoRequestDto param);
+
+    /**
+     * 엑스포리스트건수
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> S12_EXPO_LIST_COUNT(EvMgntExpoRequestDto param);
+
+    /**
+     * 엑스포 상세정보
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> S12_EXPO_DTL(EvMgntExpoRequestDto param);
+
+    /**
+     * 엑스포신규입력
+     * @param param
+     * @return
+     */
+    public int I12_EXPO_INSERT(EvMgntExpoRequestDto param);
+
+    /**
+     * 엑스포수정
+     * @param param
+     * @return
+     */
+    public int U12_EXPO_UPDATE(EvMgntExpoRequestDto param);
+
+    /**
+     * 엑스포 참가업체 조회
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> S13_EXPO_CUST_LIST(EvMgntExpoRequestDto param);
+    
+    /**
+     * 엑스포 참가업체 등록
+     * @param param
+     * @return
+     */
+    public int I13_EXPO_CUST_INSERT(EvMgntExpoRequestDto param);
+
+    /**
+     * 엑스포 참가업체 삭제
+     * @param param
+     * @return
+     */
+    public int D13_EXPO_CUST_DEL(EvMgntExpoRequestDto param);
+
 }

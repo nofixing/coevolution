@@ -380,11 +380,15 @@ select::-ms-expand{
     left:7px;
     border-radius:50%;
 }
-.form-control{
+
+.form-control {
     -webkit-appearance:none; /* for chrome */
     -moz-appearance:none; /*for firefox*/
     appearance:none;
-    background:transparent url(/images/arrow_down.png) no-repeat right 13px center;
+}
+
+select {
+	background:transparent url(/images/arrow_down.png) no-repeat right 13px center;
 }
 
 @media (max-width:991px){

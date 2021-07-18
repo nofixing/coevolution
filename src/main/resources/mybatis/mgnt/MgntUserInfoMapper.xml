@@ -392,4 +392,152 @@
         order by cust_id, zoom_mgnt_id
     </select>
 
+
+    <select id="S12_EXPO_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto">
+        select *
+        from (
+                select ROW_NUMBER() OVER(order by expo_from_dt asc) as rn
+                    , ev_expo_id
+                    , ev_expo_nm
+                    , apct_prod_from_dt
+                    , apct_prod_to_dt
+                    , expo_from_dt
+                    , expo_from_hrm
+                    , concat(expo_from_dt, ' ', expo_from_hrm) as expo_from_dtm
+                    , expo_to_dt
+                    , expo_to_hrm
+                    , concat(expo_to_dt, ' ', expo_to_hrm) as expo_to_dtm
+                    , use_yn
+                from ev_expo
+                where 1 = 1
+
+        <if test="ev_expo_nm != null and ev_expo_nm != ''">
+            and ev_expo_nm like concat('%',#{ev_expo_nm},'%')
+        </if>
+
+        <if test="expo_dt_fr != null and expo_dt_fr != ''">
+            and expo_to_dt   >= #{expo_dt_fr}
+        </if>
+
+        <if test="expo_dt_to != null and expo_dt_to != ''">
+            <![CDATA[ and expo_from_dt <= #{expo_dt_to} ]]>
+        </if>
+
+        <if test="use_yn != null and use_yn != ''">
+            and use_yn   >= #{use_yn}
+        </if>
+
+        ) a
+        LIMIT #{page_row_start}, #{page_row_cnt}
+    </select>
+
+    <select id="S12_EXPO_LIST_COUNT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto">
+
+        select count(*) as row_count
+        from ev_expo
+        where 1 = 1
+
+        <if test="ev_expo_nm != null and ev_expo_nm != ''">
+            and ev_expo_nm like concat('%',#{ev_expo_nm},'%')
+        </if>
+
+        <if test="expo_dt_fr != null and expo_dt_fr != ''">
+            <![CDATA[ and expo_from_dt <= #{expo_dt_fr} ]]>
+        </if>
+
+        <if test="expo_dt_to != null and expo_dt_to != ''">
+            and expo_to_dt   >= #{expo_dt_to}
+        </if>
+
+        <if test="use_yn != null and use_yn != ''">
+            and use_yn   >= #{use_yn}
+        </if>
+
+    </select>
+
+    <select id="S12_EXPO_DTL" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto">
+
+        select ev_expo_id
+            , ev_expo_nm
+            , apct_prod_from_dt
+            , apct_prod_to_dt
+            , expo_from_dt
+            , expo_from_hrm
+            , SUBSTRING(expo_from_hrm FROM 1 for 2) as expo_from_hh
+            , SUBSTRING(expo_from_hrm FROM 4 for 2) as expo_from_mm
+            , concat(expo_from_dt, ' ', expo_from_hrm) as expo_from_dtm
+            , expo_to_dt
+            , expo_to_hrm
+            , SUBSTRING(expo_to_hrm FROM 1 for 2) as expo_to_hh
+            , SUBSTRING(expo_to_hrm FROM 4 for 2) as expo_to_mm
+            , concat(expo_to_dt, ' ', expo_to_hrm) as expo_to_dtm
+            , use_yn
+        from ev_expo
+        where ev_expo_id = #{ev_expo_id}
+
+    </select>
+
+    <insert id="I12_EXPO_INSERT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto">
+
+        INSERT INTO ev_expo (
+              ev_expo_id,       ev_expo_nm,     apct_prod_from_dt,      apct_prod_to_dt,    expo_from_dt,       expo_from_hrm
+            , expo_to_dt,       expo_to_hrm,    use_yn,                 ins_user,           ins_dtm,            mod_user,       mod_dtm
+        ) VALUES(
+              NULL,             #{ev_expo_nm},  #{apct_prod_from_dt},   #{apct_prod_to_dt}, #{expo_from_dt},    #{expo_from_hrm}
+            , #{expo_to_dt},    #{expo_to_hrm}, #{use_yn},              #{user_id},         NOW(),              #{user_id},     NOW()
+        )
+
+    </insert>
+
+    <update id="U12_EXPO_UPDATE" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto">
+
+        UPDATE ev_expo
+           SET ev_expo_nm           = #{ev_expo_nm}
+             , apct_prod_from_dt    = #{apct_prod_from_dt}
+             , apct_prod_to_dt      = #{apct_prod_to_dt}
+             , expo_from_dt         = #{expo_from_dt}
+             , expo_from_hrm        = #{expo_from_hrm}
+             , expo_to_dt           = #{expo_to_dt}
+             , expo_to_hrm          = #{expo_to_hrm}
+             , use_yn               = #{use_yn}
+             , mod_user             = #{user_id}
+             , mod_dtm              = NOW()
+        WHERE ev_expo_id            = #{ev_expo_id}
+
+    </update>
+
+    <select id="S13_EXPO_CUST_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto">
+
+        select ROW_NUMBER() OVER(order by cust_nm asc) as rn
+            , cust_seq
+            , cust_id
+            , cust_nm
+            , (select case when count(*) = 0 then 'N' else 'Y' end from ev_expo_customer where ev_expo_id = #{ev_expo_id} and cust_id = ecm.cust_id) as reg_stat
+            , (select ev_expo_nm from ev_expo where ev_expo_id = #{ev_expo_id}) as ev_expo_nm
+        from ev_cust_mst ecm
+       where cust_clsf_cd = '202002'
+         and cust_sts_cd  = '105001'
+
+    </select>
+
+    <delete id="I13_EXPO_CUST_INSERT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto">
+
+        INSERT INTO ev_expo_customer
+        (
+            ev_expo_id, cust_id, ins_user, ins_dtm, mod_user, mod_dtm
+        ) VALUES (
+            #{ev_expo_id}, #{cust_id}, #{user_id}, NOW(), #{user_id}, NOW()
+        )
+
+
+    </delete>
+
+    <delete id="D13_EXPO_CUST_DEL" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto">
+
+        delete from ev_expo_customer
+        where ev_expo_id = #{ev_expo_id}
+          and cust_id = #{cust_id}
+
+    </delete>
+
 </mapper>

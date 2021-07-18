@@ -119,7 +119,7 @@
                 </div>
                 
 
-                <div class="table-responsive pt-3">
+                <div class="table-responsive pt-3" style="overflow-x: auto; white-space:nowrap">
                   <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
                     <thead class="table-light">
                       <tr>

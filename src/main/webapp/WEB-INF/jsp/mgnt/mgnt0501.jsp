@@ -105,7 +105,7 @@
            
 
                 </form>            
-                <div class="table-responsive">
+                <div class="table-responsive" style="overflow-x: auto; white-space:nowrap">
                   <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
                     <thead class="table-light">
                       <tr>

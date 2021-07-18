@@ -84,12 +84,12 @@
                       <div class="col">
                         <div class="form-inline">
 
-                          <select class="form-control form-control-sm mb-2" id="cust_clsf_sh" name="cust_clsf_sh">
+                          <select class="form-control form-control-sm mb-2" id="cust_clsf_sh" name="cust_clsf_sh" style="width:7rem">
                             <option value="202001" <c:if test="${cust_clsf_sh eq '' || cust_clsf_sh eq '202001'}">selected</c:if>>참관고객</option>
                             <option value="202002" <c:if test="${cust_clsf_sh eq '202002'}">selected</c:if>>참가고객</option>
                           </select>
 
-                          <select class="form-control form-control-sm mb-2" id="category_sh" name="category_sh">
+                          <select class="form-control form-control-sm mb-2" id="category_sh" name="category_sh" style="width:8rem">
                             <option value="" <c:if test="${category_sh eq ''}">selected</c:if>>전체</option>
                             <c:forEach var="category" items="${category}">
                               <option value="${category.cd_id}" <c:if test="${category_sh eq category.cd_id}">selected</c:if>>${category.cd_nm}</option>
@@ -126,18 +126,18 @@
                   </div>                  
 
                 </form>            
-                <div class="table-responsive">
+                <div class="table-responsive" style="overflow-x: auto; white-space:nowrap">
                 <table class="table table-striped table-hover table-sm border-bottom">
                   <c:if test="${cust_clsf_sh eq '' || cust_clsf_sh eq '202001'}">
                     <thead class="table-light">
                       <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-center">회원명</th>
-                        <th scope="col" class="text-center">뱃지지급</th>
-                        <th scope="col" class="text-center">사용뱃지</th>
-                        <th scope="col" class="text-center">잔여뱃지</th>
-                        <th scope="col" class="text-center">피추천수</th>
-                        <th scope="col" class="text-center">부여일</th>
+                        <th scope="col" class="text-center" style="width:50px">번호</th>
+                        <th scope="col" class="text-center" style="width:110px">회원명</th>
+                        <th scope="col" class="text-center" style="width:80px">뱃지지급</th>
+                        <th scope="col" class="text-center" style="width:80px">사용뱃지</th>
+                        <th scope="col" class="text-center" style="width:80px">잔여뱃지</th>
+                        <th scope="col" class="text-center" style="width:80px">피추천수</th>
+                        <th scope="col" class="text-center" style="width:80px">부여일</th>
                       </tr>
                     </thead>
                     <tbody>

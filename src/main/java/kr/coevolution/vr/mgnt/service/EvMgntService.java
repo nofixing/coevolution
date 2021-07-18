@@ -6,10 +6,7 @@ import kr.coevolution.vr.member.domain.EvMemberMapper;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
 import kr.coevolution.vr.mgnt.domain.MgntUserInfoMapper;
-import kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntZoomRequestDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntZoomResposeDto;
+import kr.coevolution.vr.mgnt.dto.*;
 import kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto;
 import kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -325,4 +322,77 @@ public class EvMgntService {
 
         return return_code;
     }
+
+    /**
+     * 엑스포정보를 조회한다.
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> expo_list (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.S12_EXPO_LIST(param);
+    }
+
+    /**
+     * 엑스포정보 총 건수
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> expo_list_count (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.S12_EXPO_LIST_COUNT(param);
+    }
+
+    /**
+     * 엑스포정보 상세조회
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> expo_dtl (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.S12_EXPO_DTL(param);
+    }
+
+    /**
+     * 엑스포정보 입력
+     * @param param
+     * @return
+     */
+    public int expo_insert  (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.I12_EXPO_INSERT(param);
+    }
+
+    /**
+     * 엑스포정보수정
+     * @param param
+     * @return
+     */
+    public int expo_update  (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.U12_EXPO_UPDATE(param);
+    }
+
+    /**
+     * 엑스포참가고객조회
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> expo_cust_list (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.S13_EXPO_CUST_LIST(param);
+    }
+
+    /**
+     * 엑스포참가고객입력
+     * @param param
+     * @return
+     */
+    public int expo_cust_insert  (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.I13_EXPO_CUST_INSERT(param);
+    }
+
+    /**
+     * 엑스포참가고객삭제
+     * @param param
+     * @return
+     */
+    public int expo_cust_delete (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.D13_EXPO_CUST_DEL(param);
+    }
+
 }

@@ -17,6 +17,8 @@ import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
 import kr.coevolution.vr.member.dto.EvMemberResposeDto;
 import kr.coevolution.vr.member.dto.EvMemberSearchDto;
 import kr.coevolution.vr.member.service.EvMemberService;
+import kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto;
+import kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto;
 import kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto;
 import kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto;
 import kr.coevolution.vr.mgnt.service.EvMgntService;
@@ -1808,6 +1810,344 @@ public class EvMgntController {
             map.put("cust_clsf_cd", "202002"); //참가고객
             map.put("user_id", loginInfoDto.getCust_id());
             evMgntService.cust_user_insert(map);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 엑스포관리-조히
+     * @param evMgntExpoRequestDto
+     * @param request
+     * @return
+     */
+    @RequestMapping("/mgnt/expo")
+    public String mgnt_expo(EvMgntExpoRequestDto evMgntExpoRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt1001";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            evMgntExpoRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            /* row 개수 */
+            evMgntExpoRequestDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+            Long page_row_start = StringUtils.page_start_row(evMgntExpoRequestDto.getPage_current(), StringUtils.page_row_cnt);
+            evMgntExpoRequestDto.setPage_row_start(page_row_start);
+
+            if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getPage_current(),""))) {
+                evMgntExpoRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMgntExpoRequestDto.getPage_current()));  /* 현재페이지 */
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+            Date nDt = new Date();
+            String yyyy = sf.format(nDt);
+
+            /* 최초 날짜가 null 인경우 */
+            if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getExpo_dt_fr(),""))) {
+                evMgntExpoRequestDto.setExpo_dt_fr(yyyy + "-01-01");
+            }
+
+            if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getExpo_dt_to(),""))) {
+                evMgntExpoRequestDto.setExpo_dt_to(yyyy + "-12-31");
+            }
+
+            if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getUse_yn(),""))) {
+                evMgntExpoRequestDto.setUse_yn("Y");
+            }
+
+            /* 뱃지 리스트 조회 */
+            List<EvMgntExpoResponseDto> list = null;
+            List<EvMgntExpoResponseDto> listCnt = null;
+
+            list = evMgntService.expo_list(evMgntExpoRequestDto);
+            listCnt = evMgntService.expo_list_count(evMgntExpoRequestDto);
+
+            Long row_count = 0L;
+
+            if(listCnt != null && listCnt.size() > 0) {
+                row_count = listCnt.get(0).getRow_count();
+            }
+
+            model.addAttribute("page_clsf", "mgnt10");
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count); /* 총 개수 */
+            model.addAttribute("page_row_cnt", evMgntExpoRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evMgntExpoRequestDto.getPage_current());    /* 현재페이지 */
+
+            /* 검색조건 */
+            model.addAttribute("expo_dt_fr", evMgntExpoRequestDto.getExpo_dt_fr());
+            model.addAttribute("expo_dt_to", evMgntExpoRequestDto.getExpo_dt_to());
+            model.addAttribute("ev_expo_nm", evMgntExpoRequestDto.getEv_expo_nm());
+            model.addAttribute("use_yn", evMgntExpoRequestDto.getUse_yn());
+
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 엑스포관리-상세조회
+     * @param evMgntExpoRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/expo_insert")
+    public Map<String,Object> mgnt_expo_insert(@RequestBody EvMgntExpoRequestDto evMgntExpoRequestDto, HttpServletRequest request, Model model) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            evMgntExpoRequestDto.setUser_id(loginInfoDto.getCust_id());
+            evMgntExpoRequestDto.setExpo_from_hrm(evMgntExpoRequestDto.getExpo_from_hh()+":"+evMgntExpoRequestDto.getExpo_from_mm());
+            evMgntExpoRequestDto.setExpo_to_hrm(evMgntExpoRequestDto.getExpo_to_hh()+":"+evMgntExpoRequestDto.getExpo_to_mm());
+
+            if(evMgntExpoRequestDto.getEv_expo_id() == 0L) {
+                int cnt = evMgntService.expo_insert(evMgntExpoRequestDto);
+            } else {
+                int cnt = evMgntService.expo_update(evMgntExpoRequestDto);
+            }
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 엑스포관리-상세조회
+     * @param evMgntExpoRequestDto
+     * @param request
+     * @return
+     */
+    @RequestMapping("/mgnt/expo_dtl")
+    public String mgnt_expo_dtl(EvMgntExpoRequestDto evMgntExpoRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt1002";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            List<EvMgntExpoResponseDto> list = evMgntService.expo_dtl(evMgntExpoRequestDto);
+
+            if(list != null && list.size() > 0) {
+                model.addAttribute("expo_dtl", list.get(0));
+            }
+
+            model.addAttribute("page_clsf", "mgnt10");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 엑스포관리-조히
+     * @param evMgntExpoRequestDto
+     * @param request
+     * @return
+     */
+    @RequestMapping("/mgnt/expo_exhibitors")
+    public String mgnt_expo_exhibitors(EvMgntExpoRequestDto evMgntExpoRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt1101";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            evMgntExpoRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            /* row 개수 */
+            evMgntExpoRequestDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+            Long page_row_start = StringUtils.page_start_row(evMgntExpoRequestDto.getPage_current(), StringUtils.page_row_cnt);
+            evMgntExpoRequestDto.setPage_row_start(page_row_start);
+
+            if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getPage_current(),""))) {
+                evMgntExpoRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMgntExpoRequestDto.getPage_current()));  /* 현재페이지 */
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+            Date nDt = new Date();
+            String yyyy = sf.format(nDt);
+
+            /* 최초 날짜가 null 인경우 */
+            if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getExpo_dt_fr(),""))) {
+                evMgntExpoRequestDto.setExpo_dt_fr(yyyy + "-01-01");
+            }
+
+            if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getExpo_dt_to(),""))) {
+                evMgntExpoRequestDto.setExpo_dt_to(yyyy + "-12-31");
+            }
+
+            if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getUse_yn(),""))) {
+                evMgntExpoRequestDto.setUse_yn("Y");
+            }
+
+            /* 엑스포 리스트 조회 */
+            List<EvMgntExpoResponseDto> list = null;
+            List<EvMgntExpoResponseDto> listCnt = null;
+
+            list = evMgntService.expo_list(evMgntExpoRequestDto);
+            listCnt = evMgntService.expo_list_count(evMgntExpoRequestDto);
+
+            Long row_count = 0L;
+
+            if(listCnt != null && listCnt.size() > 0) {
+                row_count = listCnt.get(0).getRow_count();
+            }
+
+            model.addAttribute("page_clsf", "mgnt11");
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count); /* 총 개수 */
+            model.addAttribute("page_row_cnt", evMgntExpoRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evMgntExpoRequestDto.getPage_current());    /* 현재페이지 */
+
+            /* 검색조건 */
+            model.addAttribute("expo_dt_fr", evMgntExpoRequestDto.getExpo_dt_fr());
+            model.addAttribute("expo_dt_to", evMgntExpoRequestDto.getExpo_dt_to());
+            model.addAttribute("ev_expo_nm", evMgntExpoRequestDto.getEv_expo_nm());
+            model.addAttribute("use_yn", evMgntExpoRequestDto.getUse_yn());
+
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 엑스포참가업체관리-상세
+     * @param evMgntExpoRequestDto
+     * @param request
+     * @return
+     */
+    @RequestMapping("/mgnt/expo_exhibitors_dtl")
+    public String mgnt_expo_exhibitors_dtl(EvMgntExpoRequestDto evMgntExpoRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt1102";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            /* 참가고객리스트 */
+            List<EvMgntExpoResponseDto> list = evMgntService.expo_cust_list(evMgntExpoRequestDto);
+
+            /* 엑스포정보 */
+            List<EvMgntExpoResponseDto> expo_dtl = evMgntService.expo_dtl(evMgntExpoRequestDto);
+
+            if(list != null && list.size() > 0) {
+                model.addAttribute("expo_dtl", expo_dtl.get(0));
+            }
+
+            model.addAttribute("list", list);
+            model.addAttribute("page_clsf", "mgnt11");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 엑스포관리-업가업체입력, 삭제
+     * @param pMap
+     * @param request
+     * @return
+     */
+
+    @ResponseBody
+    @PostMapping("/mgnt/expo_cust_mgnt")
+    public Map<String,Object> mgnt_expo_cust_mgnt(@RequestBody Map<String, String> pMap, HttpServletRequest request, Model model) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            /* 참가고객리스트 */
+            EvMgntExpoRequestDto evMgntExpoRequestDto = new EvMgntExpoRequestDto();
+            evMgntExpoRequestDto.setEv_expo_id(Integer.parseInt(pMap.get("ev_expo_id")));
+            List<EvMgntExpoResponseDto> list = evMgntService.expo_cust_list(evMgntExpoRequestDto);
+
+            EvMgntExpoRequestDto req = null;
+            for (EvMgntExpoResponseDto custList : list) {
+
+                req = new EvMgntExpoRequestDto();
+                req.setEv_expo_id(evMgntExpoRequestDto.getEv_expo_id());
+                req.setCust_id(custList.getCust_id());
+                req.setUser_id(loginInfoDto.getUser_id());
+
+                evMgntService.expo_cust_delete(req);
+
+                if("Y".equals(pMap.get("chk_"+custList.getCust_id()))) {
+                    evMgntService.expo_cust_insert(req);
+                }
+            }
 
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
