@@ -23,8 +23,8 @@
           </c:if>
 
           <c:if test="${list1.cnt ne '0'}">
-            <a href="#S${list1.menu_id}" data-toggle="collapse"><strong>${list1.menu_nm}</strong></a>
-            <div id="S${list1.menu_id}" class="collapse show pl-3">
+            <a href="#MENU_${list1.menu_id}" data-toggle="collapse"><strong>${list1.menu_nm}</strong></a>
+            <div id="MENU_${list1.menu_id}" class="collapse show pl-3">
               <ul class="list-group">
                 <c:forEach var="list2" items="${sessionScope.MGNT_MENU_LEVL2}">
                   <c:if test="${list1.menu_id eq list2.upper_menu_id}">

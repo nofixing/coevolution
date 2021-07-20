@@ -103,18 +103,20 @@
                           <textarea id="about_company_eng" name="about_company_eng" cols="30" rows="5"></textarea>
                         </td>
                       </tr>
-                      <tr>
+                      <!--tr>
                         <th>기업영상</th>
                         <td colspan="3">
                           <input type="text" placeholder="url을 입력해 주세요." id="video_url" name="video_url" maxlength="100">
                         </td>
-                      </tr>
-                      <tr>
+                      </tr-->
+                      <input type="hidden" id="video_url" name="video_url">
+                      <!--tr>
                         <th>홍보동영상</th>
                         <td colspan="3">
                           <input type="text" placeholder="url을 입력해 주세요." id="promtn_url" name="promtn_url" maxlength="100">
                         </td>
-                      </tr>
+                      </tr-->
+                      <input type="hidden" id="promtn_url" name="promtn_url">
                       <tr>
                         <th>제품소개</th>
                         <td colspan="3">
@@ -133,35 +135,40 @@
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <!--tr>
                         <th>3D 스캐닝</th>
                         <td colspan="3">
                           <input type="text" name="scan_3d_url" id="scan_3d_url" placeholder="url을 입력해 주세요." maxlength="100">
                         </td>
-                      </tr>
-                      <tr>
+                      </tr-->
+                      <input type="hidden" id="scan_3d_url" name="scan_3d_url">
+                      <!--tr>
                         <th>커머스 연결</th>
                         <td colspan="3">
                           <input type="text" name="comrce_url" id="comrce_url" placeholder="url을 입력해 주세요." maxlength="100">
                         </td>
-                      </tr>
-                      <tr>
+                      </tr-->
+                      <input type="hidden" id="comrce_url" name="comrce_url">
+                      <!--tr>
                         <th>줌 URL</th>
                         <td colspan="3">
                           <input type="hidden" name="zoom_mgnt_id" id="zoom_mgnt_id">
                           <input type="hidden" name="use_yn" id="use_yn">
                           <input type="text" name="zoom_url" id="zoom_url" placeholder="줌 URL을 입력해 주세요." maxlength="100">
                         </td>
-                      </tr>
+                      </tr-->
+                      <input type="hidden" name="zoom_mgnt_id" id="zoom_mgnt_id">
+                      <input type="hidden" name="use_yn" id="use_yn">
+                      <input type="hidden" id="zoom_url" name="zoom_url">
 
                     </table>
                     <!-- Button -->
                     <div class="text-right text-md-right p-3">
                       <button type="button" class="basic-btn" id="btnSave">저장</button>
                     </div>
-                    <div class="text-right text-md-right pt-3">
+                    <!--div class="text-right text-md-right pt-3">
                       <button type="button" class="basic-btn" id="btnZoom">ZOOM 미사용</button>
-                    </div>                    
+                    </div-->                    
 
                   </div> <!-- / .form-row -->   
 

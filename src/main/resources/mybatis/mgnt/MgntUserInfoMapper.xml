@@ -22,7 +22,7 @@
     <select id="S02_MEMBER_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
 
         /* 고객조회 */
-        SELECT ROW_NUMBER() OVER() as rn
+        SELECT ROW_NUMBER() OVER(ORDER BY a.ins_dtm desc) as rn
             , cust_seq			, cust_id			, cust_sts_cd			, cust_clsf_cd			, cust_nm
             , company_nm		, dept_nm			, rep_nm				, posn_nm				, email_id
             , DATE_FORMAT(ins_dtm, '%Y-%m-%d %H:%i:%s') AS ins_dtm
@@ -32,8 +32,8 @@
         AND 	cust_clsf_cd	= #{cust_clsf_cd}#  /* 202001:참관 202002:참가 */
         AND 	date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
         and     (cust_id like concat('%',#{keyword},'%') or cust_nm like concat('%',#{keyword},'%') or rep_nm like concat('%',#{keyword},'%'))
-        ORDER BY a.ins_dtm DESC
-        LIMIT #{page_row_start}, #{page_row_cnt}
+
+         LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>
 
@@ -321,7 +321,7 @@
     <select id="S10_ACCESS_LOG_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
 
         /* 접속로그 */
-        select ROW_NUMBER() OVER() as rn
+        select ROW_NUMBER() OVER(ecll.login_dtm DESC) as rn
             , ecll.cust_id
             , ecm.cust_nm
             , ecll.ip
@@ -340,7 +340,6 @@
             and ecm.cust_id like concat('%',#{access_id},'%')
         </if>
 
-        order by ecll.login_dtm DESC
         LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>
@@ -394,22 +393,21 @@
 
 
     <select id="S12_EXPO_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto">
-        select *
-        from (
-                select ROW_NUMBER() OVER(order by expo_from_dt asc) as rn
-                    , ev_expo_id
-                    , ev_expo_nm
-                    , apct_prod_from_dt
-                    , apct_prod_to_dt
-                    , expo_from_dt
-                    , expo_from_hrm
-                    , concat(expo_from_dt, ' ', expo_from_hrm) as expo_from_dtm
-                    , expo_to_dt
-                    , expo_to_hrm
-                    , concat(expo_to_dt, ' ', expo_to_hrm) as expo_to_dtm
-                    , use_yn
-                from ev_expo
-                where 1 = 1
+
+            select ROW_NUMBER() OVER(order by expo_from_dt asc) as rn
+                , ev_expo_id
+                , ev_expo_nm
+                , apct_prod_from_dt
+                , apct_prod_to_dt
+                , expo_from_dt
+                , expo_from_hrm
+                , concat(expo_from_dt, ' ', expo_from_hrm) as expo_from_dtm
+                , expo_to_dt
+                , expo_to_hrm
+                , concat(expo_to_dt, ' ', expo_to_hrm) as expo_to_dtm
+                , use_yn
+            from ev_expo
+            where 1 = 1
 
         <if test="ev_expo_nm != null and ev_expo_nm != ''">
             and ev_expo_nm like concat('%',#{ev_expo_nm},'%')
@@ -427,7 +425,6 @@
             and use_yn   >= #{use_yn}
         </if>
 
-        ) a
         LIMIT #{page_row_start}, #{page_row_cnt}
     </select>
 

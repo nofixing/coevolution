@@ -503,7 +503,8 @@
 
         /* 회원정보수정 */
         UPDATE ev_cust_mst
-        SET email_id            = #{email_id}
+        SET cust_nm             = #{cust_nm}
+            , email_id          = #{email_id}
             , tel_no            = #{tel_no}
             , hp_no             = #{hp_no}
             , dept_nm           = #{dept_nm}

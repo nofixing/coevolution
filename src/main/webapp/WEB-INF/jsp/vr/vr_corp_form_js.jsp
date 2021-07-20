@@ -84,6 +84,21 @@ $(document).ready(function() {
 
 	});    
 
+    var pageURL = $(location).attr("href"); //info(nav1), brochure(nav2), gallery(nav3)
+
+    if(pageURL.indexOf('#') > -1) {
+        var anchor = pageURL.substring(pageURL.indexOf('#')+1, pageURL.length);
+
+        if(anchor == "info") {
+            $('#nav a[href="#nav1"]').tab('show');
+        } else if(anchor == "brochure") {
+            $('#nav a[href="#nav2"]').tab('show');
+            doPdfViewer();
+        } else if(anchor == "gallery") {
+            $('#nav a[href="#nav3"]').tab('show');
+        }
+    }
+
 });
 
 function doPdfViewer (pUrl) {

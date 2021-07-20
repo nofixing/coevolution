@@ -99,7 +99,12 @@ function fnSearch() {
 			var pFieldArry = ["cust_id","cust_nm","email_id","tel_no","hp_no","dept_nm","rep_nm","country_cd","category1","ins_dt","cust_sts_nm"];
 			gfnSetField(message.custInfo[0], pFieldArry);
 
-			setValue("vr_corpinfo_url", message.vr_corpinfo_url);
+			var corp_url = message.vr_corpinfo_url;
+			corp_url += "#info (기업정보)\r\n"
+			corp_url += message.vr_corpinfo_url + "#brochure (자료소개)\r\n"
+			corp_url += message.vr_corpinfo_url + "#gallery (갤러리)\r\n"
+
+			setValue("vr_corpinfo_url", corp_url);
 			setValue("vr_corpcoslt_url", message.vr_corpcoslt_url);
 
 			/* 개인정보수집이용동의 */
@@ -187,18 +192,19 @@ function fnUpdate() {
 
 	/* 필수체크 */
 	var chk = '['
-		+ '  {"id":"email_id","name":"이메일 주소"}'
+		+ '  {"id":"cust_nm","name":"기업명"}'
+		/* + '  {"id":"email_id","name":"이메일 주소"}'
 		+ ', {"id":"hp_no","name":"휴대폰"}'
 		+ ', {"id":"dept_nm","name":"부서"}'
 		+ ', {"id":"rep_nm","name":"담당자명"}'
-		+ ', {"id":"country_cd","name":"국가"}'
+		+ ', {"id":"country_cd","name":"국가"}' */
 	chk += ']';
 
-	/*var jsonCheck = JSON.parse(chk);
+	var jsonCheck = JSON.parse(chk);
 
 	if(!lComm.fnRequiredItems(jsonCheck)) {
 		return false;
-	}*/
+	}
 
 	/* form값 global 변수에 입력 */
 	gfnGetFormJSON();

@@ -36,7 +36,7 @@
           <!-- NAV -->
           <nav class="nav nav-tabs mb-5" id="nav">
             <!-- Content -->
-            <a class="nav-item nav-link active" data-toggle="tab" href="#nav1">
+            <a class="nav-item nav-link" data-toggle="tab" href="#nav1">
               기업정보
             </a>
             <a class="nav-item nav-link" data-toggle="tab" href="#nav2" onClick="doPdfViewer()">
@@ -50,7 +50,7 @@
 
           <div class="tab-content">
             <!-- 기업젇보 -->
-            <div class="tab-pane fade active show pb-5 boot-tab-pane" id="nav1">
+            <div class="tab-pane fade show pb-5 boot-tab-pane" id="nav1">
               <div class="row">
                 <div class="col-sm-3 pl-0"></div>
                 <div class="col-sm-9">

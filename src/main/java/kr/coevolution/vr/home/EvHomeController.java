@@ -39,7 +39,6 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.Utilities;
 import java.util.*;
 
 @Slf4j
@@ -167,6 +166,19 @@ public class EvHomeController {
     @RequestMapping("/index/ieve2021")
     public String ieve2021(Model model, HttpServletRequest request) {
         String return_url = "/ieve2021";
+
+        return return_url;
+    }
+
+    /**
+     * 버추얼전시관
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping("/ieve2021")
+    public String index_ieve2021(Model model, HttpServletRequest request) {
+        String return_url = "/index2021";
 
         return return_url;
     }

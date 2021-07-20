@@ -138,13 +138,16 @@
                                   <div class="general_chk_box">
                                     <div class="input-chk">
                                       <input type="checkbox" value="Y" name="S10001" id="S10001" <c:if test="${S10001 eq 'Y'}">checked</c:if> ><label for="S10001" style="width:200px"><span></span> 뱃지관리</label>
-                                      <input type="checkbox" value="Y" name="S10002" id="S10002" <c:if test="${S10002 eq 'Y'}">checked</c:if> ><label for="S10002" style="width:200px"><span></span> 상담문의내역</label>
+                                      <input type="checkbox" value="Y" name="S10002" id="S10002" <c:if test="${S10002 eq 'Y'}">checked</c:if> ><label for="S10002" style="width:200px"><span></span> 1:1상담</label>
+                                      <input type="checkbox" value="Y" name="S10017" id="S10017" <c:if test="${S10017 eq 'Y'}">checked</c:if> ><label for="S10017" style="width:200px"><span></span> 상담신청현황</label>
                                       <input type="checkbox" value="Y" name="S10004" id="S10004" <c:if test="${S10004 eq 'Y'}">checked</c:if> ><label for="S10004" style="width:200px"><span></span> 참관회원</label>
                                       <input type="checkbox" value="Y" name="S10005" id="S10005" <c:if test="${S10005 eq 'Y'}">checked</c:if> ><label for="S10005" style="width:200px"><span></span> 참가회원</label>
-                                      <input type="checkbox" value="Y" name="S10006" id="S10006" <c:if test="${S10006 eq 'Y'}">checked</c:if> ><label for="S10006" style="width:200px"><span></span> 관리자</label>
-                                      <input type="checkbox" value="Y" name="S10011" id="S10011" <c:if test="${S10011 eq 'Y'}">checked</c:if> ><label for="S10011" style="width:200px"><span></span> 코드관리</label>
+                                      <input type="checkbox" value="Y" name="S10018" id="S10018" <c:if test="${S10018 eq 'Y'}">checked</c:if> ><label for="S10018" style="width:200px"><span></span> 관리자등록</label>
+                                      <input type="checkbox" value="Y" name="S10019" id="S10019" <c:if test="${S10019 eq 'Y'}">checked</c:if> ><label for="S10019" style="width:200px"><span></span> 엑스포관리</label>
+                                      <input type="checkbox" value="Y" name="S10020" id="S10020" <c:if test="${S10020 eq 'Y'}">checked</c:if> ><label for="S10020" style="width:200px"><span></span> 엑스포참가업체관리</label>
                                       <input type="checkbox" value="Y" name="S10008" id="S10008" <c:if test="${S10008 eq 'Y'}">checked</c:if> ><label for="S10008" style="width:200px"><span></span> 부스현황</label>
                                       <input type="checkbox" value="Y" name="S10009" id="S10009" <c:if test="${S10009 eq 'Y'}">checked</c:if> ><label for="S10009" style="width:200px"><span></span> 구글애널리틱스</label>
+                                      <input type="checkbox" value="Y" name="S10011" id="S10011" <c:if test="${S10011 eq 'Y'}">checked</c:if> ><label for="S10011" style="width:200px"><span></span> 코드관리</label>                                      
                                       <input type="checkbox" value="Y" name="S10010" id="S10010" <c:if test="${S10010 eq 'Y'}">checked</c:if> ><label for="S10010" style="width:200px"><span></span> 접속현황</label>
                                       <input type="checkbox" value="Y" name="S10013" id="S10013" <c:if test="${S10013 eq 'Y'}">checked</c:if> ><label for="S10013" style="width:200px"><span></span> 개인정보처리방침</label>
                                       <input type="checkbox" value="Y" name="S10014" id="S10014" <c:if test="${S10014 eq 'Y'}">checked</c:if> ><label for="S10014" style="width:200px"><span></span> 이용약관</label>

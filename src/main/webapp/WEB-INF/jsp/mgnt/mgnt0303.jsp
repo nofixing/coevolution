@@ -14,6 +14,10 @@
       .form_height1 {
         height:calc(1.9rem + 2px);
       }
+
+      select {
+        background-image:none;
+      }
     </style>
 
   </head>
@@ -114,7 +118,9 @@
                           </tr>
                           <tr>
                               <th>기업명</th>
-                              <td><div id="cust_nm"></div></td>
+                              <td>
+                                <input type="text" name="cust_nm" id="cust_nm" maxlength="50" style="width:50%" class="input-box">
+                              </td>
                           </tr>
                           <tr>
                               <th>이메일</th>
@@ -177,12 +183,12 @@
 
                           <tr>
                               <th>VR기업정보URL</th>
-                              <td><div id="vr_corpinfo_url"></div></td>
+                              <td><pre><div id="vr_corpinfo_url"></div></pre></td>
                           </tr>  
 
                           <tr>
                               <th>VR상담정보URL</th>
-                              <td><div id="vr_corpcoslt_url"></div></td>
+                              <td><pre><div id="vr_corpcoslt_url"></div></pre></td>
                           </tr>                                                   
 
                         </table>

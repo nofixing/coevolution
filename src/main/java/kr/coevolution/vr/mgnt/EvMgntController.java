@@ -17,10 +17,8 @@ import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
 import kr.coevolution.vr.member.dto.EvMemberResposeDto;
 import kr.coevolution.vr.member.dto.EvMemberSearchDto;
 import kr.coevolution.vr.member.service.EvMemberService;
-import kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto;
-import kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto;
+import kr.coevolution.vr.mgnt.dto.*;
+import kr.coevolution.vr.mgnt.service.EvMgntConsultService;
 import kr.coevolution.vr.mgnt.service.EvMgntService;
 import kr.coevolution.vr.mypage.EvMypageMemberController;
 import kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto;
@@ -80,6 +78,9 @@ public class EvMgntController {
 
     @Autowired
     private EvExpoService evExpoService;
+
+    @Autowired
+    private EvMgntConsultService evMgntConsultService;
 
 
     @Autowired
@@ -1809,6 +1810,7 @@ public class EvMgntController {
             map.put("cust_sts_cd", "105001"); //정상
             map.put("cust_clsf_cd", "202002"); //참가고객
             map.put("user_id", loginInfoDto.getCust_id());
+            map.put("cust_pw", SecureUtils.getSecurePassword(String.valueOf(map.get("cust_pw"))));
             evMgntService.cust_user_insert(map);
 
             resposeResult.put("result_code", "0");
@@ -2163,4 +2165,91 @@ public class EvMgntController {
         return resposeResult;
     }
 
+    /**
+     * 상담신청현호아
+     * @param evMgntConsultRequestDto
+     * @param request
+     * @return
+     */
+    @RequestMapping("/mgnt/conslt_list")
+    public String mgnt_conslt_list(EvMgntConsultRequestDto evMgntConsultRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt1201";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
+
+            evMgntConsultRequestDto.setUser_id(loginInfoDto.getCust_id());
+            evMgntConsultRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            /* row 개수 */
+            evMgntConsultRequestDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+            Long page_row_start = StringUtils.page_start_row(evMgntConsultRequestDto.getPage_current(), StringUtils.page_row_cnt);
+            evMgntConsultRequestDto.setPage_row_start(page_row_start);
+
+            if("".equals(StringUtils.nvl(evMgntConsultRequestDto.getPage_current(),""))) {
+                evMgntConsultRequestDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMgntConsultRequestDto.getPage_current()));  /* 현재페이지 */
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            Date nDt = new Date();
+
+            /* 최초 날짜가 null 인경우 */
+            if("".equals(StringUtils.nvl(evMgntConsultRequestDto.getConsult_dt_fr(),""))) {
+                Date ftDt = StringUtils.addMonth(nDt,-1);
+                String strDt = sf.format(ftDt);
+                evMgntConsultRequestDto.setConsult_dt_fr(strDt);
+            }
+
+            if("".equals(StringUtils.nvl(evMgntConsultRequestDto.getConsult_dt_to(),""))) {
+                String strDt = sf.format(nDt);
+                evMgntConsultRequestDto.setConsult_dt_to(strDt);
+            }
+
+            /* 상담 리스트 조회 */
+            List<EvMgntConsultResposeDto> list = null;
+            List<EvMgntConsultResposeDto> listCnt = null;
+
+            evMgntConsultRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
+
+            list = evMgntConsultService.consult_list(evMgntConsultRequestDto);
+            listCnt = evMgntConsultService.consult_list_count(evMgntConsultRequestDto);
+
+            Long row_count = 0L;
+
+            if(listCnt != null && listCnt.size() > 0) {
+                row_count = listCnt.get(0).getRow_count();
+            }
+
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count); /* 총 개수 */
+            model.addAttribute("page_row_cnt", evMgntConsultRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evMgntConsultRequestDto.getPage_current());    /* 현재페이지 */
+
+            /* 검색조건 */
+            model.addAttribute("consult_dt_fr", evMgntConsultRequestDto.getConsult_dt_fr());
+            model.addAttribute("consult_dt_to", evMgntConsultRequestDto.getConsult_dt_to());
+            model.addAttribute("consult_rsv_cust_nm", evMgntConsultRequestDto.getConsult_rsv_cust_nm());
+            model.addAttribute("exhibitors_cust_nm", evMgntConsultRequestDto.getExhibitors_cust_nm());
+
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
+
+            model.addAttribute("page_clsf", "mgnt12");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
 }
