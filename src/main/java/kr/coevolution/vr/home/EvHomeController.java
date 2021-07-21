@@ -480,7 +480,7 @@ public class EvHomeController {
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
             request.getSession().setAttribute("url_prior_login", returnUrl);
-            return "redirect:/vr/vr_login_form";
+            return "redirect:https://vrutopia.in/vr/vr_login_form";
         }
 
         try {
