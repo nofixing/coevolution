@@ -96,9 +96,9 @@ $(document).ready(function() {
             doPdfViewer();
         } else if(anchor == "gallery") {
             $('#nav a[href="#nav3"]').tab('show');
-        } else {
-            $('#nav a[href="#nav1"]').tab('show');
-        }
+        } 
+    } else {
+        $('#nav a[href="#nav1"]').tab('show');
     }
 
 });

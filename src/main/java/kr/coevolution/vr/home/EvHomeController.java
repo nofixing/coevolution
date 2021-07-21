@@ -176,6 +176,19 @@ public class EvHomeController {
      * @param request
      * @return
      */
+    @RequestMapping("/index/ieve2021test")
+    public String ieve2021test(Model model, HttpServletRequest request) {
+        String return_url = "/ieve2021test";
+
+        return return_url;
+    }
+
+    /**
+     * 버추얼전시관
+     * @param model
+     * @param request
+     * @return
+     */
     @RequestMapping("/ieve2021")
     public String index_ieve2021(Model model, HttpServletRequest request) {
         String return_url = "/index2021";
