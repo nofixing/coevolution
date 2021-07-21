@@ -90,12 +90,14 @@ $(document).ready(function() {
         var anchor = pageURL.substring(pageURL.indexOf('#')+1, pageURL.length);
 
         if(anchor == "info") {
-            $('#nav a[href="#nav1"]').tab('show');
+            
         } else if(anchor == "brochure") {
             $('#nav a[href="#nav2"]').tab('show');
             doPdfViewer();
         } else if(anchor == "gallery") {
             $('#nav a[href="#nav3"]').tab('show');
+        } else {
+            $('#nav a[href="#nav1"]').tab('show');
         }
     }
 
