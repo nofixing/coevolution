@@ -171,7 +171,7 @@ function fnRrcmderCustId() {
 	/* global 변수 json으로 변환 */
 	var pParamJson = gfnGetJson();
 
-	sendForm("POST", "/member/dup", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+	sendForm("POST", "/member/rcmder", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		console.log("message : " + message.result_code);
 
@@ -187,7 +187,7 @@ function fnRrcmderCustId() {
 				lComm.setFocus("cust_id");
 			}
 		} else {
-            alert("<spring:message code='join.form7' text='[중복체크 오류]'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
+            alert("<spring:message code='join.form7' text='[추천인 오류]'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
 			lComm.setFocus("cust_id");
 		}
 

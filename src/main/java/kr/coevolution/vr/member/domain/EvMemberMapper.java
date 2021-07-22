@@ -18,6 +18,13 @@ public interface EvMemberMapper {
     public List<EvMemberResposeDto> S01_CUST(EvMemberSearchDto param);
 
     /**
+     * 추천회원조회
+     * @param param
+     * @return
+     */
+    public List<EvMemberResposeDto> S01_CUST_RCMDER(EvMemberSearchDto param);
+    
+    /**
      * 회원로그인-정보조회
      * @param param
      * @return
@@ -177,6 +184,13 @@ public interface EvMemberMapper {
      * @return
      */
     public List<EvMypageBadgeResponseDto> S03_BADGE(EvMemberBadgeRequestDto evMemberBadgeRequestDto);
+
+    /**
+     * 참관고객 뱃지 총 개수
+     * @param evMemberBadgeRequestDto
+     * @return
+     */
+    public List<EvMypageBadgeResponseDto> S03_BADGE_TOT(EvMemberBadgeRequestDto evMemberBadgeRequestDto);
 
     /**
      * 회원뱃지내역조회-기업참가

@@ -17,6 +17,9 @@ $(document).ready(function() {
 	//상담저장
 	$('#btnSave').on('click', function () {
 
+        alert("현재 이용할 수 없는 메뉴입니다.");
+        return;
+        
         /* 필수항목 체크 */
         var chk = '['
             + '  {"id":"board_subject","name":"제목"} '

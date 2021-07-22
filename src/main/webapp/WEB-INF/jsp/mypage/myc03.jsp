@@ -103,9 +103,9 @@
                     <div class="col-md-auto col-sm-12 ml-auto text-right search-tab">
                       <input type="hidden" name="slt_badge_clsf" id="slt_badge_clsf" value="${slt_badge_clsf}">
                       <a id="slt_badge_clsf1" href="javascript:setBadgeClsf('', 'slt_badge_clsf1')"      <c:if test="${slt_badge_clsf eq '' || slt_badge_clsf eq null}">class="on"</c:if>>전체</a>
-                      <a id="slt_badge_clsf2" href="javascript:setBadgeClsf('211001','slt_badge_clsf2')" <c:if test="${slt_badge_clsf eq '211001'}">class="on"</c:if>>부여</a>
+                      <a id="slt_badge_clsf2" href="javascript:setBadgeClsf('211001','slt_badge_clsf2')" <c:if test="${slt_badge_clsf eq '211003'}">class="on"</c:if>>받음</a>
                       <a id="slt_badge_clsf3" href="javascript:setBadgeClsf('211004','slt_badge_clsf3')" <c:if test="${slt_badge_clsf eq '211004'}">class="on"</c:if>>회수</a>
-                      <a id="slt_badge_clsf4" href="javascript:setBadgeClsf('211003','slt_badge_clsf4')" <c:if test="${slt_badge_clsf eq '211003'}">class="on"</c:if>>사용</a>
+                      <!--a id="slt_badge_clsf4" href="javascript:setBadgeClsf('211003','slt_badge_clsf4')" <c:if test="${slt_badge_clsf eq '211003'}">class="on"</c:if>>사용</a-->
                     </div>
                   </div>
                 </form>            
@@ -116,8 +116,8 @@
                       <th scope="col" width="20%" class="text-center">부여일(유효기간)</th>
                       <th scope="col" width="35%" class="text-center">내용</th>
                       <th scope="col" width="15%" class="text-center">적립회원명</th>
-                      <th scope="col" width="15%" class="text-center">뱃지 부여/회수</th>
-                      <th scope="col" width="15%" class="text-center">뱃지 사용</th>
+                      <th scope="col" width="15%" class="text-center">뱃지받음</th>
+                      <th scope="col" width="15%" class="text-center">뱃지회수</th>
                     </tr>
                   </thead>
                   <tbody>

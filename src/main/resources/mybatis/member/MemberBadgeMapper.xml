@@ -21,7 +21,7 @@
     <select id="S01_BADGE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
             resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
 
-        SELECT ROW_NUMBER() OVER() as rn
+        SELECT ROW_NUMBER() OVER(ORDER BY a.ins_dtm DESC) as rn
             , a.badge_id
             , a.cust_id
             , a.give_cust_id
@@ -58,7 +58,6 @@
             </choose>
         </if>
 
-        ORDER BY a.ins_dtm DESC
         LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>
@@ -96,7 +95,7 @@
         SELECT a.cust_id
              , a.give_cust_id
              , sum(a.badge_cnt) as sum_badge_cnt
-             , nvl((select sum(badge_cnt) from ev_cust_badge where give_cust_id = #{give_cust_id} and badge_clsf_cd IN ('211003','211004')),0) as tot_badge
+             , nvl((select sum(badge_cnt)  * (-1) from ev_cust_badge where give_cust_id = #{give_cust_id} and badge_clsf_cd IN ('211003','211004')),0) as tot_badge /* 참가업체 총 뱃지 - vr 기업정보에 표시됨 */
           FROM ev_cust_badge a
          WHERE a.cust_id = #{cust_id}
            AND a.badge_clsf_cd IN ('211003','211004') /* 뱃지사용,회수 */
@@ -105,18 +104,28 @@
 
     </select>
 
+    <select id="S03_BADGE_TOT" parameterType="kr.coevolution.vr.member.dto.EvMemberBadgeRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
+
+        /* 현재고객이 가지고 있는 총 뱃지 - GROUP BY 값이 없으면 조회가 안되어 분리 */
+        select sum(badge_cnt) AS cust_tot_badge
+          from ev_cust_badge
+         where cust_id = #{cust_id}
+
+    </select>
+
     <select id="S04_BADGE" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto"
             resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
         /* 기업 뱃지 적립내역 */
         select *
           from (
-                    SELECT ROW_NUMBER() OVER(order by a.ins_dtm) as rn
+                    SELECT ROW_NUMBER() OVER(order by a.ins_dtm desc) as rn
                     , a.badge_id
                     , a.cust_id
                     , ecm.cust_nm
                     , a.give_cust_id
                     , case when a.badge_clsf_cd in ('211001','211002') then '부여'
-                            when a.badge_clsf_cd in ('211003') then '사용'
+                            when a.badge_clsf_cd in ('211003') then '받음'
                             when a.badge_clsf_cd in ('211004') then '회수'
                       end AS badge_clsf_nm
                     , concat (nvl(
@@ -128,9 +137,9 @@
                                 concat(' ', nvl((select cd_nm from ev_comm_code ecc where cd_id = ecm.category1), ''), ' ', ecm.cust_nm)
                         end
                       ) AS badge_conts
-                    , case when a.badge_clsf_cd IN ('211001','211002','211004') then a.badge_cnt ELSE 0 END AS badge_recv_cnt
-                    , case when a.badge_clsf_cd IN ('211003') then a.badge_cnt ELSE 0 END AS badge_use_cnt
-                    , date_format(a.ins_dtm,'%Y-%m-%d') AS ins_dt
+                    , case when a.badge_clsf_cd IN ('211003') then (a.badge_cnt) * (-1) ELSE 0 END AS badge_recv_cnt
+                    , case when a.badge_clsf_cd IN ('211004') then (a.badge_cnt) * (-1) ELSE 0 END AS badge_use_cnt
+                    , date_format(a.ins_dtm,'%Y-%m-%d %H:%i') AS ins_dt
                     FROM ev_cust_badge a
                     left outer join ev_cust_mst ecm
                     on a.cust_id = ecm.cust_id
@@ -158,7 +167,7 @@
         /* 기업 뱃지 적립 건수 */
 
         SELECT count(*) as row_count
-            , (SELECT SUM(x.badge_cnt)
+            , (SELECT nvl(SUM(x.badge_cnt),0) * (-1)
                 FROM ev_cust_badge x
                 WHERE x.give_cust_id = #{cust_id}
               ) as tot_badge

@@ -134,6 +134,10 @@ function top_badge(pCustId) {
 		} else {
 			if(message.result_code == (-999)) {
 				alert("로그인 후 사용할 수 있습니다.");
+			} else if(message.result_code == (-1)) {
+				alert("참가업체는 뱃지를 부여 할 수 없습니다.");
+			} else if(message.result_code == (-2)) {
+				alert("사용 가능한 뱃지가 없습니다.");
 			} else {
 				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
 			}

@@ -111,7 +111,7 @@
                     <div class="col-md-auto col-sm-12 ml-auto text-right search-tab">
                       <input type="hidden" name="slt_badge_clsf" id="slt_badge_clsf" value="${slt_badge_clsf}">
                       <a id="slt_badge_clsf1" href="javascript:setBadgeClsf('', 'slt_badge_clsf1')"      <c:if test="${slt_badge_clsf eq '' || slt_badge_clsf eq null}">class="on"</c:if>><spring:message code="form.badges.search.clsf1" text="전체"/></a>
-                      <a id="slt_badge_clsf2" href="javascript:setBadgeClsf('211001','slt_badge_clsf2')" <c:if test="${slt_badge_clsf eq '211001'}">class="on"</c:if>><spring:message code="form.badges.search.clsf2" text="부여"/></a>
+                      <a id="slt_badge_clsf2" href="javascript:setBadgeClsf('211001','slt_badge_clsf2')" <c:if test="${slt_badge_clsf eq '211001'}">class="on"</c:if>><spring:message code="form.badges.search.clsf2" text="받음"/></a>
                       <a id="slt_badge_clsf3" href="javascript:setBadgeClsf('211004','slt_badge_clsf3')" <c:if test="${slt_badge_clsf eq '211004'}">class="on"</c:if>><spring:message code="form.badges.search.clsf3" text="회수"/></a>
                       <a id="slt_badge_clsf4" href="javascript:setBadgeClsf('211003','slt_badge_clsf4')" <c:if test="${slt_badge_clsf eq '211003'}">class="on"</c:if>><spring:message code="form.badges.search.clsf4" text="사용"/></a>
                     </div>
@@ -121,9 +121,9 @@
                 <table class="table table-striped table-hover table-sm border-bottom">
                   <thead class="table-light">
                     <tr>
-                      <th scope="col" class="text-center"><spring:message code="form.badges.date" text="부여일"/></th>
+                      <th scope="col" class="text-center"><spring:message code="form.badges.date" text="일자"/></th>
                       <th scope="col" class="text-center"><spring:message code="form.badges.contents" text="내용"/></th>
-                      <th scope="col" class="text-center"><spring:message code="form.badges.provided.withdrawn" text="뱃지 부여/회수"/></th>
+                      <th scope="col" class="text-center"><spring:message code="form.badges.provided.withdrawn" text="뱃지 받음/회수"/></th>
                       <th scope="col" class="text-center"><spring:message code="form.badges.use" text="뱃지 사용"/></th>
                     </tr>
                   </thead>

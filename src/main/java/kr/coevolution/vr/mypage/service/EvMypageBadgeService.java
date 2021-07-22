@@ -74,24 +74,35 @@ public class EvMypageBadgeService {
     public int vr_badge_save (EvMemberBadgeRequestDto evMemberBadgeRequestDto) {
         int return_code = 0;
 
-        /* 뱃지 등록여부 조회 sum_badge_cnt = 0 : 미등록, sum_badge_cnt > 0 : 뱃지 등록 */
+        /* 뱃지 등록여부 조회 sum_badge_cnt = 0 : 미등록, sum_badge_cnt < 0 : 뱃지 등록 , 뱃지 부여시 (-)가 됨 */
         List<EvMypageBadgeResponseDto> list = evMemberMapper.S03_BADGE(evMemberBadgeRequestDto);
+        List<EvMypageBadgeResponseDto> listTot = evMemberMapper.S03_BADGE_TOT(evMemberBadgeRequestDto);
 
-        int sumBadge = 0;
+        int sumBadge = 0;       /* 업체에 부여한 뱃지 개수 */
+        int custTotBadge = 0;   /* 고객이 가지고 있는 총 뱃지 */
+
         if(list.size() > 0) {
             sumBadge = list.get(0).getSum_badge_cnt();
         }
 
-        if(sumBadge > 0) {
-            /* 뱃지 사용 */
-            evMemberBadgeRequestDto.setBadge_clsf_cd("211003");
-            evMemberBadgeRequestDto.setBadge_cnt("-1");
-            evMemberMapper.I01_BADGE(evMemberBadgeRequestDto);
-        } else {
+        if(listTot.size() > 0) {
+            custTotBadge = listTot.get(0).getCust_tot_badge();
+        }
+
+        if(sumBadge < 0) {
             /* 뱃지 회수 */
             evMemberBadgeRequestDto.setBadge_clsf_cd("211004");
             evMemberBadgeRequestDto.setBadge_cnt("1");
             evMemberMapper.I01_BADGE(evMemberBadgeRequestDto);
+        } else {
+            if(custTotBadge > 0) {
+                /* 뱃지 사용 */
+                evMemberBadgeRequestDto.setBadge_clsf_cd("211003");
+                evMemberBadgeRequestDto.setBadge_cnt("-1");
+                evMemberMapper.I01_BADGE(evMemberBadgeRequestDto);
+            } else {
+                return_code = -1;
+            }
         }
 
         return return_code;

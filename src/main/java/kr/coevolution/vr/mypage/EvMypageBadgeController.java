@@ -273,14 +273,28 @@ public class EvMypageBadgeController {
                 evMemberBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
                 evMemberBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
 
+                /* 뱃지등록은 참관자만 가능 - 참가업체는 불가 */
+                if(!"202001".equals(loginInfoDto.getCust_clsf_cd())) {
+                    resposeResult.put("result_code", "-1");
+                    resposeResult.put("result_msg", "[오류]참가업체는 뱃지를 부여 할 수 없습니다.");
+                    return resposeResult;
+                }
+
                 /* 뱃지등록 */
                 int return_code = evMypageBadgeService.vr_badge_save(evMemberBadgeRequestDto);
+
+                if(return_code == (-1)) {
+                    //뱃지사용완료
+                    resposeResult.put("result_code", "-2");
+                    resposeResult.put("result_msg", "[오류]사용 할 수 있는 뱃지가 없습니다.");
+                    return resposeResult;
+                }
 
                 /* 뱃지 리스트 조회 sum_badge_cnt : 0 이면 뱃지 없음 */
                 List<EvMypageBadgeResponseDto> list = evMypageBadgeService.vr_badge(evMemberBadgeRequestDto);
 
                 String badge_yn = "";
-                if(list.get(0).getSum_badge_cnt() > 0) {
+                if(list.get(0).getSum_badge_cnt() < 0) {
                     badge_yn = "Y";
                 } else {
                     badge_yn = "N";

@@ -120,6 +120,51 @@ public class EvMemberController {
     }
 
     /**
+     * 추천인 검색
+     * @param evMemberSearchDto
+     * @return
+     */
+    @PostMapping("/member/rcmder")
+    public Map<String,Object> member_rcmder_chk(@RequestBody EvMemberSearchDto evMemberSearchDto) {
+        Map resposeResult = new HashMap();
+
+        try {
+            if ("".equals(StringUtils.nvl(evMemberSearchDto.getCust_id(), ""))) {
+
+                resposeResult.put("dup_yn", "Y");
+                resposeResult.put("result_code", "-98");
+                resposeResult.put("result_msg", "ID없음!!");
+
+            } else {
+                List<EvMemberResposeDto> evMemberResposeDtoList = evMemberService.search_recommender(evMemberSearchDto);
+
+                EvMemberResposeDto evMemberResposeDto = evMemberResposeDtoList.get(0);
+                int cnt = evMemberResposeDto.getCnt();
+
+                if (cnt > 0) {
+                    resposeResult.put("dup_yn", "Y");
+                } else {
+                    resposeResult.put("dup_yn", "N");
+                }
+
+                resposeResult.put("result_code", "0");
+                resposeResult.put("result_msg", "성공!!");
+            }
+
+        } catch (Exception e) {
+
+            resposeResult.put("dup_yn", "Y");
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+
+        return resposeResult;
+    }
+
+    /**
      * 회원가입
      * @param map
      * @return

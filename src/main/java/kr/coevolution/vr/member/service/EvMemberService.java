@@ -43,6 +43,15 @@ public class EvMemberService {
     }
 
     /**
+     * 추천자조회
+     * @param evMemberSearchDto
+     * @return
+     */
+    public List<EvMemberResposeDto> search_recommender(EvMemberSearchDto evMemberSearchDto) {
+        return evMemberMapper.S01_CUST_RCMDER(evMemberSearchDto);
+    }
+
+    /**
      * 로그인정보조회
      * @param evMemberLoginRequestDto
      * @return

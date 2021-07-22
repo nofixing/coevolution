@@ -12,6 +12,17 @@
 
     </select>
 
+    <select id="S01_CUST_RCMDER" parameterType="kr.coevolution.vr.member.dto.EvMemberSearchDto" resultType="kr.coevolution.vr.member.dto.EvMemberResposeDto">
+
+        /* 추천인체크 */
+        SELECT COUNT(*) AS CNT
+        FROM ev_cust_mst
+        where cust_sts_cd = '105001'
+        and cust_clsf_cd = '202001'
+        and cust_id = #{cust_id}
+
+    </select>
+
     <select id="S02_CUST" parameterType="kr.coevolution.vr.member.dto.EvMemberLoginRequestDto" resultType="kr.coevolution.vr.member.dto.EvMemberLoginInfoDto">
 
         /* 로그인 회원정보 조회 */
@@ -426,8 +437,8 @@
                 , ecm.category3
                 , nvl((select cd_val1 from ev_comm_code ecc where ecc.cd_id = ecm.category1),'#!') as vr_shortcut_url
                 , (select case when count(*) = 0 then 'N' else  'Y' end as favorts_yn from ev_cust_favorts ecf where ecf.favorts_cust_id = ecm.cust_id and ecf.cust_id = #{cust_id} and del_yn = 'N') as favorts_yn
-                , (select case when nvl(sum(badge_cnt),0) = 0 then 'N' else  'Y' end as badge_yn from ev_cust_badge ecb  where ecb.give_cust_id = ecm.cust_id and ecb.cust_id = #{cust_id} and badge_clsf_cd in ('211003', '211004') /* 사용, 회수 */) as badge_yn
-                , (select nvl(sum(badge_cnt),0) as badge_sum from ev_cust_badge ecb  where ecb.give_cust_id = ecm.cust_id and badge_clsf_cd in ('211003', '211004') /* 사용, 회수 */) as badge_sum
+                , (select case when nvl(sum(badge_cnt),0) * (-1) = 0 then 'N' else  'Y' end as badge_yn from ev_cust_badge ecb  where ecb.give_cust_id = ecm.cust_id and ecb.cust_id = #{cust_id} and badge_clsf_cd in ('211003', '211004') /* 사용, 회수 */) as badge_yn
+                , (select nvl(sum(badge_cnt),0) * (-1) as badge_sum from ev_cust_badge ecb  where ecb.give_cust_id = ecm.cust_id and badge_clsf_cd in ('211003', '211004') /* 사용, 회수 */) as badge_sum
                 , (select file_path from ev_file_attach efa where efa.board_id = ecm.cust_seq and file_clsf_cd = '101008' and file_clsf_dtl_cd = '102006' and del_yn = 'N') as ci_url
             from ev_cust_mst ecm
             left outer join ev_cust_corp_info ecci
@@ -442,9 +453,11 @@
         <if test="keyword != null and keyword != ''">
             and ecm.cust_nm 			like concat('%',#{keyword}, '%')
         </if>
-            LIMIT #{page_row_start}, #{page_row_cnt}
+
         ) a
         order by a.badge_sum desc, a.cust_nm asc
+
+        LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>
 

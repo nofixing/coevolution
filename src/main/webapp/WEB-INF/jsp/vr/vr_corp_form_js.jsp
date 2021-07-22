@@ -17,6 +17,9 @@ $(document).ready(function() {
 	//즐겨찾기
 	$('#corpFavorit').on('click', function () {
 
+        alert("현재 이용할 수 없는 메뉴입니다.");
+        return;
+        
         /* JSON 생성을 위해 입력*/
         gfnPutObj("favorts_cust_id", "${custInfo.cust_id}");
 
@@ -50,6 +53,9 @@ $(document).ready(function() {
 
 	//관심뱃지
 	$('#corpBadge').on('click', function () {
+
+        //alert("현재 이용할 수 없는 메뉴입니다.");
+        //return;
 		
         /* JSON 생성을 위해 입력*/
         gfnPutObj("give_cust_id", "${custInfo.cust_id}");
@@ -75,6 +81,10 @@ $(document).ready(function() {
             } else {
                 if(message.result_code == (-999) || message == undefined) {
                     alert("로그인 후 사용할 수 있습니다.");
+			    } else if(message.result_code == (-1)) {
+				    alert("참가업체는 뱃지를 부여 할 수 없습니다.");
+                } else if(message.result_code == (-2)) {
+                    alert("사용 가능한 뱃지가 없습니다.");
                 } else {
                     alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
                 }
@@ -90,7 +100,7 @@ $(document).ready(function() {
         var anchor = pageURL.substring(pageURL.indexOf('#')+1, pageURL.length);
 
         if(anchor == "info") {
-            
+            $('#nav a[href="#nav1"]').tab('show');    
         } else if(anchor == "brochure") {
             $('#nav a[href="#nav2"]').tab('show');
             doPdfViewer();

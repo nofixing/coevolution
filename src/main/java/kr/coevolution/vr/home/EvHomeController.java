@@ -493,7 +493,8 @@ public class EvHomeController {
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
             request.getSession().setAttribute("url_prior_login", returnUrl);
-            return "redirect:/vr/vr_login_form";
+            //임시주석
+            //return "redirect:/vr/vr_login_form";
         }
 
         try {
@@ -520,7 +521,7 @@ public class EvHomeController {
 
             if(badgeList.size() > 0) {
 
-                if (badgeList.get(0).getSum_badge_cnt() > 0) {
+                if (badgeList.get(0).getSum_badge_cnt() < 0) {
                     badge_yn = "Y";
                 } else {
                     badge_yn = "N";
@@ -647,7 +648,8 @@ public class EvHomeController {
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
             request.getSession().setAttribute("url_prior_login", returnUrl);
-            return "redirect:/vr/vr_login_form";
+            //임시주석처리
+            //return "redirect:/vr/vr_login_form";
         }
 
         try {
