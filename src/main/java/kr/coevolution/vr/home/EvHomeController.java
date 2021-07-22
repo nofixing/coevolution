@@ -512,7 +512,12 @@ public class EvHomeController {
             /* 뱃지 리스트 조회 sum_badge_cnt : 0 이면 뱃지 없음 */
             EvMemberBadgeRequestDto evMemberBadgeRequestDto = new EvMemberBadgeRequestDto();
             evMemberBadgeRequestDto.setGive_cust_id(list.get(0).getCust_id());
-            evMemberBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            if(loginInfoDto != null && loginInfoDto.getCust_id() != null) {
+                evMemberBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
+            } else {
+                evMemberBadgeRequestDto.setCust_id("");
+            }
 
             List<EvMypageBadgeResponseDto> badgeList = evMypageBadgeService.vr_badge(evMemberBadgeRequestDto);
 
@@ -521,7 +526,7 @@ public class EvHomeController {
 
             if(badgeList.size() > 0) {
 
-                if (badgeList.get(0).getSum_badge_cnt() < 0) {
+                if (badgeList.get(0).getSum_badge_cnt() > 0) {
                     badge_yn = "Y";
                 } else {
                     badge_yn = "N";
@@ -537,7 +542,12 @@ public class EvHomeController {
             /* 즐겨찾기정보조회 */
             EvMypageFavortsRequestDto evMypageFavortsRequestDto = new EvMypageFavortsRequestDto();
             evMypageFavortsRequestDto.setFavorts_cust_id(list.get(0).getCust_id());
-            evMypageFavortsRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            if(loginInfoDto != null && loginInfoDto.getCust_id() != null) {
+                evMypageFavortsRequestDto.setCust_id(loginInfoDto.getCust_id());
+            } else {
+                evMypageFavortsRequestDto.setCust_id("");
+            }
 
             List<EvMypageFavortsResponseDto> favoritsList = evMypageFavoritsService.vr_favorits(evMypageFavortsRequestDto);
 
