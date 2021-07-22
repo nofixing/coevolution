@@ -1,7 +1,7 @@
 @charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-
-
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 /* 20210704 추가*/
 
 .form-flex{
@@ -347,9 +347,6 @@ line-height: 1;}
     .sns_login_inner li{
         width:calc(25% - 10px);
         margin:5px;
-    }
-    .sns_login_inner li a span{
-        display:none;
     }
 }
 
@@ -1574,5 +1571,199 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     .basic-table td{
         display:block;
         width:100%;
+    }
+}
+
+
+.guide-tab{
+    display:flex;
+    text-align:center;
+    margin-bottom:65px;
+    padding:0;
+}
+.guide-tab li{
+    width:calc(33.33% + 1px);
+    margin-right:-1px;
+    list-style:none;
+}
+.guide-tab li a{
+    display:block;
+    padding:13px 0;
+    font-size:16px;
+    font-weight:500;
+    color:#111;
+    font-family: 'Nanum Gothic', sans-serif;
+    border:1px solid #dddddd;
+    box-sizing:border-box;
+    position:relative;
+}
+.guide-tab li a.on{
+    background:#0089d0;
+    color:#fff;
+    border-radius:5px;
+    border-color:#0089d0;
+}
+.guide-tab li a.on:after{
+    content:"";
+    display:block;
+    width:10px;
+    height:10px;
+    background:#0089d0;
+    position:absolute;
+    bottom:-6px;
+    left:50%;
+    transform: translateX(-50%) rotate(45deg);
+
+}
+.guide-item-tit{
+    margin-bottom:30px;
+}
+.guide-item-tit p{
+    font-size:18px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight:800;
+    padding-left:20px;
+    box-sizing:border-box;
+    position:relative;
+    margin:0;
+}
+.guide-item-tit span{
+    display:block;
+    padding-left:20px;
+    box-sizing:border-box;
+    margin-top:20px;
+}
+.guide-item-tit p:before{
+    content:"";
+    display:block;
+    width:15px;
+    height:15px;
+    background:#fff;
+    border:5px solid #0089d0;
+    border-radius:50%;
+    position:absolute;
+    top:50%;
+    left:0;
+    transform: translateY(-50%);
+}
+
+
+.guide-item-box + .guide-item-box{
+    margin-top:100px;
+}
+
+.guide-item-img{
+    width:40%;
+    float:left;
+    border:1px solid #dddddd;
+    box-sizing:border-box;
+    padding:30px 20px;
+    text-align:center;
+}
+.guide-item-step{
+    width:55%;
+    float:right;
+    padding-top:60px;
+}
+.guide-item-step > p + span{
+    margin-top:20px;
+}
+.guide-item-step > span{
+    display:inline-block;
+    margin-bottom:20px;
+    padding:6px 30px;
+    box-sizing:border-box;
+    border-radius:35px;
+    background:#8e9ba9;
+    font-size:16px;
+    color:#ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-weight:500;
+}
+.guide-item-step p{
+    font-size:16px;
+    color:#444444;
+    font-family: 'Nanum Gothic', sans-serif;
+    line-height:2;
+    margin:0;
+}
+.guide-item-step p strong{
+    font-weight:800;
+}
+.guide-item-step p small{
+    font-size:12px;
+    vertical-align: middle;
+    margin-bottom: 3px;
+    display: inline-block;
+}
+
+.guide-import{
+    margin-top:35px;
+    padding:20px 15px;
+    box-sizing:border-box;
+    border:1px solid #7fc4e7;
+    background:#f1faff;
+}
+.guide-import ul{
+    padding:0;
+    list-style:none;
+}
+.guide-import ul li{
+    position:relative;
+    padding-left:15px;
+    box-sizing:border-box;
+}
+.guide-import ul li span{
+    position:absolute;
+    top:-1px;
+    left:0;
+}
+
+@media (max-width:991px){
+    .guide-tab{
+        margin-bottom:30px;
+    }
+    .guide-item-tit p{
+        margin-bottom:20px;
+    }
+    .guide-item-step{
+        padding-top:0;
+    }
+    .guide-item-step br{
+        display:none;
+    }
+    .guide-import{
+        margin-top:20px;
+    }
+}
+
+@media (max-width:750px){
+    .guide-item-step{
+        width:100%;
+        float:left;
+    }
+    .guide-item-img{
+        margin-top:20px;
+        width:100%;
+    }
+    .guide-item-step p{
+        font-size:14px;
+    }
+    .guide-tab li{
+        width:100%;
+        margin:0;
+    }
+    .guide-tab li a{
+        padding:7px 0;
+        word-wrap: keep-all;
+    }
+    .guide-tab li a.on:after{
+        display:none;
+    }
+    .guide-tab li a.on{
+        border-radius:0;
+    }
+    .guide-item-box + .guide-item-box{
+        margin-top:50px;
     }
 }

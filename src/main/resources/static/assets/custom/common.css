@@ -431,6 +431,9 @@ select {
     .form-control{
         width:100% !important;
     }
+    .breadcrumb{
+        display:none !important;
+    }
 }
 .form ul{
     padding:0;

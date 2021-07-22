@@ -969,4 +969,15 @@ public class EvHomeController {
         return resposeResult;
     }
 
+    /**
+     * 가이드
+     * @param model
+     * @return
+     */
+    @RequestMapping("/index/guide")
+    public String guide(Model model) {
+
+        return "/guide";
+    }
+
 }

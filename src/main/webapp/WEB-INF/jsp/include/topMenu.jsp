@@ -94,7 +94,7 @@
                             <a href="#!"><spring:message code="top.view.guid" text="관람가이드"/></a>
                             <div class="m-menu-list-sub">
                                 <a href="http://www.ievexpo.org/site/ieve2018/kor/contents/index.php?mid=0310" target="_blank"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
-                                <a href="javascript:alert('<spring:message code="top.all.updated.soon.alert" text="준비중입니다."/>')"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
+                                <a href="/index/guide"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
                             </div>
                         </li>
                         <li>
@@ -302,7 +302,7 @@
                                 <a href="http://www.ievexpo.org/site/ieve2018/kor/contents/index.php?mid=0310" target="_blank"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
                             </li>
                             <li>
-                                <a href="javascript:alert('<spring:message code="top.all.updated.soon.alert" text="준비중입니다."/>')"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
+                                <a href="/index/guide"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
                             </li>
                         </ul>
                         <ul>
@@ -312,37 +312,37 @@
                             <li>
                                 <a class="collapse-btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">e-mobility<span><i class="bi bi-chevron-down"></i></span></a>
                                 <div class="collapse collapse-item" id="collapseExample">
-                                    <a href="#!">test1</a>
+                                    <a href="/index/ieve2021">e-mobility</a>
                                 </div>
                             </li>
                             <li>
                                 <a class="collapse-btn" data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">charging infra <span><i class="bi bi-chevron-down"></i></span></a>
                                 <div class="collapse collapse-item" id="collapseExample2">
-                                    <a href="#!">test1</a>
+                                    <a href="/index/ieve2021">charging infra</a>
                                 </div>
                             </li>
                             <li>
                                 <a class="collapse-btn" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample2">component<span><i class="bi bi-chevron-down"></i></span></a>
                                 <div class="collapse collapse-item" id="collapseExample3">
-                                    <a href="#!">test1</a>
+                                    <a href="/index/ieve2021">component</a>
                                 </div>
                             </li>          
                             <li>
                                 <a class="collapse-btn" data-toggle="collapse" href="#collapseExample4" aria-expanded="false" aria-controls="collapseExample2">energy<span><i class="bi bi-chevron-down"></i></span></a>
                                 <div class="collapse collapse-item" id="collapseExample4">
-                                    <a href="#!">test1</a>
+                                    <a href="/index/ieve2021">energy</a>
                                 </div>
                             </li>      
                             <li>
                                 <a class="collapse-btn" data-toggle="collapse" href="#collapseExample5" aria-expanded="false" aria-controls="collapseExample2">group<span><i class="bi bi-chevron-down"></i></span></a>
                                 <div class="collapse collapse-item" id="collapseExample5">
-                                    <a href="#!">test1</a>
+                                    <a href="/index/ieve2021">group</a>
                                 </div>
                             </li>  
                             <li>
                                 <a class="collapse-btn" data-toggle="collapse" href="#collapseExample6" aria-expanded="false" aria-controls="collapseExample2">additional<span><i class="bi bi-chevron-down"></i></span></a>
                                 <div class="collapse collapse-item" id="collapseExample6">
-                                    <a href="#!">test1</a>
+                                    <a href="/index/ieve2021">additional</a>
                                 </div>
                             </li>                                                                                                  
                         </ul>
@@ -415,7 +415,7 @@
                         </c:otherwise>
                     </c:choose>
                         <li class="nav-item ">
-                            <a href="#" class="nav-link nav-item-font">
+                            <a href="/index/guide" class="nav-link nav-item-font">
                                 <strong><spring:message code="top.view.guid" text="관람가이드"/></strong>
                             </a>
                         </li>
