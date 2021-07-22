@@ -26,7 +26,8 @@
 
 <!-- 모달 영역 -->
 <div class="bd-example-modal-lg" id="myModal" tabindex="-1">
-  <div class="modal-dialog modal-lg" role="document">
+  <!--div class="modal-dialog modal-lg" role="document"-->
+  <div class="p-5" role="document" style="max-width:100%; max-height:100%;">
     <div class="modal-content">
       <div class="modal-body p-0">
 
