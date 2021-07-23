@@ -1580,14 +1580,11 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     text-align:center;
     margin-bottom:65px;
     padding:0;
+    align-items:center;
 }
-.guide-tab li{
+.guide-tab a{
     width:calc(33.33% + 1px);
-    margin-right:-1px;
-    list-style:none;
-}
-.guide-tab li a{
-    display:block;
+    margin-left:-1px;
     padding:13px 0;
     font-size:16px;
     font-weight:500;
@@ -1597,13 +1594,13 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     box-sizing:border-box;
     position:relative;
 }
-.guide-tab li a.on{
+.guide-tab a.on{
     background:#0089d0;
     color:#fff;
     border-radius:5px;
     border-color:#0089d0;
 }
-.guide-tab li a.on:after{
+.guide-tab a.on:after{
     content:"";
     display:block;
     width:10px;
@@ -1749,19 +1746,9 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     .guide-item-step p{
         font-size:14px;
     }
-    .guide-tab li{
-        width:100%;
-        margin:0;
-    }
-    .guide-tab li a{
+    .guide-tab  a{
         padding:7px 0;
-        word-wrap: keep-all;
-    }
-    .guide-tab li a.on:after{
-        display:none;
-    }
-    .guide-tab li a.on{
-        border-radius:0;
+        word-break: keep-all !important;
     }
     .guide-item-box + .guide-item-box{
         margin-top:50px;

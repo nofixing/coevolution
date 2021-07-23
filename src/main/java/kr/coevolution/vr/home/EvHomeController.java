@@ -975,9 +975,17 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/index/guide")
-    public String guide(Model model) {
+    public String guide(Model model, HttpServletRequest request) {
 
-        return "/guide";
+        String return_url = "/guide";
+        HttpSession httpSession = request.getSession();
+        String lang = String.valueOf(httpSession.getAttribute("LANG"));
+
+        if(lang.equals("en")) {
+            return_url = "/guideEn";
+        }
+
+        return return_url;
     }
 
 }
