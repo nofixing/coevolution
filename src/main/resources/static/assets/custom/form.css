@@ -1754,3 +1754,74 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
         margin-top:50px;
     }
 }
+
+.basic-table-fix{
+    width:100%;
+    border-top:1px solid #0089d0;
+}
+.basic-table-fix th{
+    background:#f7f7f7;
+    color:#333;
+    width:20%;
+    text-align:center;
+    padding:5px;
+    border-bottom:1px solid #e7e7e7;
+    box-sizing:border-box;
+}
+.basic-table-fix td{
+    padding:5px 10px;
+    border-bottom:1px solid #e7e7e7;
+    border-left:1px solid #e7e7e7;
+    box-sizing:border-box;
+}
+.basic-table-fix input:not([type=file]){
+    width:100%;
+}
+.basic-table-fix textarea{
+    resize:none;
+    width:100%;
+}
+
+/* 말품선 */
+.speech-bubble-left { 
+	position: relative; 
+	background: #cde69b; 
+	border-radius: .4em; 
+	padding: 1rem;
+} .speech-bubble-left:after { 
+	content: ''; 
+	position: absolute; 
+	left: 0; 
+	top: 50%; 
+	width: 0; 
+	height: 0; 
+	border: 0.5em solid transparent; 
+	border-right-color: #cde69b; 
+	border-left: 0; 
+	border-bottom: 0; 
+	margin-top: -0.25em; 
+	margin-left: -0.5em; 
+}
+
+.speech-bubble-right {
+	position: relative;
+	background: #d9e2ff;
+	border-radius: .4em;
+	padding: 1rem;
+	text-align:right
+}
+
+.speech-bubble-right:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.5em solid transparent;
+	border-left-color: #d9e2ff;
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -0.25em;
+	margin-right: -0.5em;
+}

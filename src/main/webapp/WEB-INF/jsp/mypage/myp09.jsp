@@ -95,6 +95,10 @@
               <form class="form-styled">
                 <input type="hidden" name="consult_time_id" id="consult_time_id"/>
                 <input type="hidden" name="consult_rsv_cust_id" id="consult_rsv_cust_id" value="${sessionScope.login_session.cust_id}"/>
+                <input type="hidden" name="sunday" id="sunday" value="${sunday}"/>
+                <input type="hidden" name="sh_cls_cd" id="sh_cls_cd"/>
+                <input type="hidden" name="consult_from_dt" id="consult_from_dt" value="${consult_from_dt}"/>
+                <input type="hidden" name="consult_to_dt" id="consult_to_dt" value="${consult_to_dt}"/>
 
                 <div class="col-md col-sm-12 pt-1 pr-0 d-flex justify-content-end">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill purple-100-color" viewBox="0 0 16 16">
@@ -149,6 +153,14 @@
 
                 </div>
 
+                <div class="table-responsive pb-1 d-flex justify-content-between">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" style="cursor:pointer" class="bi bi-arrow-left-circle btn-outline-primary" viewBox="0 0 16 16" id="left-circle">
+                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" style="cursor:pointer" class="bi bi-arrow-right-circle btn-outline-primary" viewBox="0 0 16 16" id="right-circle">
+                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                  </svg>
+                </div>
 
                 <!-- Subheading -->
                 <div class="table-responsive">
@@ -183,7 +195,7 @@
                           <c:choose>
                             <c:when test = "${list.k2_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k2_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
-                            <c:when test = "${list.k2_expoYn eq 'Y' && empty list.k2_scheduleId && !empty consultCustId}">상담불가</c:when>
+                            <c:when test = "${(list.k2_expoYn eq 'Y' && empty list.k2_scheduleId && !empty consultCustId) || list.k2_consultAvailYn eq 'N'}">상담불가</c:when>
                           </c:choose>
                         </div>
                         <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
@@ -195,7 +207,7 @@
                           <c:choose>
                             <c:when test = "${list.k3_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k3_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
-                            <c:when test = "${list.k3_expoYn eq 'Y' && empty list.k3_scheduleId && !empty consultCustId}">상담불가</c:when>
+                            <c:when test = "${(list.k3_expoYn eq 'Y' && empty list.k3_scheduleId && !empty consultCustId) || list.k3_consultAvailYn eq 'N'}">상담불가</c:when>
                           </c:choose>
                         </div>
                         <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
@@ -207,7 +219,7 @@
                           <c:choose>
                             <c:when test = "${list.k4_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k4_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
-                            <c:when test = "${list.k4_expoYn eq 'Y' && empty list.k4_scheduleId && !empty consultCustId}">상담불가</c:when>
+                            <c:when test = "${(list.k4_expoYn eq 'Y' && empty list.k4_scheduleId && !empty consultCustId) || list.k4_consultAvailYn eq 'N'}">상담불가</c:when>
                           </c:choose>
                         </div>
                         <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
@@ -219,7 +231,7 @@
                           <c:choose>
                             <c:when test = "${list.k5_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k5_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
-                            <c:when test = "${list.k5_expoYn eq 'Y' && empty list.k5_scheduleId && !empty consultCustId}">상담불가</c:when>
+                            <c:when test = "${(list.k5_expoYn eq 'Y' && empty list.k5_scheduleId && !empty consultCustId) || list.k5_consultAvailYn eq 'N'}">상담불가</c:when>
                           </c:choose>
                         </div>
                         <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
@@ -231,7 +243,7 @@
                           <c:choose>
                             <c:when test = "${list.k6_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k6_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
-                            <c:when test = "${list.k6_expoYn eq 'Y' && empty list.k6_scheduleId && !empty consultCustId}">상담불가</c:when>
+                            <c:when test = "${(list.k6_expoYn eq 'Y' && empty list.k6_scheduleId && !empty consultCustId) || list.k6_consultAvailYn eq 'N'}">상담불가</c:when>
                           </c:choose>
                         </div>
                         <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 
@@ -243,7 +255,7 @@
                           <c:choose>
                             <c:when test = "${list.k7_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k7_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
-                            <c:when test = "${list.k7_expoYn eq 'Y' && empty list.k7_scheduleId && !empty consultCustId}">상담불가</c:when>
+                            <c:when test = "${(list.k7_expoYn eq 'Y' && empty list.k7_scheduleId && !empty consultCustId) || list.k7_consultAvailYn eq 'N'}">상담불가</c:when>
                           </c:choose>
                         </div>
                         <div class="border border-top-0 text-center pt-1 pb-1 
@@ -255,7 +267,7 @@
                           <c:choose>
                             <c:when test = "${list.k8_consultRsvStatCd eq '215001'}"><span style="cursor:pointer;">상담신청</span></c:when>
                             <c:when test = "${list.k8_consultRsvStatCd eq '215002'}"><span style="cursor:pointer;">상담확정</span></c:when>
-                            <c:when test = "${list.k8_expoYn eq 'Y' && empty list.k8_scheduleId && !empty consultCustId}">상담불가</c:when>
+                            <c:when test = "${(list.k8_expoYn eq 'Y' && empty list.k8_scheduleId && !empty consultCustId) ||list.k8_consultAvailYn eq 'N'}">상담불가</c:when>
                           </c:choose>
                         </div>
                       </div>

@@ -22,12 +22,39 @@ $(document).ready(function() {
 		fnTimeZoneSave();
 	});
 
+	$('#left-circle').on('click', function () {
+		if(getValue("sunday") < getValue("consult_from_dt")) {
+			alert("상담 기간이 아닙니다.");
+			return false;
+		};
+
+		fnSearch("left");
+	});
+
+	$('#right-circle').on('click', function () {
+		var dtSunday = new Date(getValue("sunday"));
+		var dtConsultToDt = new Date(getValue("consult_to_dt"));
+
+		dtSunday.setDate(dtSunday.getDate() + 7); /* 7일을 더하여 상담기간이 큰 경우만 진행한다. */
+
+		if(dtSunday.getTime() > dtConsultToDt.getTime()) {
+			alert("상담 기간이 아닙니다.");
+			return false;
+		};
+
+		fnSearch("right");
+	});
+
 });
 
 /* 상담시간 설정 내역 조회 */
 var lFormValue;
-function fnSearch() {
-	document.location.href="/mypage/consltset";
+function fnSearch(pClsCd) {
+	var frm = document.forms[0];
+	frm.sh_cls_cd.value = lComm.nvl(pClsCd,"now");;
+	frm.action = "/mypage/consltset";
+	frm.method = "post";
+	frm.submit();
 }
 
 /* 회원정보수정 */
@@ -60,7 +87,7 @@ function fnSave() {
 	/* global 변수 json으로 변환 */
 	var pParamJson = gfnGetJson();
 
-sendForm("POST", "/mypage/consult_settime", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+	sendForm("POST", "/mypage/consult_settime", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
 		if(message == "parsererror") {
 			alert("로그아웃되었습니다.");

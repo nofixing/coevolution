@@ -35,9 +35,9 @@
                 <a href="/mypage/badgecorp" <c:if test="${page_clsf eq 'myc03'}">class="on"</c:if> ><strong>뱃지 적립 내역</strong></a>
               </li>
 
-              <!--li class="text-xs text-uppercase border p-2">
-                <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myc04'}">class="on"</c:if>><strong>상담문의 내역</strong></a>
-              </li-->
+              <li class="text-xs text-uppercase border p-2">
+                <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myc04'}">class="on"</c:if>><strong>Q & A</strong></a>
+              </li>
 
               <li class="text-xs text-uppercase border p-2">
                 <a href="#conslt" data-toggle="collapse"><strong>상담문의</strong></a>

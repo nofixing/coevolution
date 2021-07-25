@@ -418,6 +418,9 @@ select::-ms-expand{
     -webkit-appearance:none; /* for chrome */
     -moz-appearance:none; /*for firefox*/
     appearance:none;
+}
+
+select {
     background:transparent url(/images/arrow_down.png) no-repeat right 13px center;
 }
 

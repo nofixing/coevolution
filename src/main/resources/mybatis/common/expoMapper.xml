@@ -14,15 +14,17 @@
               and cust_id = #{cust_id}
         )
         SELECT ev_expo_id
-             , ev_expo_nm
-             , apct_prod_from_dt
-             , apct_prod_to_dt
-             , date_format(date_add(str_to_date(concat(replace(expo_from_dt,'-',''),replace(expo_from_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')  as expo_from_dt
-             , date_format(date_add(str_to_date(concat(replace(expo_to_dt,'-',''),replace(expo_to_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')      as expo_to_dt
-             , use_yn
-             , (select count(*) from ev_expo where use_yn = 'Y') as cnt
-             , date_format(str_to_date(expo_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
-          FROM ev_expo, cd
+            , ev_expo_nm
+            , apct_prod_from_dt
+            , apct_prod_to_dt
+            , expo_from_dt
+            , expo_to_dt
+            , date_format(date_add(str_to_date(concat(replace(expo_consult_from_dt,'-',''),replace(expo_from_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')  as expo_consult_from_dt
+            , date_format(date_add(str_to_date(concat(replace(expo_consult_to_dt,'-',''),replace(expo_to_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')      as expo_consult_to_dt
+            , use_yn
+            , (select count(*) from ev_expo where use_yn = 'Y') as cnt
+            , date_format(str_to_date(expo_consult_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_consult_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
+        FROM ev_expo, cd
         WHERE use_yn = 'Y'
 
     </select>
@@ -40,11 +42,13 @@
             , ev_expo_nm
             , apct_prod_from_dt
             , apct_prod_to_dt
-            , date_format(date_add(str_to_date(concat(replace(expo_from_dt,'-',''),replace(expo_from_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')  as expo_from_dt
-            , date_format(date_add(str_to_date(concat(replace(expo_to_dt,'-',''),replace(expo_to_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')      as expo_to_dt
+            , expo_from_dt
+            , expo_to_dt
+            , date_format(date_add(str_to_date(concat(replace(expo_consult_from_dt,'-',''),replace(expo_from_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')  as expo_consult_from_dt
+            , date_format(date_add(str_to_date(concat(replace(expo_consult_to_dt,'-',''),replace(expo_to_hrm,':','')),'%Y%m%d%H%i'),interval nvl(cd.cd_val1,'0') hour),'%Y-%m-%d')      as expo_consult_to_dt
             , use_yn
             , (select count(*) from ev_expo where use_yn = 'Y') as cnt
-            , date_format(str_to_date(expo_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
+            , date_format(str_to_date(expo_consult_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_consult_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
         FROM ev_expo, cd
         WHERE use_yn = 'Y'
 

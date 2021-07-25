@@ -20,12 +20,39 @@ $(document).ready(function() {
 		fnTimeZoneSave();
 	});
 
+	$('#left-circle').on('click', function () {
+		if(getValue("sunday") < getValue("consult_from_dt")) {
+			alert("상담 기간이 아닙니다.");
+			return false;
+		};
+
+		fnSearch("left");
+	});
+
+	$('#right-circle').on('click', function () {
+		var dtSunday = new Date(getValue("sunday"));
+		var dtConsultToDt = new Date(getValue("consult_to_dt"));
+
+		dtSunday.setDate(dtSunday.getDate() + 7); /* 7일을 더하여 상담기간이 큰 경우만 진행한다. */
+
+		if(dtSunday.getTime() > dtConsultToDt.getTime()) {
+			alert("상담 기간이 아닙니다.");
+			return false;
+		};
+
+		fnSearch("right");
+	});
+
 });
 
 /* 상담시간 설정 내역 조회 */
 var lFormValue;
-function fnSearch() {
-	document.location.href="/mypage/myp08";
+function fnSearch(pClsCd) {
+	var frm = document.forms[0];
+	frm.sh_cls_cd.value = lComm.nvl(pClsCd,"now");;
+	frm.action = "/mypage/myp08";
+	frm.method = "post";
+	frm.submit();
 }
 
 /* 스케줄설정변경 */
@@ -48,7 +75,7 @@ function scheduleClick(pScheduleId) {
 
 			var vUrl = "/mypage/myp08P01?schedule_id="+pScheduleId+"&cust_id="+message.cust_id+"&cust_nm="+message.cust_nm+"&tel_no="+message.tel_no;
 			gfnPopup (vUrl, "<spring:message code='mypage.member7' text='상담예약 내역'/>", "100%", "260px", function() {
-				document.location.href="/mypage/myp08";
+				fnSearch();
 			 });
 
 		} else {

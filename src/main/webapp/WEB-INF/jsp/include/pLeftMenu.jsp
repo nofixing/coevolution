@@ -36,7 +36,7 @@
     </li>
 
     <li class="text-xs text-uppercase border p-2" style="font-family:none">
-      <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myp03'}">class="on"</c:if> ><strong><spring:message code="left.menu.consultation" text="1:1 상담"/></strong></a>
+      <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myp03'}">class="on"</c:if> ><strong><spring:message code="left.menu.consultation" text="Q & A"/></strong></a>
     </li>
 
 

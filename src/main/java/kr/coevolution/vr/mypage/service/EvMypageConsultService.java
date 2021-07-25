@@ -40,6 +40,10 @@ public class EvMypageConsultService {
      */
     public int consult_settime_update (EvMypageConsultRequestDto evMypageConsultRequestDto) {
         int insertCnt  = evMypageConsultMapper.U01_SET_TIME(evMypageConsultRequestDto);
+
+        //참가업체 상담 시간 입력
+        evMypageConsultMapper.I02_CONSULT_SCHEDULE1(evMypageConsultRequestDto);
+
         return insertCnt;
     }
 

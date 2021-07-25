@@ -36,11 +36,34 @@ $(document).ready(function() {
 		fnTimeZoneSave();
 	});
 
+	$('#left-circle').on('click', function () {
+		if(getValue("sunday") < getValue("consult_from_dt")) {
+			alert("상담 기간이 아닙니다.");
+			return false;
+		};
+
+		fnSearch("left");
+	});
+
+	$('#right-circle').on('click', function () {
+		var dtSunday = new Date(getValue("sunday"));
+		var dtConsultToDt = new Date(getValue("consult_to_dt"));
+
+		dtSunday.setDate(dtSunday.getDate() + 7); /* 7일을 더하여 상담기간이 큰 경우만 진행한다. */
+
+		if(dtSunday.getTime() > dtConsultToDt.getTime()) {
+			alert("상담 기간이 아닙니다.");
+			return false;
+		};
+
+		fnSearch("right");
+	});
+
 });
 
-function fnSearch() {
-	
+function fnSearch(pClsCd) {	
 	var frm = document.forms[0];
+	frm.sh_cls_cd.value = lComm.nvl(pClsCd,"now");
 	frm.action = "/mypage/myp09";
 	frm.method = "post";
 	frm.submit();
@@ -125,7 +148,7 @@ function setRsvStatCd(pScheduleId, pConsultRsvStatCd) {
 			var msg = "<spring:message code='mypage.member11' text='조회된 내역이 없습니다.'/>";
       		alert(msg);
 		} else if(message.result_code == (-2)) {
-			var msg = "<spring:message code='mypage.member12' text='상담 시간 설정에 오류가 있습니다.'/>"+"\r\n"+<spring:message code='mypage.member13' text='좌측 메뉴를 다시 선택하신 후 진행하시기 바랍니다.'/>";
+			var msg = "<spring:message code='mypage.member12' text='상담 시간 설정에 오류가 있습니다.'/>\r\n<spring:message code='mypage.member13' text='좌측 메뉴를 다시 선택하신 후 진행하시기 바랍니다.'/>";
       		alert(msg);
 		} else if(message.result_code == (-3)) {
 			var msg = "<spring:message code='mypage.member14' text='상담 요청시간이 취소 또는 반려처리 되었습니다.'/>";

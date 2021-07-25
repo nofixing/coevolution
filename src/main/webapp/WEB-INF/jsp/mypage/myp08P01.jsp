@@ -30,7 +30,7 @@
             <tr>
                 <input type="hidden" name="schedule_id" id="schedule_id" value="<c:out value='${schedule_id}'/>"/>
                 <input type="hidden" name="consult_rsv_stat_cd" id="consult_rsv_stat_cd" value="<c:out value='${consult_rsv_stat_cd}'/>"/>
-                <td class="text-center"><span id="rsv_cust_nm"><c:out value="${cust_id}"/></span></td>
+                <td class="text-center" style="border-left:0px"><span id="rsv_cust_nm"><c:out value="${cust_id}"/></span></td>
                 <td class="text-center"><span id="rsv_cust_id"><c:out value="${cust_nm}"/></span></td>
                 <td class="text-center"><span id="rsv_tel_no"><c:out value="${tel_no}"/></span></td>
             </tr>
