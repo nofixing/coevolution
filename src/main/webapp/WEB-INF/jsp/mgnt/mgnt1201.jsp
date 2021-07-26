@@ -163,7 +163,7 @@
                       </c:if> 
                     </tbody>
                   </table>
-
+                </div>
               </form>
           </div>
         </div> <!-- / .row -->

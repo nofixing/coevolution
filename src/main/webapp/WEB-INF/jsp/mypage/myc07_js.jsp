@@ -17,6 +17,14 @@ $(document).ready(function() {
 		fnTimeZoneSave();
 	});
 
+	//조회구분변경
+	$('#form_clsf').on('change', function () {
+		var frm = document.forms[0];
+		frm.action = "/mypage/myc07P03";
+		frm.method = "post";
+		frm.submit();
+	});
+
 	$('#left-circle').on('click', function () {
 		if(getValue("sunday") < getValue("consult_from_dt")) {
 			alert("상담 기간이 아닙니다.");

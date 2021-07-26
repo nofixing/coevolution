@@ -25,4 +25,13 @@ public class EvMypageConsultScheduleResponseDto {
     private String consult_cust_nm;
     private String del_yn;
 
+    private Long rn;
+    private String consult_dt_dtm;
+    private String tiemzone_cd;
+    private String tiemzone_val;
+    private String consult_rsv_stat_nm;
+    private String mod_dtm;
+
+    private Long row_count; /* 조회된 row 개수 */
+
 }
