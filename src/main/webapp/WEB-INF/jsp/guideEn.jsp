@@ -43,7 +43,7 @@
                                         <p>If you are already registered, you can log in with your SNS account.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img1-1.png" alt="">
+                                        <img src="/images/en-guide-img1-1.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -52,7 +52,7 @@
                                         <p>Please agree to our terms and conditions, and click ‘Register’ button.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img1-2.png" alt="">
+                                        <img src="/images/en-guide-img1-2.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -64,7 +64,7 @@
                                             </p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img1-3.png" alt="">
+                                        <img src="/images/en-guide-img1-3.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -84,9 +84,9 @@
                                         </div>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img1-4.png" alt="">
-                                        <img src="/images/guide-img1-4-1.png" alt="">
-                                        <img src="/images/guide-img1-4-2.png" alt="">
+                                        <img src="/images/en-guide-img1-4.png" alt="">
+                                        <img src="/images/en-guide-img1-4-1.png" alt="">
+                                        <img src="/images/en-guide-img1-4-2.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -96,7 +96,7 @@
                                             </p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img1-5.png" alt="">
+                                        <img src="/images/en-guide-img1-5.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                         <p>Click ‘Virtual IEVE’ button.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img2-1.png" alt="">
+                                        <img src="/images/en-guide-img2-1.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -119,7 +119,7 @@
                                         <p>Enter the Virtual IEVE Exhibition Hall.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img2-2.png" alt="">
+                                        <img src="/images/en-guide-img2-2.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -128,7 +128,7 @@
                                         <p>After the entrance, you can see company information, introduction video, product photos, 3D and materials etc.. Also, you can leave a question or request real time meeting.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img2-3.png" alt="">
+                                        <img src="/images/en-guide-img2-3.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -137,7 +137,7 @@
                                         <p>If you want to go directly to a specific place and exhibition hall, click Minimap. You can check your location and direction of view on the mini-map, and you can move immediately when you click on another exhibition hall.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img2-4.png" alt="">
+                                        <img src="/images/en-guide-img2-4.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -146,7 +146,7 @@
                                         <p>You can search the exhibitor and booth.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img2-5-1.png" alt="">
+                                        <img src="/images/en-guide-img2-5.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -155,7 +155,7 @@
                                         <p>You can change the service language(KOR/ENG) anytime even if while viewing.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img2-6.png" alt="">
+                                        <img src="/images/en-guide-img2-6.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                                         </p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img3-1.png" alt="">
+                                        <img src="/images/en-guide-img3-1.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -182,7 +182,7 @@
                                         </p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img3-2.png" alt="">
+                                        <img src="/images/en-guide-img3-2.png" alt="">
                                     </div>
                                 </div>
                                 <div class="guide-item-box clearfix">
@@ -193,7 +193,7 @@
                                         <p>You can confirm your meeting schedule on ‘Meeting>Meeting Reservation Status’ page.</p>
                                     </div>
                                     <div class="guide-item-img">
-                                        <img src="/images/guide-img3-3.png" alt="">
+                                        <img src="/images/en-guide-img3-3.png" alt="">
                                     </div>
                                 </div>
                             </div>
