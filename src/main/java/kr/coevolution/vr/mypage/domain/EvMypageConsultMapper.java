@@ -77,6 +77,11 @@ public interface EvMypageConsultMapper {
     /* 참가업체 상담리스트 건수 */
     public List<EvMypageConsultScheduleResponseDto> S08_CONSULT_LIST_COUNT(EvMypageConsultRequestDto param);
 
+    /* 참관 상담리스트 */
+    public List<EvMypageConsultScheduleResponseDto> S09_CONSULT_LIST(EvMypageConsultRequestDto param);
+
+    /* 참관 상담리스트 건수 */
+    public List<EvMypageConsultScheduleResponseDto> S09_CONSULT_LIST_COUNT(EvMypageConsultRequestDto param);
 
 
 

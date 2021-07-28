@@ -660,6 +660,10 @@
             and ecs.consult_dt <![CDATA[<=]]> #{sh_consult_to_dt}
         </if>
 
+        <if test="sh_consult_sts_cd != null and sh_consult_sts_cd != ''">
+            and ecs.consult_rsv_stat_cd = #{sh_consult_sts_cd}
+        </if>
+
             LIMIT #{page_row_start}, #{page_row_cnt}
         )
         select list.rn
@@ -695,6 +699,88 @@
 
         <if test="sh_consult_to_dt != null and sh_consult_to_dt != ''">
             and ecs.consult_dt <![CDATA[<=]]> #{sh_consult_to_dt}
+        </if>
+
+        <if test="sh_consult_sts_cd != null and sh_consult_sts_cd != ''">
+            and ecs.consult_rsv_stat_cd = #{sh_consult_sts_cd}
+        </if>
+
+    </select>
+
+    <select id="S09_CONSULT_LIST" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultScheduleResponseDto">
+
+        /* 참관자 상담현황 */
+        with consult_list as (
+        select ROW_NUMBER() OVER (ORDER by ecs.consult_dt asc, ecs.consult_time_cd, ecs.consult_rsv_cust_id) 		as rn
+            , ecs.consult_rsv_cust_id
+            , (select cust_nm from ev_cust_mst ecm where cust_id = ect.cust_id) 						            as consult_rsv_cust_nm
+            , concat(ecs.consult_dt,' ', (select cd_nm from ev_comm_code ecc where cd_id = ecs.consult_time_cd)) 	as consult_dt_dtm
+            , ecm.tiemzone_cd
+            , (select cd_val1 from ev_comm_code ecc2 where cd_id = ecm.tiemzone_cd) 								as tiemzone_val
+            , ecs.consult_rsv_stat_cd
+            , (select cd_nm from ev_comm_code ecc2 where cd_id = ecs.consult_rsv_stat_cd) 							as consult_rsv_stat_nm
+            , ecs.mod_dtm
+        from ev_consult_time ect
+        inner join ev_consult_schedule ecs
+          on ect.consult_time_id  = ecs.consult_time_id
+        and ecs.consult_rsv_cust_id = #{cust_id}
+        and ecs.del_yn = 'N'
+        inner join ev_cust_mst ecm
+        on ecs.consult_rsv_cust_id = ecm.cust_id
+        where ect.ev_expo_id = #{ev_expo_id}
+
+        <if test="sh_consult_from_dt != null and sh_consult_from_dt != ''">
+            and ecs.consult_dt >= #{sh_consult_from_dt}
+        </if>
+
+        <if test="sh_consult_to_dt != null and sh_consult_to_dt != ''">
+            and ecs.consult_dt <![CDATA[<=]]> #{sh_consult_to_dt}
+        </if>
+
+        <if test="sh_consult_sts_cd != null and sh_consult_sts_cd != ''">
+            and ecs.consult_rsv_stat_cd = #{sh_consult_sts_cd}
+        </if>
+
+        LIMIT #{page_row_start}, #{page_row_cnt}
+        )
+        select list.rn
+        , list.consult_rsv_cust_id
+        , list.consult_rsv_cust_nm
+        , date_format(date_add(str_to_date(replace(replace(replace(list.consult_dt_dtm,'-',''),' ',''),':',''), '%Y%m%d%H%i'),interval nvl(list.tiemzone_val,'0') hour),'%Y-%m-%d %H:%i') as consult_dt_dtm
+        , list.tiemzone_cd
+        , list.tiemzone_val
+        , list.consult_rsv_stat_cd
+        , list.consult_rsv_stat_nm
+        , date_format(list.mod_dtm, '%Y-%m-%d %H:%i') as mod_dtm
+        from consult_list list
+
+    </select>
+
+    <select id="S09_CONSULT_LIST_COUNT" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultScheduleResponseDto">
+
+        /* 참관 상담현황 */
+        select  COUNT(*) AS row_count
+        from ev_consult_time ect
+        inner join ev_consult_schedule ecs
+        on ect.consult_time_id  = ecs.consult_time_id
+        and ecs.consult_rsv_cust_id = #{cust_id}
+        and ecs.del_yn = 'N'
+        inner join ev_cust_mst ecm
+        on ecs.consult_rsv_cust_id = ecm.cust_id
+        where ect.ev_expo_id = #{ev_expo_id}
+
+        <if test="sh_consult_from_dt != null and sh_consult_from_dt != ''">
+            and ecs.consult_dt >= #{sh_consult_from_dt}
+        </if>
+
+        <if test="sh_consult_to_dt != null and sh_consult_to_dt != ''">
+            and ecs.consult_dt <![CDATA[<=]]> #{sh_consult_to_dt}
+        </if>
+
+        <if test="sh_consult_sts_cd != null and sh_consult_sts_cd != ''">
+            and ecs.consult_rsv_stat_cd = #{sh_consult_sts_cd}
         </if>
 
     </select>

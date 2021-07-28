@@ -105,8 +105,9 @@
                         <span class="form-control form-control-sm" style="background-color:#f7f7f7"><spring:message code="form.meet.timezone" text="타임존"/></span>
                     </div>
 
-                    <div class="col-md-5 col-sm-12 pt-1">
-                        <select name="tiemzone_cd" id="tiemzone_cd" class="form-control form-control-sm" style="width: 13rem;">
+                    <div class="col-md-5 col-sm-12 p-0 form-inline">
+                      <div class="col-sm-7 pt-1 pl-1 pr-1">
+                        <select name="tiemzone_cd" id="tiemzone_cd" class="form-control form-control-sm" style="width: 100%;">
                           <c:forEach var="list" items="${timezoneList}">
                             <c:if test="${tiemzone_cd eq list.cd_id}">
 
@@ -129,6 +130,15 @@
                             </c:if>
                           </c:forEach>
                         </select>
+                      </div>
+
+                      <div class="col-sm-5 pt-1 pl-1 pr-1">
+                        <select name="form_clsf" id="form_clsf" class="form-control form-control-sm" style="width:100%;">
+                          <option value="1" selected>달력</option>
+                          <option value="2">리스트</option>
+                        </select>
+                      </div>
+
                     </div>
 
                     <div class="col-md-5 col-sm-12 pt-1 d-flex justify-content-end">

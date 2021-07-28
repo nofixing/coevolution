@@ -36,6 +36,7 @@ public class EvMypageConsultRequestDto {
     private String sh_cls_cd; /* 상담시간설정 전주, 다음주 구분 */
     private String sh_consult_from_dt;
     private String sh_consult_to_dt;
+    private String sh_consult_sts_cd;
 
     private Long page_row_start;    /* 조회 시작 row */
     private Long page_row_cnt;      /* 조회 할 개수 */

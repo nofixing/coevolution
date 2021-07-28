@@ -257,4 +257,24 @@ public class EvMypageConsultService {
         return list;
     }
 
+    /**
+     * 참기업체 상담 리스트
+     * @param evMypageConsultRequestDto
+     * @return
+     */
+    public List<EvMypageConsultScheduleResponseDto> consult_visit_list (EvMypageConsultRequestDto evMypageConsultRequestDto) {
+        List<EvMypageConsultScheduleResponseDto> list = evMypageConsultMapper.S09_CONSULT_LIST(evMypageConsultRequestDto);
+        return list;
+    }
+
+    /**
+     * 참기업체 상담 리스트
+     * @param evMypageConsultRequestDto
+     * @return
+     */
+    public List<EvMypageConsultScheduleResponseDto> consult_visit_list_count (EvMypageConsultRequestDto evMypageConsultRequestDto) {
+        List<EvMypageConsultScheduleResponseDto> list = evMypageConsultMapper.S09_CONSULT_LIST_COUNT(evMypageConsultRequestDto);
+        return list;
+    }
+
 }

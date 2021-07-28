@@ -60,7 +60,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              상담예약현황
+              <spring:message code="left.menu.meeting.reservation" text="상담신청현황"/>
             </h5>
 
           </div>
@@ -71,10 +71,10 @@
               <a href="/index">Home</a>
             </span>
             <span class="breadcrumb-item active">
-              마이페이지
+              <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              상담예약현황
+              <spring:message code="left.menu.meeting.reservation" text="상담신청현황"/>
             </span>            
           
           </div>
@@ -91,7 +91,7 @@
           <div class="col-xl-3" id="gLeftMenu">
             
             <!--left Menu -->
-            <jsp:include page="/WEB-INF/jsp/include/cLeftMenu.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/jsp/include/pLeftMenu.jsp"></jsp:include>
            
           </div>
 
@@ -103,7 +103,7 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  상담예약현황
+                  <spring:message code="left.menu.meeting.reservation" text="상담신청현황"/>
                 </strong>
               </h3>
 
@@ -180,8 +180,7 @@
                     <thead>
                       <tr>
                         <th class="text-center">번호</th>
-                        <th class="text-center">고객ID</th>
-                        <th class="text-left">상담고객</th>
+                        <th class="text-left">업체명</th>
                         <th class="text-center">상담일시</th>
                         <th class="text-center">상담상태</th>
                         <th class="text-center">처리일시</th>
@@ -193,7 +192,6 @@
 
                       <tr>
                         <td class="text-center">${list.rn}</td>
-                        <td class="text-center">${list.consult_rsv_cust_id}</td>
                         <td class="text-left">${list.consult_rsv_cust_nm}</td>
                         <td class="text-center">${list.consult_dt_dtm}</td>
                         <td class="text-center">${list.consult_rsv_stat_nm}</td>
@@ -204,7 +202,7 @@
 
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <td scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</td>
+                        <td scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</td>
                       </tr>                
                       </c:if> 
                     </tbody>
@@ -228,7 +226,7 @@
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
-    <jsp:include page="myc07P03_js.jsp"></jsp:include>   
+    <jsp:include page="myp08P03_js.jsp"></jsp:include>   
 
   </body>
 </html>

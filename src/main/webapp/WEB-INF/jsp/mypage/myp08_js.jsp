@@ -43,6 +43,14 @@ $(document).ready(function() {
 		fnSearch("right");
 	});
 
+	//조회구분변경
+	$('#form_clsf').on('change', function () {
+		var frm = document.forms[0];
+		frm.action = "/mypage/myp08P03";
+		frm.method = "post";
+		frm.submit();
+	});
+
 });
 
 /* 상담시간 설정 내역 조회 */
