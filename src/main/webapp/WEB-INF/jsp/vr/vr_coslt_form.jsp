@@ -15,7 +15,7 @@
     <!-- 모달 영역 -->
 <div id="myModal" tabindex="-1">
   <!-- div class="modal-dialog" role="document" -->
-  <div class="p-5" role="document" style="max-width:100%; max-height:100%;">
+  <div class="p-3" role="document" style="max-width:100%; max-height:100%;">
     <div class="modal-content">
       <div class="modal-body p-0">
 
@@ -23,7 +23,7 @@
 
           <!-- Heading -->
           <div class="modal-header p-3  text-center">
-            <h2 class="text-center" style="width:100%;">상담문의(Contact Us)</h2>
+            <h2 class="text-center" style="width:100%;">상담문의<span>(Contact Us)</span></h2>
           </div>              
 
           <h6 class="text-left mb-2 pb-2">

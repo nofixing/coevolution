@@ -27,7 +27,7 @@
 <!-- 모달 영역 -->
 <div class="bd-example-modal-lg" id="myModal" tabindex="-1">
   <!--div class="modal-dialog modal-lg" role="document"-->
-  <div class="p-5" role="document" style="max-width:100%; max-height:100%;">
+  <div class="p-3" role="document" style="max-width:100%; max-height:100%;">
     <div class="modal-content">
       <div class="modal-body p-0">
 
@@ -53,17 +53,17 @@
             <!-- 기업젇보 -->
             <div class="tab-pane fade show pb-5 boot-tab-pane" id="nav1">
               <div class="row">
-                <div class="col-sm-3 pl-0"></div>
+                <div class="col-sm-3 "></div>
                 <div class="col-sm-9">
                   <div class="row">
-                    <div class="col-md-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="col-md-12   ml-0 mr-0">
                 
                       <!-- Card -->
-                      <div class="row col-md-12 pl-0 pr-0">
+                      <div class="row col-md-12  ">
       
-                        <div class="row col-md-12 col-lg-9 text-left pr-0">
+                        <div class="row col-md-12 col-lg-9 text-left ">
                           <!-- Image -->
-                          <div class="col-sm-4 d-flex align-items-center pr-0">
+                          <div class="col-sm-4 d-flex align-items-center ">
                             <img src="${ci_image}" width="150px"/>
                           </div>
                           <div class="col-sm-auto d-flex align-items-center">
@@ -72,8 +72,8 @@
       
                         </div>
       
-                        <div class="col-lg-3 col-md-12 d-flex align-items-end pl-0 pr-0 ml-0 mr-0">
-                          <div class="col-sm-12  d-flex align-items-center pl-0 pr-0">
+                        <div class="col-lg-3 col-md-12 d-flex align-items-end   ml-0 mr-0">
+                          <div class="col-sm-12  d-flex align-items-center  ">
                             
                             <div class="col-sm-6 p-1">
                               <div class="d-flex justify-content-center pb-2">
@@ -110,37 +110,37 @@
       
                     <!-- home -->
                     <div class="row col-sm-12 pt-4">
-                      <div class="col-sm-1 pl-0 pr-0">
+                      <div class="col-sm-1  ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                           <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
                         </svg>     
                       </div>   
-                      <div class="col-sm-11 pl-0">
+                      <div class="col-sm-11 ">
                         <span>${boothInfo.homepage_url}</span>            
                       </div>
                     </div>
       
                     <!-- email -->
                     <div class="row col-sm-12">
-                      <div class="col-sm-1 pl-0 pr-0">
+                      <div class="col-sm-1  ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
                           <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
                         </svg>    
                       </div>   
-                      <div class="col-sm-11 pl-0">
+                      <div class="col-sm-11 ">
                         <p>${custInfo.email_id}</p>            
                       </div>
                     </div>
       
                     <!-- 회사소개 -->
                     <div class="row col-sm-12">
-                      <div class="col-sm-1 pl-0 pr-0">
+                      <div class="col-sm-1  ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
                           <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
                         </svg> 
                       </div>   
-                      <div class="col-sm-11 pl-0">
+                      <div class="col-sm-11 ">
                         <span>회사소개</span>       
                         <pre><p>${boothInfo.about_company_kor}</p></pre>
                       </div>
@@ -148,10 +148,10 @@
       
                     <!-- ABOUT COMPANY -->
                     <div class="row col-sm-12">
-                      <div class="col-sm-1 pl-0 pr-0">
+                      <div class="col-sm-1  ">
                         
                       </div>   
-                      <div class="col-sm-11 pl-0">
+                      <div class="col-sm-11 ">
                         <span>About Company</span>       
                         <pre><p>${boothInfo.about_company_eng}</p></pre>
                       </div>
@@ -160,13 +160,13 @@
       
                     <!-- 제품개요 
                     <div class="row col-sm-12">
-                      <div class="col-sm-1 pl-0 pr-0">
+                      <div class="col-sm-1  ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cpu-fill" viewBox="0 0 16 16">
                           <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
                           <path d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z"/>
                         </svg>
                       </div>   
-                      <div class="col-sm-11 pl-0">
+                      <div class="col-sm-11 ">
                         <span>제품개요</span>       
                         <pre><p></p></pre>
                       </div>
@@ -175,9 +175,9 @@
       
                     <!-- Product outline 
                     <div class="row col-sm-12">
-                      <div class="col-sm-1 pl-0 pr-0">
+                      <div class="col-sm-1  ">
                       </div>   
-                      <div class="col-sm-11 pl-0">
+                      <div class="col-sm-11 ">
                         <span>Product outline</span>       
                         <p></p>
                       </div>
@@ -193,7 +193,7 @@
             <!-- 자료소개 -->
             <div class="tab-pane fade boot-tab-pane pb-5" id="nav2">
               <div class="row">
-                <div class="col-sm-3 pl-0 border-right">
+                <div class="col-sm-3  border-right">
                   <ul class="pl-4 basic-tab">
                     <c:forEach var="prod" items="${prodList}" varStatus="status">
                     <li class="li_txt_line"><a href="javascript:doPdfViewer('/files${prod.file_path}')">${prod.org_file_name}</a></li>
@@ -209,7 +209,7 @@
             <!-- 갤러리 -->
             <div class="tab-pane fade boot-tab-pane pb-5" id="nav3">
               <div class="row">
-                <div class="col-sm-3 pl-0 border-right">
+                <div class="col-sm-3  border-right">
                   <ul class="pl-4 basic-tab">
                     <c:forEach var="gallery" items="${galleryList}" varStatus="status">
                       <c:if test="${status.index eq 0}">
