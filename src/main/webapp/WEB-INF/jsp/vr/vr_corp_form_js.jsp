@@ -19,7 +19,7 @@ $(document).ready(function() {
 
         alert("현재 이용할 수 없는 메뉴입니다.");
         return;
-        
+
         /* JSON 생성을 위해 입력*/
         gfnPutObj("favorts_cust_id", "${custInfo.cust_id}");
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
             if(message == "parsererror") {
                 alert("로그아웃되었습니다.");
-                document.location.href="/m.do";
+                document.location.href="/vr/vr_login_form";
             } else  if(message.result_code == 0) {
                 
                 if(message.favorit_yn == "Y") {
@@ -42,6 +42,7 @@ $(document).ready(function() {
             } else {
                 if(message.result_code == (-999) || message == undefined) {
                     alert("로그인 후 사용할 수 있습니다.");
+                    document.location.href="/vr/vr_login_form";
                 } else {
                     alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
                 }
@@ -54,9 +55,9 @@ $(document).ready(function() {
 	//관심뱃지
 	$('#corpBadge').on('click', function () {
 
-        //alert("현재 이용할 수 없는 메뉴입니다.");
-        //return;
-		
+        alert("현재 이용할 수 없는 메뉴입니다.");
+        return;
+
         /* JSON 생성을 위해 입력*/
         gfnPutObj("give_cust_id", "${custInfo.cust_id}");
 
@@ -67,7 +68,7 @@ $(document).ready(function() {
 
             if(message == "parsererror") {
                 alert("로그아웃되었습니다.");
-                document.location.href="/m.do";
+                document.location.href="/vr/vr_login_form";
             } else  if(message.result_code == 0) {
                 
                 if(message.badge_yn == "Y") {
@@ -100,18 +101,34 @@ $(document).ready(function() {
         var anchor = pageURL.substring(pageURL.indexOf('#')+1, pageURL.length);
 
         if(anchor == "info") {
-            $('#nav a[href="#nav1"]').tab('show');    
+            $('#nav a[href="#nav1"]').tab('show');  
+            insertLog("107001");
         } else if(anchor == "brochure") {
             $('#nav a[href="#nav2"]').tab('show');
             doPdfViewer();
         } else if(anchor == "gallery") {
             $('#nav a[href="#nav3"]').tab('show');
+            insertLog("107003");
         } 
     } else {
         $('#nav a[href="#nav1"]').tab('show');
+        insertLog("107001");
     }
 
 });
+
+function insertLog(param) {
+
+    /* JSON 생성을 위해 입력*/
+    gfnPutObj("c", "${c}");
+    gfnPutObj("cd", param);
+
+    /* global 변수 json으로 변환 */
+    var pParamJson = gfnGetJson();
+
+    sendForm("POST", "/index/loginsert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+    });
+}
 
 function doPdfViewer (pUrl) {
 
@@ -126,6 +143,8 @@ function doPdfViewer (pUrl) {
     pUrl = "/js/pdfjs/web/viewer.html?file="+pUrl;
     var vHtml="<iframe src='"+pUrl+"' style='position: relative;   top: 0;  bottom: 0; left: 0;   width: 100%;   height: 500px;  border: 0'>";
     $("#pdfViewer").html(vHtml);
+
+    insertLog("107002");
 }
 
 </script>

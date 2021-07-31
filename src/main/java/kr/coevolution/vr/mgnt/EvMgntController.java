@@ -1514,6 +1514,8 @@ public class EvMgntController {
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
+            EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
+
             evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
 
             /* 공통코드조회 - 부스 */
@@ -1549,6 +1551,8 @@ public class EvMgntController {
                 String strDt = sf.format(nDt);
                 evMgntMemberRequestDto.setIns_dt_to(strDt);
             }
+
+            evMgntMemberRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
 
             /* 부스 리스트 조회 */
             List<EvMgntMemberResponseDto> list = evMgntService.mgnt_booth_list(evMgntMemberRequestDto);

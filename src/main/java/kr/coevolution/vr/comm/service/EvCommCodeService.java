@@ -1,6 +1,7 @@
 package kr.coevolution.vr.comm.service;
 
 import kr.coevolution.vr.comm.domain.EvCommCodeMapper;
+import kr.coevolution.vr.comm.dto.EvAccessMenuRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
 import kr.coevolution.vr.comm.util.StringUtils;
@@ -107,6 +108,15 @@ public class EvCommCodeService {
      */
     public int comm_cd_log (EvCommCodeRequestDto param) {
         return evCommCodeMapper.I02_COMM_CD_LOG(param);
+    }
+
+    /**
+     * 메뉴 access로저 저장
+     * @param param
+     * @return
+     */
+    public int menu_access_log_insert (EvAccessMenuRequestDto param) {
+        return evCommCodeMapper.I03_ACCESS_MENU_LOG(param);
     }
 
 }

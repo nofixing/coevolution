@@ -27,4 +27,5 @@ public class EvMgntMemberRequestDto {
     private String mgnt_pw;
     private String access_id;
     private String access_nm;
+    private int ev_expo_id;
 }

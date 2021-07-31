@@ -136,14 +136,12 @@
                       <tr>
                         <th scope="col" class="text-center">즐겨찾기</th>
                         <th scope="col" class="text-center">뱃지</th>
-                        <th scope="col" class="text-center">상담</th>
                         <th scope="col" class="text-center">기업정보</th>
-                        <th scope="col" class="text-center">이미지</th>
-                        <th scope="col" class="text-center">기타1</th>
-                        <th scope="col" class="text-center">기타2</th>
-                        <th scope="col" class="text-center">기타3</th>
-                        <th scope="col" class="text-center">기타4</th>
-                        <th scope="col" class="text-center">기타5</th>
+                        <th scope="col" class="text-center">자료소개</th>
+                        <th scope="col" class="text-center">갤러리</th>
+                        <th scope="col" class="text-center">Q&A</th>
+                        <th scope="col" class="text-center">홍보동영상</th>
+                        <th scope="col" class="text-center">링크바로가기</th>
                       </tr>                      
                     </thead>
                     <tbody id="codeList">
@@ -161,17 +159,15 @@
                         <td class="text-center">${list.access02_cnt}</td>
                         <td class="text-center">${list.access03_cnt}</td>
                         <td class="text-center">${list.access04_cnt}</td>
+                        <td class="text-center">${list.access05_cnt}</td>
                         <td class="text-center">${list.access06_cnt}</td>
-                        <td class="text-center">${list.access07_cnt}</td>
-                        <td class="text-center">${list.access08_cnt}</td>
-                        <td class="text-center">${list.access09_cnt}</td>
                       </tr>   
 
                       </c:forEach>
 
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <td scope="row" class="text-center" colspan="14">조회된 내용이 없습니다.</td>
+                        <td scope="row" class="text-center" colspan="8">조회된 내용이 없습니다.</td>
                       </tr>
                       </c:if> 
                     </tbody>

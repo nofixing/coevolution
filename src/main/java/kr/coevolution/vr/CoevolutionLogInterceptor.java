@@ -11,10 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +40,17 @@ public class CoevolutionLogInterceptor implements HandlerInterceptor {
                 }
 
                 vMap.put("access_ip", ip);
-                vMap.put("access_info", request.getRequestURI());
+
+                Enumeration<String> paramNames = request.getParameterNames();
+
+                String access_param = "";
+                while (paramNames.hasMoreElements()) {
+                    String name = paramNames.nextElement();
+                    String value = Arrays.toString(request.getParameterValues(name));
+                    access_param += name + "=" + (value.length() > 100 ? value.substring(0,100): value);
+                }
+
+                vMap.put("access_info", request.getRequestURI() + "?"+access_param);
 
                 evCommCodeService.access_log_insert(vMap);
             }

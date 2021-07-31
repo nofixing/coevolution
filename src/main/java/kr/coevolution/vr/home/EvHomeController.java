@@ -3,10 +3,7 @@ package kr.coevolution.vr.home;
 import kr.coevolution.vr.board.dto.EvBoardSearchDto;
 import kr.coevolution.vr.board.dto.EvBoardTermsResponseDto;
 import kr.coevolution.vr.board.service.EvBoardService;
-import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
-import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
-import kr.coevolution.vr.comm.dto.EvFileAttachRequestDto;
-import kr.coevolution.vr.comm.dto.EvFileAttachResponseDto;
+import kr.coevolution.vr.comm.dto.*;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.service.EvFileAttachService;
 import kr.coevolution.vr.comm.util.SecureUtils;
@@ -592,9 +589,9 @@ public class EvHomeController {
                     }
                 }
             }
-            
-            /* 관심뱃지조회 */
 
+            /* 관심뱃지조회 */
+            model.addAttribute("c", cust_seq_str);
             model.addAttribute("boothInfo", boothList.get(0));
             model.addAttribute("ci_image", ciImage);
             model.addAttribute("prodList", prodList);
@@ -671,6 +668,7 @@ public class EvHomeController {
             evMemberSearchDto.setCust_seq(cust_seq);
             List<EvMemberResposeDto> list = evMemberService.search_cust_info_seq(evMemberSearchDto);
 
+            model.addAttribute("c", cust_seq_str);
             model.addAttribute("custInfo", list.get(0));
 
         } catch (Exception e) {
@@ -986,6 +984,56 @@ public class EvHomeController {
         }
 
         return return_url;
+    }
+
+    @RequestMapping("/index/test")
+    public String ieve2021testtest(Model model, HttpServletRequest request) {
+        String return_url = "/test";
+
+        return return_url;
+    }
+
+    /**
+     * 메뉴에 클릭 시 로그 입력
+     * @param evAccessMenuRequestDto
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/index/loginsert")
+    public Map<String, Object> loginsertpost(@RequestBody EvAccessMenuRequestDto evAccessMenuRequestDto, HttpSession session) {
+        Map resposeResult = new HashMap();
+
+        try {
+            EvMemberLoginInfoDto cust = (EvMemberLoginInfoDto)session.getAttribute(StringUtils.login_session);
+
+            if(cust != null) {
+                evAccessMenuRequestDto.setAccess_cust_id(StringUtils.nvl(cust.getCust_id(),""));
+            } else {
+                evAccessMenuRequestDto.setAccess_cust_id("");
+            }
+
+            evAccessMenuRequestDto.setAccess_menu_cd(evAccessMenuRequestDto.getCd());
+
+            /* 고객순번 */
+            String c = evAccessMenuRequestDto.getC();
+            Long cust_seq = SecureUtils.base62Decoding(c) / SecureUtils.vr_cust_seq_const;
+            evAccessMenuRequestDto.setPtcp_cust_seq(cust_seq);
+
+            /* 메뉴접속로그입력 */
+            evCommCodeService.menu_access_log_insert(evAccessMenuRequestDto);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
     }
 
 }

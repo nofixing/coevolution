@@ -241,6 +241,7 @@
             from ev_cust_mst ecm
             where ecm.cust_clsf_cd = '202002'
             and ecm.cust_sts_cd = '105001'
+            and exists (select 1 from ev_expo_customer where ev_expo_id = #{ev_expo_id} and cust_id = ecm.cust_id)
 
             <if test="cust_nm != null and cust_nm != ''">
                 and ecm.cust_nm like concat('%',#{cust_nm},'%')
@@ -255,31 +256,50 @@
             </if>
 
         )
-        SELECT ROW_NUMBER() OVER(order by cust.caregori_nm, cust.cust_id, cust.cust_nm, fb.ins_dt) as rn
-            , cust.caregori_nm, cust.cust_id, cust.cust_nm, nvl(fb.ins_dt,#{ins_dt_fr}) AS ins_dt
-            , sum(case when fb.clsf_cd = 'F' then fb.cnt ELSE 0 END) AS favorts_cnt
-            , sum(case when fb.clsf_cd = 'B' then fb.cnt ELSE 0 END) AS badge_cnt
-            , 0 AS access01_cnt /* 접속건수 예) 기업정보 */
-            , 0 AS access02_cnt /* 접속건수 */
-            , 0 AS access03_cnt /* 접속건수 */
-            , 0 AS access04_cnt /* 접속건수 */
-            , 0 AS access05_cnt /* 접속건수 */
-            , 0 AS access06_cnt /* 접속건수 */
-            , 0 AS access07_cnt /* 접속건수 */
-            , 0 AS access08_cnt /* 접속건수 */
-            , 0 AS access09_cnt /* 접속건수 */
-            , 0 AS access10_cnt /* 접속건수 */
-            , 0 AS access10_cnt /* 접속건수 */
-            , 0 AS access12_cnt /* 접속건수 */
-            , 0 AS access13_cnt /* 접속건수 */
-            , 0 AS access14_cnt /* 접속건수 */
-            , 0 AS access15_cnt /* 접속건수 */
-        FROM cust
-        left outer join v_cust_favorts_badge fb
-        ON cust.cust_id = fb.cust_id
-        and fb.ins_dt between #{ins_dt_fr} and #{ins_dt_to}
-        group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, fb.ins_dt
-
+        , access_log as (
+            /* 접속건수조회 */
+            select date_format(aml.access_dtm, '%Y-%m-%d')  as access_dt
+                , aml.ptcp_cust_id
+                , sum(case when aml.access_menu_cd = '107001' then 1 else 0 end) as cd107001 /* 기업정보 */
+                , sum(case when aml.access_menu_cd = '107002' then 1 else 0 end) as cd107002 /* 자료소개 */
+                , sum(case when aml.access_menu_cd = '107003' then 1 else 0 end) as cd107003 /* 갤러리 */
+                , sum(case when aml.access_menu_cd = '107004' then 1 else 0 end) as cd107004 /* QA */
+                , sum(case when aml.access_menu_cd = '107005' then 1 else 0 end) as cd107005 /* 홍보동영상 */
+                , sum(case when aml.access_menu_cd = '107006' then 1 else 0 end) as cd107006 /* 링크바로가기 */
+            from access_menu_log aml
+            where date_format(aml.access_dtm, '%Y-%m-%d') between #{ins_dt_fr} and #{ins_dt_to}
+            group by date_format(aml.access_dtm, '%Y-%m-%d'), aml.ptcp_cust_id
+        )
+        , access_dt as (
+            /* 접속일자조회 */
+            select date_format(access_dtm, '%Y-%m-%d') as dt
+              from access_menu_log
+            group by date_format(access_dtm, '%Y-%m-%d')
+            union
+            select ins_dt
+              from v_cust_favorts_badge
+            group by ins_dt
+        )
+        select ROW_NUMBER() OVER(order by caregori_nm, cust_id, cust_nm, ins_dt desc) as rn
+             , a.*
+        from (
+                    SELECT cust.caregori_nm, cust.cust_id, cust.cust_nm, nvl(access_dt.dt,#{ins_dt_fr}) AS ins_dt
+                        , sum(case when fb.clsf_cd = 'F' then fb.cnt ELSE 0 END) AS favorts_cnt
+                        , sum(case when fb.clsf_cd = 'B' then fb.cnt ELSE 0 END) AS badge_cnt
+                        , nvl((select cd107001 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access01_cnt /* 접속건수-기업정보 */
+                        , nvl((select cd107002 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access02_cnt /* 접속건수-자료소개 */
+                        , nvl((select cd107003 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access03_cnt /* 접속건수-갤러리 */
+                        , nvl((select cd107004 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access04_cnt /* 접속건수-QA */
+                        , nvl((select cd107005 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access05_cnt /* 접속건수-홍보동영상 */
+                        , nvl((select cd107006 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access06_cnt /* 접속건수-링크바로가기 */
+                    from cust
+                    join access_dt
+                    left outer join v_cust_favorts_badge fb
+                      ON cust.cust_id = fb.cust_id
+                     and access_dt.dt = fb.ins_dt
+                     and access_dt.dt between #{ins_dt_fr} and #{ins_dt_to}
+                   group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, access_dt.dt
+            ) a
         LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>
@@ -287,12 +307,13 @@
     <select id="S09_BOOTH_LIST_COUNT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
 
         with cust as (
-            select (select cd_nm from ev_comm_code ecc2 where cd_id = ecm.category1) as caregori_nm
-                , ecm.cust_id
-                , ecm.cust_nm
+        select (select cd_nm from ev_comm_code ecc2 where cd_id = ecm.category1) as caregori_nm
+            , ecm.cust_id
+            , ecm.cust_nm
         from ev_cust_mst ecm
         where ecm.cust_clsf_cd = '202002'
         and ecm.cust_sts_cd = '105001'
+        and exists (select 1 from ev_expo_customer where ev_expo_id = #{ev_expo_id} and cust_id = ecm.cust_id)
 
         <if test="cust_nm != null and cust_nm != ''">
             and ecm.cust_nm like concat('%',#{cust_nm},'%')
@@ -307,21 +328,48 @@
         </if>
 
         )
+        , access_log as (
+            /* 접속건수조회 */
+            select date_format(aml.access_dtm, '%Y-%m-%d')  as access_dt
+                , aml.ptcp_cust_id
+                , sum(case when aml.access_menu_cd = '107001' then 1 else 0 end) as cd107001 /* 기업정보 */
+                , sum(case when aml.access_menu_cd = '107002' then 1 else 0 end) as cd107002 /* 자료소개 */
+                , sum(case when aml.access_menu_cd = '107003' then 1 else 0 end) as cd107003 /* 갤러리 */
+                , sum(case when aml.access_menu_cd = '107004' then 1 else 0 end) as cd107004 /* QA */
+                , sum(case when aml.access_menu_cd = '107005' then 1 else 0 end) as cd107005 /* 홍보동영상 */
+                , sum(case when aml.access_menu_cd = '107006' then 1 else 0 end) as cd107006 /* 링크바로가기 */
+            from access_menu_log aml
+            where date_format(aml.access_dtm, '%Y-%m-%d') between #{ins_dt_fr} and #{ins_dt_to}
+            group by date_format(aml.access_dtm, '%Y-%m-%d'), aml.ptcp_cust_id
+        )
+        , access_dt as (
+            /* 접속일자조회 */
+            select date_format(access_dtm, '%Y-%m-%d') as dt
+              from access_menu_log
+             group by date_format(access_dtm, '%Y-%m-%d')
+             union
+            select ins_dt
+              from v_cust_favorts_badge
+             group by ins_dt
+        )
         select count(*) row_count
-          from (
-                SELECT cust.caregori_nm, cust.cust_id, cust.cust_nm, fb.ins_dt
-                FROM cust
-                left outer join v_cust_favorts_badge fb
-                ON cust.cust_id = fb.cust_id
-                and fb.ins_dt between #{ins_dt_fr} and #{ins_dt_to}
-                group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, fb.ins_dt
-            ) a
+        from (
+            SELECT cust.caregori_nm, cust.cust_id, cust.cust_nm, access_dt.dt
+            from cust
+            join access_dt
+            left outer join v_cust_favorts_badge fb
+            ON cust.cust_id = fb.cust_id
+            and access_dt.dt = fb.ins_dt
+            and access_dt.dt between #{ins_dt_fr} and #{ins_dt_to}
+            group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, access_dt.dt
+        ) a
+
     </select>
 
     <select id="S10_ACCESS_LOG_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
 
         /* 접속로그 */
-        select ROW_NUMBER() OVER(ecll.login_dtm DESC) as rn
+        select ROW_NUMBER() OVER(order by ecll.login_dtm DESC) as rn
             , ecll.cust_id
             , ecm.cust_nm
             , ecll.ip

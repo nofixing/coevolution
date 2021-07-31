@@ -37,13 +37,13 @@
           <!-- NAV -->
           <nav class="nav nav-tabs mb-5" id="nav">
             <!-- Content -->
-            <a class="nav-item nav-link" data-toggle="tab" href="#nav1">
+            <a class="nav-item nav-link" data-toggle="tab" href="#nav1" onClick="insertLog('107001')">
               기업정보
             </a>
             <a class="nav-item nav-link" data-toggle="tab" href="#nav2" onClick="doPdfViewer()">
               자료소개
             </a>
-            <a class="nav-item nav-link" data-toggle="tab" href="#nav3">
+            <a class="nav-item nav-link" data-toggle="tab" href="#nav3" onClick="insertLog('107003')">
               갤러리
             </a>
 

@@ -1,5 +1,6 @@
 package kr.coevolution.vr.comm.domain;
 
+import kr.coevolution.vr.comm.dto.EvAccessMenuRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -57,5 +58,11 @@ public interface EvCommCodeMapper {
      * @return
      */
     public int I02_COMM_CD_LOG(EvCommCodeRequestDto param);
+
+    /**
+     * 메뉴 접속로그
+     * @return
+     */
+    public int I03_ACCESS_MENU_LOG(EvAccessMenuRequestDto param);
 
 }

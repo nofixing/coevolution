@@ -128,4 +128,21 @@
 
     </select>
 
+
+    <insert id="I03_ACCESS_MENU_LOG" parameterType="kr.coevolution.vr.comm.dto.EvAccessMenuRequestDto">
+        /* 접속로그입력 */
+        INSERT INTO access_menu_log (
+            access_menu_log_id, access_menu_cd, ptcp_cust_seq, ptcp_cust_id, remarks, access_cust_id, access_dtm
+        ) VALUES(
+              null
+            , #{access_menu_cd}
+            , #{ptcp_cust_seq}
+            , (select cust_id from ev_cust_mst where cust_seq = #{ptcp_cust_seq})
+            , #{remarks}
+            , #{access_cust_id}
+            , now()
+        )
+
+    </insert>
+
 </mapper>
