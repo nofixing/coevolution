@@ -59,102 +59,121 @@
                     <div class="col-md-12   ml-0 mr-0">
                 
                       <!-- Card -->
-                      <div class="row col-md-12  ">
-      
-                        <div class="row col-md-12 col-lg-9 text-left ">
-                          <!-- Image -->
-                          <div class="col-sm-4 d-flex align-items-center ">
-                            <img src="${ci_image}" width="150px"/>
+                      <div class="row   ">
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-12 col-lg-8">
+                              <div class="row">
+                                <div class="col-sm-4 mobile-center">
+                                  <img src="${ci_image}" width="150px"/>
+                                </div>
+                                <div class="col-sm-auto  mobile-center">
+                                  ${custInfo.cust_nm}
+                                </div>  
+                              </div>
+                            </div>
+                            <!-- Image -->
+                            <div class="col-lg-3 col-md-12 ">
+                              <div class="row">
+                                <div class="col-sm-12 ">
+                                  <div class="row">
+                                    <div class="col-xs-6 col-sm-6  p-1">
+                                      <div class="d-flex justify-content-center pb-2">
+                                        <a href="#!">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star <c:if test="${favorit_yn eq 'Y'}">text-warning</c:if>" viewBox="0 0 16 16" id="corpFavorit">                 
+                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"></path>                 
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>             
+                                          </svg>
+                                        </a>
+                                      </div>
+                                      <span style="height:24px; display:block;"></span>
+                                      <div class="d-flex justify-content-center">즐겨찾기</div> 
+                                    </div>   
+                                    
+                                    <div class="col-xs-6 col-sm-6 p-1 text-center">
+                                      <div class="d-flex justify-content-center pb-2">
+                                        <a href="#!">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award <c:if test="${badge_yn eq 'Y'}">text-warning</c:if>" viewBox="0 0 16 16" id="corpBadge">
+                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                          </svg>
+                                        </a>
+                                      </div>
+                                      <span style="height:24px; display:block;">(<span id="tot_badge">${tot_badge}</span>)</span>
+                                      <div class="d-flex justify-content-center">관심뱃지</div> 
+                                    </div>  
+                                  </div>                     
+                                  
+                                </div>
+                              </div>
+                            </div>
+        
                           </div>
-                          <div class="col-sm-auto d-flex align-items-center">
-                            ${custInfo.cust_nm}
-                          </div>  
-      
+                                
                         </div>
       
-                        <div class="col-lg-3 col-md-12 d-flex align-items-end   ml-0 mr-0">
-                          <div class="col-sm-12  d-flex align-items-center  ">
-                            
-                            <div class="col-sm-6 p-1">
-                              <div class="d-flex justify-content-center pb-2">
-                                <a href="#!">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star <c:if test="${favorit_yn eq 'Y'}">text-warning</c:if>" viewBox="0 0 16 16" id="corpFavorit">                 
-                                    <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"></path>                 
-                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>             
-                                  </svg>
-                                </a>
-                              </div>
-                              <span style="height:24px; display:block;"></span>
-                              <div class="d-flex justify-content-center">즐겨찾기</div> 
-                            </div>   
-                            
-                            <div class="col-sm-6 p-1 text-center">
-                              <div class="d-flex justify-content-center pb-2">
-                                <a href="#!">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award <c:if test="${badge_yn eq 'Y'}">text-warning</c:if>" viewBox="0 0 16 16" id="corpBadge">
-                                    <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
-                                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-                                  </svg>
-                                </a>
-                              </div>
-                              <span style="height:24px; display:block;">(<span id="tot_badge">${tot_badge}</span>)</span>
-                              <div class="d-flex justify-content-center">관심뱃지</div> 
-                            </div>                       
-                            
-                          </div>
-                        </div>
+                        
       
                       </div>
       
                     </div>
       
                     <!-- home -->
-                    <div class="row col-sm-12 pt-4">
-                      <div class="col-sm-1  ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                          <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-                        </svg>     
-                      </div>   
-                      <div class="col-sm-11 ">
-                        <span>${boothInfo.homepage_url}</span>            
+                      <div class="col-sm-12 pt-4">
+                        <div class="row">
+                          <div class="col-sm-1  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                              <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                            </svg>     
+                          </div>   
+                          <div class="col-sm-11 ">
+                            <span>${boothInfo.homepage_url}</span>            
+                          </div>
+                        </div>
                       </div>
-                    </div>
       
-                    <!-- email -->
-                    <div class="row col-sm-12">
-                      <div class="col-sm-1  ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                          <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
-                        </svg>    
-                      </div>   
-                      <div class="col-sm-11 ">
-                        <p>${custInfo.email_id}</p>            
+                    <!-- email -->                    
+                      <div class="col-sm-12">
+                        <div class="row">
+                          <div class="col-sm-1  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                              <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                            </svg>    
+                          </div>   
+                          <div class="col-sm-11 ">
+                            <p>${custInfo.email_id}</p>            
+                          </div>
+                        </div>
                       </div>
-                    </div>
       
                     <!-- 회사소개 -->
-                    <div class="row col-sm-12">
-                      <div class="col-sm-1  ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
-                          <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
-                        </svg> 
-                      </div>   
-                      <div class="col-sm-11 ">
-                        <span>회사소개</span>       
-                        <pre><p>${boothInfo.about_company_kor}</p></pre>
+                      <div class="col-sm-12">
+                        <div class="row">
+                          <div class="col-sm-1  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
+                              <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
+                            </svg> 
+                          </div>   
+                          <div class="col-sm-11 ">
+                            <span>회사소개</span>       
+                            <pre><p>${boothInfo.about_company_kor}</p></pre>
+                          </div>
+                        </div>
                       </div>
-                    </div>
       
                     <!-- ABOUT COMPANY -->
-                    <div class="row col-sm-12">
-                      <div class="col-sm-1  ">
+                      <div class="col-sm-12">
+                        <div class="row">
+                          <div class="col-sm-1  ">
                         
-                      </div>   
-                      <div class="col-sm-11 ">
-                        <span>About Company</span>       
-                        <pre><p>${boothInfo.about_company_eng}</p></pre>
-                      </div>
+                          </div>   
+                          <div class="col-sm-11 ">
+                            <span>About Company</span>       
+                            <pre><p>${boothInfo.about_company_eng}</p></pre>
+                          </div>
+                        </div>
+                      
                     </div>
       
       

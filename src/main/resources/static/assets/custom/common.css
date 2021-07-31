@@ -2,7 +2,7 @@
 .clearfix {*zoom:1;}
 .clearfix:before, .clearfix:after {display:block; content:'';line-height: 0;}
 .clearfix:after {clear:both;}
-
+/* TEST */
 
 /* 공통 */
 .mblock{
@@ -322,6 +322,27 @@ select::-ms-expand{
     display:none;/*for IE10,11*/
     display:hidden;/*영역유지하고 싶을땐*/
 }
+
+
+@media (max-width:991px){
+    .mobile-center{
+        text-align:center;
+    }
+    .col-xs-6 {
+        -webkit-box-flex: 0;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+    .nav .nav-link{
+        flex: 0 0 33.33%;
+        padding:.75rem 1rem !important;
+        text-align:center;
+    }
+    .tab-pane ul{
+        padding-left:0 !important;
+    }
+}
+
 
 .search-item{
     padding:15px 0;

@@ -23,7 +23,7 @@
 
           <!-- Heading -->
           <div class="modal-header p-3  text-center">
-            <h2 class="text-center" style="width:100%;">상담문의<span>(Contact Us)</span></h2>
+            <h2 class="text-center" style="width:100%;">상담문의<span class="mobile-text">(Contact Us)</span></h2>
           </div>              
 
           <h6 class="text-left mb-2 pb-2">
