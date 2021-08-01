@@ -37,13 +37,13 @@
           <!-- NAV -->
           <nav class="nav nav-tabs mb-5" id="nav">
             <!-- Content -->
-            <a class="nav-item nav-link" data-toggle="tab" href="#nav1" onClick="insertLog('107001')">
+            <a class="nav-item nav-link" data-toggle="tab" href="#nav1">
               기업정보
             </a>
             <a class="nav-item nav-link" data-toggle="tab" href="#nav2" onClick="doPdfViewer()">
               자료소개
             </a>
-            <a class="nav-item nav-link" data-toggle="tab" href="#nav3" onClick="insertLog('107003')">
+            <a class="nav-item nav-link" data-toggle="tab" href="#nav3">
               갤러리
             </a>
 
@@ -61,9 +61,9 @@
                       <!-- Card -->
                       <div class="row   ">
                         <div class="col-md-12">
-                          <div class="row">
+                          <div class="row align-items-center">
                             <div class="col-md-12 col-lg-8">
-                              <div class="row">
+                              <div class="row align-items-center">
                                 <div class="col-sm-4 mobile-center">
                                   <img src="${ci_image}" width="150px"/>
                                 </div>
@@ -73,35 +73,38 @@
                               </div>
                             </div>
                             <!-- Image -->
-                            <div class="col-lg-3 col-md-12 ">
+                            <div class="col-lg-3 col-md-12 pt-3">
                               <div class="row">
                                 <div class="col-sm-12 ">
                                   <div class="row">
-                                    <div class="col-xs-6 col-sm-6  p-1">
-                                      <div class="d-flex justify-content-center pb-2">
-                                        <a href="#!">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star <c:if test="${favorit_yn eq 'Y'}">text-warning</c:if>" viewBox="0 0 16 16" id="corpFavorit">                 
-                                            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"></path>                 
-                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>             
-                                          </svg>
-                                        </a>
+                                    <div class="col-md-12">
+                                      <div class="inline-block-wrap text-center">
+                                        <div class="inline-block">
+                                          <div class="d-flex justify-content-center pb-2">
+                                              <a href="#!">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star <c:if test="${favorit_yn eq 'Y'}">text-warning</c:if>" viewBox="0 0 16 16" id="corpFavorit">
+                                                  <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"></path>
+                                                  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
+                                                </svg>
+                                              </a>
+                                            </div>
+                                            <span style="height:24px; display:block;"></span>
+                                            <div class="d-flex justify-content-center">즐겨찾기</div>
                                       </div>
-                                      <span style="height:24px; display:block;"></span>
-                                      <div class="d-flex justify-content-center">즐겨찾기</div> 
-                                    </div>   
-                                    
-                                    <div class="col-xs-6 col-sm-6 p-1 text-center">
-                                      <div class="d-flex justify-content-center pb-2">
-                                        <a href="#!">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award <c:if test="${badge_yn eq 'Y'}">text-warning</c:if>" viewBox="0 0 16 16" id="corpBadge">
-                                            <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
-                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-                                          </svg>
-                                        </a>
+                                      <div class="inline-block">
+                                        <div class="d-flex justify-content-center pb-2">
+                                          <a href="#!">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-award <c:if test="${badge_yn eq 'Y'}">text-warning</c:if>" viewBox="0 0 16 16" id="corpBadge">
+                                              <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                              <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                            </svg>
+                                          </a>
+                                        </div>
+                                        <span style="height:24px; display:block;">(<span id="tot_badge">${tot_badge}</span>)</span>
+                                        <div class="d-flex justify-content-center">관심뱃지</div>
                                       </div>
-                                      <span style="height:24px; display:block;">(<span id="tot_badge">${tot_badge}</span>)</span>
-                                      <div class="d-flex justify-content-center">관심뱃지</div> 
-                                    </div>  
+                                      </div>
+                                    </div>
                                   </div>                     
                                   
                                 </div>

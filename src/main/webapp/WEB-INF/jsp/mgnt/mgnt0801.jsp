@@ -167,7 +167,7 @@
 
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <td scope="row" class="text-center" colspan="8">조회된 내용이 없습니다.</td>
+                        <td scope="row" class="text-center" colspan="12">조회된 내용이 없습니다.</td>
                       </tr>
                       </c:if> 
                     </tbody>

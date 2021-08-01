@@ -13,6 +13,15 @@
     box-sizing:border-box;
 }
 
+.inline-block-wrap{
+    margin:0 -20px;
+}
+.inline-block{
+    display:inline-block;
+    margin:0 10px;
+}
+
+
 @media (max-width:750px){
     .form-flex{
         margin:0 -20px;
