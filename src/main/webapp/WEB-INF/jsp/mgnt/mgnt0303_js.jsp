@@ -103,6 +103,8 @@ function fnSearch() {
 			corp_url += "#info (기업정보)\r\n"
 			corp_url += message.vr_corpinfo_url + "#brochure (자료소개)\r\n"
 			corp_url += message.vr_corpinfo_url + "#gallery (갤러리)\r\n"
+			corp_url += message.vr_log_url  + " Ajax POST {\"c\":\""+ message.vr_cust_seq +"\", \"cd\":\"107005\"} (홍보동영상)\r\n"
+			corp_url += message.vr_log_url  + " Ajax POST {\"c\":\""+ message.vr_cust_seq +"\", \"cd\":\"107006\"} (링크바로가기)\r\n"
 
 			setValue("vr_corpinfo_url", corp_url);
 			setValue("vr_corpcoslt_url", message.vr_corpcoslt_url);

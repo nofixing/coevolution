@@ -274,31 +274,64 @@
             /* 접속일자조회 */
             select date_format(access_dtm, '%Y-%m-%d') as dt
               from access_menu_log
+             where date_format(access_dtm, '%Y-%m-%d') between #{ins_dt_fr} and #{ins_dt_to}
             group by date_format(access_dtm, '%Y-%m-%d')
             union
             select ins_dt
               from v_cust_favorts_badge
+             where ins_dt between #{ins_dt_fr} and #{ins_dt_to}
             group by ins_dt
         )
         select ROW_NUMBER() OVER(order by caregori_nm, cust_id, cust_nm, ins_dt desc) as rn
              , a.*
         from (
-                    SELECT cust.caregori_nm, cust.cust_id, cust.cust_nm, nvl(access_dt.dt,#{ins_dt_fr}) AS ins_dt
+                    SELECT cust.caregori_nm, cust.cust_id, cust.cust_nm
+
+                        <if test='tot_period == "Y"'>
+                        , nvl(max(access_dt.dt),#{ins_dt_fr}) AS ins_dt
+                        </if>
+
+                        <if test='tot_period != "Y"'>
+                            , nvl(access_dt.dt,#{ins_dt_fr}) AS ins_dt
+                        </if>
+
                         , sum(case when fb.clsf_cd = 'F' then fb.cnt ELSE 0 END) AS favorts_cnt
                         , sum(case when fb.clsf_cd = 'B' then fb.cnt ELSE 0 END) AS badge_cnt
-                        , nvl((select cd107001 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access01_cnt /* 접속건수-기업정보 */
-                        , nvl((select cd107002 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access02_cnt /* 접속건수-자료소개 */
-                        , nvl((select cd107003 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access03_cnt /* 접속건수-갤러리 */
-                        , nvl((select cd107004 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access04_cnt /* 접속건수-QA */
-                        , nvl((select cd107005 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access05_cnt /* 접속건수-홍보동영상 */
-                        , nvl((select cd107006 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access06_cnt /* 접속건수-링크바로가기 */
+
+                        <if test='tot_period == "Y"'>
+                            , nvl((select sum(cd107001) from access_log where access_dt in (select access_dt.dt from access_dt) and ptcp_cust_id = cust.cust_id),0) AS access01_cnt /* 접속건수-기업정보 */
+                            , nvl((select sum(cd107002) from access_log where access_dt in (select access_dt.dt from access_dt) and ptcp_cust_id = cust.cust_id),0) AS access02_cnt /* 접속건수-자료소개 */
+                            , nvl((select sum(cd107003) from access_log where access_dt in (select access_dt.dt from access_dt) and ptcp_cust_id = cust.cust_id),0) AS access03_cnt /* 접속건수-갤러리 */
+                            , nvl((select sum(cd107004) from access_log where access_dt in (select access_dt.dt from access_dt) and ptcp_cust_id = cust.cust_id),0) AS access04_cnt /* 접속건수-QA */
+                            , nvl((select sum(cd107005) from access_log where access_dt in (select access_dt.dt from access_dt) and ptcp_cust_id = cust.cust_id),0) AS access05_cnt /* 접속건수-홍보동영상 */
+                            , nvl((select sum(cd107006) from access_log where access_dt in (select access_dt.dt from access_dt) and ptcp_cust_id = cust.cust_id),0) AS access06_cnt /* 접속건수-링크바로가기 */
+                        </if>
+
+                        <if test='tot_period != "Y"'>
+                            , nvl((select cd107001 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access01_cnt /* 접속건수-기업정보 */
+                            , nvl((select cd107002 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access02_cnt /* 접속건수-자료소개 */
+                            , nvl((select cd107003 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access03_cnt /* 접속건수-갤러리 */
+                            , nvl((select cd107004 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access04_cnt /* 접속건수-QA */
+                            , nvl((select cd107005 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access05_cnt /* 접속건수-홍보동영상 */
+                            , nvl((select cd107006 from access_log where access_dt = access_dt.dt and ptcp_cust_id = cust.cust_id),0) AS access06_cnt /* 접속건수-링크바로가기 */
+                        </if>
+
+
                     from cust
                     join access_dt
                     left outer join v_cust_favorts_badge fb
                       ON cust.cust_id = fb.cust_id
                      and access_dt.dt = fb.ins_dt
                      and access_dt.dt between #{ins_dt_fr} and #{ins_dt_to}
-                   group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, access_dt.dt
+
+                <if test='tot_period == "Y"'>
+                   group BY cust.caregori_nm, cust.cust_id, cust.cust_nm
+                </if>
+
+                <if test='tot_period != "Y"'>
+                    group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, access_dt.dt
+                </if>
+
             ) a
         LIMIT #{page_row_start}, #{page_row_cnt}
 
@@ -346,22 +379,32 @@
             /* 접속일자조회 */
             select date_format(access_dtm, '%Y-%m-%d') as dt
               from access_menu_log
+             where date_format(access_dtm, '%Y-%m-%d') between #{ins_dt_fr} and #{ins_dt_to}
              group by date_format(access_dtm, '%Y-%m-%d')
              union
             select ins_dt
               from v_cust_favorts_badge
+             where ins_dt between #{ins_dt_fr} and #{ins_dt_to}
              group by ins_dt
         )
         select count(*) row_count
         from (
-            SELECT cust.caregori_nm, cust.cust_id, cust.cust_nm, access_dt.dt
+            SELECT cust.caregori_nm, cust.cust_id, cust.cust_nm
             from cust
             join access_dt
             left outer join v_cust_favorts_badge fb
             ON cust.cust_id = fb.cust_id
             and access_dt.dt = fb.ins_dt
             and access_dt.dt between #{ins_dt_fr} and #{ins_dt_to}
+
+        <if test='tot_period == "Y"'>
+            group BY cust.caregori_nm, cust.cust_id, cust.cust_nm
+        </if>
+
+        <if test='tot_period != "Y"'>
             group BY cust.caregori_nm, cust.cust_id, cust.cust_nm, access_dt.dt
+        </if>
+
         ) a
 
     </select>

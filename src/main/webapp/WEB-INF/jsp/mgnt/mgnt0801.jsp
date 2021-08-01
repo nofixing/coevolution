@@ -105,6 +105,11 @@
                         </div>
                       </div>
 
+                      <div class="col-2 text-center form-control-sm">
+                        <input type="checkbox" class="form-check-input" id="tot_period" name="tot_period" value="Y" <c:if test="${tot_period eq 'Y'}">checked</c:if>>
+                        <label class="form-check-label" for="tot_period">기간합계</label>
+                      </div> 
+
                   </div>
 
                   <div class="form-row align-items-center pb-2">
@@ -117,9 +122,12 @@
                           <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
                         </div>
                       </div>
-                      <div class="col-2 text-right">
+                      <div class="col-2 col-2 d-flex justify-content-end">
                         <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
-                      </div>                        
+                      </div>          
+                      <div class="col-2 col-2 d-flex justify-content-end">
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 7rem;" id="btnExcel">액셀 다운로드</button>
+                      </div>              
                   </div>                  
 
 

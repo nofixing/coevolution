@@ -28,4 +28,5 @@ public class EvMgntMemberRequestDto {
     private String access_id;
     private String access_nm;
     private int ev_expo_id;
+    private String tot_period;
 }

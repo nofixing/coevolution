@@ -584,6 +584,8 @@ public class EvMgntController {
             String vr_corpinfo_url = SecureUtils.base62Encoding(base62Encode);
             resposeResult.put("vr_corpinfo_url", "/vr/vr_corp_form?c="+vr_corpinfo_url);
             resposeResult.put("vr_corpcoslt_url", "/vr/vr_coslt_form?c="+vr_corpinfo_url);
+            resposeResult.put("vr_log_url", "/index/loginsert");
+            resposeResult.put("vr_cust_seq", vr_corpinfo_url);
 
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
@@ -1555,8 +1557,9 @@ public class EvMgntController {
             evMgntMemberRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
 
             /* 부스 리스트 조회 */
-            List<EvMgntMemberResponseDto> list = evMgntService.mgnt_booth_list(evMgntMemberRequestDto);
             List<EvMgntMemberResponseDto> listCnt = evMgntService.mgnt_booth_list_count(evMgntMemberRequestDto);
+            List<EvMgntMemberResponseDto> list = evMgntService.mgnt_booth_list(evMgntMemberRequestDto);
+
 
             Long row_count = 0L;
 
@@ -1576,6 +1579,7 @@ public class EvMgntController {
             model.addAttribute("cust_nm", evMgntMemberRequestDto.getCust_nm());
             model.addAttribute("category1", evMgntMemberRequestDto.getCategory1());
             model.addAttribute("cust_id", evMgntMemberRequestDto.getCust_id());
+            model.addAttribute("tot_period", evMgntMemberRequestDto.getTot_period());
 
             model.addAttribute("result_code", "0");
             model.addAttribute("result_msg", "성공!!");
@@ -1591,6 +1595,117 @@ public class EvMgntController {
         return returnUrl;
 
     }
+
+    /**
+     * 부스현황 엑셀
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @param model
+     * @throws IOException
+     */
+    @RequestMapping("/mgnt/booth_xlsx")
+    public void booth_xlsx(EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request, HttpServletResponse response, Model model)  throws IOException {
+
+        EvExpoResponseDto expoInfoList = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+
+        evMgntMemberRequestDto.setPage_row_cnt(100000L);
+        evMgntMemberRequestDto.setPage_row_start(0L);
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Date nDt = new Date();
+
+        /* 최초 날짜가 null 인경우 */
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_fr(),""))) {
+            Date ftDt = StringUtils.addMonth(nDt,-1);
+            String strDt = sf.format(ftDt);
+            evMgntMemberRequestDto.setIns_dt_fr(strDt);
+        }
+
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_to(),""))) {
+            String strDt = sf.format(nDt);
+            evMgntMemberRequestDto.setIns_dt_to(strDt);
+        }
+
+        evMgntMemberRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
+
+        /* 부스 리스트 조회 */
+        List<EvMgntMemberResponseDto> list = evMgntService.mgnt_booth_list(evMgntMemberRequestDto);
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell = row.createCell(1);
+        cell.setCellValue("구분");
+        cell = row.createCell(2);
+        cell.setCellValue("부스명");
+        cell = row.createCell(3);
+        cell.setCellValue("일자");
+        cell = row.createCell(4);
+        cell.setCellValue("즐겨찾기");
+        cell = row.createCell(5);
+        cell.setCellValue("뱃지");
+        cell = row.createCell(6);
+        cell.setCellValue("기업정보");
+        cell = row.createCell(7);
+        cell.setCellValue("자료소개");
+        cell = row.createCell(8);
+        cell.setCellValue("갤러리");
+        cell = row.createCell(9);
+        cell.setCellValue("Q&A");
+        cell = row.createCell(10);
+        cell.setCellValue("홍보동영상");
+        cell = row.createCell(11);
+        cell.setCellValue("링크바로가기");
+
+
+        // Body
+        for (int i=0; i < list.size(); i++) {
+            EvMgntMemberResponseDto dto = list.get(i);
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(dto.getRn());
+            cell = row.createCell(1);
+            cell.setCellValue(dto.getCaregori_nm());
+            cell = row.createCell(2);
+            cell.setCellValue(dto.getCust_nm());
+            cell = row.createCell(3);
+            cell.setCellValue(dto.getIns_dt());
+            cell = row.createCell(4);
+            cell.setCellValue(dto.getFavorts_cnt());
+            cell = row.createCell(5);
+            cell.setCellValue(dto.getBadge_cnt());
+            cell = row.createCell(6);
+            cell.setCellValue(dto.getAccess01_cnt());
+            cell = row.createCell(7);
+            cell.setCellValue(dto.getAccess02_cnt());
+            cell = row.createCell(8);
+            cell.setCellValue(dto.getAccess03_cnt());
+            cell = row.createCell(9);
+            cell.setCellValue(dto.getAccess04_cnt());
+            cell = row.createCell(10);
+            cell.setCellValue(dto.getAccess05_cnt());
+            cell = row.createCell(11);
+            cell.setCellValue(dto.getAccess06_cnt());
+        }
+
+        String strDt = sf.format(nDt);
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=access_log_"+strDt+".xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
 
     /**
      * 접속로그

@@ -187,7 +187,7 @@
                           </tr>  
 
                           <tr>
-                              <th>VR상담정보URL</th>
+                              <th>VR Q&A URL</th>
                               <td><pre><div id="vr_corpcoslt_url"></div></pre></td>
                           </tr>                                                   
 
@@ -238,7 +238,9 @@
                               <textarea id="about_company_eng" name="about_company_eng" cols="30" rows="5"></textarea>
                             </td>
                           </tr>
-                          <tr>
+                          <input type="hidden" placeholder="url을 입력해 주세요." id="video_url" name="video_url" maxlength="100">
+                          <input type="hidden" placeholder="url을 입력해 주세요." id="promtn_url" name="promtn_url" maxlength="100">
+                          <!-- tr>
                             <th>기업영상</th>
                             <td colspan="3">
                               <input type="text" placeholder="url을 입력해 주세요." id="video_url" name="video_url" maxlength="100">
@@ -250,7 +252,7 @@
                               <input type="text" placeholder="url을 입력해 주세요." id="promtn_url" name="promtn_url" maxlength="100">
                             </td>
                           </tr>
-                          <tr>
+                          <tr -->
                             <th>제품소개</th>
                             <td colspan="3">
                               <div class="col-sm-12 input-group-text border-0 bg-white">
@@ -268,7 +270,9 @@
                               </div>
                             </td>
                           </tr>
-                          <tr>
+                          <input type="hidden" name="scan_3d_url" id="scan_3d_url" placeholder="url을 입력해 주세요." maxlength="100">
+                          <input type="hidden" name="comrce_url" id="comrce_url" placeholder="url을 입력해 주세요." maxlength="100">
+                          <!-- tr>
                             <th>3D 스캐닝</th>
                             <td colspan="3">
                               <input type="text" name="scan_3d_url" id="scan_3d_url" placeholder="url을 입력해 주세요." maxlength="100">
@@ -279,7 +283,7 @@
                             <td colspan="3">
                               <input type="text" name="comrce_url" id="comrce_url" placeholder="url을 입력해 주세요." maxlength="100">
                             </td>
-                          </tr>
+                          </tr -->
 
                         </table>
                         <div class="register_page text-right">

@@ -17,6 +17,10 @@ $(document).ready(function() {
 		fnSearchMgnt08(1);
 	});	
 
+    $('#btnExcel').on('click', function () {
+        fnExcelMgnt08(1);
+    });
+
 	/* 총건수, 현재이지, view row, 호출할 function */
 	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMgnt08");	
 	$('#pagingList').html(pageHtml);		
@@ -31,6 +35,14 @@ function fnSearchMgnt08(pPageCurrent) {
 	frm.method = "post";
 	frm.action = "/mgnt/booth";
 	frm.submit();
+
+}
+
+function fnExcelMgnt08(pPageCurrent) {
+    var frm = document.forms[0];
+    frm.method = "post";
+    frm.action = "/mgnt/booth_xlsx";
+    frm.submit();
 
 }
 
