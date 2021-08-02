@@ -24,7 +24,7 @@
 	<property name="LOG_CONFIG_DAYS" value="${log.config.days}"/>
 
 	<!-- 로그파일 사이즈 -->
-	<property name="LOG_FILE_SIZE" value="${log.config.filesizezip}"/>
+	<property name="LOG_FILE_SIZE" value="${log.config.filesizelog}"/>
 
 	<!-- err log file name -->
 	<property name="ERR_LOG_FILE_NAME" value="err_log"/>
