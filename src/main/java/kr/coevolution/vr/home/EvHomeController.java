@@ -1047,9 +1047,18 @@ public class EvHomeController {
     @RequestMapping("/vr/login_popup")
     public String vr_login_popup(Model model, HttpServletRequest request) {
 
-        String returnUrl = "/vr/vr_corp_form";
-        model.addAttribute("login", request.getParameter("login"));
-        request.getSession().setAttribute("url_prior_login", returnUrl);
+        String returnUrl = "/vr/login_popup";
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+            model.addAttribute("login_id", "");
+            model.addAttribute("login", request.getParameter("login"));
+            request.getSession().setAttribute("url_prior_login", returnUrl);
+        } else {
+            model.addAttribute("login", "");
+            model.addAttribute("login_id", loginInfoDto.getCust_id());
+        }
 
         return "/vr/vr_login_popup";
     }

@@ -13,20 +13,27 @@
     <script>
 
         $(document).ready(function() {
+
             <c:if test="${login eq 'google'}">
-                document.location.href="/oauth2/authorization/google";
+                //document.location.href="/oauth2/authorization/google";
             </c:if>
             <c:if test="${login eq 'facebook'}">
-                document.location.href="/oauth2/authorization/facebook";
+                //document.location.href="/oauth2/authorization/facebook";
             </c:if>
             <c:if test="${login eq 'naver'}">
-                document.location.href="/oauth2/authorization/naver";
+                //document.location.href="/oauth2/authorization/naver";
             </c:if>
             <c:if test="${login eq 'kakao'}">
-                document.location.href="/oauth2/authorization/kakao";
+                //document.location.href="/oauth2/authorization/kakao";
+            </c:if>
+
+            /* login 되었을 경우 */
+            <c:if test="${login_id eq ''}">
+                opener.document.location.href="/vr/vr_corp_form?c=Y2NC#info";
+                window.close();
             </c:if>
         });
-        
+
     </script>
 
   </head>
