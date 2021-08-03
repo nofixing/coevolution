@@ -11,7 +11,7 @@
   </head>
   <body>
 
-    <iframe src="/vr/vr_login_form" style="width:100vw;height:100vh"></iframe>
+    <iframe id="iframe" src="/vr/vr_login_form?vr_return_url=%2Fvr%2Fvr_corp_form%3Fc%3DY2NC%23info" style="width:100vw;height:100vh"></iframe>
 
   </body>
 </html>

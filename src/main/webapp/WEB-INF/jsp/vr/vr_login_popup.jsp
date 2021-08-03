@@ -14,6 +14,12 @@
 
         $(document).ready(function() {
 
+            <c:if test="${sessionScope.social_login_yn eq 'N'}">
+                alert("<spring:message code='login.notMatch' text='일치하는 정보가 없습니다.'/>"+"\r\n"+"<spring:message code='login.notMatch2' text='소셜 회원가입 후 로그인하시기 바랍니다.'/>");
+                <c:set var="social_login_yn" value="" scope="session" />
+                window.close();
+            </c:if>
+
             <c:if test="${login eq 'google'}">
                 document.location.href="/oauth2/authorization/google";
             </c:if>
@@ -29,7 +35,8 @@
 
             /* login 되었을 경우 */
             <c:if test="${login_id ne ''}">
-                opener.document.location.href="/vr/vr_corp_form?c=Y2NC#info";
+                var return_url = decodeURIComponent("${sessionScope.vr_return_url}");
+                opener.document.location.href=return_url;
                 window.close();
             </c:if>
         });

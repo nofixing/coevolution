@@ -633,7 +633,9 @@ public class EvHomeController {
      * @return
      */
     @RequestMapping("/vr/vr_login_form")
-    public String vr_login_form(Model model) {
+    public String vr_login_form(HttpServletRequest request, Model model) {
+
+        request.getSession().setAttribute("vr_return_url", request.getParameter("vr_return_url"));
 
         return "/vr/vr_login_form";
     }
