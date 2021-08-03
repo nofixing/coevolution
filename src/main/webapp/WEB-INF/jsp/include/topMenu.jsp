@@ -93,8 +93,8 @@
                         <li>
                             <a href="#!"><spring:message code="top.view.guid" text="관람가이드"/></a>
                             <div class="m-menu-list-sub">
-                                <a href="http://www.ievexpo.org/site/ieve2018/kor/contents/index.php?mid=0310" target="_blank"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
-                                <a href="/index/guide"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
+                                <a href="/index/guide?c=guide"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
+                                <a href="/index/guide?c=virtual"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
                             </div>
                         </li>
                         <li>
@@ -299,10 +299,10 @@
                                 <a href="#!"><strong><spring:message code="top.view.guid" text="관람가이드"/></strong></a>
                             </li>
                             <li>
-                                <a href="http://www.ievexpo.org/site/ieve2018/kor/contents/index.php?mid=0310" target="_blank"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
+                                <a href="/index/guide?c=guide"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
                             </li>
                             <li>
-                                <a href="/index/guide"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
+                                <a href="/index/guide?c=virtual"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
                             </li>
                         </ul>
                         <ul>

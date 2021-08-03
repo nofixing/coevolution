@@ -970,6 +970,7 @@ public class EvHomeController {
     /**
      * 가이드
      * @param model
+     * @param request
      * @return
      */
     @RequestMapping("/index/guide")
@@ -982,6 +983,8 @@ public class EvHomeController {
         if(lang.equals("en")) {
             return_url = "/guideEn";
         }
+
+        model.addAttribute("c", StringUtils.nvl(request.getParameter("c"),"guide"));
 
         return return_url;
     }

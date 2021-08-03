@@ -57,7 +57,7 @@
 			<fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<!-- 파일당 최고 용량 kb, mb, gb -->
-				<maxFileSize>100MB</maxFileSize>
+				<maxFileSize>${LOG_FILE_SIZE}</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
 
 			<!-- 일자별 로그파일 최대 보관주기(~일), 해당 설정일 이상된 파일은 자동으로 제거-->
@@ -85,7 +85,7 @@
 			<fileNamePattern>${LOG_PATH}/${ERR_LOG_FILE_NAME}.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<!-- 파일당 최고 용량 kb, mb, gb -->
-				<maxFileSize>100MB</maxFileSize>
+				<maxFileSize>${LOG_FILE_SIZE}</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
 
 			<!-- 일자별 로그파일 최대 보관주기(~일), 해당 설정일 이상된 파일은 자동으로 제거-->

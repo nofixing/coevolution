@@ -27,7 +27,7 @@
                     </div>
                     <div class="guide-content">
                         <div class="guide-tab">
-                            <a href="#!" class="on">Visitor Registration Guide</a>
+                            <a href="#!">Visitor Registration Guide</a>
                             <a href="#!">Virtual IEVE Viewing Guide</a>
                             <a href="#!">Meeting Request Guide</a>
                         </div>
@@ -205,10 +205,6 @@
         </div> <!-- / .container -->
         <script>
             $(function(){
-                console.log("asdf");
-                $(".guide-tab-contnet > div").hide(); 
-                $(".guide-tab-contnet > div:first").show(); 
-
                 // 클릭 이벤트 발생
                 $(".guide-tab a").click(function () { 
                     // 클릭 이벤트 한 영역 css 변경
@@ -222,6 +218,21 @@
                     $(".guide-tab-contnet > div").hide(); 
                     $(".guide-tab-contnet > div").eq(test).fadeIn(200); 
                 });
+
+                if("${c}" == "virtual") {
+                    // 클릭 이벤트 한 영역 css 변경
+                    $(".guide-tab a").removeClass("on"); 
+                    $(".guide-tab a").eq(1).addClass("on"); 
+                                        
+                    // 나타내기
+                    $(".guide-tab-contnet > div").hide(); 
+                    $(".guide-tab-contnet > div").eq(1).fadeIn(200); 
+                } else {
+                    $(".guide-tab-contnet > div").hide(); 
+                    $(".guide-tab-contnet > div:first").show(); 
+
+                    $(".guide-tab a").eq(0).addClass("on"); 
+                }
             });
         </script>
 
