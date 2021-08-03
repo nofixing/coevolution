@@ -1039,4 +1039,19 @@ public class EvHomeController {
         return resposeResult;
     }
 
+    /**
+     * VR 로그인팝업
+     * @param model
+     * @return
+     */
+    @RequestMapping("/vr/login_popup")
+    public String vr_login_popup(Model model, HttpServletRequest request) {
+
+        String returnUrl = "/vr/vr_corp_form";
+        model.addAttribute("login", request.getParameter("login"));
+        request.getSession().setAttribute("url_prior_login", returnUrl);
+
+        return "/vr/vr_login_popup";
+    }
+
 }

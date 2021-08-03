@@ -78,7 +78,8 @@ $(document).ready(function() {
     $('#google_login').on('click', function () {
 
         console.log("google_login click");
-        document.location.href = "/oauth2/authorization/google";
+        window.open("/vr/login_popup?login=google", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=500,height=500");
+        //document.location.href = "/oauth2/authorization/google";
 
     });
 
@@ -86,7 +87,8 @@ $(document).ready(function() {
     $('#facebook_login').on('click', function () {
 
         console.log("facebook_login click");
-        document.location.href = "/oauth2/authorization/facebook";
+        window.open("/vr/login_popup?login=facebook", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=500,height=500");
+        //document.location.href = "/oauth2/authorization/facebook";
 
     });
 
@@ -94,7 +96,8 @@ $(document).ready(function() {
     $('#naver_login').on('click', function () {
 
         console.log("naver_login click");
-        document.location.href = "/oauth2/authorization/naver";
+        window.open("/vr/login_popup?login=naver", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=500,height=500");
+        //document.location.href = "/oauth2/authorization/naver";
 
     });
 
@@ -102,7 +105,8 @@ $(document).ready(function() {
     $('#kakao_login').on('click', function () {
 
         console.log("kakao_login click");
-        document.location.href = "/oauth2/authorization/kakao";
+        window.open("/vr/login_popup?login=kakao", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=500,height=500");
+        //document.location.href = "/oauth2/authorization/kakao";
 
     });
 
