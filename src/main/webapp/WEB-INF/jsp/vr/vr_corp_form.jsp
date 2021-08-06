@@ -51,7 +51,7 @@
 
           <div class="tab-content">
             <!-- 기업젇보 -->
-            <div class="tab-pane fade show pb-5 boot-tab-pane" id="nav1">
+            <div class="tab-pane fade show pb-5 boot-tab-pane active" id="nav1">
               <div class="row">
                 <div class="col-sm-3 "></div>
                 <div class="col-sm-9">

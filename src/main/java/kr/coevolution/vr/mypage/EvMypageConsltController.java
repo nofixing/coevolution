@@ -2391,4 +2391,163 @@ public class EvMypageConsltController {
         return resposeResult;
 
     }
+
+
+    /**
+     * vr상담신청현황
+     * @param evMypageConsultRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/vr/consltreq")
+    public String vr_consltreq (EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/vr/vr_login_form";
+                loginInfoDto = new EvMemberLoginInfoDto();
+                loginInfoDto.setCust_id("");
+                //return returnUrl;
+            } else {
+                returnUrl = "/vr/vr_coslt_request";
+            }
+
+            returnUrl = "/vr/vr_coslt_request";
+
+            /* 타임존 조회 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id("213000");
+            List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* Expo 정보조회 (예약가능일자조회) */
+            EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
+            evExpoRequestDtoDto.setCust_id(loginInfoDto.getCust_id());
+            List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search2(evExpoRequestDtoDto);
+            String consultFromDt = "";
+            String consultToDt = "";
+            String sunday = "";
+            int evExpoId = 0;
+
+            if(expoInfo != null && expoInfo.size() == 1) {
+                consultFromDt = expoInfo.get(0).getExpo_consult_from_dt();
+                consultToDt = expoInfo.get(0).getExpo_consult_to_dt();
+                evExpoId = expoInfo.get(0).getEv_expo_id();
+                sunday = expoInfo.get(0).getSunday();
+
+            }
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+            /* 전주(left), 다음주(right) 구분 */
+            if("left".equals(StringUtils.nvl(evMypageConsultRequestDto.getSh_cls_cd(),""))) {
+                Date leftDt = sf.parse(evMypageConsultRequestDto.getSunday());
+                long leftTime = leftDt.getTime() - (1000 * 60 * 60 * 24 * 7);
+                leftDt.setTime(leftTime);
+                sunday = sf.format(leftDt);
+            } else if("right".equals(StringUtils.nvl(evMypageConsultRequestDto.getSh_cls_cd(),""))) {
+                Date rightDt = sf.parse(evMypageConsultRequestDto.getSunday());
+                long leftTime = rightDt.getTime() + (1000 * 60 * 60 * 24 * 7);
+                rightDt.setTime(leftTime);
+                sunday = sf.format(rightDt);
+            } else if("now".equals(StringUtils.nvl(evMypageConsultRequestDto.getSh_cls_cd(),""))) {
+                sunday = evMypageConsultRequestDto.getSunday();
+            }
+
+            /* 화면에서 넘겨주는 ID를 셋팅한다. */
+            evMypageConsultRequestDto.setCust_id(loginInfoDto.getCust_id());
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+
+            /* 상담-설정조회 */
+            List<EvMypageConsultResponseDto> consultSettingCust = evMypageConsultService.consult_cust_settime_select(evMypageConsultRequestDto);
+
+            Long consultTimeId = 0L; String tiemzone_cd = "", consult_from_time = "", consult_to_time = "", timezone_hhmm_fr = "", timezone_hhmm_to = "";
+
+            if(consultSettingCust != null && consultSettingCust.size() == 1) {
+
+                EvMypageConsultRequestDto consultRequestDto = new EvMypageConsultRequestDto();
+                consultRequestDto.setCust_id(evMypageConsultRequestDto.getConsultCustId());
+                consultRequestDto.setEv_expo_id(evExpoId);
+                List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(consultRequestDto);
+
+                if(consultSetting != null && consultSetting.size() == 1) {
+                    consultTimeId = consultSetting.get(0).getConsult_time_id();
+                } else {
+                    consultTimeId = 0L;
+                }
+
+                tiemzone_cd = consultSettingCust.get(0).getTiemzone_cd();
+                consult_from_time = consultSettingCust.get(0).getConsult_from_time();
+                consult_to_time = consultSettingCust.get(0).getConsult_to_time();
+
+                /* 타이존시간 00:00, 00:30 ... */
+                timezone_hhmm_fr = consultSettingCust.get(0).getTimezone_hhmm_fr();
+                timezone_hhmm_to = consultSettingCust.get(0).getTimezone_hhmm_to();
+            } else {
+                //default 설정
+                consultTimeId = 0L;
+                tiemzone_cd = "213001";
+                consult_from_time = "214019";
+                consult_to_time = "214036";
+                timezone_hhmm_fr = "09:00";
+                timezone_hhmm_to = "17:30";
+            }
+
+            /* 예약시간 조회 */
+            evCommCodeRequestDto.setUpper_cd_id("214000");
+            List<EvCommCodeResponseDto> timeList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            /* 상담가능기간 체크 */
+            evMypageConsultRequestDto.setCust_id(evMypageConsultRequestDto.getConsultCustId());
+            evMypageConsultRequestDto.setExpo_consult_from_dt(consultFromDt);
+            evMypageConsultRequestDto.setExpo_consult_to_dt(consultToDt);
+            evMypageConsultRequestDto.setConsult_time_id(consultTimeId);
+            evMypageConsultRequestDto.setEv_expo_id(evExpoId);
+            evMypageConsultRequestDto.setSunday(sunday); //요일을 일요일부터 표시한다.
+            evMypageConsultRequestDto.setConsult_from_time(consult_from_time);
+            evMypageConsultRequestDto.setConsult_to_time(consult_to_time);
+            evMypageConsultRequestDto.setTiemzone_cd(tiemzone_cd);
+            evMypageConsultRequestDto.setTimezone_hhmm_fr(timezone_hhmm_fr);
+            evMypageConsultRequestDto.setTimezone_hhmm_to(timezone_hhmm_to);
+
+            /* 시간별 상담내역 */
+            Map<String,Object> consultMap = getTimeList(evMypageConsultRequestDto);
+
+            model.addAttribute("timezoneList", timezoneList);
+            model.addAttribute("consult_from_dt", consultFromDt);
+            model.addAttribute("consult_to_dt", consultToDt);
+            model.addAttribute("timeList", timeList);
+
+            /* 시간별 상담내역 - 헤더건수 */
+            model.addAttribute("header_cnt", consultMap.get("period"));
+
+            /* 시간별 상담내역 */
+            model.addAttribute("consultList", consultMap.get("newList"));
+
+            /* 상담-설정조회 */
+            model.addAttribute("consult_time_id", consultTimeId);
+            model.addAttribute("tiemzone_cd", tiemzone_cd);
+            model.addAttribute("consult_from_time", consult_from_time);
+            model.addAttribute("consult_to_time", consult_to_time);
+            model.addAttribute("consultCustId", evMypageConsultRequestDto.getConsultCustId());
+            model.addAttribute("consultCustNm", evMypageConsultRequestDto.getConsultCustNm());
+
+            model.addAttribute("sunday", sunday);
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
 }

@@ -17,8 +17,14 @@ $(document).ready(function() {
 	//상담저장
 	$('#btnSave').on('click', function () {
 
-        alert("현재 이용할 수 없는 메뉴입니다.");
-        return;
+	<c:if test="${sessionScope.login_session.cust_id eq null || sessionScope.login_session.cust_id eq ''}">
+		//로그인정보없음
+		if(confirm("로그인 후 사용할 수 있습니다.\r\n로그인하시겠습니까?")) {
+			parent.document.location.href="/vr/vr_login_form";
+		} else {
+			return;
+		}
+	</c:if>
         
         /* 필수항목 체크 */
         var chk = '['
@@ -75,6 +81,13 @@ function insertLog(param) {
 
     sendForm("POST", "/index/loginsert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
     });
+}
+
+
+function doConsultView () {
+
+    var vHtml="<iframe src='/vr/consltreq?consultCustId=${custInfo.cust_id}' class='overflow-hidden' style='top: 0;  bottom: 0; left: 0;   width: 100%;   height: 500px;  border: 0;'>";
+    $("#iframeConsult").html(vHtml);
 }
 
 </script>
