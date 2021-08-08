@@ -721,6 +721,8 @@
             , ecs.consult_rsv_stat_cd
             , (select cd_nm from ev_comm_code ecc2 where cd_id = ecs.consult_rsv_stat_cd) 							as consult_rsv_stat_nm
             , ecs.mod_dtm
+            , ect.consult_time_id
+            , ecs.schedule_id
         from ev_consult_time ect
         inner join ev_consult_schedule ecs
           on ect.consult_time_id  = ecs.consult_time_id
@@ -753,6 +755,8 @@
         , list.consult_rsv_stat_cd
         , list.consult_rsv_stat_nm
         , date_format(list.mod_dtm, '%Y-%m-%d %H:%i') as mod_dtm
+        , list.consult_time_id
+        , list.schedule_id
         from consult_list list
 
     </select>

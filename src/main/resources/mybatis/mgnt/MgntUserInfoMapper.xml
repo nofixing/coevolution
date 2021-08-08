@@ -27,6 +27,7 @@
             , company_nm		, dept_nm			, rep_nm				, posn_nm				, email_id
             , DATE_FORMAT(ins_dtm, '%Y-%m-%d %H:%i:%s') AS ins_dtm
             , (SELECT max(DATE_FORMAT(login_dtm, '%Y-%m-%d %H:%i:%s')) FROM ev_cust_login_log WHERE cust_id = a.cust_id) AS login_dtm
+            , '' as vr_cust_id
         FROM 	ev_cust_mst a
         WHERE   cust_sts_cd     = '105001'          /* 정상 */
         AND 	cust_clsf_cd	= #{cust_clsf_cd}#  /* 202001:참관 202002:참가 */

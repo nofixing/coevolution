@@ -443,6 +443,11 @@ public class EvMgntController {
                 row_count = listCnt.get(0).getRow_count(); /* 총건수 */
             }
 
+            for(EvMgntMemberResponseDto vList : list) {
+                Long base62Encode = vList.getCust_seq() * SecureUtils.vr_cust_seq_const;
+                vList.setVr_cust_id(SecureUtils.base62Encoding(base62Encode));
+            }
+
             Long page_row_cnt = StringUtils.page_tot(row_count);
 
             model.addAttribute("page_clsf", "mgnt0301");
@@ -468,6 +473,112 @@ public class EvMgntController {
         }
 
         return returnUrl;
+
+    }
+
+    /**
+     * 참가고개정 정보 조회 (엑셀)
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/m_corp_excel")
+    public void mgnt_m_corp_excel(EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
+        evMgntMemberRequestDto.setCust_id(loginInfoDto.getCust_id());
+        evMgntMemberRequestDto.setCust_clsf_cd("202002"); //참가
+
+        /* row 개수 */
+        evMgntMemberRequestDto.setPage_row_cnt(100000L);
+        evMgntMemberRequestDto.setPage_row_start(0L);
+
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getPage_current(),""))) {
+            evMgntMemberRequestDto.setPage_current(1L);
+        }
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Date nDt = new Date();
+
+        /* 최초 날짜가 null 인경우 */
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_fr(),""))) {
+            Date ftDt = StringUtils.addMonth(nDt,-1);
+            String strDt = sf.format(ftDt);
+            evMgntMemberRequestDto.setIns_dt_fr(strDt);
+        }
+
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_to(),""))) {
+            String strDt = sf.format(nDt);
+            evMgntMemberRequestDto.setIns_dt_to(strDt);
+        }
+
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getKeyword(),""))) {
+            evMgntMemberRequestDto.setKeyword("");
+        }
+
+        List<EvMgntMemberResponseDto> list = evMgntService.search_member_list(evMgntMemberRequestDto);
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell = row.createCell(1);
+        cell.setCellValue("아이디");
+        cell = row.createCell(2);
+        cell.setCellValue("VR_ID");
+        cell = row.createCell(3);
+        cell.setCellValue("참가업체명");
+        cell = row.createCell(4);
+        cell.setCellValue("이메일");
+        cell = row.createCell(5);
+        cell.setCellValue("가입일자");
+        cell = row.createCell(6);
+        cell.setCellValue("최종로그인");
+
+        // Body
+        for (int i=0; i < list.size(); i++) {
+            EvMgntMemberResponseDto dto = list.get(i);
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(dto.getRn());
+            cell = row.createCell(1);
+            cell.setCellValue(dto.getCust_id());
+            cell = row.createCell(2);
+
+            Long base62Encode = dto.getCust_seq() * SecureUtils.vr_cust_seq_const;
+            dto.setVr_cust_id(SecureUtils.base62Encoding(base62Encode));
+
+            cell.setCellValue(dto.getVr_cust_id());
+            cell = row.createCell(3);
+            cell.setCellValue(dto.getCust_nm());
+            cell = row.createCell(4);
+            cell.setCellValue(dto.getEmail_id());
+            cell = row.createCell(5);
+            cell.setCellValue(dto.getIns_dtm());
+            cell = row.createCell(6);
+            cell.setCellValue(dto.getLogin_dtm());
+        }
+
+        String strDt = sf.format(nDt);
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename="+strDt+".xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
 
     }
 

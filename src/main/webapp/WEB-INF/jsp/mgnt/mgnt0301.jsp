@@ -96,7 +96,7 @@
                       <div class="col-2 text-center form-control-sm">
                         키워드
                       </div>                  
-                      <div class="col-6">
+                      <div class="col-4">
                         <input type="text" class="form-control form-control-sm" id="keyword" name="keyword" value="${keyword}" style="width:100%">
                       </div>     
                       <div class="col-2">
@@ -104,7 +104,10 @@
                       </div>           
                       <div class="col-2">
                         <button type="button" class="btn-outline-primary form-control form-control-sm mb-0" id="btnInsert">참가업체입력</button> 
-                      </div>                          
+                      </div> 
+                      <div class="col-2">
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-0" id="btnExcel">엑셀다운</button> 
+                      </div>                       
                   </div>                  
 
                 </form>            
@@ -112,23 +115,25 @@
                   <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
                     <thead class="table-light">
                       <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-center">아이디</th>
-                        <th scope="col" class="text-center">참가업체명</th>
-                        <th scope="col" class="text-center">이메일</th>
-                        <th scope="col" class="text-center">가입일자</th>
-                        <th scope="col" class="text-center">최종로그인</th>
+                        <th scope="col" class="text-left">번호</th>
+                        <th scope="col" class="text-left">아이디</th>
+                        <th scope="col" class="text-left">VR_ID</th>
+                        <th scope="col" class="text-left">참가업체명</th>
+                        <th scope="col" class="text-left">이메일</th>
+                        <th scope="col" class="text-left">가입일자</th>
+                        <th scope="col" class="text-left">최종로그인</th>
                       </tr>
                     </thead>
                     <tbody>
                       <c:forEach var="list" items="${list}">
                       <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-center"><a href="javascript:doDetail('${list.cust_id}')">${list.cust_id}</a></td>
-                        <td class="text-center">${list.cust_nm}</td>
-                        <td class="text-center">${list.email_id}</td>
-                        <td class="text-center">${list.ins_dtm}</td>
-                        <td class="text-center">${list.login_dtm}</td>
+                        <td class="text-left">${list.rn}</td>
+                        <td class="text-left"><a href="javascript:doDetail('${list.cust_id}')">${list.cust_id}</a></td>
+                        <td class="text-left">${list.vr_cust_id}</td>
+                        <td class="text-left">${list.cust_nm}</td>
+                        <td class="text-left">${list.email_id}</td>
+                        <td class="text-left">${list.ins_dtm}</td>
+                        <td class="text-left">${list.login_dtm}</td>
                       </tr>   
                       </c:forEach>
                       <c:if test="${fn:length(list) == 0}">

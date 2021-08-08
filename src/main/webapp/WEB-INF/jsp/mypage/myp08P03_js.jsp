@@ -87,4 +87,40 @@ function fnTimeZoneSave() {
 	});	
 }
 
+/* 스케줄설정변경 */
+var objSheduleId = new Object();
+function scheduleClick(pScheduleId) {
+
+	if(pScheduleId == "") return false;
+	
+	gfnPutObj("schedule_id", pScheduleId);
+
+	/* global 변수 json으로 변환 */
+	var pParamJson = gfnGetJson();
+
+	sendForm("POST", "/mypage/consult_cust_info", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message == "parsererror") {
+            alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
+			document.location.href="/member/login_form";
+		} else if(message.result_code == 0) {
+
+			var vUrl = "/mypage/myp08P01?schedule_id="+pScheduleId+"&cust_id="+message.cust_id+"&cust_nm="+message.cust_nm+"&tel_no="+message.tel_no;
+			gfnPopup (vUrl, "<spring:message code='mypage.member7' text='상담예약 내역'/>", "100%", "260px", function() {
+				fnSearch();
+			 });
+
+		} else {
+			if(message.session_yn == "N") {
+                alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
+				document.location.href="/index";
+			} else {
+                alert("<spring:message code='join.form2' text='서버 오류입니다.'/>"+"\r\n"+"<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
+			}
+		}
+
+	});	
+
+}
+
 </script>

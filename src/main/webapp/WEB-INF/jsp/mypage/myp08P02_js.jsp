@@ -68,7 +68,7 @@ function fnConsultProc(pConsultRsvStatCd) {
       		alert("<spring:message code='mypage.member11' text='조회된 내역이 없습니다.'/>");
 		} else if(message.result_code == (-2)) {
 			var msg = "상담 시간 설정에 오류가 있습니다. \r\n좌측 메뉴를 다시 선택하신 후 진행하시기 바랍니다.";
-      		alert("<spring:message code='mypage.member12' text='상담 시간 설정에 오류가 있습니다.'/>"+"\r\n"+<spring:message code='mypage.member13' text='좌측 메뉴를 다시 선택하신 후 진행하시기 바랍니다.'/>");
+      		alert("<spring:message code='mypage.member12' text='상담 시간 설정에 오류가 있습니다.'/>"+"\r\n<spring:message code='mypage.member13' text='좌측 메뉴를 다시 선택하신 후 진행하시기 바랍니다.'/>");
 		} else if(message.result_code == (-3)) {
 			var msg = "상담 요청시간이 취소 또는 반려처리 되었습니다.";
       		alert("<spring:message code='mypage.member14' text='상담 요청시간이 취소 또는 반려처리 되었습니다.'/>");
