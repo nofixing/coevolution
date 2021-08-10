@@ -83,6 +83,9 @@ public interface EvMypageConsultMapper {
     /* 참관 상담리스트 건수 */
     public List<EvMypageConsultScheduleResponseDto> S09_CONSULT_LIST_COUNT(EvMypageConsultRequestDto param);
 
+    /* 상담요일-바로가기 콤보(일요일) */
+    public List<EvMypageConsultResponseDto> S10_CONSULT_DT(EvMypageConsultRequestDto param);
+
 
 
 }

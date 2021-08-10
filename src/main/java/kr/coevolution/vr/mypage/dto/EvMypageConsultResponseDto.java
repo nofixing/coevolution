@@ -19,4 +19,6 @@ public class EvMypageConsultResponseDto {
     private String consult_to_time_org;
     private String timezone_hhmm_fr;
     private String timezone_hhmm_to;
+    private String sunday;
+    private String sunday_fm;
 }

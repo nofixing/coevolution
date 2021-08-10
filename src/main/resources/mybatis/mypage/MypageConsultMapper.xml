@@ -789,4 +789,32 @@
 
     </select>
 
+    <select id="S10_CONSULT_DT" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto"
+            resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultResponseDto">
+
+        WITH RECURSIVE STDT as (
+            select DATE_ADD(STR_TO_DATE(expo_consult_from_dt, '%Y-%m-%d'), INTERVAL DATE_FORMAT(STR_TO_DATE(expo_consult_from_dt, '%Y-%m-%d'),'%w') * -1 DAY) as ST_DT
+                 , expo_consult_to_dt as END_DT
+              from ev_expo
+             where use_yn = 'Y'
+        )
+        , DT_CNT AS (
+            SELECT DATEDIFF(STR_TO_DATE(STDT.END_DT, '%Y-%m-%d'), STDT.ST_DT) cnt
+              from STDT
+        )
+        , DT_TABLE AS (
+            SELECT DATE_FORMAT(STDT.ST_DT,'%m/%d (%a)') dt, STDT.ST_DT, 1 lv FROM STDT
+             UNION all
+            SELECT DATE_FORMAT(DATE_ADD(STDT.ST_DT, INTERVAL DT_TABLE.lv+6 DAY),'%m/%d (%a)') dt
+                 , DATE_ADD(STDT.ST_DT, INTERVAL DT_TABLE.lv+6 DAY) ST_DT
+                 , DT_TABLE.lv+7 AS lv
+              FROM DT_CNT, DT_TABLE, STDT
+             WHERE DT_TABLE.lv <![CDATA[<=]]> dt_cnt.cnt
+        )
+        SELECT DT_TABLE.dt as sunday_fm, DT_TABLE.st_dt as sunday
+          FROM DT_TABLE, STDT
+         where DT_TABLE.st_dt <![CDATA[<=]]> STDT.END_DT
+
+    </select>
+
 </mapper>
