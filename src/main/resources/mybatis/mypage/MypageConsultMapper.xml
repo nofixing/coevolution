@@ -798,18 +798,14 @@
         from ev_expo
         where use_yn = 'Y'
         )
-        , DT_CNT AS (
-        SELECT DATEDIFF(STR_TO_DATE(STDT.END_DT, '%Y-%m-%d'), STDT.ST_DT) cnt
-        from STDT
-        )
         , DT_TABLE AS (
         SELECT DATE_FORMAT(STDT.ST_DT,'%m/%d (%a)') dt, STDT.ST_DT, 1 lv FROM STDT
         UNION all
         SELECT DATE_FORMAT(DATE_ADD(STDT.ST_DT, INTERVAL DT_TABLE.lv+6 DAY),'%m/%d (%a)') dt
         , DATE_ADD(STDT.ST_DT, INTERVAL DT_TABLE.lv+6 DAY) ST_DT
         , DT_TABLE.lv+7 AS lv
-        FROM DT_CNT, DT_TABLE, STDT
-        WHERE DT_TABLE.lv <![CDATA[<=]]> dt_cnt.cnt
+        FROM DT_TABLE, STDT
+        WHERE DT_TABLE.lv <![CDATA[<=]]> 60
         )
         SELECT DT_TABLE.dt as sunday_fm, DT_TABLE.st_dt as sunday
         FROM DT_TABLE, STDT
