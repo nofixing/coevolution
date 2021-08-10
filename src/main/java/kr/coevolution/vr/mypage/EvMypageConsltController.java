@@ -1921,6 +1921,9 @@ public class EvMypageConsltController {
             evCommCodeRequestDto.setUpper_cd_id("213000");
             List<EvCommCodeResponseDto> timezoneList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
+            /* 바로가기콤보조회 */
+            List<EvMypageConsultResponseDto> sundayList  = evMypageConsultService.consult_sunday_list(evMypageConsultRequestDto);
+
             /* Expo 정보조회 (예약가능일자조회) */
             EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
             evExpoRequestDtoDto.setCust_id(loginInfoDto.getCust_id());
@@ -2020,6 +2023,7 @@ public class EvMypageConsltController {
             model.addAttribute("consult_from_dt", consultFromDt);
             model.addAttribute("consult_to_dt", consultToDt);
             model.addAttribute("timeList", timeList);
+            model.addAttribute("sundayList", sundayList);
 
             /* 시간별 상담내역 - 헤더건수 */
             model.addAttribute("header_cnt", consultMap.get("period"));

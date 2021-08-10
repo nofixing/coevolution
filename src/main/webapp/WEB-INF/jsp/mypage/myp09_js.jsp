@@ -59,6 +59,12 @@ $(document).ready(function() {
 		fnSearch("right");
 	});
 
+	$('#sundayCd').on('change', function () {
+		setValue("sunday",getValue("sundayCd")); 
+		fnTimeZoneSave("now");
+	});
+	
+
 });
 
 function fnSearch(pClsCd) {	
