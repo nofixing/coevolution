@@ -277,13 +277,4 @@ public class EvMypageConsultService {
         return list;
     }
 
-    /**
-     * 바로가기콤보
-     * @param evMypageConsultRequestDto
-     * @return
-     */
-    public List<EvMypageConsultResponseDto> consult_sunday_list (EvMypageConsultRequestDto evMypageConsultRequestDto) {
-        List<EvMypageConsultResponseDto> list = evMypageConsultMapper.S10_CONSULT_DT(evMypageConsultRequestDto);
-        return list;
-    }
 }
