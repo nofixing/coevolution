@@ -48,6 +48,11 @@ $(document).ready(function() {
 		fnSearch("right");
 	});
 
+	$('#sundayCd').on('change', function () {
+		setValue("sunday",getValue("sundayCd")); 
+		fnSearch("now");
+	});
+
 });
 
 /* 상담시간 설정 내역 조회 */

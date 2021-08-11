@@ -61,7 +61,7 @@ $(document).ready(function() {
 
 	$('#sundayCd').on('change', function () {
 		setValue("sunday",getValue("sundayCd")); 
-		fnTimeZoneSave("now");
+		fnSearch("now");
 	});
 	
 

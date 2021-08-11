@@ -196,7 +196,14 @@
                         <td class="text-center">${list.consult_rsv_cust_id}</td>
                         <td class="text-left">${list.consult_rsv_cust_nm}</td>
                         <td class="text-center">${list.consult_dt_dtm}</td>
-                        <td class="text-center">${list.consult_rsv_stat_nm}</td>
+                        <td class="text-center">
+                          <c:if test="${list.consult_rsv_stat_cd eq '215003' || list.consult_rsv_stat_cd eq '215004'}">
+                            ${list.consult_rsv_stat_nm}
+                          </c:if>
+                          <c:if test="${list.consult_rsv_stat_cd eq '215001' || list.consult_rsv_stat_cd eq '215002'}">
+                            <a href="javascript:scheduleClick('${list.schedule_id}','${list.consult_rsv_stat_cd}')">${list.consult_rsv_stat_nm}</a>
+                          </c:if>
+                        </td>
                         <td class="text-center">${list.mod_dtm}</td>
                       </tr>   
 

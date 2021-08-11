@@ -634,47 +634,49 @@
 
         /* 참가자 상담현황 */
         with consult_list as (
-        select ROW_NUMBER() OVER (ORDER by ecs.consult_dt asc, ecs.consult_time_cd, ecs.consult_rsv_cust_id) 		as rn
-        , ecs.consult_rsv_cust_id
-        , (select cust_nm from ev_cust_mst ecm where cust_id = ecs.consult_rsv_cust_id) 						as consult_rsv_cust_nm
-        , concat(ecs.consult_dt,' ', (select cd_nm from ev_comm_code ecc where cd_id = ecs.consult_time_cd)) 	as consult_dt_dtm
-        , ect.tiemzone_cd
-        , (select cd_val1 from ev_comm_code ecc2 where cd_id = ect.tiemzone_cd) 								as tiemzone_val
-        , ecs.consult_rsv_stat_cd
-        , (select cd_nm from ev_comm_code ecc2 where cd_id = ecs.consult_rsv_stat_cd) 							as consult_rsv_stat_nm
-        , ecs.mod_dtm
-        from ev_consult_time ect
-        inner join ev_consult_schedule ecs
-        on ect.consult_time_id  = ecs.consult_time_id
-        and ecs.consult_rsv_cust_id is not null
-        and ecs.consult_rsv_cust_id != ''
-        and ecs.del_yn = 'N'
-        where ect.ev_expo_id = #{ev_expo_id}
-        and ect.cust_id = #{cust_id}
+            select ROW_NUMBER() OVER (ORDER by ecs.consult_dt asc, ecs.consult_time_cd, ecs.consult_rsv_cust_id) 		as rn
+                , ecs.consult_rsv_cust_id
+                , (select cust_nm from ev_cust_mst ecm where cust_id = ecs.consult_rsv_cust_id) 						as consult_rsv_cust_nm
+                , concat(ecs.consult_dt,' ', (select cd_nm from ev_comm_code ecc where cd_id = ecs.consult_time_cd)) 	as consult_dt_dtm
+                , ect.tiemzone_cd
+                , (select cd_val1 from ev_comm_code ecc2 where cd_id = ect.tiemzone_cd) 								as tiemzone_val
+                , ecs.consult_rsv_stat_cd
+                , (select cd_nm from ev_comm_code ecc2 where cd_id = ecs.consult_rsv_stat_cd) 							as consult_rsv_stat_nm
+                , ecs.mod_dtm
+                , ecs.schedule_id
+            from ev_consult_time ect
+            inner join ev_consult_schedule ecs
+            on ect.consult_time_id  = ecs.consult_time_id
+            and ecs.consult_rsv_cust_id is not null
+            and ecs.consult_rsv_cust_id != ''
+            and ecs.del_yn = 'N'
+            where ect.ev_expo_id = #{ev_expo_id}
+            and ect.cust_id = #{cust_id}
 
-        <if test="sh_consult_from_dt != null and sh_consult_from_dt != ''">
-            and ecs.consult_dt >= #{sh_consult_from_dt}
-        </if>
+            <if test="sh_consult_from_dt != null and sh_consult_from_dt != ''">
+                and ecs.consult_dt >= #{sh_consult_from_dt}
+            </if>
 
-        <if test="sh_consult_to_dt != null and sh_consult_to_dt != ''">
-            and ecs.consult_dt <![CDATA[<=]]> #{sh_consult_to_dt}
-        </if>
+            <if test="sh_consult_to_dt != null and sh_consult_to_dt != ''">
+                and ecs.consult_dt <![CDATA[<=]]> #{sh_consult_to_dt}
+            </if>
 
-        <if test="sh_consult_sts_cd != null and sh_consult_sts_cd != ''">
-            and ecs.consult_rsv_stat_cd = #{sh_consult_sts_cd}
-        </if>
+            <if test="sh_consult_sts_cd != null and sh_consult_sts_cd != ''">
+                and ecs.consult_rsv_stat_cd = #{sh_consult_sts_cd}
+            </if>
 
-        LIMIT #{page_row_start}, #{page_row_cnt}
+            LIMIT #{page_row_start}, #{page_row_cnt}
         )
         select list.rn
-        , list.consult_rsv_cust_id
-        , list.consult_rsv_cust_nm
-        , date_format(date_add(str_to_date(replace(replace(replace(list.consult_dt_dtm,'-',''),' ',''),':',''), '%Y%m%d%H%i'),interval nvl(list.tiemzone_val,'0') hour),'%Y-%m-%d %H:%i') as consult_dt_dtm
-        , list.tiemzone_cd
-        , list.tiemzone_val
-        , list.consult_rsv_stat_cd
-        , list.consult_rsv_stat_nm
-        , date_format(list.mod_dtm, '%Y-%m-%d %H:%i') as mod_dtm
+            , list.consult_rsv_cust_id
+            , list.consult_rsv_cust_nm
+            , date_format(date_add(str_to_date(replace(replace(replace(list.consult_dt_dtm,'-',''),' ',''),':',''), '%Y%m%d%H%i'),interval nvl(list.tiemzone_val,'0') hour),'%Y-%m-%d %H:%i') as consult_dt_dtm
+            , list.tiemzone_cd
+            , list.tiemzone_val
+            , list.consult_rsv_stat_cd
+            , list.consult_rsv_stat_nm
+            , date_format(list.mod_dtm, '%Y-%m-%d %H:%i') as mod_dtm
+            , list.schedule_id
         from consult_list list
 
     </select>
@@ -793,19 +795,19 @@
             resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultResponseDto">
 
         WITH RECURSIVE STDT as (
-        select DATE_ADD(STR_TO_DATE(expo_consult_from_dt, '%Y-%m-%d'), INTERVAL DATE_FORMAT(STR_TO_DATE(expo_consult_from_dt, '%Y-%m-%d'),'%w') * -1 DAY) as ST_DT
-        , expo_consult_to_dt as END_DT
-        from ev_expo
-        where use_yn = 'Y'
+            select DATE_ADD(STR_TO_DATE(expo_consult_from_dt, '%Y-%m-%d'), INTERVAL DATE_FORMAT(STR_TO_DATE(expo_consult_from_dt, '%Y-%m-%d'),'%w') * -1 DAY) as ST_DT
+                 , expo_consult_to_dt as END_DT
+              from ev_expo
+             where use_yn = 'Y'
         )
         , DT_TABLE AS (
-        SELECT DATE_FORMAT(STDT.ST_DT,'%m/%d (%a)') dt, STDT.ST_DT, 1 lv FROM STDT
-        UNION all
-        SELECT DATE_FORMAT(DATE_ADD(STDT.ST_DT, INTERVAL DT_TABLE.lv+6 DAY),'%m/%d (%a)') dt
-        , DATE_ADD(STDT.ST_DT, INTERVAL DT_TABLE.lv+6 DAY) ST_DT
-        , DT_TABLE.lv+7 AS lv
-        FROM DT_TABLE, STDT
-        WHERE DT_TABLE.lv <![CDATA[<=]]> 60
+            SELECT DATE_FORMAT(STDT.ST_DT,'%m/%d (%a)') dt, STDT.ST_DT, 1 lv FROM STDT
+             UNION all
+            SELECT DATE_FORMAT(DATE_ADD(STDT.ST_DT, INTERVAL DT_TABLE.lv+6 DAY),'%m/%d (%a)') dt
+                 , DATE_ADD(STDT.ST_DT, INTERVAL DT_TABLE.lv+6 DAY) ST_DT
+                 , DT_TABLE.lv+7 AS lv
+              FROM DT_TABLE, STDT
+             WHERE DT_TABLE.lv <![CDATA[<=]]> 180
         )
         SELECT DT_TABLE.dt as sunday_fm, DT_TABLE.st_dt as sunday
         FROM DT_TABLE, STDT
