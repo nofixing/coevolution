@@ -185,55 +185,58 @@ public class EvMemberController {
             /* 회원정보입력 */
             int result_code = evMemberService.member_insert(map);
 
-            /* 이메일 내용 조회 */
-            evMailSndRequestDto.setEmail_form_id(5);
+            if(result_code == 0) {
 
-            String sndYn = "";
-            EvMemberResposeDto evMemberResposeDto = null;
-            String content = "";
-            String title = "";
-            String receiver = "";
+                /* 이메일 내용 조회 */
+                evMailSndRequestDto.setEmail_form_id(5);
 
-            try {
-                List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
+                String sndYn = "";
+                EvMemberResposeDto evMemberResposeDto = null;
+                String content = "";
+                String title = "";
+                String receiver = "";
 
-                /* 고객정보조회 */
-                EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
-                evMemberSearchDto.setCust_id(String.valueOf(map.get("cust_id")));
-                List<EvMemberResposeDto> list = evMemberService.search_cust_info(evMemberSearchDto);
-                evMemberResposeDto = list.get(0);
-
-                content = formList.get(0).getEmail_form();
-                content = content.replace("#reg_dtm#", evMemberResposeDto.getIns_dtm());
-                content = content.replace("#cust_nm#", evMemberResposeDto.getCust_nm());
-                content = content.replace("#cust_id#", evMemberResposeDto.getCust_id());
-
-                title = "버추얼아일랜드 회원가입 완료";
-
-                receiver = evMemberResposeDto.getEmail_id();
-                EmailDto email = new EmailDto(title, content, sender, receiver);
-
-                emailService.send(email);
-                sndYn = "Y";
-
-            }catch (Exception e1) {
-                logger.error("email send error: "+e1.toString());
-                sndYn = "N";
-                e1.printStackTrace();
-            }finally {
                 try {
-                    /* 이메일로그생성 */
-                    evMailSndRequestDto.setRcv_snd_yn(sndYn);
-                    evMailSndRequestDto.setUser_id(evMemberResposeDto.getCust_id());
-                    evMailSndRequestDto.setCust_id(evMemberResposeDto.getCust_id());
-                    evMailSndRequestDto.setRcv_email_id(receiver);
-                    evMailSndRequestDto.setRcv_title_nm(title);
-                    evMailSndRequestDto.setRcv_email_conts(content);
+                    List<EvMailSndResposeDto> formList = mailSndService.searchMailForm(evMailSndRequestDto);
 
-                    mailSndService.eMailsendLog(evMailSndRequestDto);
-                }catch (Exception e1) {
-                    logger.error("email 이메일로그생성 error: "+e1.toString());
+                    /* 고객정보조회 */
+                    EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
+                    evMemberSearchDto.setCust_id(String.valueOf(map.get("cust_id")));
+                    List<EvMemberResposeDto> list = evMemberService.search_cust_info(evMemberSearchDto);
+                    evMemberResposeDto = list.get(0);
+
+                    content = formList.get(0).getEmail_form();
+                    content = content.replace("#reg_dtm#", evMemberResposeDto.getIns_dtm());
+                    content = content.replace("#cust_nm#", evMemberResposeDto.getCust_nm());
+                    content = content.replace("#cust_id#", evMemberResposeDto.getCust_id());
+
+                    title = "버추얼아일랜드 회원가입 완료";
+
+                    receiver = evMemberResposeDto.getEmail_id();
+                    EmailDto email = new EmailDto(title, content, sender, receiver);
+
+                    emailService.send(email);
+                    sndYn = "Y";
+
+                } catch (Exception e1) {
+                    logger.error("email send error: " + e1.toString());
+                    sndYn = "N";
                     e1.printStackTrace();
+                } finally {
+                    try {
+                        /* 이메일로그생성 */
+                        evMailSndRequestDto.setRcv_snd_yn(sndYn);
+                        evMailSndRequestDto.setUser_id(evMemberResposeDto.getCust_id());
+                        evMailSndRequestDto.setCust_id(evMemberResposeDto.getCust_id());
+                        evMailSndRequestDto.setRcv_email_id(receiver);
+                        evMailSndRequestDto.setRcv_title_nm(title);
+                        evMailSndRequestDto.setRcv_email_conts(content);
+
+                        mailSndService.eMailsendLog(evMailSndRequestDto);
+                    } catch (Exception e1) {
+                        logger.error("email 이메일로그생성 error: " + e1.toString());
+                        e1.printStackTrace();
+                    }
                 }
             }
 

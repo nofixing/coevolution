@@ -291,6 +291,12 @@ function fnSignUp() {
 	}
 
 	if(getValue("email_id1") != "" && getValue("email_id2") != "") {
+
+		if(!lComm.validateEmail(getValue("email_id1")+"@"+getValue("email_id2"))) {
+			alert("<spring:message code='join.form22' text='정확한 이메일 주소를 입력하세요.'/>");
+			return false;
+		}
+
 		gfnPutObj('email_id', getValue("email_id1")+"@"+getValue("email_id2"));
 	} else if((getValue("email_id1") != "" && getValue("email_id2") == "") || (getValue("email_id1") == "" && getValue("email_id2") != "")) {
         alert("<spring:message code='join.form22' text='정확한 이메일 주소를 입력하세요.'/>");
