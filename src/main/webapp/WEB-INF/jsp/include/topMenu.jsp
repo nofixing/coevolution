@@ -95,19 +95,25 @@
                             <div class="m-menu-list-sub">
                                 <a href="/index/guide?c=guide"><spring:message code="top.all.register.guide" text="사전등록 가이드"/></a>
                                 <a href="/index/guide?c=virtual"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
+                                <a href="/index/guide?c=question"><spring:message code="top.all.register.viewing.question" text="상담예약신청 안내"/></a>
                             </div>
                         </li>
                         <li>
-                            <a href="#!"><strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong></a>
+                            <a href="#!"><strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시회"/></strong></a>
                             <div class="m-menu-list-sub">
-                                <a href="/index/ieve2021">e-mobility</a>
-                                <a href="/index/ieve2021">charging infra</a>
-                                <a href="/index/ieve2021">component</a>
-                                <a href="/index/ieve2021">energy</a>
-                                <a href="/index/ieve2021">group</a>
-                                <a href="/index/ieve2021">additional</a>
+                                <a href="/index/ieve2021"><spring:message code="top.all.menu.Entrance" text="입장하기"/></a>
                             </div>
                         </li>
+                        <c:choose>
+                            <c:when test="${sessionScope.LANG ne 'en'}">
+                            <!--li> 
+                                <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
+                                <div class="m-menu-list-sub">
+                                    <a href="#!">이벤트 참여하기</a>
+                                </div>
+                            </li -->
+                            </c:when>
+                        </c:choose>
                         <c:choose>
                         <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
                         <li>
@@ -293,7 +299,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="sitemap clearfix">
+                <c:choose>
+                    <c:when test="${sessionScope.LANG ne 'en'}">
+                        <div class="sitemap clearfix">
+                    </c:when>
+                    <c:otherwise>
+                        <div class="sitemap sitemap-en clearfix">
+                    </c:otherwise>
+                </c:choose>
                         <ul>
                             <li>
                                 <a href="#!"><strong><spring:message code="top.view.guid" text="관람가이드"/></strong></a>
@@ -304,48 +317,30 @@
                             <li>
                                 <a href="/index/guide?c=virtual"><spring:message code="top.all.register.viewing.guide" text="버추얼전시회 관람 가이드"/></a>
                             </li>
+                            <li>
+                                <a href="/index/guide?c=question"><spring:message code="top.all.register.viewing.question" text="상담예약신청 안내"/></a>
+                            </li>
                         </ul>
                         <ul>
                             <li>
-                                <a href="#!"><strong><spring:message code="top.all.menu.virtual.island" text="버추얼 아일랜드"/></strong></a>
+                                <a href="#!"><strong><spring:message code="top.all.menu.virtual.island" text="버추얼 전시회"/></strong></a>
                             </li>
                             <li>
-                                <a class="collapse-btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">e-mobility<span><i class="bi bi-chevron-down"></i></span></a>
-                                <div class="collapse collapse-item" id="collapseExample">
-                                    <a href="/index/ieve2021">e-mobility</a>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="collapse-btn" data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">charging infra <span><i class="bi bi-chevron-down"></i></span></a>
-                                <div class="collapse collapse-item" id="collapseExample2">
-                                    <a href="/index/ieve2021">charging infra</a>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="collapse-btn" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample2">component<span><i class="bi bi-chevron-down"></i></span></a>
-                                <div class="collapse collapse-item" id="collapseExample3">
-                                    <a href="/index/ieve2021">component</a>
-                                </div>
-                            </li>          
-                            <li>
-                                <a class="collapse-btn" data-toggle="collapse" href="#collapseExample4" aria-expanded="false" aria-controls="collapseExample2">energy<span><i class="bi bi-chevron-down"></i></span></a>
-                                <div class="collapse collapse-item" id="collapseExample4">
-                                    <a href="/index/ieve2021">energy</a>
-                                </div>
-                            </li>      
-                            <li>
-                                <a class="collapse-btn" data-toggle="collapse" href="#collapseExample5" aria-expanded="false" aria-controls="collapseExample2">group<span><i class="bi bi-chevron-down"></i></span></a>
-                                <div class="collapse collapse-item" id="collapseExample5">
-                                    <a href="/index/ieve2021">group</a>
-                                </div>
-                            </li>  
-                            <li>
-                                <a class="collapse-btn" data-toggle="collapse" href="#collapseExample6" aria-expanded="false" aria-controls="collapseExample2">additional<span><i class="bi bi-chevron-down"></i></span></a>
-                                <div class="collapse collapse-item" id="collapseExample6">
-                                    <a href="/index/ieve2021">additional</a>
-                                </div>
-                            </li>                                                                                                  
+                                <a class="collapse-btn" href="/index/ieve2021"><spring:message code="top.all.menu.Entrance" text="입장하기"/><span></span></a>
+                            </li>                                                  
                         </ul>
+                        <c:choose>
+                            <c:when test="${sessionScope.LANG ne 'en'}">
+                        <!--ul>
+                            <li>
+                                <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
+                            </li>
+                            <li>
+                                <a href="#!">이벤트 참여하기</a>
+                            </li>
+                        </ul-->
+                            </c:when>
+                        </c:choose>
                         <ul>
                             <c:choose>
                                 <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
@@ -361,6 +356,9 @@
                                 <li>
                                     <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation.inquiry" text="삼담문의 내역"/></a>
                                 </li>
+                                <!--li>
+                                    <a href="#!"><spring:message code="left.menu.meeting" text="상담문의"/></a>
+                                </li-->
                                 <li>
                                     <a href="/mypage/myc05"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                                 </li>
@@ -378,6 +376,9 @@
                                 <li>
                                     <a href="/mypage/conslt_list"><spring:message code="left.menu.consultation" text="문의 내역"/></a>
                                 </li>
+                                <!--li>
+                                    <a href="#!"><spring:message code="left.menu.meeting" text="상담문의"/></a>
+                                </li-->
                                 <li>
                                     <a href="/mypage/myp04"><spring:message code="left.menu.edit.personal.info" text="내 정보 수정"/></a>
                                 </li>
@@ -424,6 +425,15 @@
                                 <strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong>
                             </a>
                         </li>
+                    <c:choose>
+                        <c:when test="${sessionScope.LANG ne 'en'}">
+                        <!--li class="nav-item">
+                            <a href="#!" class="nav-link nav-item-font">
+                                <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>
+                            </a>
+                        </li-->
+                        </c:when>
+                    </c:choose>
 
                         <c:choose>
                             <c:when test="${empty sessionScope.login_session.cust_nm}">

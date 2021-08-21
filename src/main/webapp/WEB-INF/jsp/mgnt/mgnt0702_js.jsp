@@ -27,6 +27,7 @@ $(document).ready(function() {
 
 		gfnPutObj("board_subject", "${page_clsf_nm} 수정");
 		gfnPutObj("board_content", getValue("board_content"));
+		gfnPutObj("board_content2", getValue("board_content2"));
 		gfnPutObj("board_clsf_cd", "${board_clsf_cd}");
 
 		var pParamJson = gfnGetJson();		
@@ -58,7 +59,7 @@ function fnInit() {
 
 	sendForm("POST", "/mgnt/terms_detail", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 		
-		var pFieldArry = ["board_content","board_id"];
+		var pFieldArry = ["board_content","board_content2","board_id"];
 
 		if(message == "parsererror") {
 			alert("로그아웃되었습니다.");

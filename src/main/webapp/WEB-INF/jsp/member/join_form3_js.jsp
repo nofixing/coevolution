@@ -318,11 +318,10 @@ function fnSignUp() {
 
 			<c:if test="${sessionScope.LANG eq 'en'}">
 
-				msg += "Your Visitor registration has been completed. <br><br>";
-				msg += "We provide <span style='color:red; font-weight:bold'>10 badges</span>for those who registered to the 8th Virtual IEVE(International Electric Vehicle Expo).<br>";
-				msg += "Badges can be used at the Virtual Exhibition Hall booth at the 8th IEVE.<br><br>";
-				msg += "If you give points to booths, you will get a chance to win a prize through a raffle. <br>";
-				msg += "※ You can check the provided badges on My Page.<br>";
+				msg += "Your Visitor registration has been completed.<br><br>";
+				msg += "We provide <span style='color:red; font-weight:bold'>10 badges</span>for those who registered to the 8th Virtual IEVE(International Electric Vehicle Expo).  <br>";
+				msg += "You can check the provided badges on My Page. Only 1 badge could be given to 1 company booth.<br><br>";
+				msg += "Enjoy the 8th Virtual IEVE!<br>";
 
 				gfnAlert ("alert", "Register Completed", msg, function(rtnValue){
 					document.location.href="/member/login_form";
@@ -330,14 +329,13 @@ function fnSignUp() {
 
 			</c:if>
 			<c:if test="${sessionScope.LANG ne 'en'}">
+                var msg = "참관등록이 완료되었습니다. <br><br>";
+                msg += "참관등록하신 분들을 대상으로 <span style='color:red; font-weight:bold'>관심뱃지(10)</span>개를 지급해드립니다. <br>";
+                msg += "지급된 관심뱃지는 마이페이지에서 확인 가능하며, 제8회 국제전기자동차엑스포의 버추얼전시 참가업체에 1개씩 부여할 수 있습니다.   <br><br>";
+                msg += "관심뱃지를 3개 이상 부여하시면, SK증권과 함께하는 ‘전기차 관련 주식 1주 증정 이벤트'에 참여하실 수 있습니다. </br>";
+                msg += "자세한 내용은 이벤트 페이지에서 확인가능합니다.";
 
-				msg += "회원가입이 완료되었습니다. <br><br>";
-				msg += "참관등록하신 분들을 대상으로 <span style='color:red; font-weight:bold'>뱃지(10)</span>를 지급해드립니다. <br>";
-				msg += "뱃지는 제8회 국제전기자동차엑스포의 비추얼전시관 부스에 사용할 수 있습니다.   <br><br>";
-				msg += "주제/국가별 부스에 EV포인트 부여 시 추첨을 통해 경품 기회 제공합니다. <br>";
-				msg += "※ 지급된 뱃지는 마이페이지에서 확인가능합니다.<br>";
-
-				gfnAlert ("alert", "회원가입완료", msg, function(rtnValue){
+				gfnAlert ("alert", "참관등록완료", msg, function(rtnValue){
 					document.location.href="/member/login_form";
 				});
 

@@ -46,7 +46,7 @@
         gtag('config', 'G-FH0GW643X0');
     </script>
 
-    <title>국제전기자동차엑스포</title>
+    <title>Virtual IEVE 국제전기자동차엑스포 버추얼전시회</title>
 
     <!-- 전체메뉴팝업 -->
     <!--script src="/js/popMenuHtml.js"></script-->

@@ -22,6 +22,9 @@ public class EvBoardRequestDto {
     private String board_subject;
     /* 내용 */
     private String board_content;
+
+    private String board_content2;
+
     /* url */
     private String ref_url;
     /* 참여자 */

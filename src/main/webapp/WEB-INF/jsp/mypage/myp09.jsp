@@ -45,7 +45,7 @@
             
             <!-- Heading -->
             <h5 class="breadcrumb-heading">
-              <spring:message code="left.menu.meeting.reservation" text="상담신청"/>
+              <spring:message code="left.menu.meeting.request" text="상담신청"/>
             </h5>
 
           </div>
@@ -59,7 +59,7 @@
               <spring:message code="left.menu.mypage" text="마이페이지"/>
             </span>
             <span class="breadcrumb-item active">
-              <spring:message code="left.menu.meeting.reservation" text="상담신청"/>
+              <spring:message code="left.menu.meeting.request" text="상담신청"/>
             </span>            
           
           </div>
@@ -88,7 +88,7 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  <spring:message code="left.menu.meeting.reservation" text="상담신청"/>
+                  <spring:message code="left.menu.meeting.request" text="상담신청"/>
                 </strong>
               </h3>
 

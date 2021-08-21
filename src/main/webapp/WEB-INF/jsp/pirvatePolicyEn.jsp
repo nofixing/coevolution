@@ -99,13 +99,17 @@
                                 </li>
                                 <li>The company provides personal information to third parties as follows:
                                   <ul>
-                                    <li>Person who receives personal information : &lt; e.g. OOO Card Co., Ltd. &gt;
+                                    
+
+
+
+                                    <li>Person who receives personal information : International Electric Vehicle Expo (IEVE), SK Securities.Co., LTD.
                                     </li>
-                                    <li>Purpose of use of personal information by the recipient : &lt; e.g. Business partnerships, such as co-hosting events, and issuance of affiliated credit cards &gt;
+                                    <li>Purpose of use of personal information by the recipient : Business partnership such as event co-hosting, registration, etc. such as identification of the person eligible for the event, payment of benefits, and utilization of marketing promotion.
                                     </li>
-                                    <li>Personal information items provided: &lt; e.g. Name, address, phone number, email address, card payment account information &gt;
+                                    <li>Personal information items provided : Name, address, mobile phone number, personal identification code, e-mail address, inquiry details, etc.
                                     </li>
-                                    <li>Retention and use period of the recipient : &lt; e.g. during the transaction period under the credit card issuance contract &gt;
+                                    <li>Retention and use period of the recipient: 1 year after the end of the event, until withdrawal from the website
                                     </li>
                                   </ul>
                                 </li>
@@ -324,7 +328,7 @@
                             <div class="terms_article">
                               <h3 class="terms_article_title">Article 13 (Enforcement and Modification of Personal Information Processing Policies)
                             </h3>
-                              <p>This privacy policy will take effect on July 16, 2021.</p>
+                              <p>This privacy policy will take effect on August 18, 2021.</p>
                             </div>
                           </div>
                       </div>

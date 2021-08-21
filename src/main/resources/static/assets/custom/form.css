@@ -1626,6 +1626,26 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     transform: translateX(-50%) rotate(45deg);
 
 }
+
+.guide-pdf{
+    display:flex;
+    justify-content: center;
+    margin-bottom:20px;
+}
+.guide-pdf a{
+    display:flex;
+    margin: 0 1.5em;
+    padding: 0.5em 1.5em;
+    background:#0089d0;
+    position:relative;
+    color:#fff;
+}
+.guide-pdf svg{
+    margin-right: 10px;
+    margin-bottom: 3px;
+}
+
+
 .guide-item-tit{
     margin-bottom:30px;
 }
@@ -1760,7 +1780,12 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
     .guide-item-step p{
         font-size:14px;
     }
+    .guide-tab{
+        align-items: unset;
+    }
     .guide-tab  a{
+        display:flex;
+        align-items: center;
         padding:7px 0;
         word-break: keep-all !important;
     }

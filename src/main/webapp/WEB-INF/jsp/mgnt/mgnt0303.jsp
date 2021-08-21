@@ -216,7 +216,7 @@
                             <td colspan="3">
                               <div class="col-sm-12 input-group-text border-0 bg-white">
                                 <button type="button" class="basic-btn" id="btn_corp_ci">파일선택</button>
-                                <div id="imgCorpCi" class="col-sm-auto"></div>
+                                <div id="imgCorpCi" class="col-sm-auto input-group-text border-0 bg-white"></div>
                               </div>
                             </td>
                           </tr>

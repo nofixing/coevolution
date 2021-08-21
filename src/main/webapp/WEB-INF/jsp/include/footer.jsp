@@ -19,6 +19,13 @@
                             <li>
                                 <a href="/index/map">오시는 길</a>
                             </li>
+                            <c:choose>
+                            <c:when test="${sessionScope.LANG ne 'en'}">
+                            <!--li>
+                                <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
+                            </li-->
+                            </c:when>
+                            </c:choose>
                         </ul>
                     </div>
                     <div class="footer_sns footer_sns_pc">

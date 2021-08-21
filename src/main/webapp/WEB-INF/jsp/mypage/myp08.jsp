@@ -131,11 +131,18 @@
                           </c:forEach>
                         </select>
                       </div>
-
                       <div class="col-sm-5 pt-1 pl-1 pr-1">
                         <select name="form_clsf" id="form_clsf" class="form-control form-control-sm" style="width:100%;">
-                          <option value="1" selected>달력</option>
-                          <option value="2">리스트</option>
+                        <c:choose>
+                            <c:when test="${sessionScope.LANG ne 'en'}">
+                              <option value="1" selected>달력</option>
+                              <option value="2">리스트</option>
+                            </c:when>
+                            <c:otherwise>
+                               <option value="1" selected>Calendar</option>
+                               <option value="2">List</option>
+                            </c:otherwise>
+                        </c:choose>
                         </select>
                       </div>
 

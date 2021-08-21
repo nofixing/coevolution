@@ -15,6 +15,7 @@ public class EvMypageBadgeRequestDto {
     private String category_sh;         /* 관리자 뱃지조회 - 부스 */
     private String category_nm_sh;      /* 관리자 뱃지조회 - 부스 명 */
     private String cust_clsf_sh;        /* 고객구분 */
+    private String lang;                /* 언어구분 */
     private Long page_row_start;    /* 조회 시작 row */
     private Long page_row_cnt;      /* 조회 할 개수 */
     private Long page_current;      /* 현재페이지 */

@@ -243,13 +243,14 @@ function fnSignUp() {
 		console.log("message : " + message.result_code);
 
         if(message.result_code == 0) {
-            var msg = "회원가입이 완료되었습니다. <br><br>";
-            msg += "참관등록하신 분들을 대상으로 <span style='color:red; font-weight:bold'>뱃지(10)</span>를 지급해드립니다. <br>";
+            var msg = "참관등록이 완료되었습니다. <br><br>";
+            msg += "참관등록하신 분들을 대상으로 <span style='color:red; font-weight:bold'>관심뱃지(10)</span>를 지급해드립니다. <br>";
             msg += "뱃지는 제8회 국제전기자동차엑스포의 비추얼전시관 부스에 사용할 수 있습니다.   <br><br>";
             msg += "주제/국가별 부스에 EV포인트 부여 시 추첨을 통해 경품 기회 제공합니다. <br>";
-            msg += "※ 지급된 뱃지는 마이페이지에서 확인가능합니다.<br>";
+            msg += "관심뱃지를 3개 이상 부여하시면, SK증권과 함께하는 ‘전기차 관련 주식 1주 증정 이벤트'에 참여하실 수 있습니다. </br>";
+            msg += "자세한 내용은 이벤트 페이지에서 확인가능합니다.";
 
-            gfnAlert ("alert", "회원가입완료", msg, function(rtnValue){
+            gfnAlert ("alert", "참관등록완료", msg, function(rtnValue){
                 document.location.href="/member/login_form";
             });
 

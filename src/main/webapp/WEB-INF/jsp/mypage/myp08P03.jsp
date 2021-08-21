@@ -118,18 +118,31 @@
                 <!--상담시간설정-->
                 <div class="form-row align-items-center pb-3">
                     <div class="col-md-2 col-sm-12 pt-1">
-                        <span class="form-control form-control-sm" style="background-color:#f7f7f7">타임존</span>
+                        <span class="form-control form-control-sm" style="background-color:#f7f7f7"><spring:message code="form.meet.timezone" text="타임존"/></span>
                     </div>
 
                     <div class="col-md-7 col-sm-12 p-0 form-inline">
                         <div class="col-sm-6 pt-1 pl-1 pr-1">
-                          <select name="tiemzone_cd" id="tiemzone_cd" class="form-control form-control-sm" style="width:100%;">
+                          <select name="tiemzone_cd" id="tiemzone_cd" class="form-control form-control-sm" style="width: 100%;">
                             <c:forEach var="list" items="${timezoneList}">
                               <c:if test="${tiemzone_cd eq list.cd_id}">
+
+                                <c:if test="${sessionScope.LANG ne 'en'}">
                                 <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                                </c:if>
+                                <c:if test="${sessionScope.LANG eq 'en'}">
+                                  <option value="${list.cd_id}" selected>${list.cd_nm_en}</option>
+                                </c:if> 
+                                
                               </c:if>
                               <c:if test="${tiemzone_cd ne list.cd_id}">
+                                <c:if test="${sessionScope.LANG ne 'en'}">
                                 <option value="${list.cd_id}">${list.cd_nm}</option>
+                                </c:if>
+                                <c:if test="${sessionScope.LANG eq 'en'}">
+                                  <option value="${list.cd_id}">${list.cd_nm_en}</option>
+                                </c:if> 
+                                
                               </c:if>
                             </c:forEach>
                           </select>
@@ -151,8 +164,16 @@
 
                         <div class="col-sm-3 pt-1 pl-1 pr-1">
                           <select name="form_clsf" id="form_clsf" class="form-control form-control-sm" style="width:100%;">
-                            <option value="1">달력</option>
-                            <option value="2" selected>리스트</option>
+                          <c:choose>
+                              <c:when test="${sessionScope.LANG ne 'en'}">
+                                <option value="1">달력</option>
+                                <option value="2" selected>리스트</option>
+                              </c:when>
+                              <c:otherwise>
+                                <option value="1">Calendar</option>
+                                <option value="2" selected>List</option>
+                              </c:otherwise>
+                          </c:choose>
                           </select>
                         </div>
 
@@ -161,7 +182,7 @@
 
                 <div class="form-row align-items-center pb-2">
                     <div class="col-2 text-center form-control-sm">
-                      검색기간
+                      <spring:message code="form.meet.search.period" text="검색기간"/>
                     </div>                  
                     <div class="col-6">
                       <div class="form-inline">
@@ -170,7 +191,7 @@
                       </div>
                     </div>
                     <div class="col-4 form-inline d-flex justify-content-end">
-                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
+                      <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch"><spring:message code="form.go.search" text="조회"/></button>
                     </div>
                 </div>  
 

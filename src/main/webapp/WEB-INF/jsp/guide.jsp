@@ -31,6 +31,14 @@
                             <a href="#!">버추얼전시회 관람가이드</a>
                             <a href="#!">상담예약신청 안내</a>
                         </div>
+                        <!--div class="guide-pdf">
+                            <a href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0z"/>
+                              </svg>국문 PDF가이드<br>다운로드</a>
+                            <a href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0z"/>
+                              </svg>영문 PDF가이드<br>다운로드</a>
+                        </div-->
                         <div class="guide-tab-contnet">
                             <div class="guide-item">
                                 <div class="guide-item-tit">
@@ -235,6 +243,13 @@
                     // 나타내기
                     $(".guide-tab-contnet > div").hide(); 
                     $(".guide-tab-contnet > div").eq(1).fadeIn(200); 
+                } else if("${c}" == "question"){
+                    $(".guide-tab a").removeClass("on"); 
+                    $(".guide-tab a").eq(2).addClass("on"); 
+                                        
+                    // 나타내기
+                    $(".guide-tab-contnet > div").hide(); 
+                    $(".guide-tab-contnet > div").eq(2).fadeIn(200); 
                 } else {
                     $(".guide-tab-contnet > div").hide(); 
                     $(".guide-tab-contnet > div:first").show(); 

@@ -25,17 +25,17 @@
             , a.badge_id
             , a.cust_id
             , a.give_cust_id
-            , case when a.badge_clsf_cd in ('211001','211002') then '부여'
-                    when a.badge_clsf_cd in ('211003') then '사용'
-                    when a.badge_clsf_cd in ('211004') then '회수'
+            , case when a.badge_clsf_cd in ('211001','211002') then case when #{lang} = 'ko' then '부여' else 'Received' end
+                    when a.badge_clsf_cd in ('211003') then case when #{lang} = 'ko' then '사용' else 'Used' end
+                    when a.badge_clsf_cd in ('211004') then case when #{lang} = 'ko' then '회수' else 'Withdrawn' end
                 end AS badge_clsf_nm
             , concat (nvl(
-                            (select cd_nm from ev_comm_code where cd_id = a.badge_clsf_cd)
+                            (select case when #{lang} = 'ko' then cd_nm else cd_nm_en end from ev_comm_code where cd_id = a.badge_clsf_cd)
                         ,''),
-                    case when a.badge_clsf_cd = '211002' then concat(a.give_cust_id, ' 등록')
-                         when a.badge_clsf_cd = '211001' then '뱃지부여'
+                    case when a.badge_clsf_cd = '211002' then concat(a.give_cust_id, case when #{lang} = 'ko' then ' 등록' else ' Registered' end)
+                         when a.badge_clsf_cd = '211001' then case when #{lang} = 'ko' then '뱃지부여' else ' Badge Received' end
                          when a.badge_clsf_cd in ('211003','211004') then
-                            concat(' ', nvl((select cd_nm from ev_comm_code ecc where cd_id = ecm.category1), ''), ' ', ecm.cust_nm)
+                            concat(' ', nvl((select case when #{lang} = 'ko' then cd_nm else cd_nm_en end from ev_comm_code ecc where cd_id = ecm.category1), ''), ' ', ecm.cust_nm)
                     end
                 ) AS badge_conts
             , case when a.badge_clsf_cd IN ('211001','211002','211004') then a.badge_cnt ELSE 0 END AS badge_recv_cnt

@@ -74,9 +74,21 @@
     <li class="text-xs text-uppercase border p-2" style="font-family:none">
       <a href="/mypage/badgecorp" <c:if test="${page_clsf eq 'myc03'}">class="on"</c:if> ><strong>뱃지 적립 내역</strong></a>
     </li>
+
     <li class="text-xs text-uppercase border p-2" style="font-family:none">
-      <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myc04'}">class="on"</c:if> ><strong>삼담문의 내역</strong></a>
+      <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myc04'}">class="on"</c:if>><strong>Q & A</strong></a>
     </li>
+
+    <li class="text-xs text-uppercase border p-2" style="font-family:none">
+      <a href="#conslt" data-toggle="collapse"><strong>상담문의</strong></a>
+      <div id="conslt" class="collapse show pl-3" style="font-family:none">
+        <ul class="list-group">
+          <li class="list-group"><a href="/mypage/consltset" <c:if test="${page_clsf eq 'myc06'}">class="on"</c:if> ><strong>상담시간설정</strong></a></li>
+          <li class="list-group"><a href="/mypage/myc07" <c:if test="${page_clsf eq 'myc07'}">class="on"</c:if> ><strong>상담예약현황</strong></a></li>
+          <li class="list-group"><a href="/mypage/myc08" <c:if test="${page_clsf eq 'myc08'}">class="on"</c:if> ><strong>상담이력</strong></a></li>
+        </ul>
+      </div>
+    </li>  
 
     <li class="text-xs text-uppercase border p-2" style="font-family:none">
       <a href="#update" data-toggle="collapse"><strong>내정보수정</strong></a>
@@ -86,7 +98,7 @@
           <li class="list-group"><a href="/mypage/myp05" <c:if test="${page_clsf eq 'myp05'}">class="on"</c:if> ><strong>비밀번호변경</strong></a></li>
         </ul>
       </div>
-    </li>            
+    </li>  
     
   </c:if>            
 

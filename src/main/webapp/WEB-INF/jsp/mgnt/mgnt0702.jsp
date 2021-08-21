@@ -71,22 +71,31 @@
               </h3>
 
               <form class="form-styled">
+
+                <h5><li>국문</li></h5>
                 <div class="form-row col-sm-12 p-2">
-                  <textarea class="form-control" name="board_content" rows="15" id="board_content"></textarea>
+                  <textarea class="form-control" name="board_content" rows="10" id="board_content"></textarea>
                   <input type="hidden" name="board_id" id="board_id">
                 </div>               
+                <h5 class="mt-4"><li>영문</li></h5>
+                <div class="form-row col-sm-12 p-2">
+                  <textarea class="form-control" name="board_content2" rows="10" id="board_content2"></textarea>
+                  <input type="hidden" name="board_id" id="board_id">
+                </div>
 
                 <div class="form-row col-sm-12 pt-3 pr-0 justify-content-end">
                   <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSave">수정</button>
                 </div>
 
-              </div>
-
-            </form>
+              </form>
             
+            </div>
+
           </div>
+
         </div> <!-- / .row -->
       </div> <!-- / .container -->
+
     </section>
 
     <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>

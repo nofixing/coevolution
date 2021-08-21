@@ -82,6 +82,8 @@ public class EvMypageBadgeController {
                 evMypageBadgeRequestDto.setIns_dt_to(strDt);
             }
 
+            evMypageBadgeRequestDto.setLang(StringUtils.nvl(httpSession.getAttribute("LANG"),"ko"));
+
             /* 뱃지 리스트 조회 */
             List<EvMypageBadgeResponseDto> list = evMypageBadgeService.mypage_badge_list(evMypageBadgeRequestDto);
             List<EvMypageBadgeResponseDto> listCnt = evMypageBadgeService.mypage_badge_list_count(evMypageBadgeRequestDto);

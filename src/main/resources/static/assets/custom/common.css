@@ -335,7 +335,7 @@ select::-ms-expand{
     }
     .nav .nav-link{
         flex: 0 0 33.33%;
-        padding:.75rem 1rem !important;
+        padding:.75rem 0.5rem !important;
         text-align:center;
     }
     .tab-pane ul{
@@ -386,6 +386,13 @@ select::-ms-expand{
     padding:40px 0;
 }
 .sitemap ul{
+    padding:0;
+    margin:0;
+    float:left;
+    width:calc(25% - 30px);
+    margin:0 15px;
+}
+.sitemap-en ul{
     padding:0;
     margin:0;
     float:left;
