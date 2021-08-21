@@ -329,7 +329,7 @@
         select COUNT(*) AS row_count
         from ev_board eb
         where board_clsf_cd = #{board_clsf_cd}
-        LIMIT #{page_row_start} 0#{page_row_cnt}
+        LIMIT #{page_row_start} ,#{page_row_cnt}
     </select>
 
     <select id="S07_TERMS_DTL" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="kr.coevolution.vr.board.dto.EvBoardTermsResponseDto">

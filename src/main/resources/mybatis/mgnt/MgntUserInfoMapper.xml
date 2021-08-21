@@ -44,7 +44,7 @@
         SELECT COUNT(*) AS row_count
         FROM 	ev_cust_mst a
         WHERE   cust_sts_cd     = '105001'          /* 정상 */
-        AND 	cust_clsf_cd	= #{cust_clsf_cd}#  /* 202001:참관 202002:참가 */
+        AND 	cust_clsf_cd	= #{cust_clsf_cd}  /* 202001:참관 202002:참가 */
         AND 	date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
         and     (cust_id like concat('%',#{keyword},'%') or cust_nm like concat('%',#{keyword},'%') or rep_nm like concat('%',#{keyword},'%'))
         ORDER BY a.ins_dtm DESC
