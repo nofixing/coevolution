@@ -1634,6 +1634,7 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
 }
 .guide-pdf a{
     display:flex;
+    align-items:center;
     margin: 0 1.5em;
     padding: 0.5em 1.5em;
     background:#0089d0;
@@ -1788,9 +1789,20 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
         align-items: center;
         padding:7px 0;
         word-break: keep-all !important;
+        justify-content: center;
     }
     .guide-item-box + .guide-item-box{
         margin-top:50px;
+    }
+    .guide-pdf{
+        display:block;
+    }
+    .guide-pdf a{
+        margin:0;
+        width:100%;
+    }
+    .guide-pdf a:nth-of-type(1){
+        margin-bottom:10px;
     }
 }
 
