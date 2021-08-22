@@ -12,11 +12,12 @@
 
     <style type="text/css">
      .li_txt_line {
-        width:200px;
+        width:95%;
         padding:0 5px;
         overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
+        /* text-overflow:ellipsis; 
+        white-space:nowrap; */
+        word-wrap: break-word;
         list-style-position:inside;
       }
     </style>

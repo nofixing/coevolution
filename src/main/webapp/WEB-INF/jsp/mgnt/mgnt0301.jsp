@@ -138,7 +138,7 @@
                       </c:forEach>
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <th scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</th>
+                        <th scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</th>
                       </tr>
                       </c:if>                                                                                                                                                                                                                             
                     </tbody>

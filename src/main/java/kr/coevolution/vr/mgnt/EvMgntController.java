@@ -453,7 +453,7 @@ public class EvMgntController {
             model.addAttribute("page_clsf", "mgnt0301");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count); /* 총건수 */
-            model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
+            model.addAttribute("page_row_cnt", evMgntMemberRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
             model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
 
             /* 검색조건 */
@@ -921,7 +921,7 @@ public class EvMgntController {
             model.addAttribute("page_clsf", "mgnt0401");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count); /* 총건수 */
-            model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
+            model.addAttribute("page_row_cnt", evMgntMemberRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
             model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
 
             /* 검색조건 */
@@ -1099,7 +1099,7 @@ public class EvMgntController {
             model.addAttribute("page_clsf", "mgnt05");
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count); /* 총건수 */
-            model.addAttribute("page_row_cnt", String.valueOf(page_row_cnt));    /* 페이지 row 개수 */
+            model.addAttribute("page_row_cnt", evMgntMemberRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
             model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
 
             /* 검색조건 */
