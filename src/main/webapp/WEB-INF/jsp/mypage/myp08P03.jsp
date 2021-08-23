@@ -150,13 +150,30 @@
 
                         <div class="col-sm-3 pt-1 pl-1 pr-1">
                           <select name="sh_consult_sts_cd" id="sh_consult_sts_cd" class="form-control form-control-sm" style="width:100%;">
-                            <option value="" <c:if test="${sh_consult_sts_cd eq ''}">selected</c:if>>전체</option>
-                            <c:forEach var="list" items="${consultStsList}">
-                              <c:if test="${sh_consult_sts_cd eq list.cd_id}">
-                                <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                            <option value="" <c:if test="${sh_consult_sts_cd eq ''}">selected</c:if>>
+                              <c:if test="${sessionScope.LANG ne 'en'}">
+                              전체
                               </c:if>
-                              <c:if test="${sh_consult_sts_cd ne list.cd_id}">
-                                <option value="${list.cd_id}">${list.cd_nm}</option>
+                              <c:if test="${sessionScope.LANG eq 'en'}">
+                              All
+                              </c:if>
+                            </option>
+                            <c:forEach var="list" items="${consultStsList}">
+                              <c:if test="${sessionScope.LANG ne 'en'}">
+                                <c:if test="${sh_consult_sts_cd eq list.cd_id}">
+                                  <option value="${list.cd_id}" selected>${list.cd_nm}</option>
+                                </c:if>
+                                <c:if test="${sh_consult_sts_cd ne list.cd_id}">
+                                  <option value="${list.cd_id}">${list.cd_nm}</option>
+                                </c:if>
+                              </c:if>
+                              <c:if test="${sessionScope.LANG eq 'en'}">
+                                <c:if test="${sh_consult_sts_cd eq list.cd_id}">
+                                  <option value="${list.cd_id}" selected>${list.cd_nm_en}</option>
+                                </c:if>
+                                <c:if test="${sh_consult_sts_cd ne list.cd_id}">
+                                  <option value="${list.cd_id}">${list.cd_nm_en}</option>
+                                </c:if>
                               </c:if>
                             </c:forEach>
                           </select>

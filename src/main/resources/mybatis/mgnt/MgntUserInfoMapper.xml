@@ -514,7 +514,7 @@
         </if>
 
         <if test="use_yn != null and use_yn != ''">
-            and use_yn   >= #{use_yn}
+            and use_yn   = #{use_yn}
         </if>
 
         LIMIT #{page_row_start}, #{page_row_cnt}
@@ -539,7 +539,7 @@
         </if>
 
         <if test="use_yn != null and use_yn != ''">
-            and use_yn   >= #{use_yn}
+            and use_yn   = #{use_yn}
         </if>
 
     </select>
@@ -606,6 +606,12 @@
         from ev_cust_mst ecm
        where cust_clsf_cd = '202002'
          and cust_sts_cd  = '105001'
+         and (exists (select 1
+                        from ev_expo_customer
+                       where ev_expo_id = #{ev_expo_id} and cust_id = ecm.cust_id
+                     )
+                or not exists (select 1 from ev_expo_customer where cust_id = ecm.cust_id)
+             )
 
     </select>
 
@@ -628,5 +634,17 @@
           and cust_id = #{cust_id}
 
     </delete>
+
+    <select id="S14" resultType="kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto">
+        select nvl(max(ev_expo_id),0) as ev_expo_id from ev_expo ee where use_yn = 'Y'
+    </select>
+
+    <update id="U14" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto">
+        update ev_expo
+           set use_yn   = 'N'
+             , mod_user = #{user_id}
+             , mod_dtm  = now()
+         where use_yn   = 'Y'
+    </update>
 
 </mapper>

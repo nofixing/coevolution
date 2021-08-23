@@ -356,6 +356,9 @@ public class EvMgntService {
      * @return
      */
     public int expo_insert  (EvMgntExpoRequestDto param) {
+        //미사용처리
+        mgntUserInfoMapper.U14(param);
+
         return mgntUserInfoMapper.I12_EXPO_INSERT(param);
     }
 
@@ -365,6 +368,9 @@ public class EvMgntService {
      * @return
      */
     public int expo_update  (EvMgntExpoRequestDto param) {
+        //미사용처리
+        mgntUserInfoMapper.U14(param);
+
         return mgntUserInfoMapper.U12_EXPO_UPDATE(param);
     }
 
@@ -395,4 +401,20 @@ public class EvMgntService {
         return mgntUserInfoMapper.D13_EXPO_CUST_DEL(param);
     }
 
+    /**
+     * 엑스포ID조회
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> expo_id() {
+        return mgntUserInfoMapper.S14();
+    }
+
+    /**
+     * 미사용처리
+     * @param param
+     * @return
+     */
+    public int expo_use_yn_update  (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.U14(param);
+    }
 }

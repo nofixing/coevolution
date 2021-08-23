@@ -33,7 +33,7 @@
                             (select case when #{lang} = 'ko' then cd_nm else cd_nm_en end from ev_comm_code where cd_id = a.badge_clsf_cd)
                         ,''),
                     case when a.badge_clsf_cd = '211002' then concat(a.give_cust_id, case when #{lang} = 'ko' then ' 등록' else ' Registered' end)
-                         when a.badge_clsf_cd = '211001' then case when #{lang} = 'ko' then '뱃지부여' else ' Badge Received' end
+                         when a.badge_clsf_cd = '211001' then case when #{lang} = 'ko' then '뱃지부여' else '' end
                          when a.badge_clsf_cd in ('211003','211004') then
                             concat(' ', nvl((select case when #{lang} = 'ko' then cd_nm else cd_nm_en end from ev_comm_code ecc where cd_id = ecm.category1), ''), ' ', ecm.cust_nm)
                     end

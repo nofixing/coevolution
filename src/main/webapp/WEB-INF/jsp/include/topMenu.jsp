@@ -354,11 +354,11 @@
                                     <a href="/mypage/badgecorp"><spring:message code="top.all.menu.badge.accrual.history" text="뱃지 적립 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation.inquiry" text="삼담문의 내역"/></a>
+                                    <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation" text="Q & A"/></a>
                                 </li>
-                                <!--li>
-                                    <a href="#!"><spring:message code="left.menu.meeting" text="상담문의"/></a>
-                                </li-->
+                                <li>
+                                    <a href="/mypage/myc07"><spring:message code="top.all.menu.meeting.reservation" text="상담예약현황"/></a>
+                                </li>
                                 <li>
                                     <a href="/mypage/myc05"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                                 </li>
@@ -374,11 +374,11 @@
                                     <a href="/mypage/badge"><spring:message code="left.menu.badges.history" text="뱃지 사용 내역"/></a>
                                 </li>
                                 <li>
-                                    <a href="/mypage/conslt_list"><spring:message code="left.menu.consultation" text="문의 내역"/></a>
+                                    <a href="/mypage/conslt_list"><spring:message code="left.menu.consultation" text="Q & A"/></a>
                                 </li>
-                                <!--li>
-                                    <a href="#!"><spring:message code="left.menu.meeting" text="상담문의"/></a>
-                                </li-->
+                                <li>
+                                    <a href="/mypage/myp09"><spring:message code="top.all.menu.meeting.request" text="상담신청"/></a>
+                                </li>
                                 <li>
                                     <a href="/mypage/myp04"><spring:message code="left.menu.edit.personal.info" text="내 정보 수정"/></a>
                                 </li>

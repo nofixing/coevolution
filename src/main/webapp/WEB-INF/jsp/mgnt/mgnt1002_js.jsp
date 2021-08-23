@@ -50,25 +50,37 @@ function fnUpdate() {
 	/* global 변수 json으로 변환 */
 	var pParamJson = gfnGetJson();
 
-	sendForm("POST", "/mgnt/expo_insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+	/* expo id 조회 */
+	sendForm("POST", "/mgnt/expo_id", "application/json; charset=utf-8", "json", pParamJson, function(message1) {
 
-		if(message == "parsererror") {
-			alert("로그아웃되었습니다.");
-			document.location.href="/m.do";
-		} else if(message.result_code == 0) {
-			var msg = "엑스포 정보를 등록되었습니다.";
-            alert(msg);
-			document.location.href="/mgnt/expo";
-		} else {
-			if(message.result_code == undefined || message.session_yn == "N") {
-				alert("로그아웃되었습니다.");	
-				document.location.href="/index";
-			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+		if(message1.result_code == 0) {
+
+			if(message1.expoId != getValue("ev_expo_id") && message1.expoId != "0") {
+				if(!confirm("사용여부를 사용으로 입력 시 기존 엑스포는 미사용 처리됩니다.\r\n계속 진행하시겠습니까?")) return false;
 			}
-		}
 
-	});	
+			sendForm("POST", "/mgnt/expo_insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+				if(message == "parsererror") {
+					alert("로그아웃되었습니다.");
+					document.location.href="/m.do";
+				} else if(message.result_code == 0) {
+					var msg = "엑스포 정보를 등록되었습니다.";
+					alert(msg);
+					document.location.href="/mgnt/expo";
+				} else {
+					if(message.result_code == undefined || message.session_yn == "N") {
+						alert("로그아웃되었습니다.");	
+						document.location.href="/index";
+					} else {
+						alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+					}
+				}
+
+			});	
+		}
+	});
+	
 }
 
 </script>

@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 	/* 목록이동 */
 	$('#btnList').on('click', function () {
-		document.location.href="/mgnt/expo";
+		document.location.href="/mgnt/expo_exhibitors";
 	});
 
 	//저장 

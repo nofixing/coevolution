@@ -95,7 +95,10 @@
                 <div class="form-inline d-flex justify-content-between">
                   <input type="text" class="form-control form-control-sm mb-2" id="ev_expo_nm" name="ev_expo_nm" value="${expo_dtl.ev_expo_nm}" style="width: 20rem;" readonly>
                   <input type="hidden" id="ev_expo_id" name="ev_expo_id" value="${expo_dtl.ev_expo_id}">
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnUpdate">저장</button>
+                  <div class="form-inline">
+                    <button type="button" class="btn-outline-primary form-control form-control-sm ml-2 mb-2" style="width: 6rem;" id="btnUpdate">저장</button>
+                    <button type="button" class="btn-outline-primary form-control form-control-sm ml-2 mb-2" style="width: 6rem;" id="btnList">목록</button>
+                  </div>
                 </div>  
 
                 <div class="table-responsive" style="overflow-x: auto; overflow-y: auto;white-space:nowrap; height: 30rem;">

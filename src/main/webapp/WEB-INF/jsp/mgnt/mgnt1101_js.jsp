@@ -14,7 +14,7 @@ $(document).ready(function() {
 	lComm = new gfnComm();
 
 	$('#btnSearch').on('click', function () {
-		fnSearchMgnt10(1);
+		fnSearchMgnt11(1);
 	});
 
 	$('#btnInsert').on('click', function () {
@@ -22,18 +22,19 @@ $(document).ready(function() {
 	});
 
     /* 총건수, 현재이지, view row, 호출할 function */
-	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMgnt10");	
+	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMgnt11");	
 	$('#pagingList').html(pageHtml);		
 
 });
 
-function fnSearchMgnt10(pPageCurrent) {
+function fnSearchMgnt11(pPageCurrent) {
 
+	setValue("ev_expo_id", 0); //오류발생하여 입력
 	setValue("page_current", pPageCurrent);
 
 	var frm = document.forms[0];
 	frm.method = "post";
-	frm.action = "/mgnt/expo";
+	frm.action = "/mgnt/expo_exhibitors";
 	frm.submit();
 
 }

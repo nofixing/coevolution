@@ -29,6 +29,7 @@ $(document).ready(function() {
 
 function fnSearchMgnt10(pPageCurrent) {
 
+	setValue("ev_expo_id", 0); //오류발생하여 입력
 	setValue("page_current", pPageCurrent);
 
 	var frm = document.forms[0];

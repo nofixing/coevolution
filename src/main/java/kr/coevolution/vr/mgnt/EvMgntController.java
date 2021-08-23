@@ -2143,6 +2143,39 @@ public class EvMgntController {
     }
 
     /**
+     * expo id 조회
+     * @param evMgntExpoRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/expo_id")
+    public Map<String,Object> mgnt_expo_id(@RequestBody EvMgntExpoRequestDto evMgntExpoRequestDto, HttpServletRequest request, Model model) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+            List<EvMgntExpoResponseDto> list = evMgntService.expo_id();
+
+            int expoId = list.get(0).getEv_expo_id();
+
+            resposeResult.put("expoId", expoId);
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
      * 엑스포관리-상세조회
      * @param evMgntExpoRequestDto
      * @param request

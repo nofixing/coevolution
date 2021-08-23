@@ -221,4 +221,17 @@ public interface MgntUserInfoMapper {
      */
     public int D13_EXPO_CUST_DEL(EvMgntExpoRequestDto param);
 
+    /**
+     * 엑스포 회차조회
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> S14();
+
+    /**
+     * 엑스포 정보 미사용 처리
+     * @param param
+     * @return
+     */
+    public int U14(EvMgntExpoRequestDto param);
+
 }
