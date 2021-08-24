@@ -39,13 +39,28 @@
           <nav class="nav nav-tabs mb-5" id="nav">
             <!-- Content -->
             <a class="nav-item nav-link" data-toggle="tab" href="#nav1">
-              기업정보
+                <c:if test="${sessionScope.LANG ne 'en'}">
+                  기업정보
+                </c:if>
+                <c:if test="${sessionScope.LANG eq 'en'}">
+                  Info.
+                </c:if>
             </a>
             <a class="nav-item nav-link" data-toggle="tab" href="#nav2" onClick="doPdfViewer()">
-              자료소개
+                <c:if test="${sessionScope.LANG ne 'en'}">
+                  자료소개
+                </c:if>
+                <c:if test="${sessionScope.LANG eq 'en'}">
+                  Brochure
+                </c:if>
             </a>
             <a class="nav-item nav-link" data-toggle="tab" href="#nav3">
-              갤러리
+                <c:if test="${sessionScope.LANG ne 'en'}">
+                  갤러리
+                </c:if>
+                <c:if test="${sessionScope.LANG eq 'en'}">
+                  Gallery
+                </c:if>
             </a>
 
           </nav>
@@ -90,7 +105,14 @@
                                               </a>
                                             </div>
                                             <span style="height:24px; display:block;"></span>
-                                            <div class="d-flex justify-content-center">즐겨찾기</div>
+                                            <div class="d-flex justify-content-center">
+                                            <c:if test="${sessionScope.LANG ne 'en'}">
+                                              즐겨찾기
+                                            </c:if>
+                                            <c:if test="${sessionScope.LANG eq 'en'}">
+                                              Favorite
+                                            </c:if>
+                                            </div>
                                       </div>
                                       <div class="inline-block">
                                         <div class="d-flex justify-content-center pb-2">
@@ -102,7 +124,14 @@
                                           </a>
                                         </div>
                                         <span style="height:24px; display:block;">(<span id="tot_badge">${tot_badge}</span>)</span>
-                                        <div class="d-flex justify-content-center">관심뱃지</div>
+                                        <div class="d-flex justify-content-center">
+                                            <c:if test="${sessionScope.LANG ne 'en'}">
+                                              관심뱃지
+                                            </c:if>
+                                            <c:if test="${sessionScope.LANG eq 'en'}">
+                                              Badge of Interest
+                                            </c:if>
+                                        </div>
                                       </div>
                                       </div>
                                     </div>

@@ -55,7 +55,7 @@
       <div class="col-md col-sm-12 pt-1 pr-0 d-flex justify-content-end">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill blue-200-color" style="cursor:pointer;" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-          </svg> 상담가능
+          </svg> <spring:message code="form.meet.req.available" text="상담가능"/>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill purple-100-color" style="cursor:pointer;" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
           </svg> <spring:message code="form.meet.req" text="상담신청"/>
@@ -64,7 +64,7 @@
           </svg> <spring:message code="form.meet.fix.meet" text="상담확정"/>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill gray-500-color" style="cursor:pointer;" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-          </svg> 상담불가
+          </svg> <spring:message code="form.meet.req.unavailable" text="상담불가"/>
       </div>
 
       <!--상담시간설정-->
