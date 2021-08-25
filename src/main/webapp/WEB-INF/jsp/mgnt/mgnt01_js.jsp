@@ -26,6 +26,10 @@ $(document).ready(function() {
 		fnSearchMgnt01("1");
 	});	
 
+	$('#btnExcel').on('click', function () {
+		fnExcelMgnt01();
+	});	
+
 	/* 총건수, 현재이지, view row, 호출할 function */
 	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMgnt01");	
 	$('#pagingList').html(pageHtml);	
@@ -55,5 +59,26 @@ function fnSearchMgnt01(pPageCurrent) {
 	frm.submit();	
 }
 
+function fnExcelMgnt01(pPageCurrent) {
+
+	setValue("page_current", pPageCurrent);
+
+	/* 필수항목 체크 */
+	var chk = '['
+		+ '  {"id":"ins_dt_fr","name":"조회 시작일자"} '
+		+ ', {"id":"ins_dt_to","name":"조회 종료일자"} ';
+	chk += ']';
+
+	var jsonCheck = JSON.parse(chk);
+
+	if(!lComm.fnRequiredItems(jsonCheck)) {
+		return false;
+	}
+
+	var frm = document.forms[0];
+	frm.method = "post";
+	frm.action = "/mgnt/badgeExcel";
+	frm.submit();	
+}
 
 </script>

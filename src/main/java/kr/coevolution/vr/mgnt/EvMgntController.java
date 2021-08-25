@@ -184,9 +184,18 @@ public class EvMgntController {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
 
             evMypageBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
             evMypageBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+            if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getEv_expo_id(),""))) {
+                evMypageBadgeRequestDto.setEv_expo_id(String.valueOf(expoInfoList.getEv_expo_id()));
+            }
+
+            /* 콤보용엑스포리스트 */
+            EvMgntExpoRequestDto evMgntExpoRequestDto = new EvMgntExpoRequestDto();
+            List<EvMgntExpoResponseDto> expoCdList = evMgntService.expo_all_list(evMgntExpoRequestDto);
             
             /* 공통코드조회 - 부스 */
             EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
@@ -246,10 +255,12 @@ public class EvMgntController {
             }
 
             model.addAttribute("page_clsf", "mgnt01");
+            model.addAttribute("expo_id", evMypageBadgeRequestDto.getEv_expo_id());
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count); /* 총 개수 */
             model.addAttribute("page_row_cnt", evMypageBadgeRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
             model.addAttribute("page_current", evMypageBadgeRequestDto.getPage_current());    /* 현재페이지 */
+            model.addAttribute("expoCdList", expoCdList);
 
             /* 검색조건 */
             model.addAttribute("ins_dt_fr", evMypageBadgeRequestDto.getIns_dt_fr());
@@ -270,6 +281,179 @@ public class EvMgntController {
         }
 
         return returnUrl;
+
+    }
+
+    /**
+     * 관리자 뱃지관리 엑셀다운
+     * @param evMypageBadgeRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/badgeExcel")
+    public void mgnt_badge_excel(EvMypageBadgeRequestDto evMypageBadgeRequestDto, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+
+        String returnUrl = "/mgnt/mgnt01";
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
+
+        evMypageBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
+        evMypageBadgeRequestDto.setCust_id(loginInfoDto.getCust_id());
+
+        if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getEv_expo_id(),""))) {
+            evMypageBadgeRequestDto.setEv_expo_id(String.valueOf(expoInfoList.getEv_expo_id()));
+        }
+
+        /* 콤보용엑스포리스트 */
+        EvMgntExpoRequestDto evMgntExpoRequestDto = new EvMgntExpoRequestDto();
+        List<EvMgntExpoResponseDto> expoCdList = evMgntService.expo_all_list(evMgntExpoRequestDto);
+
+        /* 공통코드조회 - 부스 */
+        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+        evCommCodeRequestDto.setUpper_cd_id("106000");
+        evCommCodeRequestDto.setUse_yn("Y");
+        List<EvCommCodeResponseDto> category = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        model.addAttribute("category", category);
+
+        /* row 개수 */
+        evMypageBadgeRequestDto.setPage_row_cnt(100000L);
+        evMypageBadgeRequestDto.setPage_row_start(0L);
+
+        if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getPage_current(),""))) {
+            evMypageBadgeRequestDto.setPage_current(1L);
+        }
+
+        /* 참관/참가 구분 */
+        if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getCust_clsf_sh(),""))) {
+            evMypageBadgeRequestDto.setCust_clsf_sh("202001");
+        }
+
+        model.addAttribute("page_current", String.valueOf(evMypageBadgeRequestDto.getPage_current()));  /* 현재페이지 */
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Date nDt = new Date();
+
+        /* 최초 날짜가 null 인경우 */
+        if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getIns_dt_fr(),""))) {
+            Date ftDt = StringUtils.addMonth(nDt,-1);
+            String strDt = sf.format(ftDt);
+            evMypageBadgeRequestDto.setIns_dt_fr(strDt);
+        }
+
+        if("".equals(StringUtils.nvl(evMypageBadgeRequestDto.getIns_dt_to(),""))) {
+            String strDt = sf.format(nDt);
+            evMypageBadgeRequestDto.setIns_dt_to(strDt);
+        }
+
+        /* 뱃지 리스트 조회 */
+        List<EvMypageBadgeResponseDto> list = null;
+        List<EvMypageBadgeResponseDto> listCnt = null;
+
+        if("202001".equals(evMypageBadgeRequestDto.getCust_clsf_sh())) {
+            list = evMgntService.mgnt_badge_list(evMypageBadgeRequestDto);
+        } else {
+            list = evMgntService.mgnt_badge_list2(evMypageBadgeRequestDto);
+        }
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        if("202001".equals(evMypageBadgeRequestDto.getCust_clsf_sh())) {
+            // Header
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue("번호");
+            cell = row.createCell(1);
+            cell.setCellValue("회원명");
+            cell = row.createCell(2);
+            cell.setCellValue("뱃지지급");
+            cell = row.createCell(3);
+            cell.setCellValue("사용뱃지");
+            cell = row.createCell(4);
+            cell.setCellValue("잔여뱃지");
+            cell = row.createCell(5);
+            cell.setCellValue("피추천수");
+            cell = row.createCell(6);
+            cell.setCellValue("사용기간");
+            cell = row.createCell(7);
+            cell.setCellValue("부여일");
+        } else {
+            // Header
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue("번호");
+            cell = row.createCell(1);
+            cell.setCellValue("회원명");
+            cell = row.createCell(2);
+            cell.setCellValue("총뱃지");
+            cell = row.createCell(3);
+            cell.setCellValue("뱃지부여");
+            cell = row.createCell(4);
+            cell.setCellValue("뱃지회수");
+            cell = row.createCell(5);
+            cell.setCellValue("사용기간");
+            cell = row.createCell(6);
+            cell.setCellValue("부여일");
+        }
+
+        // Body
+        for (int i=0; i < list.size(); i++) {
+            EvMypageBadgeResponseDto dto = list.get(i);
+
+            row = sheet.createRow(rowNum++);
+
+            if("202001".equals(evMypageBadgeRequestDto.getCust_clsf_sh())) {
+                cell = row.createCell(0);
+                cell.setCellValue(dto.getRn());
+                cell = row.createCell(1);
+                cell.setCellValue(dto.getCust_nm());
+                cell = row.createCell(2);
+                cell.setCellValue(dto.getTot_badge_paid_cnt());
+                cell = row.createCell(3);
+                cell.setCellValue(dto.getTot_badge_use_cnt());
+                cell = row.createCell(4);
+                cell.setCellValue(dto.getTot_badge_rmin_cnt());
+                cell = row.createCell(5);
+                cell.setCellValue(dto.getTot_badge_rcmd_cnt());
+                cell = row.createCell(6);
+                cell.setCellValue(dto.getExpo_consult_prod());
+                cell = row.createCell(7);
+                cell.setCellValue(dto.getIns_dt());
+            } else {
+                cell = row.createCell(0);
+                cell.setCellValue(dto.getRn());
+                cell = row.createCell(1);
+                cell.setCellValue(dto.getCust_nm());
+                cell = row.createCell(2);
+                cell.setCellValue(dto.getTot_badge());
+                cell = row.createCell(3);
+                cell.setCellValue(dto.getTot_rcv());
+                cell = row.createCell(4);
+                cell.setCellValue(dto.getTot_recall());
+                cell = row.createCell(5);
+                cell.setCellValue(dto.getExpo_consult_prod());
+                cell = row.createCell(6);
+                cell.setCellValue(dto.getIns_dt());
+            }
+        }
+
+        String strDt = sf.format(nDt);
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename="+strDt+".xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
 
     }
 

@@ -11,9 +11,9 @@
 
         /* 뱃지등록 */
         INSERT INTO ev_cust_badge (
-            badge_id, cust_id, give_cust_id, badge_clsf_cd, badge_cnt, ins_user, ins_dtm
+            badge_id, cust_id, give_cust_id, badge_clsf_cd, badge_cnt, ins_user, ins_dtm, ev_expo_id
         ) VALUES (
-            NULL, #{cust_id}, #{give_cust_id}, #{badge_clsf_cd}, #{badge_cnt}, #{user_id}, NOW()
+            NULL, #{cust_id}, #{give_cust_id}, #{badge_clsf_cd}, #{badge_cnt}, #{user_id}, NOW(), (select max(ev_expo_id) from ev_expo where use_yn = 'Y')
         )
 
     </insert>
@@ -196,50 +196,52 @@
         select ROW_NUMBER() OVER(ORDER BY a.cust_nm asc) as rn
         , a.*
         from (
-        select ecm.cust_id
-            , ecm.cust_nm
-            , sum(case when ecb.badge_clsf_cd in ('211001','211002','211004') then ecb.badge_cnt
-            else 0
-            end) as tot_badge_paid_cnt
-            , abs(sum(case when ecb.badge_clsf_cd in ('211003') then ecb.badge_cnt
-            else 0
-            end)) as tot_badge_use_cnt
-            , abs(sum(case when ecb.badge_clsf_cd in ('211001','211002','211003','211004') then ecb.badge_cnt
-            else 0
-            end)) as tot_badge_rmin_cnt
-            , abs(sum(case when ecb.badge_clsf_cd in ('211002') then ecb.badge_cnt
-            else 0
-            end)) as tot_badge_rcmd_cnt
-            , date_format(ecb.ins_dtm ,'%Y-%m-%d') AS ins_dt
-        from ev_cust_mst ecm
-        left outer join ev_comm_code ecc
-        on ecm.category1 = ecc.cd_id
-        left outer join ev_cust_badge ecb
-        on ecm.cust_id = ecb.cust_id
-        where ecm.cust_sts_cd = '105001' /*정상*/
-        and ecm.cust_clsf_cd = #{cust_clsf_sh} /* 참관/참여 */
+            select ecm.cust_id
+                , ecm.cust_nm
+                , sum(case when ecb.badge_clsf_cd in ('211001','211002','211004') then ecb.badge_cnt
+                      else 0
+                  end) as tot_badge_paid_cnt
+                , abs(sum(case when ecb.badge_clsf_cd in ('211003') then ecb.badge_cnt
+                               else 0
+                  end)) as tot_badge_use_cnt
+                , abs(sum(case when ecb.badge_clsf_cd in ('211001','211002','211003','211004') then ecb.badge_cnt
+                               else 0
+                          end)) as tot_badge_rmin_cnt
+                , abs(sum(case when ecb.badge_clsf_cd in ('211002') then ecb.badge_cnt
+                               else 0
+                          end)) as tot_badge_rcmd_cnt
+                , date_format(ecb.ins_dtm ,'%Y-%m-%d') AS ins_dt
+                , (select concat(expo_consult_from_dt,'~', expo_consult_to_dt) from ev_expo ee where ev_expo_id = #{ev_expo_id}) as expo_consult_prod
+            from ev_cust_mst ecm
+            left outer join ev_comm_code ecc
+              on ecm.category1 = ecc.cd_id
+            left outer join ev_cust_badge ecb
+              on ecm.cust_id = ecb.cust_id
+             and ecb.ev_expo_id = #{ev_expo_id}
+            where ecm.cust_sts_cd = '105001' /*정상*/
+             and ecm.cust_clsf_cd = #{cust_clsf_sh} /* 참관/참여 */
 
-        <if test="category_sh != null and category_sh != ''">
-            and exists (select 1
-                from ev_cust_mst
-                where cust_id = ecb.give_cust_id
-                and category1 = #{category_sh}
-            )  /*카테고리 검색조건*/
-        </if>
+            <if test="category_sh != null and category_sh != ''">
+                and exists (select 1
+                    from ev_cust_mst
+                    where cust_id = ecb.give_cust_id
+                    and category1 = #{category_sh}
+                )  /*카테고리 검색조건*/
+            </if>
 
-        <if test="category_nm_sh != null and category_nm_sh != ''">
-            and exists (select 1
-                        from ev_cust_mst z
-                        left outer join ev_comm_code y
-                        on z.category1 = y.cd_id
-                        where z.cust_id = ecb.give_cust_id
-                        and upper(y.cd_nm) like upper(concat('%',#{category_nm_sh}, '%'))
-            )  /*카테고리 검색조건*/
-        </if>
+            <if test="category_nm_sh != null and category_nm_sh != ''">
+                and exists (select 1
+                            from ev_cust_mst z
+                            left outer join ev_comm_code y
+                            on z.category1 = y.cd_id
+                            where z.cust_id = ecb.give_cust_id
+                            and upper(y.cd_nm) like upper(concat('%',#{category_nm_sh}, '%'))
+                )  /*카테고리 검색조건*/
+            </if>
 
-        and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+            and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
 
-        group by ecm.cust_id, ecm.cust_nm
+            group by ecm.cust_id, ecm.cust_nm
         ) a
         LIMIT #{page_row_start}, #{page_row_cnt}
 
@@ -252,13 +254,14 @@
         select count(a.cust_id) as row_count
         from (
             select ecm.cust_id
-            from ev_cust_mst ecm
-            left outer join ev_comm_code ecc
-            on ecm.category1 = ecc.cd_id
-            left outer join ev_cust_badge ecb
-            on ecm.cust_id = ecb.cust_id
-            where ecm.cust_sts_cd = '105001' /*정상*/
-            and ecm.cust_clsf_cd = #{cust_clsf_sh} /* 참관/참여 */
+              from ev_cust_mst ecm
+              left outer join ev_comm_code ecc
+                on ecm.category1 = ecc.cd_id
+              left outer join ev_cust_badge ecb
+                on ecm.cust_id = ecb.cust_id
+               and ecb.ev_expo_id = #{ev_expo_id}
+             where ecm.cust_sts_cd = '105001' /*정상*/
+               and ecm.cust_clsf_cd = #{cust_clsf_sh} /* 참관/참여 */
 
             <if test="category_sh != null and category_sh != ''">
                 and exists (select 1
@@ -295,6 +298,7 @@
                 , date_format(max(ins_dtm) , '%Y-%m-%d') as ins_dt
             from ev_cust_badge
            where ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+             and ev_expo_id = #{ev_expo_id}
             group by give_cust_id
         )
         select ROW_NUMBER() OVER(ORDER BY ecm.cust_nm asc) as rn
@@ -304,10 +308,15 @@
             , nvl((select tot_rcv from cust_badge ecb where give_cust_id = ecm.cust_id),0) as tot_rcv
             , nvl((select tot_recall from cust_badge ecb where give_cust_id = ecm.cust_id),0) as tot_recall
             , (select ins_dt from cust_badge ecb where give_cust_id = ecm.cust_id) as ins_dt
+            , (select concat(expo_consult_from_dt,'~', expo_consult_to_dt) from ev_expo ee where ev_expo_id = #{ev_expo_id}) as expo_consult_prod
         from ev_cust_mst ecm
         where ecm.cust_sts_cd   = '105001' /*정상*/
         and ecm.cust_clsf_cd    = #{cust_clsf_sh}
         and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+
+        <if test="cust_clsf_sh == '202002'">
+            and exists (select 1 from ev_expo_customer where ev_expo_id = #{ev_expo_id} and cust_id = ecm.cust_id)
+        </if>
 
         <if test="category_sh != null and category_sh != ''">
         and ecm.category1 	    = #{category_sh}
@@ -317,15 +326,21 @@
         and exists (select 1 from ev_comm_code where cd_id = ecm.category1 and cd_nm like concat('%',#{category_nm_sh},'%'))
         </if>
 
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
     </select>
 
     <select id="S06_BADGE_SH2_COUNT" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto">
 
         select count(*) as row_count
-        from ev_cust_mst ecm
-        where ecm.cust_sts_cd   = '105001' /*정상*/
-        and ecm.cust_clsf_cd    = #{cust_clsf_sh}
-        and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+          from ev_cust_mst ecm
+         where ecm.cust_sts_cd   = '105001' /*정상*/
+           and ecm.cust_clsf_cd    = #{cust_clsf_sh}
+           and ecm.ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
+
+        <if test="cust_clsf_sh == '202002'">
+            and exists (select 1 from ev_expo_customer where ev_expo_id = #{ev_expo_id} and cust_id = ecm.cust_id)
+        </if>
 
         <if test="category_sh != null and category_sh != ''">
             and ecm.category1 	    = #{category_sh}

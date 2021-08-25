@@ -79,12 +79,28 @@
                   <input type="hidden" name="page_current" id="page_current"/>
                   <div class="form-row align-items-center pb-2">
                       <div class="col-2 text-center form-control-sm">
+                        엑스포명
+                      </div>                  
+                      <div class="col">
+                        <div class="form-inline">
+
+                          <select class="form-control form-control-sm mb-2" id="ev_expo_id" name="ev_expo_id" style="width:100%">
+                            <c:forEach var="expoCdList" items="${expoCdList}">
+                              <option value="${expoCdList.ev_expo_id}" <c:if test="${expo_id eq expoCdList.ev_expo_id}">selected</c:if>>${expoCdList.ev_expo_nm}</option>
+                            </c:forEach>
+                          </select>
+
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-row align-items-center pb-2">
+                      <div class="col-2 text-center form-control-sm">
                         부스선택
                       </div>                  
                       <div class="col">
                         <div class="form-inline">
 
-                          <select class="form-control form-control-sm mb-2" id="cust_clsf_sh" name="cust_clsf_sh" style="width:7rem">
+                          <select class="form-control form-control-sm mb-2 mr-2" id="cust_clsf_sh" name="cust_clsf_sh" style="width:7rem">
                             <option value="202001" <c:if test="${cust_clsf_sh eq '' || cust_clsf_sh eq '202001'}">selected</c:if>>참관고객</option>
                             <option value="202002" <c:if test="${cust_clsf_sh eq '202002'}">selected</c:if>>참가고객</option>
                           </select>
@@ -104,7 +120,7 @@
                       </div>    
                       <div class="col">
                         <div class="form-inline">
-                          <input type="text" class="form-control form-control-sm mb-2" id="category_nm_sh" name="category_nm_sh" value="${category_nm_sh}">
+                          <input type="text" class="form-control form-control-sm mb-2" id="category_nm_sh" name="category_nm_sh" value="${category_nm_sh}" style="width:100%">
                         </div>
                       </div>
 
@@ -120,8 +136,9 @@
                           <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
                         </div>
                       </div>
-                      <div class="col-2 text-right">
-                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
+                      <div class="col-4 d-flex justify-content-end pr-2">
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2 mr-2" style="width: 6rem;" id="btnSearch">조회</button>
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnExcel">엑셀다운</button>
                       </div>                        
                   </div>                  
 
@@ -132,29 +149,31 @@
                     <thead class="table-light">
                       <tr>
                         <th scope="col" class="text-center" style="width:50px">번호</th>
-                        <th scope="col" class="text-center" style="width:110px">회원명</th>
+                        <th scope="col" class="text-left"   style="width:110px">회원명</th>
                         <th scope="col" class="text-center" style="width:80px">뱃지지급</th>
                         <th scope="col" class="text-center" style="width:80px">사용뱃지</th>
                         <th scope="col" class="text-center" style="width:80px">잔여뱃지</th>
                         <th scope="col" class="text-center" style="width:80px">피추천수</th>
-                        <th scope="col" class="text-center" style="width:80px">부여일</th>
+                        <th scope="col" class="text-left"   style="width:200px">사용기간</th>
+                        <th scope="col" class="text-left"   style="width:80px">부여일</th>
                       </tr>
                     </thead>
                     <tbody>
                       <c:forEach var="list" items="${list}">
                       <tr>
                         <td class="text-center">${list.rn}</td>
-                        <td class="text-center">${list.cust_nm}</td>
+                        <td class="text-left" style="white-space:pre-line;word-break: break-all;">${list.cust_nm}</td>
                         <td class="text-center">${list.tot_badge_paid_cnt}</td>
                         <td class="text-center">${list.tot_badge_use_cnt}</td>
                         <td class="text-center">${list.tot_badge_rmin_cnt}</td>
                         <td class="text-center">${list.tot_badge_rcmd_cnt}</td>
-                        <td class="text-center">${list.ins_dt}</td>
+                        <td class="text-left">${list.expo_consult_prod}</td>
+                        <td class="text-left">${list.ins_dt}</td>
                       </tr>   
                       </c:forEach>
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <th scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</th>
+                        <th scope="row" class="text-center" colspan="8">조회된 내용이 없습니다.</th>
                       </tr>
                       </c:if>                                                                                                                                                                                                                 
                     </tbody>
@@ -164,27 +183,29 @@
                     <thead class="table-light">
                       <tr>
                         <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-center">회원명</th>
+                        <th scope="col" class="text-left">회원명</th>
                         <th scope="col" class="text-center">총뱃지</th>
                         <th scope="col" class="text-center">뱃지부여</th>
                         <th scope="col" class="text-center">뱃지회수</th>
-                        <th scope="col" class="text-center">부여일</th>
+                        <th scope="col" class="text-left"   style="width:200px">사용기간</th>
+                        <th scope="col" class="text-left">부여일</th>
                       </tr>
                     </thead>
                     <tbody>
                       <c:forEach var="list" items="${list}">
                       <tr>
                         <td class="text-center">${list.rn}</td>
-                        <td class="text-center">${list.cust_nm}</td>
+                        <td class="text-left" style="white-space:pre-line;word-break: break-all;">${list.cust_nm}</td>
                         <td class="text-center">${list.tot_badge}</td>
                         <td class="text-center">${list.tot_rcv}</td>
                         <td class="text-center">${list.tot_recall}</td>
-                        <td class="text-center">${list.ins_dt}</td>
+                        <td class="text-left">${list.expo_consult_prod}</td>
+                        <td class="text-left">${list.ins_dt}</td>
                       </tr>   
                       </c:forEach>
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <th scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</th>
+                        <th scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</th>
                       </tr>
                       </c:if>                                                                                                                                                                                                                 
                     </tbody>

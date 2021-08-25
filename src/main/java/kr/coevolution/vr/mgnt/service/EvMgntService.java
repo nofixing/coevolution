@@ -417,4 +417,13 @@ public class EvMgntService {
     public int expo_use_yn_update  (EvMgntExpoRequestDto param) {
         return mgntUserInfoMapper.U14(param);
     }
+
+    /**
+     * 엑스포전체리스트 (콤보용)
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> expo_all_list (EvMgntExpoRequestDto param) {
+        return mgntUserInfoMapper.S15(param);
+    }
 }

@@ -647,4 +647,18 @@
          where use_yn   = 'Y'
     </update>
 
+    <select id="S15" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto">
+
+        select ev_expo_id, ev_expo_nm, apct_prod_from_dt, apct_prod_to_dt, expo_from_dt, expo_from_hrm, expo_to_dt, expo_to_hrm, expo_consult_from_dt, expo_consult_to_dt, use_yn
+          from ev_expo ee
+         where 1 = 1
+
+        <if test="use_yn != null and use_yn != ''">
+            and use_yn   = #{use_yn}
+        </if>
+
+        order by ee.expo_from_dt
+
+    </select>
+
 </mapper>

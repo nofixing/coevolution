@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class EvMypageBadgeRequestDto {
+    private String ev_expo_id;
     private String cust_id;
     private String give_cust_id;
     private String user_id;

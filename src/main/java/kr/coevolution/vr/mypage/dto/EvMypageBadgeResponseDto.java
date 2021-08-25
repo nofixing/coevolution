@@ -21,6 +21,7 @@ public class EvMypageBadgeResponseDto {
     private int tot_badge;  /* 개인이 보유하고 있는 뱃지 개수 */
     private int sum_badge_cnt; /* 기업에서 받은 뱃지 개수 */
     private int cust_tot_badge; /* 고객이 가지고 있는 총 뱃지 개수 */
+    private String expo_consult_prod;   /* 엑스포상담기간 */
 
     private int tot_badge_paid_cnt;     /* 지급뱃지 */
     private int tot_badge_use_cnt;      /* 사용뱃지 */

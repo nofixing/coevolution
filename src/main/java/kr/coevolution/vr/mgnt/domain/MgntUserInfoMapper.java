@@ -234,4 +234,11 @@ public interface MgntUserInfoMapper {
      */
     public int U14(EvMgntExpoRequestDto param);
 
+    /**
+     * 엑스포 리스트
+     * @param param
+     * @return
+     */
+    public List<EvMgntExpoResponseDto> S15(EvMgntExpoRequestDto param);
+
 }
