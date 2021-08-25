@@ -292,9 +292,9 @@
 
         with cust_badge as (
             select give_cust_id
-                , sum(badge_cnt) as tot_cnt
-                , sum(case when badge_cnt > 0 then badge_cnt else 0 end) as tot_rcv
-                , abs(sum(case when badge_cnt <![CDATA[ < ]]> 0 then badge_cnt else 0 end)) as tot_recall
+                , sum(badge_cnt) * -1 as tot_cnt
+                , abs(sum(case when badge_cnt <![CDATA[ < ]]> 0 then badge_cnt else 0 end)) as tot_rcv
+                , abs(sum(case when badge_cnt > 0 then badge_cnt else 0 end)) as tot_recall
                 , date_format(max(ins_dtm) , '%Y-%m-%d') as ins_dt
             from ev_cust_badge
            where ins_dtm between #{ins_dt_fr} and #{ins_dt_to} /* 날짜검색조건 */
