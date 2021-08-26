@@ -32,7 +32,7 @@ public class CoevolutionLogInterceptor implements HandlerInterceptor {
 
             //한/영 전환시 페이지 유지를 위해 메뉴 목록을 관리한다.
             String[] menuList = new String[]{
-                      "/ieve2021","/index/guide","/index/ieve2021"
+                      "/ieve2021","/index/guide","/index/ieve2021","/member/join_form1","/member/join_form2"
                     , "/mgnt/badge","/mgnt/conslt","/mgnt/conslt_list","/mgnt/m_member_search","/mgnt/m_corp_search","/mgnt/user","/mgnt/expo","/mgnt/expo_exhibitors","/mgnt/booth","/mgnt/access","/mgnt/code"
                     , "/mypage/myc01","/mypage/favortscorp","/mypage/badgecorp","/mypage/conslt_list","/mypage/consltset","/mypage/myc07","/mypage/myc08","/mypage/myc05","/mypage/myp05","/mypage/myp06","/mypage/myp07"
                     , "/mypage/favorts","/mypage/badge","/mypage/conslt_list","/mypage/myp08","/mypage/myp09","/mypage/myp10","/mypage/myp04","/mypage/myp05","/mypage/myp06","/mypage/myp07"
