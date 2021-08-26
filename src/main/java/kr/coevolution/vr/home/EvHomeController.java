@@ -924,8 +924,13 @@ public class EvHomeController {
     @RequestMapping(value = "/index/lang", method = RequestMethod.GET)
     public String lang(Locale locale, HttpServletRequest request, Model model) {
 
+        String return_url = "index";
+
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute("LANG", request.getParameter("lang"));
+
+        //최종접속url로 이동한다.
+        String last_access_url = StringUtils.nvl(httpSession.getAttribute("last_access_url"),"");
 
         // RequestMapingHandler로 부터 받은 Locale 객체를 출력해 봅니다.
         model.addAttribute("clientLocale", locale);
@@ -936,7 +941,11 @@ public class EvHomeController {
         // JSP 페이지에서 EL 을 사용해서 arguments 를 넣을 수 있도록 값을 보낸다.
         //model.addAttribute("siteCount", messageSource.getMessage("msg.first", null, locale));
 
-        return "index";
+        if(!last_access_url.equals("")) {
+            return_url = "redirect:"+last_access_url;
+        }
+
+        return return_url;
     }
 
     /**

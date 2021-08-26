@@ -41,10 +41,10 @@ $(document).ready(function() {
 	$('#btn_corp_product').on('click', function () {
 		/* 제품소개 */
 		fileNowCnt = imgCnt("102009");
-		fileNowMaxCnt = 5;
+		fileNowMaxCnt = 10;
 
-		if(fileNowCnt >= 5) {
-			alert("제품 소개는 5개까지 등록 가능합니다.");
+		if(fileNowCnt >= 10) {
+			alert("제품 소개는 10개까지 등록 가능합니다.");
 		} else {
 			showFileModal("102009");
 			setValue("file_clsf_dtl_cd","102009");
@@ -54,10 +54,10 @@ $(document).ready(function() {
 	$('#btnGallery').on('click', function () {
 		/* 갤러리 */
 		fileNowCnt = imgCnt("102010");
-		fileNowMaxCnt = 5;
+		fileNowMaxCnt = 10;
 
-		if(fileNowCnt >= 5) {
-			alert("갤러리는 5개까지 등록 가능합니다.");
+		if(fileNowCnt >= 10) {
+			alert("갤러리는 10개까지 등록 가능합니다.");
 		} else {
 			showFileModal("102010");
 			setValue("file_clsf_dtl_cd","102010");

@@ -20,6 +20,11 @@
         word-wrap: break-word;
         list-style-position:inside;
       }
+
+      .li_txt_line_active {
+        font-weight: bold;
+      }
+
     </style>
 
   </head>
@@ -248,7 +253,7 @@
                 <div class="col-sm-3  border-right">
                   <ul class="pl-4 basic-tab">
                     <c:forEach var="prod" items="${prodList}" varStatus="status">
-                    <li class="li_txt_line"><a href="javascript:doPdfViewer('/files${prod.file_path}')">${prod.org_file_name}</a></li>
+                    <li class="li_txt_line <c:if test='${status.index eq 0}'>li_txt_line_active</c:if>"><a href="javascript:doPdfViewer('/files${prod.file_path}')">${prod.org_file_name}</a></li>
                     </c:forEach>
                   </ul>
                 </div>
@@ -265,10 +270,10 @@
                   <ul class="pl-4 basic-tab">
                     <c:forEach var="gallery" items="${galleryList}" varStatus="status">
                       <c:if test="${status.index eq 0}">
-                        <li class="li_txt_line" data-target="#carouselExampleControls" data-slide-to="${status.index}"><a href="#!" >${gallery.org_file_name}</a></li> <!-- class="on"-->
+                        <li class="li_txt_line <c:if test='${status.index eq 0}'>li_txt_line_active</c:if>" onClick="galleryClick('${status.index}')" id="galleryList${status.index}" data-target="#carouselExampleControls" data-slide-to="${status.index}"><a href="#!" >${gallery.org_file_name}</a></li> <!-- class="on"-->
                       </c:if>
                       <c:if test="${status.index ne 0}">
-                        <li class="li_txt_line" data-target="#carouselExampleControls" data-slide-to="${status.index}"><a href="#!" >${gallery.org_file_name}</a></li>
+                        <li class="li_txt_line" data-target="#carouselExampleControls" onClick="galleryClick('${status.index}')" id="galleryList${status.index}"  data-slide-to="${status.index}"><a href="#!" >${gallery.org_file_name}</a></li>
                       </c:if>                      
                     </c:forEach>
                   </ul>

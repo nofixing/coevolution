@@ -30,6 +30,14 @@ public class CoevolutionLogInterceptor implements HandlerInterceptor {
         try {
             String ip = StringUtils.getRemoteIP(request);
 
+            //한/영 전환시 페이지 유지를 위해 메뉴 목록을 관리한다.
+            String[] menuList = new String[]{
+                      "/ieve2021","/index/guide","/index/ieve2021"
+                    , "/mgnt/badge","/mgnt/conslt","/mgnt/conslt_list","/mgnt/m_member_search","/mgnt/m_corp_search","/mgnt/user","/mgnt/expo","/mgnt/expo_exhibitors","/mgnt/booth","/mgnt/access","/mgnt/code"
+                    , "/mypage/myc01","/mypage/favortscorp","/mypage/badgecorp","/mypage/conslt_list","/mypage/consltset","/mypage/myc07","/mypage/myc08","/mypage/myc05","/mypage/myp05","/mypage/myp06","/mypage/myp07"
+                    , "/mypage/favorts","/mypage/badge","/mypage/conslt_list","/mypage/myp08","/mypage/myp09","/mypage/myp10","/mypage/myp04","/mypage/myp05","/mypage/myp06","/mypage/myp07"
+            };
+
             /* 172.31.*.* aws 서버 */
             if(!ip.startsWith("172.31")) {
                 EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
@@ -53,6 +61,22 @@ public class CoevolutionLogInterceptor implements HandlerInterceptor {
                 vMap.put("access_info", request.getRequestURI() + "?"+access_param);
 
                 evCommCodeService.access_log_insert(vMap);
+
+                if("/mgnt/terms_list".equals(request.getRequestURI())) {
+                    if(access_param.indexOf("101006") >= 0) {
+                        httpSession.setAttribute("last_access_url", "/mgnt/terms_list?t=101006");
+                    } else if(access_param.indexOf("101007") >= 0) {
+                        httpSession.setAttribute("last_access_url", "/mgnt/terms_list?t=101007");
+                    } else if(access_param.indexOf("101009") >= 0) {
+                        httpSession.setAttribute("last_access_url", "/mgnt/terms_list?t=101009");
+                    }
+                } else {
+                    for(String str : menuList) {
+                        if(str.equals(request.getRequestURI())) {
+                            httpSession.setAttribute("last_access_url", str);
+                        }
+                    }
+                }
             }
 
         } catch (Exception e) {

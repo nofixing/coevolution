@@ -255,7 +255,7 @@
                           <tr -->
                             <th>제품소개</th>
                             <td colspan="3">
-                              <div class="col-sm-12 input-group-text border-0 bg-white">
+                              <div class="col-sm-12 border-0 bg-white">
                                 <button type="button" class="basic-btn" id="btn_corp_product">파일선택</button>
                                 <div id="corpProduct" class="col-sm-auto input-group-text border-0 bg-white"></div>
                               </div>
@@ -264,7 +264,7 @@
                           <tr>
                             <th rowspan="3">갤러리</th>
                             <td colspan="3">
-                              <div class="col-sm-12 input-group-text border-0 bg-white">
+                              <div class="col-sm-12 border-0 bg-white">
                                 <button type="button" class="basic-btn" id="btnGallery">파일선택</button>
                                 <div id="corpGallery" class="col-sm-auto input-group-text border-0 bg-white"></div>
                               </div>

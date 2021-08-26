@@ -9,6 +9,9 @@
  * Script 설정
  */
 var lComm;
+var galleryCnt = 0;
+var galleryTotCnt = "${fn:length(galleryList)}";
+
 $(document).ready(function() {
 	//초기 값 설정
 	lComm = new gfnComm();
@@ -18,7 +21,26 @@ $(document).ready(function() {
     var urlQs = $(location).attr("search");
     var urlAnchor = $(location).attr("hash");
     var returnUrl = urlPath + urlQs + urlAnchor;
-	
+
+
+    var select_blod = $("ul > li");    //  ul > li 이를 sBtn으로 칭한다. (클릭이벤트는 li에 적용 된다.)
+    select_blod.find("a").click(function() {   // sBtn에 속해 있는  a 찾아 클릭 하면.
+        select_blod.removeClass("li_txt_line_active");     // sBtn 속에 (active) 클래스를 삭제 한다.
+        $(this).parent().addClass("li_txt_line_active"); // 클릭한 a에 (active)클래스를 넣는다.
+    });
+
+    $('#carouselExampleControls').on('slide.bs.carousel', function () {
+        
+        lComm.setCssRemove("galleryList"+galleryCnt, "li_txt_line_active");
+
+        galleryCnt++;
+        if(galleryTotCnt <= galleryCnt) {
+            galleryCnt = 0;
+        }
+        
+        lComm.setCssAdd("galleryList"+galleryCnt, "li_txt_line_active");
+    })
+    
 	//즐겨찾기
 	$('#corpFavorit').on('click', function () {
 
@@ -115,6 +137,11 @@ $(document).ready(function() {
     }
 
 });
+
+function galleryClick(idx) {
+    lComm.setCssRemove("galleryList"+galleryCnt, "li_txt_line_active");
+    galleryCnt = idx-1;
+}
 
 function insertLog(param) {
 
