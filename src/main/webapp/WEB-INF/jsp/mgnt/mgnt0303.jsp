@@ -158,6 +158,7 @@
                               <th>카테고리</th>
                               <td>
                                   <select name="category1" class="custom-select-sm col-lg-6" style="height:32px" id="category1"></select>
+                                  <select name="category2" class="custom-select-sm col-lg-6 mt-2" style="height:32px" id="category2"></select>
                               </td>
                           </tr>                                               
                           <tr>

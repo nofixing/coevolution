@@ -1859,6 +1859,8 @@ public class EvMypageConsltController {
                 evMypageConsultRequestDto.setSh_consult_to_dt(strDt);
             }
 
+            evMypageConsultRequestDto.setLang(StringUtils.nvl(httpSession.getAttribute("LANG"),"ko"));
+
             /* 참가업체 상담리스트 */
             List<EvMypageConsultScheduleResponseDto> list = evMypageConsultService.consult_visit_list(evMypageConsultRequestDto);
             List<EvMypageConsultScheduleResponseDto> listCount = evMypageConsultService.consult_visit_list_count(evMypageConsultRequestDto);

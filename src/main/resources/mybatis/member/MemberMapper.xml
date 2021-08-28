@@ -526,6 +526,8 @@
             , rep_nm            = #{rep_nm}
             , country_cd        = #{country_cd}
             , category1         = #{category1}
+            , category2         = #{category2}
+            , category3         = #{category3}
             , mod_user          = #{user_id}
             , mod_dtm           = NOW()
         WHERE cust_id           = #{cust_id}

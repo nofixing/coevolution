@@ -28,13 +28,13 @@ $(document).ready(function() {
         
         /* 필수항목 체크 */
         var chk = '['
-            + '  {"id":"board_subject","name":"제목"} '
-            + ', {"id":"board_content","name":"내용"} ';
+            + '  {"id":"board_subject","name":"제목","name2":"Title","lang":"${sessionScope.LANG}"} '
+            + ', {"id":"board_content","name":"내용","name2":"Content","lang":"${sessionScope.LANG}"} ';
         chk += ']';
 
         var jsonCheck = JSON.parse(chk);
 
-        if(!lComm.fnRequiredItems(jsonCheck)) {
+        if(!lComm.fnRequiredItems2(jsonCheck)) {
             return false;
         }
 
@@ -49,16 +49,16 @@ $(document).ready(function() {
         sendForm("POST", "/vr/conslt/insert", "application/json; charset=utf-8", "json", pParamJson, function(message) {
 
             if(message == "parsererror") {
-                alert("로그아웃되었습니다.");
+                alert("<spring:message code='mypage.membe' text='로그아웃되었습니다.'/>");
                 document.location.href="/vr/vr_login_form";
             } else if(message.result_code == 0) {
                 alert("상담등록이 완료되었습니다.");
             } else {
                 if(message == undefined) {
-                    alert("로그인 후 사용할 수 있습니다.");
+                    alert("<spring:message code='mypage.member31=' text='로그인 후 사용할 수 있습니다.'/>");
                     document.location.href="/vr/vr_login_form";
                 } else {
-                    alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+                    alert("<spring:message code='join.form2' text='서버 오류입니다.'/>\r\n<spring:message code='join.form3' text='잠시 후 다시 진행하시기 바랍니다.'/>");
                 }
             }
 

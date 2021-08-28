@@ -217,11 +217,11 @@
                   <table class="table table-sm border-bottom basic-table-fix" id="tableList">
                     <thead>
                       <tr>
-                        <th class="text-center">번호</th>
-                        <th class="text-left">업체명</th>
-                        <th class="text-center">상담일시</th>
-                        <th class="text-center">상담상태</th>
-                        <th class="text-center">처리일시</th>
+                        <th class="text-center"><spring:message code="form.favorite.booths.no" text="번호"/></th>
+                        <th class="text-left"><spring:message code="form.meet.company.name" text="업체명"/></th>
+                        <th class="text-center"><spring:message code="form.meet.meeting.date" text="상담일시"/></th>
+                        <th class="text-center"><spring:message code="form.meet.meeting.status" text="상담상태"/></th>
+                        <th class="text-center"><spring:message code="fform.meet.meeting.processed.date" text="처리일시"/></th>
                       </tr>               
                     </thead>
                     <tbody id="codeList">

@@ -102,13 +102,10 @@ function fnSearch() {
 
 /* 추천인 검색 */
 function fnRrcmderCustId() {
-	var chk = '['
-		+ '  {"id":"rcmder_cust_id","name":"추천인(ID)","name2":"Recommender(ID)","lang":"${sessionScope.LANG}"}';
-	chk += ']';
 
-	var jsonCheck = JSON.parse(chk);
-
-	if(!lComm.fnRequiredItems2(jsonCheck)) {
+	if(lComm.isNull(getValue("rcmder_cust_id"))) {
+		alert("<spring:message code='join_form3.please.enter.recommender' text='추천인(ID)를 입력해주세요.'/>");
+		lComm.setFocus("rcmder_cust_id");
 		return false;
 	}
 
@@ -124,11 +121,13 @@ function fnRrcmderCustId() {
 
 		if(message.result_code == 0) {
 			if(message.dup_yn == "Y") {
-                alert(getValue("rcmder_cust_id") + "<spring:message code='join.form8' text='은 추천인(ID)로 등록 가능합니다.'/>");
-
-				/* ID 중복체크여부 임시저장 */
-				lfnPutObj(lDataObjectPutGet, "rcmder_cust_id", getValue("rcmder_cust_id"));
-
+				if(confirm(getValue("rcmder_cust_id") + " <spring:message code='join.form8' text='은 추천인(ID)로 등록 가능합니다.'/>\r\n<spring:message code='join.form38' text='추천인(ID)로 등록하시겠습니까?'/>")) {
+					/* ID 중복체크여부 임시저장 */
+					lfnPutObj(lDataObjectPutGet, "rcmder_cust_id", getValue("rcmder_cust_id"));
+				} else {
+					lfnPutObj(lDataObjectPutGet, "rcmder_cust_id", "");
+					setValue("rcmder_cust_id","");
+				}
 			} else {
                 alert("<spring:message code='join.form9' text='추천인ID를 정확하게 다시 입력해주세요.'/>");
 				lComm.setFocus("cust_id");

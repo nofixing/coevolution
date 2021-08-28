@@ -47,6 +47,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
         logger.info("CustomOAuth2UserService loadUser is called");
+        /* 거부된 권한을 감지하려면 다음과 같이 그래프 API의 User 개체에서 permissions 에지를 호출할 수 있습니다.
+           https://graph.facebook.com/me/permissions?access_token=USER_ACCESS_TOKEN */
 
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);

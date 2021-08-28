@@ -113,10 +113,13 @@ function fnSearch() {
 			setSelectOption("country_cd", message.countrylist);
 
 			/* 카테고리1 */  
-			setSelectOption("category1", message.category1, "", "선택");			
+			setSelectOption("category1", message.category1, "", "선택");	
+
+			/* 카테고리2 */  
+			setSelectOption("category2", message.category1, "", "선택");			
 
 			/* 필드값입력 */
-			var pFieldArry = ["cust_id","cust_nm","email_id","tel_no","hp_no","dept_nm","rep_nm","country_cd","category1","ins_dt","cust_sts_nm"];
+			var pFieldArry = ["cust_id","cust_nm","email_id","tel_no","hp_no","dept_nm","rep_nm","country_cd","category1","category2","ins_dt","cust_sts_nm"];
 			gfnSetField(message.custInfo[0], pFieldArry);
 
 			var corp_url = message.vr_corpinfo_url;

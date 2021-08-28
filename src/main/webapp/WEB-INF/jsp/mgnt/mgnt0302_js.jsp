@@ -56,8 +56,12 @@ function fnSearch() {
 			/* 카테고리1 */  
 			setSelectOption("category1", message.category1, "", "선택");
 
+			/* 카테고리2 */  
+			setSelectOption("category2", message.category1, "", "선택");
+
 			setValue("country_cd", "212029");
 			setValue("category1", "");
+			setValue("category2", "");
 
 		} else {
 			if(message.session_yn == "N") {
