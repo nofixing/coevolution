@@ -1795,11 +1795,14 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
         margin-top:50px;
     }
     .guide-pdf{
-        display:block;
+        justify-content: space-between;
+        margin-bottom: 20px;
     }
     .guide-pdf a{
+        flex:0 0 calc(48%);
+        height:100%;
         margin:0;
-        width:100%;
+        word-break:keep-all;
     }
     .guide-pdf a:nth-of-type(1){
         margin-bottom:10px;
@@ -1875,4 +1878,99 @@ html:lang(en) .member .join-form-area .form-box .join-form-tb .tb-tr .tb-td .chk
 	border-bottom: 0;
 	margin-top: -0.25em;
 	margin-right: -0.5em;
+}
+
+.admin-form .form_head small{
+    display:block;
+    font-size:16px;
+}
+
+.admin-form .login_form_btn p{
+    margin-top:30px;
+    letter-spacing: -1px;
+    text-align:center;
+}
+
+.form-search table{
+    width:100%;
+}
+.form-search-1{
+    width:15%;
+}
+.form-search-2{
+    width:20%;
+}
+.form-search-3{
+    width:20%;
+}
+.form-search-4{
+    width:45%;
+}
+.form-search table th{
+    background-color: rgba(0,0,0,.05);
+    border:1px solid #dedede;
+    box-sizing:border-box;
+    text-align:center;
+}
+.form-search table td{
+    border:1px solid #dedede;
+    box-sizing:border-box;
+    padding:5px;
+}
+.form-search table td select{
+    width:100%;
+    padding:7px;
+    box-sizing:border-box;
+    border:1px solid #dedede;
+    height:41px;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+.form-search table td input[type=date]{
+    max-width:150px;
+    width:100%;
+    margin-bottom:0;
+    border:1px solid #dedede;
+    box-sizing:border-box;
+    height:41px;
+}
+.form-search table td input[type=text]{
+    width:100%;
+    padding:7px;
+    box-sizing:border-box;
+    border:1px solid #dedede;
+}
+
+.form-search-btn{
+    margin-top:10px;
+    text-align:center;
+}
+.form-search button{
+    padding:5px 15px;
+    box-sizing:border-box;
+    background:rgb(0, 137, 208);
+    box-shadow:1px 1px 5px rgba(0,0,0,0.05);
+    color: #fff;
+    border: 0;
+}
+
+.board .excel-download{
+    float:right;
+    border:1px solid #dedede;
+    padding:5px 30px;
+    box-sizing:border-box;
+    margin-bottom:20px;
+}
+.board-btn{
+    text-align:right;
+}
+.board-btn a{
+    display:inline-block;
+    padding:5px 15px;
+    box-sizing:border-box;
+    background:rgb(0, 137, 208);
+    box-shadow:1px 1px 5px rgba(0,0,0,0.05);
+    color: #fff;
+    border: 0;
 }
