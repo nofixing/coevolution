@@ -408,13 +408,11 @@ public class EvHomeController {
                 String[] email_id = user.getEmail().split("@");
                 model.addAttribute("email_id1", email_id[0]);
                 model.addAttribute("email_id2", email_id[1]);
-                //return "/member/join_form31";
+                return "/member/join_form31";
             } else {
-                //return "/member/join_form3";
+                return "/member/join_form3";
             }
         }
-
-        return "/member/join_form31";
     }
 
     /**
@@ -911,9 +909,16 @@ public class EvHomeController {
     }
 
     @RequestMapping("/m.do")
-    public String mgny_log(Model model) {
+    public String mgny_log(Model model, HttpSession session) {
 
-        return "/mgnt/login";
+        String return_url = "/mgnt/login";
+        EvMemberLoginInfoDto evMemberLoginInfoDto = (EvMemberLoginInfoDto)session.getAttribute(StringUtils.login_mgnt_session);
+
+        if(evMemberLoginInfoDto != null && !"".equals(evMemberLoginInfoDto.getCust_id())) {
+            return_url = "redirect:/mgnt/badge";
+        }
+
+        return return_url;
     }
 
     /**
