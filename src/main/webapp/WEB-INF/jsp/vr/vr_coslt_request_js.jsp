@@ -78,7 +78,7 @@ function scheduleClick(pScheduleId, pConsultRsvStatCd) {
 	<c:if test="${sessionScope.login_session.cust_id eq null || sessionScope.login_session.cust_id eq ''}">
 		//로그인정보없음
 		if(confirm("<spring:message code='mypage.member31' text='로그인 후 사용할 수 있습니다.'/>\r\n<spring:message code='mypage.member32' text='로그인하시겠습니까?'/>")) {
-			parent.document.location.href="/vr/vr_login_form";
+			document.location.href="/vr/vr_login_form";
 		} else {
 			return;
 		}
@@ -97,7 +97,7 @@ function scheduleClick(pScheduleId, pConsultRsvStatCd) {
 
 		if(message == "parsererror") {
             alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
-			parent.document.location.href="/vr/vr_login_form";
+			document.location.href="/vr/vr_login_form";
 		} else if(message.result_code == 0) {
 			
 			if(pConsultRsvStatCd == "215001" || pConsultRsvStatCd == "215002") {
@@ -131,7 +131,7 @@ function setRsvStatCd(pScheduleId, pConsultRsvStatCd) {
 	<c:if test="${sessionScope.login_session.cust_id eq null || sessionScope.login_session.cust_id eq ''}">
 		//로그인정보없음
 		if(confirm("로그인 후 사용할 수 있습니다.\r\n로그인하시겠습니까?")) {
-			parent.document.location.href="/vr/vr_login_form";
+			document.location.href="/vr/vr_login_form";
 		} else {
 			return;
 		}
@@ -148,7 +148,7 @@ function setRsvStatCd(pScheduleId, pConsultRsvStatCd) {
 
 		if(message == "parsererror") {
             alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
-			parent.document.location.href="/vr/vr_login_form";
+			document.location.href="/vr/vr_login_form";
 		} else if(message.result_code == 0) {
             
 			var msg = "";
@@ -197,7 +197,7 @@ function fnSndMsg(pSchedule_id, pMsg) {
 	<c:if test="${sessionScope.login_session.cust_id eq null || sessionScope.login_session.cust_id eq ''}">
 		//로그인정보없음
 		if(confirm("로그인 후 사용할 수 있습니다.\r\n로그인하시겠습니까?")) {
-			parent.document.location.href="/vr/vr_login_form";
+			document.location.href="/vr/vr_login_form";
 		} else {
 			return;
 		}
@@ -216,7 +216,7 @@ function fnSndMsg(pSchedule_id, pMsg) {
 
 		if(message == "parsererror") {
             alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
-			parent.document.location.href="/vr/vr_login_form";
+			document.location.href="/vr/vr_login_form";
 		} else if(message.result_code == 0) {
 
 			/* 메시지 전송 */
@@ -248,7 +248,7 @@ function fnTimeZoneSave() {
 	<c:if test="${sessionScope.login_session.cust_id eq null || sessionScope.login_session.cust_id eq ''}">
 		//로그인정보없음
 		if(confirm("로그인 후 사용할 수 있습니다.\r\n로그인하시겠습니까?")) {
-			parent.document.location.href="/vr/vr_login_form";
+			document.location.href="/vr/vr_login_form";
 		} else {
 			return;
 		}
@@ -263,7 +263,7 @@ function fnTimeZoneSave() {
 
 		if(message == "parsererror") {
             alert("<spring:message code='mypage.member' text='로그아웃되었습니다.'/>");
-			parent.document.location.href="/vr/vr_login_form";
+			document.location.href="/vr/vr_login_form";
 		} else if(message.result_code == 0) {
 			fnSearch();
 		} else {

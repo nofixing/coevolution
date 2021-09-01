@@ -1058,6 +1058,49 @@ public class EvHomeController {
     }
 
     /**
+     * 메뉴에 클릭 시 로그 입력
+     * @param id
+     * @param model
+     * @param session
+     */
+    @RequestMapping("/index/loginsert/{id}")
+    public String loginsertpost(@PathVariable String id, EvAccessMenuRequestDto evAccessMenuRequestDto, Model model, HttpSession session) {
+
+        try {
+            EvMemberLoginInfoDto cust = (EvMemberLoginInfoDto)session.getAttribute(StringUtils.login_session);
+
+            if(cust != null) {
+                evAccessMenuRequestDto.setAccess_cust_id(StringUtils.nvl(cust.getCust_id(),""));
+            } else {
+                evAccessMenuRequestDto.setAccess_cust_id("");
+            }
+
+            log.info("evAccessMenuRequestDto.getCd() : " + evAccessMenuRequestDto.getCd());
+
+            if("".equals(StringUtils.nvl(evAccessMenuRequestDto.getCd(),""))) {
+                evAccessMenuRequestDto.setAccess_menu_cd(id);
+            } else {
+                evAccessMenuRequestDto.setAccess_menu_cd(evAccessMenuRequestDto.getCd());
+            }
+
+            /* 고객순번 */
+            String c = evAccessMenuRequestDto.getC();
+            if(!"".equals(StringUtils.nvl(c,""))) {
+                Long cust_seq = SecureUtils.base62Decoding(c) / SecureUtils.vr_cust_seq_const;
+                evAccessMenuRequestDto.setPtcp_cust_seq(cust_seq);
+            }
+
+            /* 메뉴접속로그입력 */
+            evCommCodeService.menu_access_log_insert(evAccessMenuRequestDto);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "success";
+    }
+
+    /**
      * VR 로그인팝업
      * @param model
      * @return
