@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/index/*", "/css/**", "/images/**", "/image/**", "/js/**", "/h2/**", "/h2-console/**", "/assets/**", "/member/**").permitAll()
-                .antMatchers("/m.do","/email","/upload/**", "/mgnt/login","/files/**", "/comm/code","/zoom_use_yn").permitAll()
+                .antMatchers("/m.do","/email","/upload/**", "/mgnt/login","/files/**", "/comm/code","/zoom_use_yn","/mgnt/pwChg","/vr21/**").permitAll()
                 .antMatchers("/vr/vr_corp_sh","/vr/vr_login_form","/vr/vr_corp_form","/vr/vr_coslt_form","/vr/badge/insert","/vr/favorts/insert","/vr/login_popup","/vr/consltreq").permitAll()
                 .antMatchers("/google29c9c8f0fdf11de8.html").permitAll()
                 .antMatchers("/naver795c8a2f25ef1004cc8f916f7d73a7b8.html").permitAll()

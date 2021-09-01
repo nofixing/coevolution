@@ -16,11 +16,11 @@
     
   <!-- vr -->
   <c:if test="${sessionScope.LANG eq 'en'}">
-    <iframe id="iframe" src="/ieve2021/ieve2021_eng/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+    <iframe id="iframe" src="/vr21/en/ieve2021/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
   </c:if>
 
   <c:if test="${sessionScope.LANG ne 'en'}">
-    <iframe id="iframe" src="/ieve2021/ieve2021_kor/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+    <iframe id="iframe" src="/vr21/kor/ieve2021/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
   </c:if>
   
   </body>

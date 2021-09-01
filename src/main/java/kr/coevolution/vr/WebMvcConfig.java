@@ -115,10 +115,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * 이미지 절대경로를 상대경로로 매핑한다.
      */
     @Value("${file.upload.resource}") String resource;
+    @Value("${vr.resource}") String resource2;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/files/**")
                 .addResourceLocations(resource);
+
+        registry
+                .addResourceHandler("/vr21/**")
+                .addResourceLocations(resource2);
     }
 }
