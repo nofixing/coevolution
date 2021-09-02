@@ -21,9 +21,9 @@
                             </li>
                             <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                            <!--li>
-                                <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
-                            </li-->
+                            <li>
+                                <a href="javascript:event_click()"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
+                            </li>
                             </c:when>
                             </c:choose>
                         </ul>

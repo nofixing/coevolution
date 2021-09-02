@@ -30,6 +30,10 @@ $(document).ready(function() {
 	searchCode();
 });
 
+function event_click() {
+	alert("이벤트는 9/7(화) 오픈 예정입니다.\r\n많은 참여 부탁드립니다.");
+}
+
 /* 카테고리 코드 조회 */
 function searchCode() {
 

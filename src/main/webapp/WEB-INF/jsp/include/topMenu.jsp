@@ -106,12 +106,12 @@
                         </li>
                         <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                            <!--li> 
+                            <li> 
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                                 <div class="m-menu-list-sub">
-                                    <a href="#!">이벤트 참여하기</a>
+                                    <a href="javascript:event_click()">이벤트 참여하기</a>
                                 </div>
-                            </li -->
+                            </li>
                             </c:when>
                         </c:choose>
                         <c:choose>
@@ -331,14 +331,14 @@
                         </ul>
                         <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                        <!--ul>
+                        <ul>
                             <li>
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                             </li>
                             <li>
-                                <a href="#!">이벤트 참여하기</a>
+                                <a href="javascript:event_click()">이벤트 참여하기</a>
                             </li>
-                        </ul-->
+                        </ul>
                             </c:when>
                         </c:choose>
                         <ul>
@@ -427,11 +427,11 @@
                         </li>
                     <c:choose>
                         <c:when test="${sessionScope.LANG ne 'en'}">
-                        <!--li class="nav-item">
-                            <a href="#!" class="nav-link nav-item-font">
+                        <li class="nav-item">
+                            <a href="javascript:event_click()" class="nav-link nav-item-font">
                                 <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>
                             </a>
-                        </li-->
+                        </li>
                         </c:when>
                     </c:choose>
 
