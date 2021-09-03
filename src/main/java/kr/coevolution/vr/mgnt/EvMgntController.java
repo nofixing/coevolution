@@ -1,8 +1,6 @@
 package kr.coevolution.vr.mgnt;
 
-import kr.coevolution.vr.board.dto.EvBoardConsltResponseDto;
-import kr.coevolution.vr.board.dto.EvBoardSearchDto;
-import kr.coevolution.vr.board.dto.EvBoardTermsResponseDto;
+import kr.coevolution.vr.board.dto.*;
 import kr.coevolution.vr.board.service.EvBoardService;
 import kr.coevolution.vr.comm.dto.EvCommCodeRequestDto;
 import kr.coevolution.vr.comm.dto.EvCommCodeResponseDto;
@@ -105,40 +103,47 @@ public class EvMgntController {
 
             if(evMemberLoginInfoDtoList.size() == 1) {
 
-                /* sesstion 정보 입력 */
-                session.setAttribute(StringUtils.login_session, evMemberLoginInfoDtoList.get(0));
+                if("Y".equals(evMemberLoginInfoDtoList.get(0).getChange_yn())) {
+                    resposeResult.put("result_code", "-2");
+                    resposeResult.put("result_msg", "비밀번호를 변경해 주시기 바랍니다.");
+                } else {
 
-                /* sesstion 정보 입력 expo 정보 */
-                EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
-                evExpoRequestDtoDto.setCust_id(evMemberLoginInfoDtoList.get(0).getCust_id());
-                List<EvExpoResponseDto> expoInfoList =  evExpoService.expo_info_search(evExpoRequestDtoDto);
+                    /* sesstion 정보 입력 */
+                    session.setAttribute(StringUtils.login_mgnt_session, evMemberLoginInfoDtoList.get(0));
 
-                session.setAttribute(StringUtils.expo_info_session, expoInfoList.get(0));
+                    /* sesstion 정보 입력 expo 정보 */
+                    EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
+                    evExpoRequestDtoDto.setCust_id(evMemberLoginInfoDtoList.get(0).getCust_id());
+                    List<EvExpoResponseDto> expoInfoList = evExpoService.expo_info_search(evExpoRequestDtoDto);
 
-                UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(evMemberLoginRequestDto.getCust_nm(), userPw);
+                    session.setAttribute(StringUtils.expo_info_session, expoInfoList.get(0));
 
-                // Authenticate the user
-                Authentication authentication = authenticationManager.authenticate(authRequest);
-                SecurityContext securityContext = SecurityContextHolder.getContext();
-                securityContext.setAuthentication(authentication);
+                    UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(evMemberLoginRequestDto.getCust_nm(), userPw);
 
-                // Create a new session and add the security context.
-                session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+                    // Authenticate the user
+                    Authentication authentication = authenticationManager.authenticate(authRequest);
+                    SecurityContext securityContext = SecurityContextHolder.getContext();
+                    securityContext.setAuthentication(authentication);
 
-                //관리자 메뉴 리스트 조회
-                Map<String, String> pMap = new HashMap<String, String>();
-                pMap.put("mgnt_id", evMemberLoginInfoDtoList.get(0).getMgnt_id());
-                pMap.put("menu_lvel", "1"); //메뉴레벨1
-                List<Map<String, String>> userMenuList1 = evMgntService.mgnt_user_menu_list(pMap);
-                session.setAttribute("MGNT_MENU_LEVL1", userMenuList1);
+                    // Create a new session and add the security context.
+                    session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 
-                pMap.put("menu_lvel", "2"); //메뉴레벨2
-                List<Map<String, String>> userMenuList2 = evMgntService.mgnt_user_menu_list(pMap);
-                session.setAttribute("MGNT_MENU_LEVL2", userMenuList2);
+                    //관리자 메뉴 리스트 조회
+                    Map<String, String> pMap = new HashMap<String, String>();
+                    pMap.put("mgnt_id", evMemberLoginInfoDtoList.get(0).getMgnt_id());
+                    pMap.put("menu_lvel", "1"); //메뉴레벨1
+                    List<Map<String, String>> userMenuList1 = evMgntService.mgnt_user_menu_list(pMap);
+                    session.setAttribute("MGNT_MENU_LEVL1", userMenuList1);
 
-                resposeResult.put("cust_clsf_cd", evMemberLoginInfoDtoList.get(0).getCust_clsf_cd());
-                resposeResult.put("result_code", "0");
-                resposeResult.put("result_msg", "성공!!");
+                    pMap.put("menu_lvel", "2"); //메뉴레벨2
+                    List<Map<String, String>> userMenuList2 = evMgntService.mgnt_user_menu_list(pMap);
+                    session.setAttribute("MGNT_MENU_LEVL2", userMenuList2);
+
+                    resposeResult.put("cust_clsf_cd", evMemberLoginInfoDtoList.get(0).getCust_clsf_cd());
+                    resposeResult.put("result_code", "0");
+                    resposeResult.put("result_msg", "성공!!");
+                }
+
             } else {
                 resposeResult.put("result_code", "-1");
                 resposeResult.put("result_msg", "로그인정보가 정확하지 않습니다.");
@@ -183,7 +188,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
             EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
 
             evMypageBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
@@ -298,7 +303,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
         EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
 
         evMypageBadgeRequestDto.setUser_id(loginInfoDto.getCust_id());
@@ -472,7 +477,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date nDt = new Date();
@@ -547,7 +552,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             model.addAttribute("board_id", evBoardSearchDto.getBoard_id());
             model.addAttribute("page_clsf", "mgnt02");
@@ -580,7 +585,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
             evMgntMemberRequestDto.setCust_id(loginInfoDto.getCust_id());
@@ -672,7 +677,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
         evMgntMemberRequestDto.setCust_id(loginInfoDto.getCust_id());
@@ -779,7 +784,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             model.addAttribute("page_clsf", "mgnt0301");
 
@@ -807,7 +812,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             model.addAttribute("page_clsf", "mgnt0301");
             model.addAttribute("cust_id", request.getParameter("cust_id"));
@@ -838,10 +843,10 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),"")) || !"202003".equals(loginInfoDto.getCust_clsf_cd())) {
-            httpSession.removeAttribute(StringUtils.login_session);
+            httpSession.removeAttribute(StringUtils.login_mgnt_session);
             resposeResult.put("session_yn", "N");
             resposeResult.put("result_code", "-9999");
             resposeResult.put("result_msg", "세션정보없음");
@@ -910,10 +915,10 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),"")) || !"202003".equals(loginInfoDto.getCust_clsf_cd())) {
-            httpSession.removeAttribute(StringUtils.login_session);
+            httpSession.removeAttribute(StringUtils.login_mgnt_session);
             resposeResult.put("session_yn", "N");
             resposeResult.put("result_code", "-9999");
             resposeResult.put("result_msg", "세션정보없음");
@@ -960,7 +965,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
             evMemberSearchDto.setCust_id(evMypageCustCorpInfoRequestDto.getFile_cust_id());
@@ -1007,7 +1012,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
             EvMemberLoginRequestDto evMemberLoginRequestDto = new EvMemberLoginRequestDto();
 
             /* cust_id를 비밀번호로 변경한다 - 초기화 */
@@ -1053,7 +1058,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
             evMgntMemberRequestDto.setCust_id(loginInfoDto.getCust_id());
@@ -1163,7 +1168,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
@@ -1244,7 +1249,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
             evMgntMemberRequestDto.setCust_id(loginInfoDto.getCust_id());
@@ -1370,7 +1375,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
 
@@ -1410,7 +1415,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             /* 등록자 입력 */
@@ -1451,7 +1456,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             /* 등록자 입력 */
@@ -1487,7 +1492,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             if(!evMgntMemberRequestDto.getMgnt_passwd1().equals(evMgntMemberRequestDto.getMgnt_passwd2())) {
@@ -1505,6 +1510,70 @@ public class EvMgntController {
             resposeResult.put("result_code", "0");
             resposeResult.put("result_msg", "성공!!");
 
+        } catch (Exception e) {
+            if("-1".equals(e.getMessage())) {
+                resposeResult.put("result_code", "-1");
+                resposeResult.put("result_msg", "비밀번호 오류!!");
+            } else {
+                resposeResult.put("result_code", "-99");
+                resposeResult.put("result_msg", "입력실패!!");
+            }
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 비밀번호변경
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/pwChg")
+    public Map<String,Object> mgnt_user_password_chagne2(@RequestBody EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+
+            EvMemberLoginRequestDto evMemberLoginRequestDto = new EvMemberLoginRequestDto();
+
+            if(evMgntMemberRequestDto.getTobe_passwd1().equals(evMgntMemberRequestDto.getBf_user_pw())) {
+                resposeResult.put("result_code", "-3");
+                resposeResult.put("result_msg", "기존 비밀번호와 동일합니다. 다른 비밀번호로 입력하세요.");
+            } else if(!evMgntMemberRequestDto.getTobe_passwd1().equals(evMgntMemberRequestDto.getTobe_passwd2())) {
+                    resposeResult.put("result_code", "-4");
+                    resposeResult.put("result_msg", "비밀번호를 정확히 입력하세요.");
+            } else {
+
+                /* 패스워드를 암호화하여 비교한다. */
+                String userPw = evMgntMemberRequestDto.getBf_user_pw();
+                userPw = SecureUtils.getSecurePassword(userPw);
+                evMemberLoginRequestDto.setUser_pw(userPw);
+                evMemberLoginRequestDto.setUser_id(evMgntMemberRequestDto.getUser_id());
+
+                List<EvMemberLoginInfoDto> evMemberLoginInfoDtoList = evMgntService.search_login(evMemberLoginRequestDto);
+
+                if (evMemberLoginInfoDtoList.size() == 1) {
+                    /* 비밀번호 암호화 */
+                    String mgnt_pw = String.valueOf(evMgntMemberRequestDto.getTobe_passwd1());
+                    mgnt_pw = SecureUtils.getSecurePassword(mgnt_pw);
+                    evMgntMemberRequestDto.setMgnt_pw(mgnt_pw);
+                    evMgntMemberRequestDto.setUser_id(evMgntMemberRequestDto.getUser_id());
+                    evMgntMemberRequestDto.setMgnt_id(evMgntMemberRequestDto.getUser_id());
+
+                    evMgntService.mgnt_user_passwd_change(evMgntMemberRequestDto);
+
+                    resposeResult.put("result_code", "0");
+                    resposeResult.put("result_msg", "성공!!");
+                } else {
+                    resposeResult.put("result_code", "-2");
+                    resposeResult.put("result_msg", "기존 비밀번호가 일치하지 않습니다.");
+                }
+            }
         } catch (Exception e) {
             if("-1".equals(e.getMessage())) {
                 resposeResult.put("result_code", "-1");
@@ -1600,7 +1669,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             String[] vField = new String[]{"cd_nm", "upper_cd_id", "cd_val1", "cd_val2", "cd_val3", "priority", "use_yn"};
@@ -1655,7 +1724,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             /* 공통코드 수정 */
@@ -1770,7 +1839,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             List<EvBoardTermsResponseDto> list = evBoardService.terms_detail(evBoardSearchDto);
@@ -1809,7 +1878,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
 
@@ -2017,7 +2086,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
 
@@ -2170,7 +2239,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             EvMemberSearchDto evMemberSearchDto = new EvMemberSearchDto();
@@ -2218,7 +2287,7 @@ public class EvMgntController {
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
             map.put("cust_sts_cd", "105001"); //정상
@@ -2255,7 +2324,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             evMgntExpoRequestDto.setUser_id(loginInfoDto.getCust_id());
 
@@ -2374,7 +2443,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             evMgntExpoRequestDto.setUser_id(loginInfoDto.getCust_id());
             evMgntExpoRequestDto.setExpo_from_hrm(evMgntExpoRequestDto.getExpo_from_hh()+":"+evMgntExpoRequestDto.getExpo_from_mm());
@@ -2414,7 +2483,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             List<EvMgntExpoResponseDto> list = evMgntService.expo_dtl(evMgntExpoRequestDto);
 
@@ -2449,7 +2518,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             evMgntExpoRequestDto.setUser_id(loginInfoDto.getCust_id());
 
@@ -2534,7 +2603,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             /* 참가고객리스트 */
             List<EvMgntExpoResponseDto> list = evMgntService.expo_cust_list(evMgntExpoRequestDto);
@@ -2576,7 +2645,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
             /* 참가고객리스트 */
             EvMgntExpoRequestDto evMgntExpoRequestDto = new EvMgntExpoRequestDto();
@@ -2626,7 +2695,7 @@ public class EvMgntController {
         try {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
-            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
             EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
 
             evMgntConsultRequestDto.setUser_id(loginInfoDto.getCust_id());
@@ -2699,4 +2768,308 @@ public class EvMgntController {
 
         return returnUrl;
     }
+
+    /**
+     * 이벤트관리
+     * @param evBoardSearchDto
+     * @param request
+     * @return
+     */
+    @RequestMapping("/mgnt/event")
+    public String mgnt_event_list(EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt1301";
+
+        try {
+            //이벤트관리 셋팅
+            evBoardSearchDto.setBoard_clsf_cd("101001"); 
+
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+
+            /* row 개수 */
+            evBoardSearchDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+            Long page_row_start = StringUtils.page_start_row(evBoardSearchDto.getPage_current(), StringUtils.page_row_cnt);
+            evBoardSearchDto.setPage_row_start(page_row_start);
+
+            if("".equals(StringUtils.nvl(evBoardSearchDto.getPage_current(),""))) {
+                evBoardSearchDto.setPage_current(1L);
+            }
+
+            model.addAttribute("page_current", String.valueOf(evBoardSearchDto.getPage_current()));  /* 현재페이지 */
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            Date nDt = new Date();
+
+            /* 최초 날짜가 null 인경우 */
+            if("".equals(StringUtils.nvl(evBoardSearchDto.getIns_dt_fr(),""))) {
+                Date ftDt = StringUtils.addMonth(nDt,-1);
+                String strDt = sf.format(ftDt);
+                evBoardSearchDto.setIns_dt_fr(strDt);
+            }
+
+            if("".equals(StringUtils.nvl(evBoardSearchDto.getIns_dt_to(),""))) {
+                Date toDt = StringUtils.addMonth(nDt,1);
+                String strDt = sf.format(toDt);
+                evBoardSearchDto.setIns_dt_to(strDt);
+            }
+
+            /* 이벤트 선택 리스트 */
+            EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+            evCommCodeRequestDto.setUpper_cd_id("108000");
+            evCommCodeRequestDto.setUse_yn("Y");
+            List<EvCommCodeResponseDto> boardClsfDtlCdList = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+            model.addAttribute("boardClsfDtlCdList", boardClsfDtlCdList);
+
+            /* 상담 리스트 조회 */
+            List<EvBoardResponseDto> list = null;
+            List<EvBoardResponseDto> listCnt = null;
+
+            list = evBoardService.board_list(evBoardSearchDto);
+            listCnt = evBoardService.board_list(evBoardSearchDto);
+
+            Long row_count = 0L;
+
+            if(listCnt != null && listCnt.size() > 0) {
+                row_count = listCnt.get(0).getRow_count();
+            }
+
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count); /* 총 개수 */
+            model.addAttribute("page_row_cnt", evBoardSearchDto.getPage_row_cnt());    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evBoardSearchDto.getPage_current());    /* 현재페이지 */
+
+            /* 검색조건 */
+            model.addAttribute("ins_dt_fr", evBoardSearchDto.getIns_dt_fr());
+            model.addAttribute("ins_dt_to", evBoardSearchDto.getIns_dt_to());
+            model.addAttribute("keyword", evBoardSearchDto.getKeyword());
+            model.addAttribute("board_clsf_dtl_cd", evBoardSearchDto.getBoard_clsf_dtl_cd());
+
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
+
+            model.addAttribute("page_clsf", "mgnt13");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 이벤트등록폼
+     * @param evBoardSearchDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/eventform")
+    public String mgnt_event_form(EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+        String returnUrl = "/mgnt/mgnt1302";
+
+        /* 이벤트 선택 리스트 */
+        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+        evCommCodeRequestDto.setUpper_cd_id("108000");
+        evCommCodeRequestDto.setUse_yn("Y");
+        List<EvCommCodeResponseDto> boardClsfDtlCdList = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        model.addAttribute("boardClsfDtlCdList", boardClsfDtlCdList);
+        model.addAttribute("board_id", evBoardSearchDto.getBoard_id());
+        model.addAttribute("page_clsf", "mgnt13");
+
+        return returnUrl;
+    }
+
+    /**
+     * 이벤트등록
+     * @param evBoardRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/eventsave")
+    public Map<String,Object> mgnt_event_save(@RequestBody EvBoardRequestDto evBoardRequestDto, HttpServletRequest request, Model model) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+
+            //이벤트관리 셋팅
+            evBoardRequestDto.setBoard_clsf_cd("101001");
+            evBoardRequestDto.setUser_id(loginInfoDto.getUser_id());
+
+            if(evBoardRequestDto.getBoard_id() == null || evBoardRequestDto.getBoard_id() == 0) {
+                evBoardService.insert(evBoardRequestDto);
+            } else {
+                evBoardService.update(evBoardRequestDto);
+            }
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 이벤트상세
+     * @param evBoardSearchDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/eventdtl")
+    public Map<String,Object> mgnt_event_save(@RequestBody EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, Model model) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+
+            evBoardSearchDto.setBoard_clsf_cd("101001");
+            List<EvBoardResponseDto> list = evBoardService.board_dtl(evBoardSearchDto);
+            resposeResult.put("list", list);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
+    /**
+     * 이벤트엑셀다운로드
+     * @param evBoardSearchDto
+     * @param request
+     * @param response
+     * @param model
+     * @throws IOException
+     */
+    @RequestMapping("/mgnt/eventexcel")
+    public void mgnt_eventexcel(EvBoardSearchDto evBoardSearchDto, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+
+        //이벤트관리 셋팅
+        evBoardSearchDto.setBoard_clsf_cd("101001");
+
+        /* 로그인정보 */
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+
+        /* row 개수 */
+        evBoardSearchDto.setPage_row_cnt(100000L);
+        evBoardSearchDto.setPage_row_start(0L);
+
+        if("".equals(StringUtils.nvl(evBoardSearchDto.getPage_current(),""))) {
+            evBoardSearchDto.setPage_current(1L);
+        }
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Date nDt = new Date();
+
+        /* 최초 날짜가 null 인경우 */
+        if("".equals(StringUtils.nvl(evBoardSearchDto.getIns_dt_fr(),""))) {
+            Date ftDt = StringUtils.addMonth(nDt,-1);
+            String strDt = sf.format(ftDt);
+            evBoardSearchDto.setIns_dt_fr(strDt);
+        }
+
+        if("".equals(StringUtils.nvl(evBoardSearchDto.getIns_dt_to(),""))) {
+            Date toDt = StringUtils.addMonth(nDt,1);
+            String strDt = sf.format(toDt);
+            evBoardSearchDto.setIns_dt_to(strDt);
+        }
+
+        if("".equals(StringUtils.nvl(evBoardSearchDto.getKeyword(),""))) {
+            evBoardSearchDto.setKeyword("");
+        }
+
+        List<EvBoardResponseDto> list = evBoardService.board_list(evBoardSearchDto);
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell = row.createCell(1);
+        cell.setCellValue("이벤트명");
+        cell = row.createCell(2);
+        cell.setCellValue("이벤트기간");
+        cell = row.createCell(3);
+        cell.setCellValue("참여자");
+        cell = row.createCell(4);
+        cell.setCellValue("등록자");
+        cell = row.createCell(5);
+        cell.setCellValue("등록일");
+        cell = row.createCell(6);
+        cell.setCellValue("조회수");
+        cell = row.createCell(7);
+        cell.setCellValue("노출여부");
+
+        // Body
+        for (int i=0; i < list.size(); i++) {
+            EvBoardResponseDto dto = list.get(i);
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(dto.getRn());
+            cell = row.createCell(1);
+            cell.setCellValue(dto.getBoard_subject());
+            cell = row.createCell(2);
+            cell.setCellValue(dto.getEvnt_prod_dt());
+            cell = row.createCell(3);
+            cell.setCellValue("");
+            cell = row.createCell(4);
+            cell.setCellValue(dto.getIns_user());
+            cell = row.createCell(5);
+            cell.setCellValue(dto.getIns_dtm());
+            cell = row.createCell(6);
+            cell.setCellValue(dto.getBoard_cnt());
+            cell = row.createCell(7);
+            cell.setCellValue(dto.getUse_yn());
+        }
+
+        String strDt = sf.format(nDt);
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename="+strDt+".xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+
+    }
+
 }

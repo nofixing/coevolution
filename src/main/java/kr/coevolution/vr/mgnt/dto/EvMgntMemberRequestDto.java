@@ -11,6 +11,7 @@ public class EvMgntMemberRequestDto {
     private String cust_id;
     private String cust_nm;
     private String user_id;
+    private String user_pw;
     private String ins_dt_fr;
     private String ins_dt_to;
     private String keyword;
@@ -29,4 +30,7 @@ public class EvMgntMemberRequestDto {
     private String access_nm;
     private int ev_expo_id;
     private String tot_period;
+    private String bf_user_pw;
+    private String tobe_passwd1;
+    private String tobe_passwd2;
 }

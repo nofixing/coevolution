@@ -20,6 +20,7 @@ public class EvMemberLoginInfoDto implements Serializable {
     private String mgnt_id;
     private String mgnt_nm;
     private String ins_dt;
+    private String change_yn;
 
     public String toString() {
         String userString = "\ncust_id: "+cust_id+"\n";

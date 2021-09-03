@@ -23,6 +23,8 @@
             , evnt_pticpt
             , evnt_target
             , evnt_place
+            , evnt_fr_dt
+            , evnt_to_dt
             , req_fr_dt
             , req_fr_hhmm
             , req_to_dt
@@ -33,6 +35,7 @@
             , reg_user_id
             , conslt_cust_id
             , conslt_user_id
+            , board_cnt
             , ins_user
             , ins_dtm
             , mod_user
@@ -50,6 +53,8 @@
             , #{evnt_pticpt}
             , #{evnt_target}
             , #{evnt_place}
+            , #{evnt_fr_dt}
+            , #{evnt_to_dt}
             , #{req_fr_dt}
             , #{req_fr_hhmm}
             , #{req_to_dt}
@@ -60,6 +65,7 @@
             , #{reg_user_id}
             , #{conslt_cust_id}
             , #{conslt_user_id}
+            , 0
             , #{user_id}
             , NOW()
             , #{user_id}
@@ -76,11 +82,14 @@
               , evnt_pticpt   = #{evnt_pticpt}
               , evnt_target   = #{evnt_target}
               , evnt_place    = #{evnt_place}
+              , evnt_fr_dt    = #{evnt_fr_dt}
+              , evnt_to_dt    = #{evnt_to_dt}
               , req_fr_dt     = #{req_fr_dt}
               , req_fr_hhmm   = #{req_fr_hhmm}
               , req_to_dt     = #{req_to_dt}
               , req_to_hhmm   = #{req_to_hhmm}
               , conslt_user_id= #{conslt_user_id}
+              , use_yn        = nvl(#{use_yn}, use_yn)
               , mod_user      = #{user_id}
               , mod_dtm       = NOW()
         WHERE board_id = #{board_id}
@@ -115,6 +124,14 @@
         , mod_dtm         = NOW()
         , board_stat_cd   = #{board_stat_cd}
         WHERE board_id = #{board_id}
+
+    </update>
+
+    <update id="U04_BOARD_CNT" parameterType="kr.coevolution.vr.board.dto.EvBoardRequestDto">
+
+        UPDATE ev_board
+           SET board_cnt    = board_cnt + 1
+         WHERE board_id     = #{board_id}
 
     </update>
 
@@ -345,6 +362,62 @@
                               and use_yn = 'Y'
                               and del_yn = 'N'
                          )
+    </select>
+
+    <select id="S08_LIST" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="kr.coevolution.vr.board.dto.EvBoardResponseDto">
+        select ROW_NUMBER() OVER(ORDER BY eb.ins_dtm DESC) as rn
+             , board_id, board_res_id, board_clsf_cd, board_clsf_dtl_cd, reg_dt, board_subject
+             , board_content, board_content2, ref_url, evnt_pticpt, evnt_target, evnt_place
+             , evnt_fr_dt, evnt_to_dt, concat(evnt_fr_dt, '-', evnt_to_dt) as evnt_prod_dt
+             , req_fr_dt, req_fr_hhmm
+             , req_to_dt, req_to_hhmm, use_yn
+             , del_yn, board_stat_cd, reg_user_id, conslt_cust_id, conslt_user_id, nvl(board_cnt,0) as board_cnt
+             , (select mgnt_nm from ev_mgnt_user where mgnt_id = eb.ins_user) as ins_user
+             , date_format(ins_dtm,'%Y-%m-%d %H:%i:%S') as ins_dtm
+         from ev_board eb
+        where board_clsf_cd = #{board_clsf_cd}
+          and del_yn = 'N'
+
+        <if test="board_clsf_dtl_cd != null and board_clsf_dtl_cd != ''">
+            and eb.board_clsf_dtl_cd = #{board_clsf_dtl_cd}
+        </if>
+
+        <if test="ins_dt_fr != null and ins_dt_fr != ''">
+            and eb.evnt_fr_dt >= #{ins_dt_fr}
+        </if>
+
+        <if test="ins_dt_to != null and ins_dt_to != ''">
+            and eb.evnt_to_dt <![CDATA[<=]]> #{ins_dt_to}
+        </if>
+
+        <if test="keyword != null and keyword != ''">
+            and eb.board_subject like concat('%', #{keyword}, '%')
+        </if>
+
+        LIMIT #{page_row_start}, #{page_row_cnt}
+    </select>
+
+    <select id="S08_LIST_CNT" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="kr.coevolution.vr.board.dto.EvBoardResponseDto">
+        SELECT COUNT(*) AS row_count
+        from ev_board eb
+        where board_clsf_cd = #{board_clsf_cd}
+        and del_yn = 'N'
+    </select>
+
+    <select id="S08_DTL" parameterType="kr.coevolution.vr.board.dto.EvBoardSearchDto" resultType="kr.coevolution.vr.board.dto.EvBoardResponseDto">
+        select board_id, board_res_id, board_clsf_cd, board_clsf_dtl_cd, reg_dt, board_subject, board_content, board_content2, ref_url, evnt_pticpt, evnt_target, evnt_place, evnt_fr_dt, evnt_to_dt, req_fr_dt, req_fr_hhmm, req_to_dt, req_to_hhmm, use_yn, del_yn, board_stat_cd, reg_user_id, conslt_cust_id, conslt_user_id, board_cnt
+          from ev_board eb
+         where board_clsf_cd = #{board_clsf_cd}
+           and del_yn = 'N'
+    </select>
+
+    <select id="S08_ENENT" resultType="kr.coevolution.vr.board.dto.EvBoardResponseDto">
+        SELECT board_id, board_content, ref_url
+          FROM ev_board
+         WHERE del_yn = 'N'
+           and use_yn = 'Y'
+           and board_clsf_cd = '101001'
+         order by ins_dtm desc
     </select>
 
 </mapper>

@@ -8,7 +8,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/jsp/include/mHeader.jsp"></jsp:include>
 
     <style>
       .form_height1 {
@@ -20,11 +20,11 @@
   <body>
 
     <!-- top Menu -->
-    <jsp:include page="/WEB-INF/jsp/include/topMenu.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/jsp/include/mTopMenu.jsp"></jsp:include>
 
     <!-- BREADCRUMB
     ================================================== -->
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" style="width:100%">
       <div class="container">
         <div class="row align-items-center">
           <div class="col">
@@ -55,15 +55,15 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-0">
-      <div class="container">
+    <section class="section pt-0 pl-5 pr-5">
+      <div class="container_fluid">
 
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-2">
             <!--left Menu -->
             <jsp:include page="/WEB-INF/jsp/include/mLeftMenu.jsp"></jsp:include>
           </div>
-          <div class="col-md-9">
+          <div class="col-md-10">
 
             <!-- 즐겨찾기 -->
             <div class="pb-5 mb-5" id="animation">
@@ -167,7 +167,7 @@
       </div> <!-- / .container -->
     </section>
 
-  <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/jsp/include/footer_mgnt.jsp"></jsp:include>
   <jsp:include page="mgnt0901_js.jsp"></jsp:include>   
 
   </body>

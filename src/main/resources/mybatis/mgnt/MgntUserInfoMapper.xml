@@ -11,6 +11,7 @@
              , mgnt_id      as user_id
              , email_id
              , '202003'     as cust_clsf_cd
+             , case when DATE_ADD(str_to_date(pw_mod_dt, '%Y-%m-%d') , interval 90 day) > date_format(now(),'%Y-%m-%d') then 'N' else 'Y' end change_yn
           from ev_mgnt_user
          where mgnt_id = #{user_id}#
            and mgnt_pw = #{user_pw}#
@@ -62,9 +63,9 @@
         /* 관리자등록 */
         INSERT INTO ev_mgnt_user
         (
-            mgnt_seq, mgnt_id, mgnt_nm, mgnt_pw, email_id, hp_no, dept_nm, use_yn, del_yn, ins_user, ins_dtm, mod_user, mod_dtm
+            mgnt_seq, mgnt_id, mgnt_nm, mgnt_pw, email_id, hp_no, dept_nm, use_yn, del_yn, ins_user, ins_dtm, mod_user, mod_dtm, pw_mod_dt
         ) VALUES (
-            null, #{mgnt_id}, #{mgnt_nm}, #{mgnt_pw}, #{email_id}, #{hp_no}, #{dept_nm},'Y', 'N', #{user_id}, now(), #{user_id}, now()
+            null, #{mgnt_id}, #{mgnt_nm}, #{mgnt_pw}, #{email_id}, #{hp_no}, #{dept_nm},'Y', 'N', #{user_id}, now(), #{user_id}, now(), date_format(now(),'%Y-%m-%d')
         )
 
     </insert>
@@ -86,10 +87,11 @@
     <update id="U01_MGNT_USER_PW" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto">
         /* 관리자정보 수정 */
         update ev_mgnt_user
-        set   mgnt_pw = #{mgnt_pw}
-        , mod_user = #{user_id}
-        , mod_dtm = now()
-        where mgnt_id = #{mgnt_id}
+        set   mgnt_pw       = #{mgnt_pw}
+            , mod_user      = #{user_id}
+            , mod_dtm       = now()
+            , pw_mod_dt     = date_format(now(),'%Y-%m-%d')
+        where mgnt_id       = #{mgnt_id}
 
     </update>
 

@@ -3,11 +3,11 @@ package kr.coevolution.vr.board.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
-public class EvBoardRequestDto {
+public class EvBoardResponseDto {
+
+    private String rn;    /* 번호 */
 
     /* 게시판ID */
     private Long board_id;
@@ -34,6 +34,8 @@ public class EvBoardRequestDto {
     private String evnt_target;
     /* 장소 */
     private String evnt_place;
+    /* 이벤트기간 */
+    private String evnt_prod_dt;
     /* 이벤트시작일자 */
     private String evnt_fr_dt;
     /* 이벤트종료일자 */
@@ -62,8 +64,12 @@ public class EvBoardRequestDto {
     private String user_id;
     /* 리플등록여부 */
     private String reply_yn;
-    /* 첨부파일 */
-    private List file_list;
 
-    private int board_cnt;
+    private String ins_user;
+
+    private String ins_dtm;
+
+    private Long row_count; /* 조회된 row 개수 */
+
+    private Long board_cnt; /* 게시판 조회수 */
 }
