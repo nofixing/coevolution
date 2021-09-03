@@ -72,6 +72,11 @@ public class EvBoardController {
         log.debug("evBoardRequestDto => " + evBoardRequestDto);
 
         try {
+
+            if(loginInfoDto == null) {
+                loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+            }
+
             evBoardRequestDto.setUser_id(loginInfoDto.getCust_id());
             int return_code = evBoardService.insert(evBoardRequestDto);
 

@@ -161,6 +161,7 @@ public class EvMypageMemberController {
         /* 관리자 화면에서 수정인 경우 */
         if("Y".equals(StringUtils.nvl(map.get("m_yn"),""))) {
             //cust_id map에 있음.
+            loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
             map.put("user_id", loginInfoDto.getCust_id());
         } else {
             map.put("cust_id", loginInfoDto.getCust_id());

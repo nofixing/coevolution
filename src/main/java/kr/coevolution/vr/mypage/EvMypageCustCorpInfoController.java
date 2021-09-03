@@ -53,7 +53,9 @@ public class EvMypageCustCorpInfoController {
             if("N".equals(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getM_yn(), "N"))) {
                 evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
                 evMgntZoomRequestDto.setCust_id(loginInfoDto.getCust_id());
-            } 
+            } else {
+                loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+            }
 
             /* 내 부스정보 조회 */
             List<EvMypageCustCorpInfoResponseDto> list = evMypageCustCorpInfoService.mypage_cust_corp_info(evMypageCustCorpInfoRequestDto);
@@ -107,6 +109,7 @@ public class EvMypageCustCorpInfoController {
 
             if("Y".equals(StringUtils.nvl(evMypageCustCorpInfoRequestDto.getM_yn(), "N"))) {
                 //관리자인경우
+                loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
                 evMypageCustCorpInfoRequestDto.setUser_id(loginInfoDto.getCust_id());
             } else {
                 evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());

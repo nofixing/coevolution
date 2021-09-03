@@ -212,6 +212,10 @@ public class EvMypageConsltController {
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
+            if(loginInfoDto == null) {
+                loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+            }
+
             if("".equals(StringUtils.nvl(evBoardRequestDto.getBoard_id(),""))) {
                 throw new RuntimeException("ID없음");
             }
@@ -249,6 +253,11 @@ public class EvMypageConsltController {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null) {
+                loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+            }
+
             evBoardRequestDto.setUser_id(loginInfoDto.getUser_id());
 
             if("".equals(StringUtils.nvl(evBoardRequestDto.getBoard_id(),""))) {
