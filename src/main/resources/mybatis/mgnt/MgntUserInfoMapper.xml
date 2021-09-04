@@ -605,6 +605,7 @@
             , cust_nm
             , (select case when count(*) = 0 then 'N' else 'Y' end from ev_expo_customer where ev_expo_id = #{ev_expo_id} and cust_id = ecm.cust_id) as reg_stat
             , (select ev_expo_nm from ev_expo where ev_expo_id = #{ev_expo_id}) as ev_expo_nm
+            , (select case when count(*) = 0 then 'N' else 'Y' end from ev_consult_time where ev_expo_id = #{ev_expo_id} and cust_id = ecm.cust_id) as consult_time_stat
         from ev_cust_mst ecm
        where cust_clsf_cd = '202002'
          and cust_sts_cd  = '105001'

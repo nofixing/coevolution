@@ -111,6 +111,7 @@
                         <th class="text-center">아이디</th>
                         <th class="text-left">참가업체명</th>
                         <th class="text-center">상태</th>
+                        <th class="text-center">상시간설정여부</th>
                       </tr>               
                     </thead>
                     <tbody id="codeList">
@@ -123,13 +124,14 @@
                         <td class="text-center">${list.cust_id}</td>
                         <td class="text-left">${list.cust_nm}</td>
                         <td class="text-center"><c:if test="${list.reg_stat eq 'Y'}">등록</c:if><c:if test="${list.reg_stat eq 'N'}">미등록</c:if></td>
+                        <td class="text-center"><c:if test="${list.consult_time_stat eq 'Y'}">등록</c:if><c:if test="${list.consult_time_stat eq 'N'}">미등록</c:if></td>
                       </tr>   
 
                       </c:forEach>
 
                       <c:if test="${fn:length(list) == 0}">
                       <tr>
-                        <td scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</td>
+                        <td scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</td>
                       </tr>                
                       </c:if> 
                     </tbody>

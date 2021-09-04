@@ -26,4 +26,5 @@ public class EvMgntExpoResponseDto {
     private String cust_id;
     private String cust_nm;
     private String reg_stat;
+    private String consult_time_stat;
 }
