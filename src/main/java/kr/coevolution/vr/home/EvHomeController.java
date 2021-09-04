@@ -917,7 +917,7 @@ public class EvHomeController {
         EvMemberLoginInfoDto evMemberLoginInfoDto = (EvMemberLoginInfoDto)session.getAttribute(StringUtils.login_mgnt_session);
 
         if(evMemberLoginInfoDto != null && !"".equals(evMemberLoginInfoDto.getCust_id())) {
-            return_url = "redirect:/mgnt/badge";
+            return_url = "redirect:/mgnt/expo";
         }
 
         return return_url;
@@ -1161,4 +1161,21 @@ public class EvHomeController {
         return returnUrl;
     }
 
+    /**
+     * 이벤트
+     * @param model
+     * @return
+     */
+    @RequestMapping("/index/prshow")
+    public String index_prshow(Model model, HttpServletRequest request) {
+        String returnUrl = "/vr/pr_show";
+
+        EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
+        evCommCodeRequestDto.setUpper_cd_id("216000");
+        List<EvCommCodeResponseDto> arShowList  = evCommCodeService.comm_code_search(evCommCodeRequestDto);
+
+        model.addAttribute("arShowList", arShowList);
+
+        return returnUrl;
+    }
 }

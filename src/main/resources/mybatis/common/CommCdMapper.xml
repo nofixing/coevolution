@@ -28,7 +28,7 @@
 
         </where>
 
-        order by priority asc, cd_id asc
+        order by nvl(priority,0) asc, cd_id asc
 
 
     </select>
@@ -36,6 +36,7 @@
     <update id="U01_COMM_CD" parameterType="map">
         UPDATE ev_comm_code
             SET cd_nm       = #{cd_nm},
+                cd_nm_en    = #{cd_nm_en},
                 upper_cd_id = #{upper_cd_id},
                 cd_val1     = #{cd_val1},
                 cd_val2     = #{cd_val2},

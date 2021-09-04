@@ -1,0 +1,139 @@
+.modal-wrap{
+    max-width:1200px;
+    width:100%;
+    height:600px;
+    overflow-y:auto;
+    margin:auto;
+    border-radius:3px;
+    background:#fff;
+    padding:10px;
+    box-sizing:border-box;
+}
+
+.modal-title{
+    position:relative;
+    padding:20px 10px;
+    box-sizing:border-box;
+    margin-bottom:60px;
+}
+.modal-title-logo{
+    position:absolute;
+    top:10px;
+    right:0;
+    text-align:center;
+}
+.modal-title-logo span{
+    display:block;
+}
+.modal-title .modal-title-txt p{
+    position:relative;
+    font-size:24px;
+    font-weight:500;
+    padding-left:10px;
+    box-sizing:border-box;
+}
+.modal-title .modal-title-txt p sup{
+    position:absolute;
+    top:7px;
+    left:0;
+}
+.modal-title .modal-title-txt span{
+    font-size:24px;
+    font-weight:500;
+    padding-left:10px;
+}
+.modal-youtube-list{
+    display:flex;
+    flex:0 0 33%;
+    justify-content: space-between;
+}
+.modal-youtube-list dl{
+    width:30%;
+}
+.modal-youtube-list dt{
+    font-size:18px;
+    font-weight:500;
+    padding:10px 0;
+    border-bottom:1px solid #0089d0;
+    margin-bottom:20px;
+    position:relative;
+}
+.modal-youtube-list dt a{
+    display:none;
+}
+.modal-youtube-list dd li + li{
+    margin-top:15px;
+}
+.modal-youtube-list dd span{
+    display:block;
+    font-size:16px;
+}
+.modal-youtube-list dd a{
+    display:block;
+    position:relative;
+    padding-left:20px;
+    box-sizing:border-box;
+}
+.modal-youtube-list dd a em{
+    position:absolute;
+    top:0px;
+    left:0;
+}
+
+@media (max-width:1200px){
+    img{
+        width:100%;
+        max-width:100%;
+    }
+}
+
+@media (max-width:991px){
+    .modal-title{
+        margin-bottom:10px;
+    }
+    .modal-title-logo{
+        position:relative;
+        text-align:center;
+        top:0;
+        right:auto;
+        padding:0 15px;
+        box-sizing:border-box;
+        margin-bottom:20px;
+    }
+    .modal-title-logo img{
+        max-width:200px;
+    }
+    .modal-title .modal-title-txt p{
+        font-size:18px;
+    }
+    .modal-title .modal-title-txt span{
+        font-size:16px;
+    }
+    .modal-youtube-list dt a{
+        display:block;
+        position:absolute;
+        top:50%;
+        right:10px;
+        transform: translateY(-50%) rotate(180deg);
+        transform-origin: center center;
+        transition: all 0.5s;
+    }
+    .modal-youtube-list dt a.on{
+        transform: translateY(-50%);
+    }
+}
+
+@media (max-width:750px){
+    .modal-wrap{
+        height:700px;
+    }
+    .modal-youtube-list{
+        flex-direction: column;
+    }
+    .modal-youtube-list dl{
+        width:100%;
+    }
+    .modal-youtube-list dl + dl{
+        margin-top:15px;
+    }
+}

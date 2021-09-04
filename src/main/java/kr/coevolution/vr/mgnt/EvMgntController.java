@@ -21,8 +21,10 @@ import kr.coevolution.vr.mgnt.service.EvMgntService;
 import kr.coevolution.vr.mypage.EvMypageMemberController;
 import kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto;
 import kr.coevolution.vr.mypage.dto.EvMypageBadgeResponseDto;
+import kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto;
 import kr.coevolution.vr.mypage.dto.EvMypageCustCorpInfoRequestDto;
 import kr.coevolution.vr.mypage.service.EvMypageBoardConsltService;
+import kr.coevolution.vr.mypage.service.EvMypageConsultService;
 import kr.coevolution.vr.mypage.service.EvMypageCustCorpInfoService;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -80,6 +82,8 @@ public class EvMgntController {
     @Autowired
     private EvMgntConsultService evMgntConsultService;
 
+    @Autowired
+    private EvMypageConsultService evMypageConsultService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -1672,11 +1676,12 @@ public class EvMgntController {
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
 
         try {
-            String[] vField = new String[]{"cd_nm", "upper_cd_id", "cd_val1", "cd_val2", "cd_val3", "priority", "use_yn"};
+            String[] vField = new String[]{"cd_nm", "cd_nm_en","upper_cd_id", "cd_val1", "cd_val2", "cd_val3", "priority", "use_yn"};
+            int totCnt = Integer.parseInt(StringUtils.nvl(pMap.get("tot_cnt"),"0"));
 
             /* List 만들기 */
             List list = new ArrayList();
-            for(int i = 0; i < 8; i++) {
+            for(int i = 0; i < totCnt; i++) {
                 Map<String, String> vMap = new HashMap<String, String>();
                 String cdId = pMap.get("cd_id_"+i);
                 vMap.put("cd_id", cdId);
@@ -3071,5 +3076,59 @@ public class EvMgntController {
         wb.close();
 
     }
+
+    /**
+     * 상담시간 일괄생성
+     * @param request
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/expo_consult_time")
+    public Map<String,Object> mgnt_consult_time(@RequestBody EvMypageConsultRequestDto evMypageConsultRequestDto, HttpServletRequest request, Model model) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+            EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
+
+            int return_code = 0;
+            evMypageConsultRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
+
+            /* 상담시간 미생성 참가업체 조회 대상리스트 조회 */
+            EvMgntConsultRequestDto evMgntConsultRequestDto = new EvMgntConsultRequestDto();
+            evMgntConsultRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
+            List<EvMgntConsultResposeDto> list = evMgntConsultService.consult_s02(evMgntConsultRequestDto);
+
+            for(EvMgntConsultResposeDto res : list) {
+
+                evMypageConsultRequestDto.setCust_id(res.getCust_id());
+                evMypageConsultRequestDto.setConsult_from_dt(res.getExpo_consult_from_dt());
+                evMypageConsultRequestDto.setConsult_to_dt(res.getExpo_consult_to_dt());
+                evMypageConsultRequestDto.setTiemzone_cd("213001"); //서울
+                evMypageConsultRequestDto.setConsult_from_time(res.getConsult_fr_time());
+                evMypageConsultRequestDto.setConsult_to_time(res.getConsult_to_time());
+                evMypageConsultRequestDto.setUser_id(loginInfoDto.getUser_id());
+
+                return_code = evMypageConsultService.consult_settime_insert(evMypageConsultRequestDto);
+            }
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
+
 
 }

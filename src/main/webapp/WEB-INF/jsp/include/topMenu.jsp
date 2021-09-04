@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-    <div class="hamburger" id="hamburger-6">
-        <a href="#!">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list"
-                viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-            </svg>
-        </a>
-    </div>
+
+    
 
     <!-- M 메뉴 -->
     <div class="m-menu">
@@ -106,7 +99,7 @@
                         </li>
                         <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                            <li> 
+                            <li>
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                                 <div class="m-menu-list-sub">
                                     <a href="javascript:event_click()">이벤트 참여하기</a>
@@ -157,40 +150,6 @@
     </div>
     <!-- M 메뉴 -->
 
-    <!-- M 서브 메뉴 -->
-    <div class="mobile-submenu">
-        <ul>
-            <li class="nav-item ">
-                <a href="#" data-toggle="modal" data-target="#myModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                        class="bi bi-search" viewBox="0 0 16 16">
-                        <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
-                        </path>
-                    </svg>
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="#" id="navbarWelcome" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                        class="bi bi-globe" viewBox="0 0 16 16">
-                        <path
-                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
-                    </svg>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarWelcome">
-                    <a class="dropdown-item " href="/index/lang?lang=ko">
-                        KOR
-                    </a>
-                    <a class="dropdown-item " href="/index/lang?lang=en">
-                        ENG
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <!-- M 서브 메뉴 -->
 
     <!-- 참여기업검색 -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -392,135 +351,203 @@
     </div><!-- /.modal -->
     <!-- NAVBAR
     ================================================= -->
-    <nav class="navbar navbar-expand-xl navbar-light  fixed-top p-1">
-        <div class="container">
-            <h1 class="logo m-0">
-                <a href="/">
-                    <img src="/assets/img/icons/header_logo.png" alt="">
+    <nav class=" fixed-top">
+
+         <c:if test="${sessionScope.LANG ne 'en'}">
+            <div class="pc-topBanner">
+                <div class="container">
+                    <map name="t">
+                        <area shape="rect" coords="891,13,1123,56" href="javascript:event_click()">
+                    </map>
+                    
+                        <img src="/images/pc-topBanner.jpg" usemap="#t" />
+                    
+                </div>
+            </div>
+
+            <div class="mobile-topBanner">
+                    <div class="container">
+                        <a href="javascript:event_click()">
+                            <img src="/images/mobile-topBanner.jpg">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+
+        <div class="navbar navbar-expand-xl navbar-light p-1">
+            <div class="hamburger" id="hamburger-6">
+                <a href="#!">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    </svg>
                 </a>
-            </h1>
-            <!-- Brand -->
+            </div>
+            <!-- M 서브 메뉴 -->
+            <div class="mobile-submenu">
+                <ul>
+                    <li class="nav-item ">
+                        <a href="#" data-toggle="modal" data-target="#myModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                </path>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" href="#" id="navbarWelcome" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-globe" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarWelcome">
+                            <a class="dropdown-item " href="/index/lang?lang=ko">
+                                KOR
+                            </a>
+                            <a class="dropdown-item " href="/index/lang?lang=en">
+                                ENG
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- M 서브 메뉴 -->
+            <div class="container">
+                <h1 class="logo m-0">
+                    <a href="/">
+                        <img src="/assets/img/icons/header_logo.png" alt="">
+                    </a>
+                </h1>
+                <!-- Brand -->
 
-            <!-- Collapse -->
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-
+                <!-- Collapse -->
                 <div class="collapse navbar-collapse" id="navbarCollapse">
 
-                    <!-- Links -->
-                    <c:choose>
-                        <c:when test="${sessionScope.LANG eq 'en'}">
-                            <ul class="navbar-nav ml-auto en-navbar-nav">
-                        </c:when>
-                        <c:otherwise>
-                            <ul class="navbar-nav ml-auto ">
-                        </c:otherwise>
-                    </c:choose>
-                        <li class="nav-item ">
-                            <a href="/index/guide" class="nav-link nav-item-font">
-                                <strong><spring:message code="top.view.guid" text="관람가이드"/></strong>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/index/ieve2021" class="nav-link nav-item-font">
-                                <strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong>
-                            </a>
-                        </li>
-                    <c:choose>
-                        <c:when test="${sessionScope.LANG ne 'en'}">
-                        <li class="nav-item">
-                            <a href="javascript:event_click()" class="nav-link nav-item-font">
-                                <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>
-                            </a>
-                        </li>
-                        </c:when>
-                    </c:choose>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
 
+                        <!-- Links -->
                         <c:choose>
-                            <c:when test="${empty sessionScope.login_session.cust_nm}">
-                                <li class="nav-item nav-item-small">
-                                    <a href="/member/login_form" class="nav-link nav-item-font">
-                                        <strong><spring:message code="top.login" text="로그인"/></strong>
-                                    </a>
-                                </li>
+                            <c:when test="${sessionScope.LANG eq 'en'}">
+                                <ul class="navbar-nav ml-auto en-navbar-nav">
                             </c:when>
-
                             <c:otherwise>
-                                <li class="nav-item nav-item-small">
-                                    <a href="/logout" class="nav-link nav-item-font">
-                                        <strong><spring:message code="top.logout" text="로그아웃"/></strong>
-                                    </a>
-                                </li>
+                                <ul class="navbar-nav ml-auto ">
                             </c:otherwise>
                         </c:choose>
-
+                            <li class="nav-item ">
+                                <a href="/index/guide" class="nav-link nav-item-font">
+                                    <strong><spring:message code="top.view.guid" text="관람가이드"/></strong>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="/index/ieve2021" class="nav-link nav-item-font">
+                                    <strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong>
+                                </a>
+                            </li>
                         <c:choose>
-                            <c:when test="${empty sessionScope.login_session.cust_nm}">
-                                <li class="nav-item nav-item-small">
-                                    <a href="/member/join_form1" class="nav-link nav-item-font">
-                                        <strong><spring:message code="top.visit.reg" text="참관등록"/></strong>
-                                    </a>
-                                </li>
+                            <c:when test="${sessionScope.LANG ne 'en'}">
+                            <li class="nav-item">
+                                <a href="javascript:event_click()" class="nav-link nav-item-font">
+                                    <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>
+                                </a>
+                            </li>
                             </c:when>
-
-                            <c:otherwise>
-                                <li class="nav-item nav-item-small">
-                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202001'}">
-                                    <a href="/mypage/favorts" class="nav-link nav-item-font">
-                                    </c:if>
-                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
-                                    <a href="/mypage/myc01" class="nav-link nav-item-font">
-                                    </c:if>    
-                                    <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202003'}">
-                                    <a href="/mgnt/badge" class="nav-link nav-item-font">
-                                    </c:if>                                                                      
-                                        <strong><spring:message code="top.mypage" text="마이페이지"/></strong>
-                                    </a>
-                                </li>
-                            </c:otherwise>
                         </c:choose>
 
+                            <c:choose>
+                                <c:when test="${empty sessionScope.login_session.cust_nm}">
+                                    <li class="nav-item nav-item-small">
+                                        <a href="/member/login_form" class="nav-link nav-item-font">
+                                            <strong><spring:message code="top.login" text="로그인"/></strong>
+                                        </a>
+                                    </li>
+                                </c:when>
 
-                        <li class="nav-item ">
-                            <a href="#!" class="nav-link" data-toggle="modal"
-                                data-target="#menuModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" data="">
-                                    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
-                                    </path>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#!" class="nav-link nav-item-svg" data-toggle="modal" data-target="#myModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" id="top_corp_search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                  </svg>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle nav-item-svg" href="#" id="navbarWelcome" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                    class="bi bi-globe" viewBox="0 0 16 16">
-                                    <path
-                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
-                                </svg>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarWelcome">
-                                <a class="dropdown-item dropdown-item-font" href="/index/lang?lang=ko">
-                                    KOR
+                                <c:otherwise>
+                                    <li class="nav-item nav-item-small">
+                                        <a href="/logout" class="nav-link nav-item-font">
+                                            <strong><spring:message code="top.logout" text="로그아웃"/></strong>
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <c:choose>
+                                <c:when test="${empty sessionScope.login_session.cust_nm}">
+                                    <li class="nav-item nav-item-small">
+                                        <a href="/member/join_form1" class="nav-link nav-item-font">
+                                            <strong><spring:message code="top.visit.reg" text="참관등록"/></strong>
+                                        </a>
+                                    </li>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <li class="nav-item nav-item-small">
+                                        <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202001'}">
+                                        <a href="/mypage/favorts" class="nav-link nav-item-font">
+                                        </c:if>
+                                        <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
+                                        <a href="/mypage/myc01" class="nav-link nav-item-font">
+                                        </c:if>
+                                        <c:if test="${sessionScope.login_session.cust_clsf_cd eq '202003'}">
+                                        <a href="/mgnt/badge" class="nav-link nav-item-font">
+                                        </c:if>
+                                            <strong><spring:message code="top.mypage" text="마이페이지"/></strong>
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+
+
+                            <li class="nav-item ">
+                                <a href="#!" class="nav-link" data-toggle="modal"
+                                    data-target="#menuModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" data="">
+                                        <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
+                                        </path>
+                                    </svg>
                                 </a>
-                                <a class="dropdown-item dropdown-item-font" href="/index/lang?lang=en">
-                                    ENG
+                            </li>
+                            <li class="nav-item">
+                                <a href="#!" class="nav-link nav-item-svg" data-toggle="modal" data-target="#myModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" id="top_corp_search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                      </svg>
                                 </a>
-                            </div>
-                        </li>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle nav-item-svg" href="#" id="navbarWelcome" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-globe" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
+                                    </svg>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarWelcome">
+                                    <a class="dropdown-item dropdown-item-font" href="/index/lang?lang=ko">
+                                        KOR
+                                    </a>
+                                    <a class="dropdown-item dropdown-item-font" href="/index/lang?lang=en">
+                                        ENG
+                                    </a>
+                                </div>
+                            </li>
 
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
 
-            </div> <!-- / .navbar-collapse -->
+                </div> <!-- / .navbar-collapse -->
 
-        </div> <!-- / .container -->
+            </div> <!-- / .container -->
+        </div>
     </nav>
 
     <script>
@@ -533,6 +560,7 @@
                     $(this).next().slideUp(300);
                 }
             });
+            
         });
     </script>
 

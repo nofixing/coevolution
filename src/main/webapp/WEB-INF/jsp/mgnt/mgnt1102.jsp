@@ -96,6 +96,7 @@
                   <input type="text" class="form-control form-control-sm mb-2" id="ev_expo_nm" name="ev_expo_nm" value="${expo_dtl.ev_expo_nm}" style="width: 20rem;" readonly>
                   <input type="hidden" id="ev_expo_id" name="ev_expo_id" value="${expo_dtl.ev_expo_id}">
                   <div class="form-inline">
+                    <button type="button" class="btn-outline-primary form-control form-control-sm ml-2 mb-2" style="width: 12rem;" id="btnConsultTime">상담시간 미설정 일괄생성</button>
                     <button type="button" class="btn-outline-primary form-control form-control-sm ml-2 mb-2" style="width: 6rem;" id="btnUpdate">저장</button>
                     <button type="button" class="btn-outline-primary form-control form-control-sm ml-2 mb-2" style="width: 6rem;" id="btnList">목록</button>
                   </div>
@@ -106,7 +107,7 @@
                     <thead>
                       <tr>
                         <th class="text-center">번호</th>
-                        <th class="text-center">선택</th>
+                        <th class="text-center"><a href="javascript:listCheck()">선택</a></th>
                         <th class="text-center">아이디</th>
                         <th class="text-left">참가업체명</th>
                         <th class="text-center">상태</th>

@@ -182,7 +182,10 @@ public class EvMypageCustCorpInfoController {
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
 
-            evMypageCustCorpInfoRequestDto.setBoard_id(loginInfoDto.getCust_seq());
+            if(loginInfoDto == null) {
+                loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+            }
+
             evMypageCustCorpInfoRequestDto.setCust_id(loginInfoDto.getCust_id());
             evMypageCustCorpInfoRequestDto.setUser_id(loginInfoDto.getCust_id());
 

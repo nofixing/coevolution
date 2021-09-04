@@ -13,4 +13,11 @@ public interface MgntConsultMapper {
 
     public List<EvMgntConsultResposeDto> S01_CONSULT_LIST_COUNT(EvMgntConsultRequestDto param);
 
+    /**
+     * 상담시간 미생성 참가업체 조회
+     * @param param
+     * @return
+     */
+    public List<EvMgntConsultResposeDto> S02(EvMgntConsultRequestDto param);
+
 }

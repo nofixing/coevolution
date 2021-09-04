@@ -8,21 +8,28 @@
 <html lang="en">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
+
+    <script>
+        function goVr(pClsf) {
+            var url = "";
+
+            if(pClsf == "uk") {
+                url = "https://vrutopia.in/vr21/kor/ieve2021_uk/index.htm";
+            } else if(pClsf == "uken") {
+                url = "https://vrutopia.in/vr21/eng/ieve2021_uk/index.htm";
+            }
+
+            $("#iframe").attr("src", url);
+        }
+    </script>
+
   </head>
   <body>
 
-  <!-- top Menu -->
-  <jsp:include page="/WEB-INF/jsp/include/topMenu.jsp"></jsp:include>
-    
   <!-- vr -->
-  <c:if test="${sessionScope.LANG eq 'en'}">
-    <iframe id="iframe" src="/ieve2021/ieve2021_test_eng/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
-  </c:if>
+  <a href="javascript:goVr('uk')">[UK_한글]</a>&nbsp;<a href="javascript:goVr('uken')">[UK 영문]</a>
+  <iframe id="iframe" src="https://vrutopia.in/vr21/kor/ieve2021_uk/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
 
-  <c:if test="${sessionScope.LANG ne 'en'}">
-    <iframe id="iframe" src="/ieve2021/ieve2021_test_kor/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
-  </c:if>
-  
   </body>
 
     <!-- JAVASCRIPT

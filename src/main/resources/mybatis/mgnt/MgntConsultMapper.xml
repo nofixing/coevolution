@@ -88,4 +88,19 @@
 
     </select>
 
+    <select id="S02" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntConsultRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntConsultResposeDto">
+        /* 상담시간 미생성 참가업체 조회 */
+        select eec.ev_expo_id
+             , eec.cust_id
+             , ee.expo_consult_from_dt
+             , ee.expo_consult_to_dt
+             , '214019' as consult_fr_time
+             , '214036' as consult_to_time
+         from ev_expo_customer eec
+            , ev_expo ee
+        where eec.ev_expo_id = ee.ev_expo_id
+          and not exists (select 1 from ev_consult_time where ev_expo_id = eec.ev_expo_id and cust_id = eec.cust_id)
+          and eec.ev_expo_id = #{ev_expo_id}
+    </select>
+
 </mapper>

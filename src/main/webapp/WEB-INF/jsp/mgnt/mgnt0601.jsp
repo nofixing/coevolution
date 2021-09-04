@@ -125,6 +125,7 @@
                       <tr>
                         <th scope="col" class="text-center">코드</th>
                         <th scope="col" class="text-left">코드명</th>
+                        <th scope="col" class="text-left">코드명(영문)</th>
                         <th scope="col" class="text-center">상위코드</th>
                         <th scope="col" class="text-center">값1</th>
                         <th scope="col" class="text-center">값2</th>
@@ -141,14 +142,15 @@
                           <input type="hidden" id="cd_id_${status.index}" value="${list.cd_id}"/>
                           ${list.cd_id}
                         </td>
-                        <td class="text-left"><input type="text"  class="form-control-sm" value="${list.cd_nm}" id="cd_nm_${list.cd_id}" name="cd_nm_${list.cd_id}" style="width:150px"/></td>
-                        <td class="text-center"><input type="text"  maxlength="6" class="form-control-sm" value="${list.upper_cd_id}" id="upper_cd_id_${list.cd_id}" name="upper_cd_id_${list.cd_id}" style="width:75px"/></td>
-                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val1}" id="cd_val1_${list.cd_id}" name="cd_val1_${list.cd_id}" style="width:80px"/></td>
-                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val2}" id="cd_val2_${list.cd_id}" name="cd_val2_${list.cd_id}" style="width:80px"/></td>
-                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val3}" id="cd_val3_${list.cd_id}" name="cd_val3_${list.cd_id}" style="width:80px"/></td>
-                        <td class="text-center"><input type="number"  class="form-control-sm" value="${list.priority}" id="priority_${list.cd_id}" name="priority_${list.cd_id}" style="width:50px"/></td>
+                        <td class="text-left"><input type="text"  class="form-control-sm" value="${list.cd_nm}" id="cd_nm_${list.cd_id}" name="cd_nm_${list.cd_id}" style="min-width:200px;"/></td>
+                        <td class="text-left"><input type="text"  class="form-control-sm" value="${list.cd_nm_en}" id="cd_nm_en_${list.cd_id}" name="cd_nm_en_${list.cd_id}" style="min-width:200px;"/></td>
+                        <td class="text-center"><input type="text"  maxlength="6" class="form-control-sm" value="${list.upper_cd_id}" id="upper_cd_id_${list.cd_id}" name="upper_cd_id_${list.cd_id}" readonly style="min-width:60px;max-width:80px;"/></td>
+                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val1}" id="cd_val1_${list.cd_id}" name="cd_val1_${list.cd_id}" style="min-width:60px;"/></td>
+                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val2}" id="cd_val2_${list.cd_id}" name="cd_val2_${list.cd_id}" style="min-width:60px;"/></td>
+                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val3}" id="cd_val3_${list.cd_id}" name="cd_val3_${list.cd_id}" style="min-width:60px;"/></td>
+                        <td class="text-center"><input type="number"  class="form-control-sm" value="${list.priority}" id="priority_${list.cd_id}" name="priority_${list.cd_id}" style="min-width:60px;max-width:80px;"/></td>
                         <td class="text-center">
-                          <select class="form-control-sm" id="use_yn_${list.cd_id}">
+                          <select class="form-control-sm" id="use_yn_${list.cd_id}" style="min-width:60px;max-width:80px;">
                             <option value="Y" <c:if test="${list.use_yn eq 'Y'}">selected</c:if>>Y</option>
                             <option value="N" <c:if test="${list.use_yn eq 'N'}">selected</c:if>>N</option>
                           </select>

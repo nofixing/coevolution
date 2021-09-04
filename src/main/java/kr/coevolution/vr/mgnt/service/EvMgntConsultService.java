@@ -39,4 +39,13 @@ public class EvMgntConsultService {
     public List<EvMgntConsultResposeDto> consult_list_count (EvMgntConsultRequestDto evMgntConsultRequestDto) {
         return mgntConsultMapper.S01_CONSULT_LIST_COUNT(evMgntConsultRequestDto);
     }
+
+    /**
+     * 상담시간 미생성 참가업체 조회
+     * @param evMgntConsultRequestDto
+     * @return
+     */
+    public List<EvMgntConsultResposeDto> consult_s02 (EvMgntConsultRequestDto evMgntConsultRequestDto) {
+        return mgntConsultMapper.S02(evMgntConsultRequestDto);
+    }
 }

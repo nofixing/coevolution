@@ -18,4 +18,10 @@ public class EvMgntConsultResposeDto {
     private Long s215002_cnt;
     private Long s215003_cnt;
     private Long s215004_cnt;
+
+    private String cust_id;
+    private String expo_consult_from_dt;
+    private String expo_consult_to_dt;
+    private String consult_fr_time;
+    private String consult_to_time;
 }
