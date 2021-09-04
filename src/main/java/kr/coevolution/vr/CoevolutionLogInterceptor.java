@@ -60,7 +60,7 @@ public class CoevolutionLogInterceptor implements HandlerInterceptor {
 
                 vMap.put("access_info", request.getRequestURI() + "?"+access_param);
 
-                if(request.getRequestURI().indexOf("/vr/") < 0) {
+                if(request.getRequestURI().indexOf("/vr21/") < 0 && request.getRequestURI().indexOf("/files/video/") < 0) {
                     evCommCodeService.access_log_insert(vMap);
                 }
 
