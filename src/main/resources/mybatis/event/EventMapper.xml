@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.coevolution.vr.event.domain.EvEventMapper">
+    <select id="miniMaxnumList" parameterType="kr.coevolution.vr.event.dto.EvEventDto" resultType="kr.coevolution.vr.event.dto.EvEventDto">
+        select ev_idx as evIdx
+        from
+         ev_stock
+        where
+         ev_event_day = #{evEventDay}
+        and
+         ev_stock_winning !=0
+    </select>
+
+    <select id="stockCodeInfo" parameterType="kr.coevolution.vr.event.dto.EvEventDto" resultType="kr.coevolution.vr.event.dto.EvEventDto">
+        select
+          ev_stock_code as evStockCode,
+          ev_stock_code_name as evStockCodeName,
+          ev_idx as evIdx
+        from
+          ev_stock
+        where
+          ev_idx = #{evIdx}
+        and
+          ev_stock_winning !=0
+    </select>
+
+    <select id="totalStockCnt"  resultType="Integer">
+        select  count(ep_id) as cnt  from ev_event_person
+    </select>
+
+    <select id="personStockCnt" parameterType="kr.coevolution.vr.event.dto.EvEventDto" resultType="Integer">
+        select
+          count(ep_id) as cnt
+        from
+          ev_event_person
+        where
+         ep_cust_seq =#{epCustSeq}
+    </select>
+
+    <select id="personTodayStockCnt" parameterType="kr.coevolution.vr.event.dto.EvEventDto" resultType="Integer">
+        select
+        count(ep_id) as cnt
+        from
+        ev_event_person
+        where
+        reg_dt = '2021-09-05'
+    </select>
+
+    <select id="miniMaxnumAfer" parameterType="kr.coevolution.vr.event.dto.EvEventDto" resultType="kr.coevolution.vr.event.dto.EvEventDto">
+        select ev_idx as evIdx
+        from
+        ev_stock
+        where
+        <![CDATA[
+        ev_event_day >= #{evEventDay}
+        and
+        ev_event_day <= #{evEventAfterDay}
+        and
+        ev_stock_winning !=0
+        ]]>
+    </select>
+
+    <insert id="saveEvent" parameterType="kr.coevolution.vr.event.dto.EvEventDto">
+        /* 이벤트 참가자  입력 */
+        insert into ev_event_person (
+         ep_evt_id, ep_person_name, ep_hp, ep_stock_code, ep_stock_code_name
+        ,ep_stock_day , ep_cust_seq, ep_cust_id,ep_stock_idx, reg_dt)
+       values
+        (
+         #{iboardId},#{evPersonName}, #{hp}, #{stockCode}, #{stockCodeName}
+        ,#{eventday}, #{custseq}, #{custid}, #{stockidx}, NOW()
+        );
+    </insert>
+    <update id="updateEventStock" parameterType="kr.coevolution.vr.event.dto.EvEventDto">
+        /* 이벤트 주식 차감  입력 */
+        update ev_stock set ev_stock_winning = ev_stock_winning - 1 where ev_idx = #{evIdx}
+    </update>
+
+</mapper>

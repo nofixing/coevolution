@@ -66,4 +66,8 @@ public class EvBoardRequestDto {
     private List file_list;
 
     private int board_cnt;
+
+    private String event_alert;
+
+    private String event_show_clsf;
 }

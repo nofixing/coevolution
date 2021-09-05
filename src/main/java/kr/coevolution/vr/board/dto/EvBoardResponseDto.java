@@ -72,4 +72,8 @@ public class EvBoardResponseDto {
     private Long row_count; /* 조회된 row 개수 */
 
     private Long board_cnt; /* 게시판 조회수 */
+
+    private String event_alert;
+
+    private String event_show_clsf;
 }

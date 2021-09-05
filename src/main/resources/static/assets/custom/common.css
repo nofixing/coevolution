@@ -3,15 +3,16 @@
 .clearfix:before, .clearfix:after {display:block; content:'';line-height: 0;}
 .clearfix:after {clear:both;}
 /* TEST */
+
 /* 20210903 추가 */
 .pc-topBanner{
-    background:#e0f1fa;
+    background:#f1f6fc;
 }
 
 .mobile-topBanner{
     display:none;
     text-align:center;
-    background:#e0f1fa;
+    background:#f1f6fc;
 }
 
 @media (max-width:1200px){
@@ -29,6 +30,7 @@
     }
 }
 
+
 /* 공통 */
 .mblock{
     display:none;
@@ -39,6 +41,7 @@ em.red{
 }
 img{
     max-width:100%;
+    height:auto;
 }
 .cr{
     color:#0089d0 !important;
@@ -186,10 +189,10 @@ img{
     z-index:1;
 }
 .section-top{
-    padding-top:calc(7rem + 67px) !important;
+    padding-top:7rem !important;
 }
 .section-main{
-    padding-top:calc(7.5rem + 135px) !important;
+    padding-top:calc(7.5rem + 68px) !important;
     min-height:500px;
 }
 
@@ -231,12 +234,8 @@ button.basic-btn{
         overflow:hidden;
     }
     .section-main{
-        padding-top: calc(4.5rem + 208px) !important;
+        padding-top: calc(4.5rem + 68px) !important;
         min-height:auto;
-    }
-    .section-top{
-        padding-top: calc(7rem + 110px) !important;
-}
     }
 
     .main-article-inner-logo{
@@ -348,7 +347,7 @@ button.basic-btn{
 
 select::-ms-expand{
     display:none;/*for IE10,11*/
-    display:hidden;/*영역유지하고 싶을땐*/
+    display:hidden;/*�곸뿭�좎��섍퀬 �띠쓣��*/
 }
 
 
@@ -799,7 +798,7 @@ h1.logo img{
   }
   /*hamburger*/
   /* .hamburger.is-active {top:0;} */
-  .hamburger {position:absolute; z-index:1032;  display: none;top: 4px; left: 0px;padding: 10px 15px;}
+  .hamburger {position:fixed; z-index:1032;  display: none;top: 4px; left: 0px;padding: 10px 15px;}
   .hamburger a{
       color:#212529;
   }
@@ -807,7 +806,7 @@ h1.logo img{
       color:#212529;
   }
   .mobile-submenu{
-      position:absolute;
+      position:fixed;
       top:12px;
       right:5px;
       z-index:1032;
@@ -1115,4 +1114,3 @@ h1.logo img{
     }
 
 }
-

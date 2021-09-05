@@ -268,4 +268,6 @@ public interface EvMemberMapper {
      * @return
      */
     public int U10_SET_TIMEZONE(EvMemberLoginRequestDto evMemberLoginRequestDto);
+
+    int intBadgeCnt(EvMemberBadgeRequestDto evMemberBadgeRequestDto);
 }

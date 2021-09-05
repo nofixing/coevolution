@@ -13,6 +13,9 @@
  * Script 설정
  */
 var lComm;
+var lEventShowClsf = "";
+var lEventAlert = "";
+var lEventYN = "";
 
 $(document).ready(function() {
 	//초기 값 설정
@@ -28,10 +31,17 @@ $(document).ready(function() {
 
 	/* 카테고리 코드 조회 */
 	searchCode();
+
+	/* 이벤트 조회 */
+	searchEvent();
 });
 
 function event_click() {
-	alert("이벤트는 9/7(화) 오픈 예정입니다.\r\n많은 참여 부탁드립니다.");
+	if(lEventShowClsf == "109001") {
+		alert(lEventAlert);
+	} else if(lEventShowClsf == "109002") {
+		document.location.href="/index/event";
+	}
 }
 
 /* 카테고리 코드 조회 */
@@ -57,6 +67,32 @@ function searchCode() {
 		}
 
 	});		
+}
+
+/* 이벤트조회 */
+function searchEvent() {
+	
+	/* global 변수 json으로 변환 */
+	var pParamJson = "{}";
+
+	sendForm("POST", "/index/event_top", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message.result_code == 0) {
+
+			if(message.event_yn == "Y") {
+				//이벤트가 진행중인 경우
+				lEventShowClsf = message.list[0].event_show_clsf;
+				lEventAlert = message.list[0].event_alert;
+				lEventYN = message.event_yn;
+			} else {
+				//topEvent1 ~ topEvent3 삭제하여야 함.
+			}
+			
+		} else {
+			alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+		}
+
+	});	
 }
 
 /* 참가기업검색 */

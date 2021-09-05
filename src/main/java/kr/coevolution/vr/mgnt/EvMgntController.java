@@ -3130,5 +3130,43 @@ public class EvMgntController {
         return resposeResult;
     }
 
+    /**
+     * 이벤트삭제
+     * @param evBoardRequestDto
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/mgnt/eventdel")
+    public Map<String,Object> mgnt_eventdel (@RequestBody EvBoardRequestDto evBoardRequestDto, HttpServletRequest request) {
+        Map resposeResult = new HashMap();
 
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+
+            evBoardRequestDto.setUser_id(loginInfoDto.getUser_id());
+
+            if("".equals(StringUtils.nvl(evBoardRequestDto.getBoard_id(),""))) {
+                throw new RuntimeException("ID없음");
+            }
+
+            /* 삭제처리 */
+            evBoardRequestDto.setDel_yn("Y");
+            int return_code = evMypageBoardConsltService.mypage_conslt_del(evBoardRequestDto);
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
+    }
 }

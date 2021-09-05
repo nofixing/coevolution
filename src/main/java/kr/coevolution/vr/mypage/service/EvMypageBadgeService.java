@@ -107,4 +107,14 @@ public class EvMypageBadgeService {
 
         return return_code;
     }
+
+
+    public int intBadgeCnt(EvMemberBadgeRequestDto evMemberBadgeRequestDto) {
+
+        int cnt = 0;
+        String userId = evMemberBadgeRequestDto.getCust_id();
+        evMemberBadgeRequestDto.setCust_id(userId);
+        cnt = evMemberMapper.intBadgeCnt(evMemberBadgeRequestDto);
+        return cnt;
+    }
 }

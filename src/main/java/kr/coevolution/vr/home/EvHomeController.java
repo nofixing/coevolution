@@ -15,16 +15,15 @@ import kr.coevolution.vr.email.dto.EvMailSndRequestDto;
 import kr.coevolution.vr.email.dto.EvMailSndResposeDto;
 import kr.coevolution.vr.email.service.EvMailSndService;
 import kr.coevolution.vr.home.dto.EvMemberJoinForm3;
-import kr.coevolution.vr.member.dto.EvMemberBadgeRequestDto;
-import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
-import kr.coevolution.vr.member.dto.EvMemberResposeDto;
-import kr.coevolution.vr.member.dto.EvMemberSearchDto;
+import kr.coevolution.vr.member.dto.*;
 import kr.coevolution.vr.member.service.EvMemberService;
 import kr.coevolution.vr.mypage.dto.*;
 import kr.coevolution.vr.mypage.service.EvMypageBadgeService;
 import kr.coevolution.vr.mypage.service.EvMypageCustCorpInfoService;
 import kr.coevolution.vr.mypage.service.EvMypageFavoritsService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.jasper.tagplugins.jstl.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.*;
 
 @Slf4j
@@ -1128,20 +1129,49 @@ public class EvHomeController {
 
     /**
      * 이벤트
+     *
      * @param model
      * @return
      */
+    @SneakyThrows
     @RequestMapping("/index/event")
-    public String index_event(Model model, HttpServletRequest request) {
+    public String index_event(Model model, HttpServletRequest request, HttpServletResponse response,EvMemberBadgeRequestDto evMemberBadgeRequestDto) {
 
         String returnUrl = "/event";
+        String userId = "";
+        String cust_id = "";
+        long cust_seq =0;
+        String hp_no = "";
         HttpSession httpSession = request.getSession();
-        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto) httpSession.getAttribute(StringUtils.login_session);
+
+        if (loginInfoDto != null) {
+            userId = loginInfoDto.getCust_id();
+            evMemberBadgeRequestDto.setCust_id(userId);
+            cust_id = loginInfoDto.getCust_id();
+            cust_seq = loginInfoDto.getCust_seq();
+            hp_no = loginInfoDto.getHp_no();
+
+            System.out.println("cust_id==>" + cust_id + " cust_seq==>" + cust_seq + "hp_no==>" + hp_no);
+            int badgeCnt = evMypageBadgeService.intBadgeCnt(evMemberBadgeRequestDto);
+            if(badgeCnt > 11) { //이벤트 진행시 7로 수정
+                response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('뱃지 3개이하 경우 버추얼전시회에서 관심부스에 관심뱃지 3개 이상하셔야만 이벤트 참여가능합니다.'); location.href='/index/ieve2021';</script>");
+                out.flush();
+            }
+        } else {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('참관등록 후 버추얼전시회에서 관심부스에 관심뱃지 3개 이상하셔야만 이벤트 참여가능합니다.'); location.href='/member/login_form';</script>");
+            out.flush();
+        }
+
 
         /* 이벤트가 여러개 있어도 최종입력된 내역 1건만 표시한다. */
         List<EvBoardResponseDto> evnetList = evBoardService.now_evnt();
 
-        if(evnetList != null && evnetList.size() > 0) {
+        if (evnetList != null && evnetList.size() > 0) {
             Long boardId = evnetList.get(0).getBoard_id();
             String board_content = evnetList.get(0).getBoard_content();
             String ref_url = evnetList.get(0).getRef_url();
@@ -1154,6 +1184,11 @@ public class EvHomeController {
             model.addAttribute("event_yn", "Y");
             model.addAttribute("board_content", board_content);
             model.addAttribute("ref_url", ref_url);
+            model.addAttribute("userId", userId);
+            model.addAttribute("boardId", boardId);
+            model.addAttribute("cust_id", cust_id);
+            model.addAttribute("cust_seq", cust_seq);
+            model.addAttribute("hp_no", hp_no);
         } else {
             model.addAttribute("event_yn", "N");
         }
@@ -1177,5 +1212,44 @@ public class EvHomeController {
         model.addAttribute("arShowList", arShowList);
 
         return returnUrl;
+    }
+
+    /**
+     * 현재 이벤트 조회
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/index/event_top")
+    public Map<String, Object> index_event_top(@RequestBody Map<String, String> param, HttpServletRequest request) {
+
+        Map resposeResult = new HashMap();
+
+        try {
+
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            /* 이벤트가 여러개 있어도 최종입력된 내역 1건만 표시한다. */
+            List<EvBoardResponseDto> evnetList = evBoardService.now_evnt();
+
+            if(evnetList != null && evnetList.size() > 0) {
+                resposeResult.put("event_yn", "Y");
+                resposeResult.put("list", evnetList);
+            } else {
+                resposeResult.put("event_yn", "N");
+            }
+
+            resposeResult.put("result_code", "0");
+            resposeResult.put("result_msg", "성공!!");
+
+        } catch (Exception e) {
+            resposeResult.put("result_code", "-99");
+            resposeResult.put("result_msg", "입력실패!!");
+
+            e.printStackTrace();
+        }
+
+        return resposeResult;
     }
 }

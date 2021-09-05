@@ -183,9 +183,28 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>노출 구분<sup>*</sup></th>
+                                    <td>
+                                        <span>
+                                            <input type="radio" id="event_show_clsf1" name="event_show_clsf" value="109001" checked>
+                                            <label for="event_show_clsf1">알림 메시지 노출</label>
+                                        </span>
+                                        <span>
+                                            <input type="radio" id="event_show_clsf2" name="event_show_clsf" value="109002">
+                                            <label for="event_show_clsf2">이벤트 내용 노출</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>이벤트URL</th>
                                     <td>
                                         <input type="text" id="ref_url" name="ref_url" class="w-100" maxlength="500">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>이벤트알림메시지</th>
+                                    <td>
+                                        <textarea name="event_alert" id="event_alert" cols="30" rows="3" maxlength="500"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -195,9 +214,10 @@
                                     </td>
                                 </tr>
                             </table>
-                            <div class="write-btn">
+                            <div class="write-btn" style="justify-content:right">
                                 <button type="button" id="btnList">목록</button>
                                 <button type="button" id="btnSave">저장</button>
+                                <button type="button" id="btnDelete">삭제</button>
                             </div>
                         </form>
                     </div>

@@ -99,7 +99,7 @@
                         </li>
                         <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                            <li>
+                            <li id="topEvent1">
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                                 <div class="m-menu-list-sub">
                                     <a href="javascript:event_click()">이벤트 참여하기</a>
@@ -290,7 +290,7 @@
                         </ul>
                         <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                        <ul>
+                        <ul id="topEvent2">
                             <li>
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                             </li>
@@ -453,7 +453,7 @@
                             </li>
                         <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                            <li class="nav-item">
+                            <li class="nav-item" id="topEvent3">
                                 <a href="javascript:event_click()" class="nav-link nav-item-font">
                                     <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>
                                 </a>

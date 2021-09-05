@@ -38,6 +38,11 @@ $(document).ready(function() {
 		fnUpdate();
 	});
 
+	//삭제 
+	$('#btnDelete').on('click', function () {
+		fnDelete();
+	});
+
 	<c:if test="${board_id != '' && board_id != null}">
 		setValue("board_id", "${board_id}");
 		fnSearch();
@@ -61,7 +66,7 @@ function fnSearch() {
 			document.location.href="/m.do";
 		} else if(message.result_code == 0) {
 				/* 필드값입력 */
-				var pFieldArry = ["board_clsf_dtl_cd","board_subject","evnt_fr_dt","evnt_to_dt","req_fr_dt","req_fr_hhmm","req_to_dt","req_to_hhmm","board_content","ref_url"];
+				var pFieldArry = ["board_clsf_dtl_cd","board_subject","evnt_fr_dt","evnt_to_dt","req_fr_dt","req_fr_hhmm","req_to_dt","req_to_hhmm","board_content","ref_url","event_alert"];
 				gfnSetField(message.list[0], pFieldArry);
 
 				if(message.list[0].use_yn == "Y") {
@@ -69,6 +74,13 @@ function fnSearch() {
 				} else {
 					gfnSetCheck("use_yn2");
 				}
+
+				if(message.list[0].event_show_clsf == "109001") {
+					gfnSetCheck("event_show_clsf1");
+				} else {
+					gfnSetCheck("event_show_clsf2");
+				} 
+
 		} else {
 			if(message.session_yn == "N") {
 				alert("로그아웃되었습니다.");	
@@ -107,6 +119,8 @@ function fnUpdate() {
 		return false;
 	}
 
+	if(!confirm("이벤트를 등록하시겠습니까?")) return false;
+
 	/* form값 global 변수에 입력 */
 	gfnGetFormJSON();
 
@@ -120,6 +134,37 @@ function fnUpdate() {
 			document.location.href="/m.do";
 		} else if(message.result_code == 0) {
 			var msg = "이벤트를 등록하였습니다.";
+            alert(msg);
+			document.location.href="/mgnt/event";
+		} else {
+			if(message.session_yn == "N") {
+				alert("로그아웃되었습니다.");	
+				document.location.href="/m.do";
+			} else {
+				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
+			}
+		}
+
+	});	
+}
+
+function fnDelete() {
+
+	if(!confirm("이벤트를 삭제하시겠습니까?")) return false;
+
+	/* form값 global 변수에 입력 */
+	gfnGetFormJSON();
+
+	/* global 변수 json으로 변환 */
+	var pParamJson = gfnGetJson();
+
+	sendForm("POST", "/mgnt/eventdel", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+
+		if(message == "parsererror") {
+			alert("로그아웃되었습니다.");
+			document.location.href="/m.do";
+		} else if(message.result_code == 0) {
+			var msg = "이벤트를 삭제하였습니다.";
             alert(msg);
 			document.location.href="/mgnt/event";
 		} else {
