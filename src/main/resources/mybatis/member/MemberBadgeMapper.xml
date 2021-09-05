@@ -353,7 +353,7 @@
     </select>
 
     <select id="intBadgeCnt" parameterType="kr.coevolution.vr.mypage.dto.EvMypageBadgeRequestDto" resultType="Integer">
-        select sum(badge_cnt) as cnt from ev_cust_badge where cust_id = #{cust_id}
+        select sum(badge_cnt) as cnt from ev_cust_badge where cust_id = #{cust_id} AND badge_clsf_cd != '211002'
     </select>
 
 
