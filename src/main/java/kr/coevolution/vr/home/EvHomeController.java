@@ -1145,6 +1145,7 @@ public class EvHomeController {
         HttpSession httpSession = request.getSession();
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto) httpSession.getAttribute(StringUtils.login_session);
 
+        /*
         if (loginInfoDto != null) {
             userId = loginInfoDto.getCust_id();
             evMemberBadgeRequestDto.setCust_id(userId);
@@ -1166,7 +1167,7 @@ public class EvHomeController {
             out.println("<script>alert('참관등록 후 버추얼전시회에서 관심부스에 관심뱃지 3개 이상하셔야만 이벤트 참여가능합니다.'); location.href='/member/login_form';</script>");
             out.flush();
         }
-
+        */
 
         /* 이벤트가 여러개 있어도 최종입력된 내역 1건만 표시한다. */
         List<EvBoardResponseDto> evnetList = evBoardService.now_evnt();
