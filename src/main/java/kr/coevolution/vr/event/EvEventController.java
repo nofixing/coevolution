@@ -1,6 +1,6 @@
 package kr.coevolution.vr.event;
 
-
+import kr.coevolution.vr.member.dto.EvMemberBadgeRequestDto;
 import kr.coevolution.vr.board.service.EvBoardService;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.service.EvFileAttachService;
@@ -71,7 +71,6 @@ public class EvEventController {
     /**
      * 이벤트 주식 발행
      *
-     * @param model
      * @return
      */
     @ResponseBody
@@ -79,20 +78,37 @@ public class EvEventController {
     public  Map<String,Object> stockissuance(@RequestBody Map map, HttpServletRequest request) {
 
         Map resposeResult = new HashMap();
+        String userId = "";
+        String cust_id = "";
+        long cust_seq =0;
+        String hp_no = "";
 
         /* 로그인정보 */
         HttpSession httpSession = request.getSession();
         EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto) httpSession.getAttribute(StringUtils.login_session);
+
 
         if(loginInfoDto == null) {
             httpSession.removeAttribute(StringUtils.login_session);
             resposeResult.put("session_yn", "N");
             resposeResult.put("result_code", "-9999");
             resposeResult.put("result_msg", "세션정보없음");
-            return resposeResult;
+            //return resposeResult;
         } else {
+            EvMemberBadgeRequestDto evMemberBadgeRequestDto = new EvMemberBadgeRequestDto();
+            userId = loginInfoDto.getCust_id();
+            evMemberBadgeRequestDto.setCust_id(userId);
+            cust_id = loginInfoDto.getCust_id();
+            cust_seq = loginInfoDto.getCust_seq();
+            hp_no = loginInfoDto.getHp_no();
+            int badgeCnt = evMypageBadgeService.intBadgeCnt(evMemberBadgeRequestDto);
+            resposeResult.put("badgeCnt", badgeCnt);
             resposeResult.put("session_yn", "Y");
         }
+
+
+
+
 
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -209,7 +225,6 @@ public class EvEventController {
     /**
      * 이벤트 당첨자 저장
      *
-     * @param model
      * @return
      */
     @ResponseBody

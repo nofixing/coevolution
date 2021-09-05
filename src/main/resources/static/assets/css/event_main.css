@@ -43,3 +43,29 @@ body {color: #000; font-size: 14px; font-family: 'Noto Sans KR', sans-serif; pos
     .wrap .box {width: 93%}
     .wrap .box .layer2 .bar {top: 28.9%}
 }
+
+@media (max-width:750px){
+    .wrap .box .layer .btn{
+         top:13%;
+         width: 25%;
+    }
+}
+@media (max-width:450px){
+    .wrap .box .layer .btn{
+         top:10%;
+         width: 30%;
+    }
+}
+
+@media (max-width:750px){
+    .wrap .box .layer .btn{
+         top:13%;
+         width: 25%;
+    }
+}
+@media (max-width:450px){
+    .wrap .box .layer .btn{
+         top:10%;
+         width: 30%;
+    }
+}

@@ -27,7 +27,19 @@ $(function() {
         var pParamJson = '{"cust_id":"${cust_id}"}';
 
         	sendForm("POST", "/event/stockissuance", "application/json; charset=utf-8", "json", pParamJson, function(message) {
-               if(message.result_code == 100) {
+                //alert(message.session_yn);
+               // alert("badgeCnt==>" + message.badgeCnt);
+                //alert(message.result_msg);
+
+               if(message.session_yn == undefined){
+                 alert('참관 등록 후 버추얼전시회에서 관심부스에 관심뱃지 3개 이상하셔야만 이벤트 참여 가능합니다');
+                 location.href='/member/login_form';
+                 return false;
+               }else if(message.badgeCnt > 7) {
+                 alert('버추얼전시회에서 관심부스에 관심뱃지 3개 이상하셔야만 이벤트 참여 가능합니다.');
+                 location.href='/index/ieve2021';
+                 return false;
+               }else if(message.result_code == 100) {
                   alert('이미 참여하였습니다. 이벤트 기간 동안 한 번만 참여 가능 합니다.');
                   location.href='/index/event';
                   return false;
@@ -41,6 +53,9 @@ $(function() {
                          alert("아래 '당첨 정보 입력하기' 클릭 후 개인정보를 입력해주세요. 당첨 정보 미입력 시 경품 지급이 불가합니다.");
                           }, 2000);
                	} else {
+               	    //alert(message.session_yn);
+               	   // alert(message.result_code);
+               	   // alert(message.result_msg);
                		alert("시스템 관리자에게 문의하여 주시길 바랍니다.");
                	}
              });
