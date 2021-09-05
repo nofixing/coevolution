@@ -14,14 +14,17 @@
   <!-- top Menu -->
   <jsp:include page="/WEB-INF/jsp/include/topMenu.jsp"></jsp:include>
     
-  <!-- vr -->
-  <c:if test="${sessionScope.LANG eq 'en'}">
-    <iframe id="iframe" src="/vr21/en/ieve2021/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
-  </c:if>
-
-  <c:if test="${sessionScope.LANG ne 'en'}">
-    <iframe id="iframe" src="/vr21/kor/ieve2021/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
-  </c:if>
+    <c:choose>
+        <c:when test = "${param.c eq '106014' || param.c eq '106015' || param.c eq '106016' || param.c eq '106017' || param.c eq '106018' || param.c eq '106019' || param.c eq '106020' || param.c eq '106021' || param.c eq '106022' || param.c eq '106023' || param.c eq '106024' || param.c eq '106025' || param.c eq '106026'}"> <!-- 버추얼 공항 106001, 106014 -->
+            <iframe id="iframe" src="/vr21/eng/ieve2021_${param.c}/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+        </c:when>
+        <c:when test = "${param.c eq '106001' || param.c eq '106002' || param.c eq '106003' || param.c eq '106004' || param.c eq '106015' || param.c eq '106006' || param.c eq '106007' || param.c eq '106008' || param.c eq '106009' || param.c eq '106010' || param.c eq '106011' || param.c eq '106012' || param.c eq '106013'}"> <!-- 버추얼 공항 106001, 106014 -->
+            <iframe id="iframe" src="/vr21/kor/ieve2021_${param.c}/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+        </c:when>
+        <c:otherwise>
+            <iframe id="iframe" src="/vr21/kor/ieve2021/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+        </c:otherwise>
+    </c:choose>
   
   </body>
 
