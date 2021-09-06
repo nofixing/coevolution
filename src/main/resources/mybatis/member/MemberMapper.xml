@@ -33,6 +33,7 @@
              , email_id
              , cust_clsf_cd
              , date_format(ins_dtm,'%Y-%m-%d')  as ins_dt
+             , hp_no
         FROM ev_cust_mst
         where cust_id = #{user_id}
           and cust_pw = #{user_pw}
