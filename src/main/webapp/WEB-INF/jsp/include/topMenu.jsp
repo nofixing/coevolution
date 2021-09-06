@@ -2,8 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-    
-
     <!-- M 메뉴 -->
     <div class="m-menu">
         <div class="m-menu-top">
@@ -98,7 +96,7 @@
                             </div>
                         </li>
                         <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en'}">
+                            <c:when test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y'}">
                             <li id="topEvent1">
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                                 <div class="m-menu-list-sub">
@@ -289,7 +287,7 @@
                             </li>                                                  
                         </ul>
                         <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en'}">
+                            <c:when test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y'}">
                         <ul id="topEvent2">
                             <li>
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
@@ -352,8 +350,8 @@
     <!-- NAVBAR
     ================================================= -->
     <nav class=" fixed-top">
-
-         <c:if test="${sessionScope.LANG ne 'en'}">
+        
+         <c:if test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y'}">
             <div class="pc-topBanner">
                 <div class="container">
                     <map name="t">
@@ -452,7 +450,7 @@
                                 </a>
                             </li>
                         <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en'}">
+                            <c:when test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y'}">
                             <li class="nav-item" id="topEvent3">
                                 <a href="javascript:event_click()" class="nav-link nav-item-font">
                                     <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>

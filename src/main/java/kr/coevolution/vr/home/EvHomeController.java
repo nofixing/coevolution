@@ -166,6 +166,7 @@ public class EvHomeController {
     @RequestMapping("/index/ieve2021")
     public String ieve2021(Model model, HttpServletRequest request) {
         String return_url = "/ieve2021";
+        model.addAttribute("vr_yn", "Y");
 
         return return_url;
     }
