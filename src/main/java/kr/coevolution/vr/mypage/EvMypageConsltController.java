@@ -2009,7 +2009,17 @@ public class EvMypageConsltController {
                 timezone_hhmm_to = consultSettingCust.get(0).getTimezone_hhmm_to();
             } else {
                 //default 설정
-                consultTimeId = 0L;
+                EvMypageConsultRequestDto consultRequestDto = new EvMypageConsultRequestDto();
+                consultRequestDto.setCust_id(evMypageConsultRequestDto.getConsultCustId());
+                consultRequestDto.setEv_expo_id(evExpoId);
+                List<EvMypageConsultResponseDto> consultSetting = evMypageConsultService.consult_settime_select(consultRequestDto);
+
+                if(consultSetting != null && consultSetting.size() == 1) {
+                    consultTimeId = consultSetting.get(0).getConsult_time_id();
+                } else {
+                    consultTimeId = 0L;
+                }
+
                 tiemzone_cd = "213001";
                 consult_from_time = "214019";
                 consult_to_time = "214036";
