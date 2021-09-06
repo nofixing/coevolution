@@ -72,6 +72,11 @@
 
     </select>
 
+    <select id="S02_DT_CNT" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultScheduleRequestDto" resultType="int">
+        select DATEDIFF(STR_TO_DATE((SELECT consult_to_dt FROM ev_consult_time WHERE consult_time_id = #{consult_time_id}), '%Y-%m-%d')
+             , STR_TO_DATE((SELECT consult_from_dt FROM ev_consult_time WHERE consult_time_id = #{consult_time_id}), '%Y-%m-%d')) as dt_cnt
+    </select>
+
     <insert id="I02_CONSULT_SCHEDULE1" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultScheduleRequestDto">
 
         /* 상담스케줄생성 */
@@ -90,19 +95,15 @@
         , mod_dtm
         )
         /*https://nakanara.tistory.com/255*/
-        with recursive DT_CNT as (
-        select DATEDIFF(STR_TO_DATE((SELECT consult_to_dt   FROM ev_consult_time WHERE consult_time_id = #{consult_time_id}), '%Y-%m-%d')
-        , STR_TO_DATE((SELECT consult_from_dt FROM ev_consult_time WHERE consult_time_id = #{consult_time_id}), '%Y-%m-%d')) as cnt
-        ),
-        DT_TABLE as (
+        with recursive DT_TABLE as (
         select STR_TO_DATE((SELECT consult_from_dt FROM ev_consult_time WHERE consult_time_id = #{consult_time_id}), '%Y-%m-%d')	as dt
         , 1 																								                    as lv
         from dual
         union all
         select DATE_ADD(STR_TO_DATE((SELECT consult_from_dt FROM ev_consult_time WHERE consult_time_id = #{consult_time_id}), '%Y-%m-%d'), interval DT_TABLE.lv day) 	as dt
         , DT_TABLE.lv + 1 																															                as lv
-        from DT_CNT, DT_TABLE
-        where DT_TABLE.lv <![CDATA[<=]]> dt_cnt.cnt
+        from DT_TABLE
+        where DT_TABLE.lv <![CDATA[<=]]> #{dt_cnt}
         )
         SELECT null 				    /* schedule_id */
         , #{ev_expo_id}

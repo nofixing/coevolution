@@ -20,6 +20,9 @@ public interface EvMypageConsultMapper {
     /* 참가업체 상담시간설정 조회 */
     public List<EvMypageConsultResponseDto> S01_SET_TIME(EvMypageConsultRequestDto param);
 
+    /* 일자갯수리턴 */
+    public int S02_DT_CNT(EvMypageConsultRequestDto param);
+
     /* 참가업체 상담시간 입력 */
     public int I02_CONSULT_SCHEDULE1(EvMypageConsultRequestDto param);
 

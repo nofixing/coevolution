@@ -448,7 +448,7 @@
             and ecm.cust_id             in (SELECT cust_id FROM ev_expo_customer where ev_expo_id = (select ev_expo_id from ev_expo where use_yn = 'Y'))
 
         <if test="category != null and category != ''">
-            and ecm.category1 			= #{category}
+            and (ecm.category1 			= #{category} or ecm.category2 			= #{category})
         </if>
 
         <if test="keyword != null and keyword != ''">
@@ -474,7 +474,7 @@
         and ecm.cust_id             in (SELECT cust_id FROM ev_expo_customer where ev_expo_id = (select ev_expo_id from ev_expo where use_yn = 'Y'))
 
         <if test="category != null and category != ''">
-            and ecm.category1 			= #{category}
+            and (ecm.category1 			= #{category} or ecm.category2 			= #{category})
         </if>
 
         <if test="keyword != null and keyword != ''">

@@ -27,6 +27,10 @@ public class EvMypageConsultService {
     public int consult_settime_insert (EvMypageConsultRequestDto evMypageConsultRequestDto) {
         int insertCnt  = evMypageConsultMapper.I01_SET_TIME(evMypageConsultRequestDto);
 
+        /* 상담생성일수 */
+        int dtCnt = evMypageConsultMapper.S02_DT_CNT(evMypageConsultRequestDto);
+        evMypageConsultRequestDto.setDt_cnt(dtCnt);
+        
         //참가업체 상담 시간 입력
         evMypageConsultMapper.I02_CONSULT_SCHEDULE1(evMypageConsultRequestDto);
 
@@ -40,6 +44,10 @@ public class EvMypageConsultService {
      */
     public int consult_settime_update (EvMypageConsultRequestDto evMypageConsultRequestDto) {
         int insertCnt  = evMypageConsultMapper.U01_SET_TIME(evMypageConsultRequestDto);
+
+        /* 상담생성일수 */
+        int dtCnt = evMypageConsultMapper.S02_DT_CNT(evMypageConsultRequestDto);
+        evMypageConsultRequestDto.setDt_cnt(dtCnt);
 
         //참가업체 상담 시간 입력
         evMypageConsultMapper.I02_CONSULT_SCHEDULE1(evMypageConsultRequestDto);

@@ -211,7 +211,7 @@ function setCategoriHtml(corpList, zoomList) {
 		vCategoriHtml += '        <p class="mb-0 text-sm text-muted"> ';
 
 		if(corpList[i].category2 != "" && corpList[i].category2 != null) {
-			vCategoriHtml += '        <h4><span class="badge bg-info "><small class="text-white"> ' + corpList[i].category2 + ' </small></span></h4> ';
+			//vCategoriHtml += '        <h4><span class="badge bg-info "><small class="text-white"> ' + corpList[i].category2 + ' </small></span></h4> ';
 		}
 
 		for(var j = 0; j < zoomList.length; j++) {
