@@ -61,7 +61,7 @@
   <!-- 진행순서
     ================================================== -->
     <section class="section pt-0">
-      <div class="container">
+      <div class="containe mt-block">
 
         <div class="row">
           <div class="col-xl-3" id="gLeftMenu">

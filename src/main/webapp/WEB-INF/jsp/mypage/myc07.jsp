@@ -70,7 +70,7 @@
     <!-- CONTENT
     ================================================== -->
     <section class="section pt-0">
-      <div class="container">
+      <div class="container mt-block">
 
         <div class="row">
           <div class="col-xl-3" id="gLeftMenu">
