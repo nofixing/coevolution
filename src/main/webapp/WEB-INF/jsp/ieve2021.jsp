@@ -21,7 +21,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106001/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106014/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106014/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -30,7 +30,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106002/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106015/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106015/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -39,7 +39,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106003/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106016/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106016/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -48,7 +48,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106004/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106017/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106017/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -57,7 +57,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106005/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106018/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106018/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -66,7 +66,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106006/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106019/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106019/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -75,7 +75,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106007/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106020/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106020/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -84,7 +84,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106008/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106021/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106021/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -93,7 +93,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106009/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106022/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106022/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -102,7 +102,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106010/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106023/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106023/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -111,7 +111,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106011/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106024/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106024/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -120,7 +120,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106012/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106025/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106025/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
@@ -129,7 +129,7 @@
                 <iframe id="iframe" src="/vr21/kor/ieve2021_106013/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
             <c:if test="${sessionScope.LANG eq 'en'}">
-                <iframe id="iframe" src="/vr21/eng/ieve2021_106026/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106026/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
             </c:if>
         </c:when>
 
