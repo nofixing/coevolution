@@ -1,6 +1,18 @@
 function getStock(stockCode,stockCodeName,custid,custseq,hp,eventday,stockidx,personname){
     var target = stockCode;
-    var url = "http://direct-sks.com/expo?"+"stockCode="+target+"&cust_id="+custid+"&cust_seq="+custseq+"&hp_no="+hp+"&event_day="+eventday;
+    var isMobile = false;
+    // PC 환경
+    var filter = "win16|win32|win64|mac";
+    if(navigator.platform){
+       isMobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
+    }
+    var url="";
+    if(isMobile == false){
+     url = "http://direct-sks.com/expo?"+"stockCode="+target+"&cust_id="+custid+"&cust_seq="+custseq+"&hp_no="+hp+"&event_day="+eventday;
+    }else{
+     url = "http://m.direct-sks.com/expo?"+"stockCode="+target+"&cust_id="+custid+"&cust_seq="+custseq+"&hp_no="+hp+"&event_day="+eventday;
+    }
+
     $('#stockCode').val(stockCode);
     $('#stockCodeName').val(stockCodeName);
     $('#cust_id').val(custid);
@@ -35,12 +47,12 @@ $(function() {
                  alert('참관 등록 후 버추얼전시회에서 관심부스에 관심뱃지 3개 이상하셔야만 이벤트 참여 가능합니다');
                  location.href='/member/login_form';
                  return false;
-               }else if(message.badgeCnt > 10) {
+               }else if(message.badgeCnt > 7) {
                  alert('버추얼전시회에서 관심부스에 관심뱃지 3개 이상하셔야만 이벤트 참여 가능합니다.');
                  location.href='/index/ieve2021';
                  return false;
                }else if(message.result_code == 100) {
-                  alert('이미 참여하였습니다. 이벤트 기간 동안 한 번만 참여 가능 합니다.');
+                  alert('이미 참여하였습니다. 이벤트 기간 동안 한 번만 참여 가능합니다.');
                   location.href='/index/event';
                   return false;
                }else if(message.result_code == 0) {
@@ -52,11 +64,13 @@ $(function() {
                          setTimeout(function() {
                          alert("아래 '당첨 정보 입력하기' 클릭 후 개인정보를 입력해주세요. 당첨 정보 미입력 시 경품 지급이 불가합니다.");
                           }, 2000);
-               	} else {
-               	    //alert(message.session_yn);
-               	   // alert(message.result_code);
-               	   // alert(message.result_msg);
+               	}else if(message.result_code == -88) {
+               	  alert("이벤트 기간이 아닙니다.");
+               	  location.href='/ieve2021';
+                  return false;
+               	}else {
                		alert("시스템 관리자에게 문의하여 주시길 바랍니다.");
+               		return false;
                	}
              });
 
@@ -98,20 +112,18 @@ $(function() {
        //var pParamJson =  '{"stockCode":stockCode,"stockCodeName":stockCodeName,"custid":custid,"custseq":custseq,"hp":hp,"eventday":eventday,"stockidx":stockidx}';
                	sendForm("POST", "/event/stockprocess", "application/json; charset=utf-8", "json", pParamJson, function(message) {
                       if(message.result_code == 100) {
-                         alert('이벤트에 참가 되었습니다.');
+                          alert('이벤트에 참가 되었습니다.');
                          var options = 'width=500, height=600, top=30, left=30, resizable=no, scrollbars=no, location=no';
                          var url= $('#evUrl').val();
                          window.open(url, "eventpop", options);
-
-
                           $('.wrap .box').removeClass('on');
                           $('#layer-popup-01').fadeOut(150);
+
+                            return false;
                       } else {
                       	alert("시스템 관리자에게 문의하여 주시길 바랍니다.");
+                      	 return false;
                       }
                     });
-
-
-
     });
 });

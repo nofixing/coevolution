@@ -122,7 +122,7 @@ public class EvEventController {
 
             EvEventDto evEventDto = new EvEventDto();
             String toDay = "2021-09-07";
-            evEventDto.setEvEventDay(toDay); // 이벤트 진행시 strToday 로 교체
+            evEventDto.setEvEventDay(strToday); // 이벤트 진행시 strToday 로 교체
 
             evEventDto.setEpCustSeq(loginInfoDto.getCust_seq());
             evEventDto.setEpCustId(loginInfoDto.getCust_id());
@@ -138,8 +138,38 @@ public class EvEventController {
                 int totalStockCnt = evEventService.totalStockCnt(); // 전체 주식 발행 수
                 System.out.println("personTodayStockCnt" +personTodayStockCnt);
                 System.out.println("totalStockCnt" +totalStockCnt);
+                int todayStockCnt = 0;
+
+                switch(strToday){
+                    case "2021-09-07":
+                        todayStockCnt = 3000;
+                        break;
+                    case "2021-09-08":
+                        todayStockCnt = 1801;
+                        break;
+                    case "2021-09-09":
+                        todayStockCnt = 1500;
+                        break;
+                    case "2021-09-10":
+                        todayStockCnt = 1002;
+                        break;
+                    case "2021-09-11":
+                        todayStockCnt = 1001;
+                        break;
+                    case "2021-09-12":
+                        todayStockCnt = 1001;
+                        break;
+                    case "2021-09-13":
+                        todayStockCnt = 600;
+                        break;
+                    default:
+                        todayStockCnt = 3000;
+                    break;
+                }
+
+
                 // 1일 주식 3000주 미만
-                if(personTodayStockCnt < 3000) {
+                if(personTodayStockCnt < todayStockCnt) {
                     List<EvEventDto> miniMaxnum = evEventService.miniMaxnum(evEventDto);
                     List<Integer> cards = new ArrayList<Integer>();
                     int miniNum = 0;
@@ -152,7 +182,13 @@ public class EvEventController {
                         }
                        // System.out.println(cards);
                         Collections.shuffle(cards);
-                        ran = cards.get(0);
+                        if(cards.size() > 0 ) {
+                            ran = cards.get(0);
+                        }else{
+                            resposeResult.put("result_code", "-88");
+                            resposeResult.put("result_msg", "ok");
+                            return resposeResult;
+                        }
                         evEventDto.setEvIdx(ran);
                         List<EvEventDto> stockCodeInfo = evEventService.stockCodeInfo(evEventDto);
                         if (stockCodeInfo != null) {
@@ -164,7 +200,7 @@ public class EvEventController {
                             resposeResult.put("cust_id", loginInfoDto.getCust_id());
                             resposeResult.put("cust_seq", loginInfoDto.getCust_seq());
                             resposeResult.put("hp_no", loginInfoDto.getHp_no());
-                            resposeResult.put("event_day", toDay); // 이벤트 진행시 strToday  교체
+                            resposeResult.put("event_day", strToday); // 이벤트 진행시 strToday  교체
                             resposeResult.put("stockidx", ran); //  주식 테이블 stockidx  교체
                             resposeResult.put("evPersonName", loginInfoDto.getCust_nm());
                         }
@@ -175,7 +211,7 @@ public class EvEventController {
                     }
                 }else{
                     String afterDay= "2021-09-08";
-                    evEventDto.setEvEventAfterDay(afterDay); //이벤트 진행시 afterToday  로 교체
+                    evEventDto.setEvEventAfterDay(afterToday); //이벤트 진행시 afterToday  로 교체
                     List<EvEventDto> miniMaxnum = evEventService.miniMaxnumAfer(evEventDto);
                     List<Integer> cards = new ArrayList<Integer>();
                     int miniNum = 0;
@@ -200,7 +236,7 @@ public class EvEventController {
                             resposeResult.put("cust_id", loginInfoDto.getCust_id());
                             resposeResult.put("cust_seq", loginInfoDto.getCust_seq());
                             resposeResult.put("hp_no", loginInfoDto.getHp_no());
-                            resposeResult.put("event_day", toDay); // 이벤트 진행시 strToday  교체
+                            resposeResult.put("event_day", strToday); // 이벤트 진행시 strToday  교체
                             resposeResult.put("stockidx", ran);
                             resposeResult.put("evPersonName", loginInfoDto.getCust_nm());
                         }
