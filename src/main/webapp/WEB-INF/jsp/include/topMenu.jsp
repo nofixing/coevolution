@@ -96,7 +96,7 @@
                             </div>
                         </li>
                         <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y'}">
+                            <c:when test="${sessionScope.LANG ne 'en'}">
                             <li id="topEvent1">
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                                 <div class="m-menu-list-sub">
@@ -287,7 +287,7 @@
                             </li>                                                  
                         </ul>
                         <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y'}">
+                            <c:when test="${sessionScope.LANG ne 'en'}">
                         <ul id="topEvent2">
                             <li>
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
@@ -362,7 +362,7 @@
                     
                 </div>
             </div>
-
+             
             <div class="mobile-topBanner">
                     <div class="container">
                         <a href="javascript:event_click()">
@@ -450,7 +450,7 @@
                                 </a>
                             </li>
                         <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y'}">
+                            <c:when test="${sessionScope.LANG ne 'en'}">
                             <li class="nav-item" id="topEvent3">
                                 <a href="javascript:event_click()" class="nav-link nav-item-font">
                                     <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>
