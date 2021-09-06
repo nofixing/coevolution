@@ -34,6 +34,18 @@ $(document).on('click', 'a[href="#"]', function(e){
 
 $(function() {
     $('.wrap .box .layer .btn').on('click', function() {
+
+		// PC 환경
+		var filter = "win16|win32|win64|mac";
+		if(navigator.platform){
+		   isMobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
+		}
+
+		if(isMobile){
+			alert("지금은 PC에서만 참여 가능합니다.");
+			return false;
+		}
+
         $('.wrap .box').addClass('on');
 
         var pParamJson = '{"cust_id":"${cust_id}"}';
@@ -112,7 +124,7 @@ $(function() {
        //var pParamJson =  '{"stockCode":stockCode,"stockCodeName":stockCodeName,"custid":custid,"custseq":custseq,"hp":hp,"eventday":eventday,"stockidx":stockidx}';
                	sendForm("POST", "/event/stockprocess", "application/json; charset=utf-8", "json", pParamJson, function(message) {
                       if(message.result_code == 100) {
-                          alert('이벤트에 참가 되었습니다.');
+                          alert('이벤트에 참여되었습니다. 당첨정보를 정확하게 입력해주세요.');
                          var options = 'width=500, height=600, top=30, left=30, resizable=no, scrollbars=no, location=no';
                          var url= $('#evUrl').val();
                          window.open(url, "eventpop", options);
