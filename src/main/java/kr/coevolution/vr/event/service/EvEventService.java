@@ -74,4 +74,8 @@ public class EvEventService {
         evEventMapper.updateEventStock(evEventDto);
         return return_code;
     }
+
+    public List<EvEventDto> mypageList(EvEventDto evEventDto) {
+        return evEventMapper.S01_MYPAGE_LIST(evEventDto);
+    }
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coevolution.vr.mgnt.domain.MgntEventMapper">
+    <select id="search_person_list" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntEventDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntEventDto">
+
+        /* 이벤트 참가자  */
+        SELECT ROW_NUMBER() OVER(ORDER BY a.reg_dt desc) as rn
+        , ep_evt_id	 as epEvtId, ep_person_name as epPersonName, ep_hp as epHp, ep_stock_code as epStockCode, ep_stock_code_name as epStockCodeName
+        , ep_stock_day as epStockDay, ep_cust_id as epCustId,ep_cust_seq as epCustSeq
+        , DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS regDt
+        FROM ev_event_person a
+        WHERE
+        1=1
+        and date_format(reg_dt,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        <if test="keyword != null and keyword != ''">
+        and (ep_cust_id like concat('%',#{keyword},'%') or ep_person_name like concat('%',#{keyword},'%') or ep_stock_code_name like concat('%',#{keyword},'%'))
+        </if>
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="search_person_list_count" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntEventDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntEventDto">
+
+        /* 이벤트 참가자 건수  */
+        SELECT COUNT(*) AS row_count
+        FROM ev_event_person a
+        WHERE
+        1=1
+        and date_format(reg_dt,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        <if test="keyword != null and keyword != ''">
+        and (ep_cust_id like concat('%',#{keyword},'%') or ep_person_name like concat('%',#{keyword},'%') or ep_stock_code_name like concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY a.reg_dt DESC
+
+    </select>
+
+    <select id="search_stock_list" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntEventDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntEventDto">
+
+        /* 주식 보유 현황  */
+        SELECT ROW_NUMBER() OVER(ORDER BY a.ev_event_day asc,a.ev_stock_code asc) as rn
+        ,ev_stock_code as evStockCode , ev_stock_code_name as evStockCodeName
+        ,ev_stock_winning_ori as evStockWinningOri, ev_stock_winning as evStockWinning
+        ,ev_event_day as evEventDay
+        FROM ev_stock a
+        WHERE
+        1=1
+        and date_format(ev_event_day,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        <if test="keyword != null and keyword != ''">
+            and (ev_stock_code like concat('%',#{keyword},'%') or ev_stock_code_name like concat('%',#{keyword},'%'))
+        </if>
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="search_stock_list_count" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntEventDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntEventDto">
+
+        /* 주식 보유 현황  건수 */
+        SELECT COUNT(*) AS row_count
+        FROM ev_stock a
+        WHERE
+        1=1
+        and date_format(ev_event_day,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
+        <if test="keyword != null and keyword != ''">
+            and (ev_stock_code like concat('%',#{keyword},'%') or ev_stock_code_name like concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY a.ev_stock_code asc,a.ev_event_day asc
+
+    </select>
+
+
+</mapper>

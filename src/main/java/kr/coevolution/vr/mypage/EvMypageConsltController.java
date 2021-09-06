@@ -10,6 +10,8 @@ import kr.coevolution.vr.comm.dto.EvExpoResponseDto;
 import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.service.EvExpoService;
 import kr.coevolution.vr.comm.util.StringUtils;
+import kr.coevolution.vr.event.dto.EvEventDto;
+import kr.coevolution.vr.event.service.EvEventService;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
 import kr.coevolution.vr.member.dto.EvMemberResposeDto;
@@ -54,6 +56,9 @@ public class EvMypageConsltController {
 
     @Autowired
     private EvMemberService evMemberService;
+
+    @Autowired
+    private EvEventService evEventService;
 
 
     /**
@@ -2563,6 +2568,41 @@ public class EvMypageConsltController {
 
             model.addAttribute("result_code", "-99");
             model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 이벤트조회
+     * @param request
+     * @return
+     */
+    @RequestMapping("/mypage/myp11")
+    public String mypage_event_list(HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mypage/myp11";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+            if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
+                returnUrl = "/member/login_form";
+                return returnUrl;
+            }
+
+            EvEventDto evEventDto = new EvEventDto();
+            evEventDto.setEp_cust_seq(loginInfoDto.getCust_seq());
+            List<EvEventDto> list = evEventService.mypageList(evEventDto);
+
+            model.addAttribute("list", list);
+            model.addAttribute("page_clsf", "myp11");
+
+        } catch (Exception e) {
 
             e.printStackTrace();
         }

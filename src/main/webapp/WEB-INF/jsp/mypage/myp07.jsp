@@ -76,7 +76,7 @@
                   <!-- 회원 탈퇴 내용 -->
                   <div class="text-center">
                     <c:if test="${sessionScope.LANG ne 'en'}">
-                      <span class="small">그 동안 버추얼 전시관를 이용해 주셔서 진심으로 감사합니다. </span><br>
+                      <span class="small">그동안 국제전기자동차엑스포 버추얼전시회를 이용해 주셔서 진심으로 감사합니다. </span><br>
                       <span class="small">사이트 이용 시 불편했거나 부족했던 부분을 알려주시면 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.</span>
                     </c:if>
                     <c:if test="${sessionScope.LANG eq 'en'}">

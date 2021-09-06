@@ -43,6 +43,13 @@ public class EvEventDto {
     private Long page_row_cnt;      /* 조회 할 개수 */
     private Long page_current;      /* 현재페이지 */
 
+    /* 마이페이지 리스트 */
+    private String ep_stock_code;
+    private String ep_stock_code_name;
+    private String ep_stock_day;
+    private String reg_dt;
+    private Long ep_cust_seq;
+    private int rn;
 
 
 }

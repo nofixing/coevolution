@@ -35,6 +35,12 @@
       <a href="/mypage/badge" <c:if test="${page_clsf eq 'myp02'}">class="on"</c:if> ><strong><spring:message code="left.menu.badges.history" text="관심 뱃지 내역"/></strong></a>
     </li>
 
+    <c:if test="${sessionScope.LANG ne 'en'}">
+    <li class="text-xs text-uppercase border p-2" style="font-family:none">
+      <a href="/mypage/myp11" <c:if test="${page_clsf eq 'myp11'}">class="on"</c:if> ><strong>이벤트 참여 내역</strong></a>
+    </li>
+    </c:if>
+
     <li class="text-xs text-uppercase border p-2" style="font-family:none">
       <a href="/mypage/conslt_list" <c:if test="${page_clsf eq 'myp03'}">class="on"</c:if> ><strong><spring:message code="left.menu.consultation" text="Q & A"/></strong></a>
     </li>

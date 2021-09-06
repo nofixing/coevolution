@@ -24,6 +24,13 @@ public interface EvEventMapper {
     void saveEvent(EvEventDto evEventDto);
 
     void updateEventStock(EvEventDto evEventDto);
+
+    /**
+     * 마이페이지 리스트
+     * @param evEventDto
+     * @return
+     */
+    List<EvEventDto> S01_MYPAGE_LIST(EvEventDto evEventDto);
 }
 
 

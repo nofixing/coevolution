@@ -84,7 +84,7 @@
                 <div class="col-sm-12"> 
                   <span class="small">
                       <c:if test="${sessionScope.LANG ne 'en'}">
-                        <strong>버추얼 전시관 홈페이지는 개인정보 보호법에 따른 2년주기 개인정보 재동의</strong> 절차를 시행합니다.</span>
+                        <strong>국제전기자동차엑스포 버추얼전시회는 개인정보 보호법에 따른 2년주기 개인정보 재동의</strong> 절차를 시행합니다.</span>
                       </c:if>
                       <c:if test="${sessionScope.LANG eq 'en'}">
                         <strong>This Virtual IEVE website implements the procedure of re-agreeing personal information every 2 years according to the Personal Information Protection Act.</strong>
