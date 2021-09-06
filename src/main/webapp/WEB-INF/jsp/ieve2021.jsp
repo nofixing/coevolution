@@ -134,7 +134,12 @@
         </c:when>
 
         <c:otherwise>
-            <iframe id="iframe" src="/vr21/kor/ieve2021/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+            <c:if test="${sessionScope.LANG ne 'en'}">
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106001/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+            </c:if>
+            <c:if test="${sessionScope.LANG eq 'en'}">
+                <iframe id="iframe" src="/vr21/kor/ieve2021_106014/index.htm" style="display:block; width:100vw; height: 100vh"></iframe>
+            </c:if>
         </c:otherwise>
     </c:choose>
   

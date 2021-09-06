@@ -196,10 +196,10 @@ img{
     min-height:500px;
 } */
 .section-top{
-    padding-top:calc(7rem + 67px) !important;
+    padding-top:calc(7rem + 60px) !important;
 }
 .section-main{
-    padding-top:calc(7.5rem + 135px) !important;
+    padding-top:calc(7.5rem + 130px) !important;
     min-height:500px;
 }
 
@@ -241,11 +241,14 @@ button.basic-btn{
         overflow:hidden;
     }
     .section-main{
-        padding-top: calc(4.5rem + 208px) !important;
+        padding-top: calc(4.5rem + 110px) !important;
         min-height:auto;
     }
     .section-top{
-        padding-top: calc(7rem + 110px) !important;
+        padding-top: calc(7rem + 60px) !important;
+    }
+    section.mt-block{
+        padding-top: 7.5rem !important; 
     }
 
     .main-article-inner-logo{
@@ -357,7 +360,7 @@ button.basic-btn{
 
 select::-ms-expand{
     display:none;/*for IE10,11*/
-    display:hidden;/*�곸뿭�좎��섍퀬 �띠쓣��*/
+    display:hidden;/*占쎄낯肉�옙醫롳옙占쎌꼵�� 占쎈씈�ｏ옙占�*/
 }
 
 
@@ -514,12 +517,12 @@ h1.logo img{
     width:100%;
 }
 
+
 /*
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 모바일메뉴
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 */
-
 .m-menu ul{
     padding:0;
     margin:0;
