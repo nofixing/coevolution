@@ -48,8 +48,8 @@
     
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-0">
-      <div class="container mt-block">
+    <section class="section pt-0 mt-block">
+      <div class="container">
 
         <div class="row">
          <div class="col-xl-3" id="gLeftMenu">

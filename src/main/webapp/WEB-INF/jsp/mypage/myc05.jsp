@@ -60,8 +60,8 @@
 
   <!-- 진행순서
     ================================================== -->
-    <section class="section pt-0">
-      <div class="containe mt-block">
+    <section class="section pt-0 mt-block">
+      <div class="containe">
 
         <div class="row">
           <div class="col-xl-3" id="gLeftMenu">
