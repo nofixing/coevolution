@@ -69,7 +69,7 @@
               </h3>
 
               <form class="form-styled">
-                <div class="form-row col-sm-12 border-bottom pt-2 pl-2">
+                <div class="form-row col-sm-12 pt-2 pl-2" style="border-bottom: solid 1px;">
                   <div class="col-sm-12"> <span id="board_subject"></span> </div>
                 </div>
                 
@@ -79,21 +79,22 @@
                   <div class="col-sm-3 small"><spring:message code="form.consultation.status" text="상태"/> | <span><em class="basic-em" id="board_stat_nm"></em></span></div>
                 </div>
 
-                <div class="form-row col-sm-12 border-bottom p-2" id="board_content" style="white-space:pre-wrap"></div>              
-
-                <div class="form-row col-sm-12 pt-3 justify-content-between">
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList"><spring:message code="form.consultation.list" text="목록"/></button>
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnDtl"><spring:message code="form.consultation.delete" text="삭제"/></button>
-                </div>
+                <div class="form-row col-sm-12 p-2" id="board_content" style="white-space:pre-wrap;border-bottom: solid 1px;"></div>              
                 
-                <div class="form-row col-sm-12 border-bottom pt-3 pl-2">
+                <div class="form-row col-sm-12 pt-5 pl-2" style="border-bottom: solid 1px;">
                   <div class="col-sm-12"> <strong><spring:message code="form.consultation.reply" text="답변내용"/></strong></div>
                 </div>  
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
                   <div class="col-sm-5 small"><spring:message code="form.consultation.reply.date" text="답변일자"/> | <span id="board_reply_ins_dtm"></span></div>
                 </div>    
-                <div class="form-row col-sm-12 border-bottom p-2" id="board_reply_content" style="white-space:pre-wrap"></div>               
+                <div class="form-row col-sm-12 p-2" id="board_reply_content" style="white-space:pre-wrap;border-bottom: solid 1px;"></div>               
+
+                <div class="form-row col-sm-12 pt-3 pr-0 justify-content-end">
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2 mr-2" style="width: 6rem;" id="btnList"><spring:message code="form.consultation.list" text="목록"/></button>
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnDtl"><spring:message code="form.consultation.delete" text="삭제"/></button>
+                </div>
+
               </div>
 
             </form>

@@ -71,7 +71,7 @@
               </h3>
 
               <form class="form-styled">
-                <div class="form-row col-sm-12 border-bottom pt-2 pl-2">
+                <div class="form-row col-sm-12 pt-2 pl-2" style="border-bottom: solid 1px;">
                   <div class="col-sm-12"> <span id="board_subject"></span> </div>
                 </div>
                 
@@ -82,9 +82,9 @@
                   <div class="col-sm-3 small text-right">상태 | <span id="board_stat_nm" style="color:#0089d0"></span></div>
                 </div>
 
-                <pre><div class="form-row col-sm-12 border-bottom p-2" id="board_content"></div></pre>       
+                <pre style="border-bottom: solid 1px;"><div class="form-row col-sm-12 border-bottom p-2" id="board_content"></div></pre>       
                
-                <div class="form-row col-sm-12 border-bottom pt-3 pl-2">
+                <div class="form-row col-sm-12 pt-3 pl-2" style="border-bottom: solid 1px;">
                   <div class="col-sm-12"> <strong>답변내용</strong></div>
                 </div>  
                 
@@ -92,12 +92,12 @@
                   <div class="col-sm-8 small">답변일자 | <span id="board_reply_ins_dtm"></span></div>
                 </div>    
                 
-                <div class="form-row col-sm-12 border-bottom p-2">
+                <div class="form-row col-sm-12 border-bottom p-2" style="background-color:#e9ecef">
                   <textarea class="form-control" name="contact-message" rows="7" id="board_reply_content"></textarea>
                 </div>   
 
-               <div class="form-row col-sm-12 pt-3 justify-content-between">
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList">목록</button>
+               <div class="form-row col-sm-12 pt-3 pr-0 justify-content-end">
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2 mr-2" style="width: 6rem;" id="btnList">목록</button>
                   <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSave">저장</button>
                 </div>            
 
