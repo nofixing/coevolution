@@ -102,6 +102,7 @@ public class EvEventController {
             cust_id = loginInfoDto.getCust_id();
             cust_seq = loginInfoDto.getCust_seq();
             hp_no = loginInfoDto.getHp_no();
+
             int badgeCnt = evMypageBadgeService.intBadgeCnt(evMemberBadgeRequestDto);
             resposeResult.put("badgeCnt", badgeCnt);
             resposeResult.put("session_yn", "Y");
@@ -127,7 +128,8 @@ public class EvEventController {
 
             evEventDto.setEpCustSeq(loginInfoDto.getCust_seq());
             evEventDto.setEpCustId(loginInfoDto.getCust_id());
-            evEventDto.setEpCustId(loginInfoDto.getCust_nm());
+            evEventDto.setEvPersonName(loginInfoDto.getCust_nm());
+            evEventDto.setHp(loginInfoDto.getHp_no());
 
             int personStockCnt  = evEventService.personStockCnt(evEventDto);
             System.out.println("personStockCnt" +personStockCnt);
