@@ -41,10 +41,12 @@ $(function() {
 		   isMobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
 		}
 
+    /*
 		if(isMobile){
 			alert("지금은 PC에서만 참여 가능합니다.");
 			return false;
 		}
+    */
 
         $('.wrap .box').addClass('on');
 
