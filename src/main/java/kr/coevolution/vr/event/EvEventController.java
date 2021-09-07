@@ -71,7 +71,7 @@ public class EvEventController {
     /**
      * 이벤트 주식 발행
      *
-     * @param model
+     *
      * @return
      */
     @ResponseBody
@@ -94,7 +94,7 @@ public class EvEventController {
             resposeResult.put("session_yn", "N");
             resposeResult.put("result_code", "-9999");
             resposeResult.put("result_msg", "세션정보없음");
-            //return resposeResult;
+            return resposeResult;
         } else {
             EvMemberBadgeRequestDto evMemberBadgeRequestDto = new EvMemberBadgeRequestDto();
             userId = loginInfoDto.getCust_id();
@@ -298,7 +298,7 @@ public class EvEventController {
     /**
      * 이벤트 당첨자 저장
      *
-     * @param model
+     *
      * @return
      */
     @ResponseBody

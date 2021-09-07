@@ -57,7 +57,7 @@ $(function() {
                // alert("badgeCnt==>" + message.badgeCnt);
                 //alert(message.result_msg);
 
-               if(message.session_yn == undefined){
+               if(message.session_yn == undefined || message.session_yn == 'N'){
                  alert('참관 등록 후 버추얼전시회에서 관심부스에 관심뱃지 3개 이상하셔야만 이벤트 참여 가능합니다');
                  location.href='/member/login_form';
                  return false;
