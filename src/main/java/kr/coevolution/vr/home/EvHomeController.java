@@ -1167,6 +1167,43 @@ public class EvHomeController {
 
     /**
      * 이벤트
+     *
+     * @param model
+     * @return
+     */
+    @SneakyThrows
+    @RequestMapping("/event/index")
+    public String event_index(Model model, HttpServletRequest request) {
+
+        String returnUrl = "/event";
+        HttpSession httpSession = request.getSession();
+        EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+
+        /* 이벤트가 여러개 있어도 최종입력된 내역 1건만 표시한다. */
+        List<EvBoardResponseDto> evnetList = evBoardService.now_evnt();
+
+        if(evnetList != null && evnetList.size() > 0) {
+            Long boardId = evnetList.get(0).getBoard_id();
+            String board_content = evnetList.get(0).getBoard_content();
+            String ref_url = evnetList.get(0).getRef_url();
+
+            //카운드증가
+            EvBoardRequestDto evBoardRequestDto = new EvBoardRequestDto();
+            evBoardRequestDto.setBoard_id(boardId);
+            evBoardService.search_cnt_add(evBoardRequestDto);
+
+            model.addAttribute("event_yn", "Y");
+            model.addAttribute("board_content", board_content);
+            model.addAttribute("ref_url", ref_url);
+        } else {
+            model.addAttribute("event_yn", "N");
+        }
+
+        return returnUrl;
+    }
+
+    /**
+     * 이벤트
      * @param model
      * @return
      */
