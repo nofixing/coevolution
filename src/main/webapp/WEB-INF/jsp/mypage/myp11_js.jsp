@@ -52,7 +52,6 @@ function getStock() {
 	alert('이벤트에 참여되었습니다. 당첨정보를 정확하게 입력해주세요.');
 
 	var options = 'width=500, height=600, top=30, left=30, resizable=no, scrollbars=no, location=no';
-	var url= $('#evUrl').val();
 
 	window.open(url, "eventpop", options);
 
