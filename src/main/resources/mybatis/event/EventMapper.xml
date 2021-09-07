@@ -35,8 +35,8 @@
         from
           ev_event_person
         where
-         ep_hp = #{hp}
-        and ep_event_person = #{evPersonName}
+        replace(ep_hp,'-','') = replace(#{hp},'-','')
+        and ep_person_name = #{evPersonName}
     </select>
 
     <select id="personTodayStockCnt" parameterType="kr.coevolution.vr.event.dto.EvEventDto" resultType="Integer">
