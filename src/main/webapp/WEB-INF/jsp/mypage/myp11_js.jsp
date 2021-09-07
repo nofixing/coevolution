@@ -44,9 +44,9 @@ function getStock() {
 	
     var url="";
     if(isMobile == false){
-     url = "http://direct-sks.com/expo?"+"stockCode="+stockCode+"&cust_id="+cust_id+"&cust_seq="+cust_seq+"&hp_no="+hp_no+"&event_day="+eventday;
+     url = "http://direct-sks.com/expo?"+"stockcode="+stockCode+"&cust_id="+cust_id+"&cust_seq="+cust_seq+"&hp_no="+hp_no+"&event_day="+eventday;
     }else{
-     url = "http://m.direct-sks.com/expo?"+"stockCode="+stockCode+"&cust_id="+cust_id+"&cust_seq="+cust_seq+"&hp_no="+hp_no+"&event_day="+eventday;
+     url = "http://m.direct-sks.com/expo?"+"stockcode="+stockCode+"&cust_id="+cust_id+"&cust_seq="+cust_seq+"&hp_no="+hp_no+"&event_day="+eventday;
     }
 
 	alert('이벤트에 참여되었습니다. 당첨정보를 정확하게 입력해주세요.');
