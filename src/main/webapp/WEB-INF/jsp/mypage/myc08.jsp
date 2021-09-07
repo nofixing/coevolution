@@ -19,6 +19,21 @@
       border-radius:25px;
       background-color:#EDEDED
     }
+
+    @media (max-width:991px){
+        #z1, #z2, #z3 {
+          font-size: 15px;
+        }
+    }
+
+    @media (max-width:560px){
+      #z1, #z2, #z3 {
+        font-size: 12px;
+      }
+      #chat_cnt, #consult_cnt, #consult_time {
+        font-size: 17px;
+      }
+    }
     
   </style>
 
@@ -92,21 +107,21 @@
 
                     <div class="border m-2 pt-3 div-sum">
                         <div style="height:4.5rem">                                
-                            <h6 class="m-0"><b><span>채팅수</span></b></h6>
+                            <h6 class="m-0" id="z1"><b><span>채팅수</span></b></h6>
                             <h3 class="m-0"><b><span id="chat_cnt"></span></b></h3>
                         </div>
                     </div>
 
                     <div class="border m-2 pt-3 div-sum">
                         <div style="height:4.5rem">
-                            <h6 class="m-0"><b><span>상담 예약 건수</span></b></h6>
+                            <h6 class="m-0" id="z2"><b><span>상담 예약 건수</span></b></h6>
                             <h3 class="m-0"><b><span id="consult_cnt"></span></b></h3>
                         </div>
                     </div>
 
                     <div class="border m-2 pt-3 div-sum">
                         <div style="height:4.5rem">
-                            <h6 class="m-0"><b><span>상담 예약 총 시간</span></b></h6>
+                            <h6 class="m-0" id="z3"><b><span>상담 예약 총 시간</span></b></h6>
                             <h3 class="m-0"><b><span id="consult_time"></span></b></h3>
                         </div>
                     </div>

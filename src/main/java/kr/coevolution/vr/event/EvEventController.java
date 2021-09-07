@@ -71,6 +71,7 @@ public class EvEventController {
     /**
      * 이벤트 주식 발행
      *
+     * @param model
      * @return
      */
     @ResponseBody
@@ -164,7 +165,7 @@ public class EvEventController {
                         break;
                     default:
                         todayStockCnt = 3000;
-                    break;
+                        break;
                 }
 
 
@@ -180,7 +181,7 @@ public class EvEventController {
                             int rn = miniMaxnum.get(j).getEvIdx();
                             cards.add(rn);
                         }
-                       // System.out.println(cards);
+                        // System.out.println(cards);
                         Collections.shuffle(cards);
                         if(cards.size() > 0 ) {
                             ran = cards.get(0);
@@ -203,6 +204,24 @@ public class EvEventController {
                             resposeResult.put("event_day", strToday); // 이벤트 진행시 strToday  교체
                             resposeResult.put("stockidx", ran); //  주식 테이블 stockidx  교체
                             resposeResult.put("evPersonName", loginInfoDto.getCust_nm());
+
+                            evEventDto.setStockCode(stockCode);
+                            evEventDto.setStockCodeName(stockCodeName);
+                            evEventDto.setCustid(loginInfoDto.getCust_id());
+                            Long iCustSeq = loginInfoDto.getCust_seq();
+                            String sCustSeq = String.valueOf(iCustSeq);
+                            evEventDto.setCustseq(sCustSeq);
+                            evEventDto.setHp(loginInfoDto.getHp_no());
+                            evEventDto.setEventday(strToday);
+                            int ranStock = ran;
+                            evEventDto.setStockidx(Integer.toString(ranStock));
+                            evEventDto.setIboardId(1);
+                            evEventDto.setEvIdx(ranStock);
+                            evEventDto.setEvPersonName(loginInfoDto.getCust_nm());
+                            int resultCode = evEventService.saveEvent(evEventDto);
+                            int resultStckCode = evEventService.updateEventStock(evEventDto);
+
+
                         }
                         System.out.println("miniNum==>" + miniNum + "maxiMum==>" + maxiMum + " ran=>" + ran);
 
@@ -239,6 +258,22 @@ public class EvEventController {
                             resposeResult.put("event_day", strToday); // 이벤트 진행시 strToday  교체
                             resposeResult.put("stockidx", ran);
                             resposeResult.put("evPersonName", loginInfoDto.getCust_nm());
+
+                            evEventDto.setStockCode(stockCode);
+                            evEventDto.setStockCodeName(stockCodeName);
+                            evEventDto.setCustid(loginInfoDto.getCust_id());
+                            Long iCustSeq = loginInfoDto.getCust_seq();
+                            String sCustSeq = String.valueOf(iCustSeq);
+                            evEventDto.setCustseq(sCustSeq);
+                            evEventDto.setHp(loginInfoDto.getHp_no());
+                            evEventDto.setEventday(strToday);
+                            int ranStock = ran;
+                            evEventDto.setStockidx(Integer.toString(ranStock));
+                            evEventDto.setIboardId(1);
+                            evEventDto.setEvIdx(ranStock);
+                            evEventDto.setEvPersonName(loginInfoDto.getCust_nm());
+                            int resultCode = evEventService.saveEvent(evEventDto);
+                            int resultStckCode = evEventService.updateEventStock(evEventDto);
                         }
                         System.out.println("miniNum==>" + miniNum + "maxiMum==>" + maxiMum + " ran=>" + ran);
 
@@ -261,6 +296,7 @@ public class EvEventController {
     /**
      * 이벤트 당첨자 저장
      *
+     * @param model
      * @return
      */
     @ResponseBody
@@ -306,6 +342,8 @@ public class EvEventController {
             /*
             stockCode, stockCodeName, custid, custseq, hp,eventday, stockidx;
             */
+            /* 20210907 전단계 저장 */
+            /*
             evEventDto.setStockCode(stockCode);
             evEventDto.setStockCodeName(stockCodeName);
             evEventDto.setCustid(custid);
@@ -318,6 +356,7 @@ public class EvEventController {
             evEventDto.setEvPersonName(evPersonName);
             int resultCode = evEventService.saveEvent(evEventDto);
             int resultStckCode = evEventService.updateEventStock(evEventDto);
+            */
             resposeResult.put("result_code", "100");
             resposeResult.put("result_msg", "ok");
 
@@ -331,17 +370,5 @@ public class EvEventController {
 
         return resposeResult;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

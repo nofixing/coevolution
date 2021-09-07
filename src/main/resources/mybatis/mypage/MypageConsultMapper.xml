@@ -48,27 +48,27 @@
     <select id="S01_SET_TIME" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultResponseDto">
 
         select consult_time_id,	ev_expo_id,	cust_id, consult_from_dt, consult_to_dt, tiemzone_cd, consult_from_time, consult_to_time
-        , case   when tiemzone_cd = '213001' then
-        (select cd_nm from ev_comm_code ecc where cd_id = ect.consult_from_time)
-        when tiemzone_cd = '213002' then
-        (select cd_val1 from ev_comm_code ecc where cd_id = ect.consult_from_time)
-        when tiemzone_cd = '213003' then
-        (select cd_val2 from ev_comm_code ecc where cd_id = ect.consult_from_time)
-        when tiemzone_cd = '213004' then
-        (select cd_val3 from ev_comm_code ecc where cd_id = ect.consult_from_time)
-        end as timezone_hhmm_fr
-        , case   when tiemzone_cd = '213001' then
-        (select cd_nm from ev_comm_code ecc where cd_id = ect.consult_to_time)
-        when tiemzone_cd = '213002' then
-        (select cd_val1 from ev_comm_code ecc where cd_id = ect.consult_to_time)
-        when tiemzone_cd = '213003' then
-        (select cd_val2 from ev_comm_code ecc where cd_id = ect.consult_to_time)
-        when tiemzone_cd = '213004' then
-        (select cd_val3 from ev_comm_code ecc where cd_id = ect.consult_to_time)
-        end as timezone_hhmm_to
-        from ev_consult_time ect
-        where cust_id       = #{cust_id}
-        and ev_expo_id    = #{ev_expo_id}
+             , case when tiemzone_cd = '213001' then
+                        (select cd_nm from ev_comm_code ecc where cd_id = ect.consult_from_time)
+                    when tiemzone_cd = '213002' then
+                        (select cd_val1 from ev_comm_code ecc where cd_id = ect.consult_from_time)
+                    when tiemzone_cd = '213003' then
+                        (select cd_val2 from ev_comm_code ecc where cd_id = ect.consult_from_time)
+                    when tiemzone_cd = '213004' then
+                        (select cd_val3 from ev_comm_code ecc where cd_id = ect.consult_from_time)
+                end as timezone_hhmm_fr
+             , case  when tiemzone_cd = '213001' then
+                        (select cd_nm from ev_comm_code ecc where cd_id = ect.consult_to_time)
+                    when tiemzone_cd = '213002' then
+                        (select cd_val1 from ev_comm_code ecc where cd_id = ect.consult_to_time)
+                    when tiemzone_cd = '213003' then
+                        (select cd_val2 from ev_comm_code ecc where cd_id = ect.consult_to_time)
+                    when tiemzone_cd = '213004' then
+                        (select cd_val3 from ev_comm_code ecc where cd_id = ect.consult_to_time)
+              end as timezone_hhmm_to
+         from ev_consult_time ect
+        where cust_id   = #{cust_id}
+        and ev_expo_id  = #{ev_expo_id}
 
     </select>
 
@@ -363,61 +363,100 @@
     <select id="S04_CUST_SET_TIME" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultResponseDto">
         /* 참관고객 상담시간 설정 */
         with ptcpCust as (
-        select consult_time_id, ev_expo_id, cust_id, consult_from_dt, consult_to_dt, tiemzone_cd, consult_from_time, consult_to_time
-        from ev_consult_time ect where cust_id = #{consultCustId}
+            select consult_time_id, ev_expo_id, cust_id, consult_from_dt, consult_to_dt, tiemzone_cd, consult_from_time, consult_to_time
+            from ev_consult_time ect where cust_id = #{consultCustId}
         )
         select a.ev_expo_id
-        , a.cust_id
-        , a.expo_from_dt
-        , a.expo_to_dt
-        , a.consult_from_time
-        , a.consult_to_time
-        , case when a.tiemzone_cd = '213001' then
-        (select cd_nm from ev_comm_code ecc where cd_id = a.consult_from_time)
-        when a.tiemzone_cd = '213002' then
-        (select cd_val1 from ev_comm_code ecc where cd_id = a.consult_from_time)
-        when a.tiemzone_cd = '213003' then
-        (select cd_val2 from ev_comm_code ecc where cd_id = a.consult_from_time)
-        when a.tiemzone_cd = '213004' then
-        (select cd_val3 from ev_comm_code ecc where cd_id = a.consult_from_time)
-        end as timezone_hhmm_fr
-        , case  when a.tiemzone_cd = '213001' then
-        (select cd_nm from ev_comm_code ecc where cd_id = a.consult_to_time)
-        when a.tiemzone_cd = '213002' then
-        (select cd_val1 from ev_comm_code ecc where cd_id = a.consult_to_time)
-        when a.tiemzone_cd = '213003' then
-        (select cd_val2 from ev_comm_code ecc where cd_id = a.consult_to_time)
-        when a.tiemzone_cd = '213004' then
-        (select cd_val3 from ev_comm_code ecc where cd_id = a.consult_to_time)
-        end as timezone_hhmm_to
+            , a.cust_id
+            , a.expo_from_dt
+            , a.expo_to_dt
+            , a.consult_from_time
+            , a.consult_to_time
+            , case  when a.tiemzone_cd = '213001' then
+                        (select cd_nm from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when a.tiemzone_cd = '213002' then
+                        (select cd_val1 from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when a.tiemzone_cd = '213003' then
+                        (select cd_val2 from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when a.tiemzone_cd = '213004' then
+                        (select cd_val3 from ev_comm_code ecc where cd_id = a.consult_from_time)
+                end as timezone_hhmm_fr
+            , case  when a.tiemzone_cd = '213001' then
+                        (select cd_nm from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when a.tiemzone_cd = '213002' then
+                        (select cd_val1 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when a.tiemzone_cd = '213003' then
+                        (select cd_val2 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when a.tiemzone_cd = '213004' then
+                        (select cd_val3 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                end as timezone_hhmm_to
         , a.tiemzone_cd
         from (
-        select ecs.ev_expo_id
-        , nvl(ecs.consult_rsv_cust_id,#{cust_id})	as cust_id
-        , max(eep.expo_from_dt)					    as expo_from_dt
-        , max(eep.expo_to_dt)						as expo_to_dt
-        <![CDATA[
-                        , case when nvl(min(ecs.consult_time_cd),'214019') >= nvl(min(ptcpCust.consult_from_time),'214019') and nvl(min(ptcpCust.consult_from_time),'214019') < '214019' then nvl(min(ptcpCust.consult_from_time),'214019')
-                               when nvl(min(ecs.consult_time_cd),'214019') <= nvl(min(ptcpCust.consult_from_time),'214019') and nvl(min(ecs.consult_time_cd),'214019') < '214019' then nvl(min(ecs.consult_time_cd),'214019')
-                               else '214019'
-                           end as consult_from_time
-                        , case when nvl(max(ecs.consult_time_cd),'214036') >= nvl(max(ptcpCust.consult_to_time),'214036') and nvl(max(ecs.consult_time_cd),'214036') > '214036' then nvl(max(ecs.consult_time_cd),'214036')
-                               when nvl(max(ecs.consult_time_cd),'214036') <= nvl(max(ptcpCust.consult_to_time),'214036') and nvl(max(ptcpCust.consult_to_time),'214036') > '214036' then nvl(max(ptcpCust.consult_to_time),'214036')
-                               else '214036'
-                           end as consult_to_time
-        ]]>
-        , (select nvl(tiemzone_cd,'213001') from ev_cust_mst where cust_id = #{cust_id}) as tiemzone_cd
-        from ev_expo				            eep
-        inner join ev_consult_schedule 	        ecs
-        on ecs.ev_expo_id             = eep.ev_expo_id
-        and ecs.consult_rsv_cust_id    = #{cust_id}
-        and ecs.del_yn                 = 'N'
-        and ecs.consult_rsv_stat_cd    in ('215001','215002')
-        left outer join ptcpCust on
-        eep.ev_expo_id             = ptcpCust.ev_expo_id
-        where eep.ev_expo_id             = #{ev_expo_id}
-        group by ecs.ev_expo_id, ecs.consult_rsv_cust_id
+            select ecs.ev_expo_id
+                , nvl(ecs.consult_rsv_cust_id,#{cust_id})	as cust_id
+                , max(eep.expo_from_dt)					    as expo_from_dt
+                , max(eep.expo_to_dt)						as expo_to_dt
+            <![CDATA[
+                            , case when nvl(min(ecs.consult_time_cd),'214019') >= nvl(min(ptcpCust.consult_from_time),'214019') and nvl(min(ptcpCust.consult_from_time),'214019') < '214019' then nvl(min(ptcpCust.consult_from_time),'214019')
+                                   when nvl(min(ecs.consult_time_cd),'214019') <= nvl(min(ptcpCust.consult_from_time),'214019') and nvl(min(ecs.consult_time_cd),'214019') < '214019' then nvl(min(ecs.consult_time_cd),'214019')
+                                   else '214019'
+                               end as consult_from_time
+                            , case when nvl(max(ecs.consult_time_cd),'214036') >= nvl(max(ptcpCust.consult_to_time),'214036') and nvl(max(ecs.consult_time_cd),'214036') > '214036' then nvl(max(ecs.consult_time_cd),'214036')
+                                   when nvl(max(ecs.consult_time_cd),'214036') <= nvl(max(ptcpCust.consult_to_time),'214036') and nvl(max(ptcpCust.consult_to_time),'214036') > '214036' then nvl(max(ptcpCust.consult_to_time),'214036')
+                                   else '214036'
+                               end as consult_to_time
+            ]]>
+                , (select nvl(tiemzone_cd,'213001') from ev_cust_mst where cust_id = #{cust_id}) as tiemzone_cd
+            from ev_expo				            eep
+            inner join ev_consult_schedule 	        ecs
+              on ecs.ev_expo_id             = eep.ev_expo_id
+             and ecs.consult_rsv_cust_id    = #{cust_id}
+             and ecs.del_yn                 = 'N'
+             and ecs.consult_rsv_stat_cd    in ('215001','215002')
+            left outer join ptcpCust on
+             eep.ev_expo_id                 = ptcpCust.ev_expo_id
+            where eep.ev_expo_id            = #{ev_expo_id}
+            group by ecs.ev_expo_id, ecs.consult_rsv_cust_id
         ) a
+
+    </select>
+
+    <select id="S04_CUST_SET_TIME2" parameterType="kr.coevolution.vr.mypage.dto.EvMypageConsultRequestDto" resultType="kr.coevolution.vr.mypage.dto.EvMypageConsultResponseDto">
+
+
+        with ptcpCust as (
+            select ect.consult_time_id, ect.ev_expo_id, ect.cust_id, ect.consult_from_dt, ect.consult_to_dt, ect.tiemzone_cd, ect.consult_from_time, ect.consult_to_time
+              from ev_consult_time ect
+             where ect.cust_id      = #{consultCustId}
+               and ect.ev_expo_id   = #{ev_expo_id}
+        )
+        select ecm.tiemzone_cd
+            , a.ev_expo_id
+            , a.cust_id
+            , a.consult_from_time
+            , a.consult_to_time
+            , case  when ecm.tiemzone_cd = '213001' then
+                        (select cd_nm from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when ecm.tiemzone_cd = '213002' then
+                        (select cd_val1 from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when ecm.tiemzone_cd = '213003' then
+                        (select cd_val2 from ev_comm_code ecc where cd_id = a.consult_from_time)
+                    when ecm.tiemzone_cd = '213004' then
+                        (select cd_val3 from ev_comm_code ecc where cd_id = a.consult_from_time)
+              end as timezone_hhmm_fr
+            , case  when ecm.tiemzone_cd = '213001' then
+                        (select cd_nm from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when ecm.tiemzone_cd = '213002' then
+                        (select cd_val1 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when ecm.tiemzone_cd = '213003' then
+                        (select cd_val2 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                    when ecm.tiemzone_cd = '213004' then
+                        (select cd_val3 from ev_comm_code ecc where cd_id = a.consult_to_time)
+                end as timezone_hhmm_to
+            , ecm.tiemzone_cd
+         from ev_cust_mst ecm, ptcpCust a
+        where ecm.cust_id = #{cust_id}
+
 
     </select>
 

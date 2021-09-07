@@ -77,12 +77,9 @@
         update ev_stock set ev_stock_winning = ev_stock_winning - 1 where ev_idx = #{evIdx}
     </update>
 
-    <select id="S01_MYPAGE_LIST" parameterType="kr.coevolution.vr.event.dto.EvEventDto" resultType="kr.coevolution.vr.event.dto.EvEventDto">
+    <select id="S01_MYPAGE_LIST" parameterType="kr.coevolution.vr.event.dto.EvEventDto" resultType="kr.coevolution.vr.event.dto.EvEventResposeDto">
         select ROW_NUMBER() OVER(ORDER BY reg_dt asc) as rn
-            , ep_stock_code
-            , ep_stock_code_name
-            , ep_stock_day
-            , reg_dt
+            , ep_id, ep_evt_id, ep_person_name, ep_hp, reg_dt, ep_email, ep_email2, ep_postcode, ep_addr1, ep_addr2, ep_stock_code, ep_stock_code_name, ep_stock_day, ep_cust_id, ep_cust_seq, ep_temp3, ep_temp4, ep_temp5, ep_temp6, ep_temp7, ep_temp8, ep_temp9, ep_temp10, ep_stock_idx
         from ev_event_person eep
         where ep_cust_seq = #{ep_cust_seq}
     </select>

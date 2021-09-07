@@ -114,6 +114,8 @@
                                 <a href="/mypage/favortscorp"><spring:message code="top.all.menu.favorite.history2" text="즐겨찾기 내역"/></a>
                                 <a href="/mypage/badgecorp"><spring:message code="top.all.menu.badge.accrual.history" text="뱃지 적립 내역"/></a>
                                 <a href="/mypage/conslt_list"><spring:message code="top.all.menu.consultation" text="1:1 상담"/></a>
+                                <a href="/mypage/myc07"><spring:message code="top.all.menu.meeting.reservation" text="상담예약현황"/></a>
+                                <a href="/mypage/myc08"><spring:message code="left.menu.meeting.history" text="상담이력"/></a>
                                 <a href="/mypage/myc05"><spring:message code="top.all.menu.modify.my.information" text="내 정보 수정"/></a>
                                 <a href="/mypage/myp05"><spring:message code="top.all.menu.modify.my.password" text="비밀번호변경"/></a>
                                 <a href="/mypage/myp06"><spring:message code="top.all.menu.re-agree.privacy" text="개인정보 재동의"/></a>
@@ -127,6 +129,10 @@
                             <div class="m-menu-list-sub">
                                 <a href="/mypage/favorts"><spring:message code="left.menu.favorite.booths" text="부스 즐겨찾기 내역"/></a>
                                 <a href="/mypage/badge"><spring:message code="left.menu.badges.history" text="관심 뱃지 내역"/></a>
+
+                                <c:if test="${sessionScope.LANG ne 'en'}">
+                                <a href="/mypage/myp11">이벤트 참여 내역</a>
+                                </c:if>
 
                                 <a href="/mypage/conslt_list"><spring:message code="left.menu.consultation" text="1:1 상담"/></a>
                                 <a href="/mypage/myp08"><spring:message code="left.menu.meeting.reservation" text="상담신청현황"/></a>
@@ -330,6 +336,13 @@
                                 <li>
                                     <a href="/mypage/badge"><spring:message code="left.menu.badges.history" text="뱃지 사용 내역"/></a>
                                 </li>
+
+                                <c:if test="${sessionScope.LANG ne 'en'}">
+                                <li>
+                                    <a href="/mypage/myp11">이벤트 참여 내역</a>
+                                </li>
+                                </c:if>
+
                                 <li>
                                     <a href="/mypage/conslt_list"><spring:message code="left.menu.consultation" text="Q & A"/></a>
                                 </li>

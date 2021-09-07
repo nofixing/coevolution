@@ -11,6 +11,7 @@ import kr.coevolution.vr.comm.service.EvCommCodeService;
 import kr.coevolution.vr.comm.service.EvExpoService;
 import kr.coevolution.vr.comm.util.StringUtils;
 import kr.coevolution.vr.event.dto.EvEventDto;
+import kr.coevolution.vr.event.dto.EvEventResposeDto;
 import kr.coevolution.vr.event.service.EvEventService;
 import kr.coevolution.vr.member.dto.EvMemberLoginInfoDto;
 import kr.coevolution.vr.member.dto.EvMemberLoginRequestDto;
@@ -2008,7 +2009,7 @@ public class EvMypageConsltController {
                 timezone_hhmm_fr = consultSettingCust.get(0).getTimezone_hhmm_fr();
                 timezone_hhmm_to = consultSettingCust.get(0).getTimezone_hhmm_to();
             } else {
-                //default 설정
+                //default 설정 - 참가고객 consultTimeId 조회
                 EvMypageConsultRequestDto consultRequestDto = new EvMypageConsultRequestDto();
                 consultRequestDto.setCust_id(evMypageConsultRequestDto.getConsultCustId());
                 consultRequestDto.setEv_expo_id(evExpoId);
@@ -2019,12 +2020,26 @@ public class EvMypageConsltController {
                 } else {
                     consultTimeId = 0L;
                 }
+                
+                //타임존 코드 조회
+                List<EvMypageConsultResponseDto> consultSettingCust2 =  evMypageConsultService.consult_cust_settime_select2(evMypageConsultRequestDto);
 
-                tiemzone_cd = "213001";
-                consult_from_time = "214019";
-                consult_to_time = "214036";
-                timezone_hhmm_fr = "09:00";
-                timezone_hhmm_to = "17:30";
+                if(consultSettingCust2 != null && consultSettingCust2.size() == 1) {
+                    tiemzone_cd = consultSettingCust2.get(0).getTiemzone_cd();
+                    consult_from_time = consultSettingCust2.get(0).getConsult_from_time();
+                    consult_to_time = consultSettingCust2.get(0).getConsult_to_time();
+
+                    /* 타이존시간 00:00, 00:30 ... */
+                    timezone_hhmm_fr = consultSettingCust2.get(0).getTimezone_hhmm_fr();
+                    timezone_hhmm_to = consultSettingCust2.get(0).getTimezone_hhmm_to();
+                } else {
+                    tiemzone_cd = "213001";
+                    consult_from_time = "214019";
+                    consult_to_time = "214036";
+                    timezone_hhmm_fr = "09:00";
+                    timezone_hhmm_to = "17:30";
+                }
+
             }
 
             /* 예약시간 조회 */
@@ -2607,7 +2622,7 @@ public class EvMypageConsltController {
 
             EvEventDto evEventDto = new EvEventDto();
             evEventDto.setEp_cust_seq(loginInfoDto.getCust_seq());
-            List<EvEventDto> list = evEventService.mypageList(evEventDto);
+            List<EvEventResposeDto> list = evEventService.mypageList(evEventDto);
 
             model.addAttribute("list", list);
             model.addAttribute("page_clsf", "myp11");

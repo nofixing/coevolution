@@ -83,12 +83,7 @@
                 </div>
 
                 <pre><div class="form-row col-sm-12 border-bottom p-2" id="board_content"></div></pre>       
-
-                <div class="form-row col-sm-12 pt-3 justify-content-between">
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList">목록</button>
-                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSave">저장</button>
-                </div>
-                
+               
                 <div class="form-row col-sm-12 border-bottom pt-3 pl-2">
                   <div class="col-sm-12"> <strong>답변내용</strong></div>
                 </div>  
@@ -99,7 +94,12 @@
                 
                 <div class="form-row col-sm-12 border-bottom p-2">
                   <textarea class="form-control" name="contact-message" rows="7" id="board_reply_content"></textarea>
-                </div>               
+                </div>   
+
+               <div class="form-row col-sm-12 pt-3 justify-content-between">
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnList">목록</button>
+                  <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSave">저장</button>
+                </div>            
 
               </div>
 

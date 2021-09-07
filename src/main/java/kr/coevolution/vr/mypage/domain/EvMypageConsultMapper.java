@@ -53,6 +53,9 @@ public interface EvMypageConsultMapper {
     /* 참관업체 상담시간설정 조회 */
     public List<EvMypageConsultResponseDto> S04_CUST_SET_TIME(EvMypageConsultRequestDto param);
 
+    /* 참관업체 상담시간설정 조회 - S04_CUST_SET_TIME 조회안되어.. 추가로 조회*/
+    public List<EvMypageConsultResponseDto> S04_CUST_SET_TIME2(EvMypageConsultRequestDto param);
+
     /* 참관 상담스케줄 조회 */
     public List<EvMypageConsultScheduleResponseDto> S04_CONSULT_SCHEDULE(EvMypageConsultRequestDto param);
 

@@ -1,4 +1,5 @@
 package kr.coevolution.vr.event.domain;
+import kr.coevolution.vr.event.dto.EvEventResposeDto;
 import org.apache.ibatis.annotations.Mapper;
 import kr.coevolution.vr.event.dto.EvEventDto;
 import java.util.List;
@@ -30,7 +31,7 @@ public interface EvEventMapper {
      * @param evEventDto
      * @return
      */
-    List<EvEventDto> S01_MYPAGE_LIST(EvEventDto evEventDto);
+    List<EvEventResposeDto> S01_MYPAGE_LIST(EvEventDto evEventDto);
 }
 
 

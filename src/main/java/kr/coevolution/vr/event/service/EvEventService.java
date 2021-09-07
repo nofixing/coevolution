@@ -2,6 +2,7 @@ package kr.coevolution.vr.event.service;
 
 import kr.coevolution.vr.event.dto.EvEventDto;
 import kr.coevolution.vr.event.domain.EvEventMapper;
+import kr.coevolution.vr.event.dto.EvEventResposeDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -75,7 +76,7 @@ public class EvEventService {
         return return_code;
     }
 
-    public List<EvEventDto> mypageList(EvEventDto evEventDto) {
+    public List<EvEventResposeDto> mypageList(EvEventDto evEventDto) {
         return evEventMapper.S01_MYPAGE_LIST(evEventDto);
     }
 }

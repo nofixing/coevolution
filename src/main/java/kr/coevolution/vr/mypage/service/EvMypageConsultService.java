@@ -176,6 +176,15 @@ public class EvMypageConsultService {
     }
 
     /**
+     * 참관 상담시간 조회 -
+     * @param evMypageConsultRequestDto
+     * @return
+     */
+    public List<EvMypageConsultResponseDto> consult_cust_settime_select2 (EvMypageConsultRequestDto evMypageConsultRequestDto) {
+        List<EvMypageConsultResponseDto> list = evMypageConsultMapper.S04_CUST_SET_TIME2(evMypageConsultRequestDto);
+        return list;
+    }
+    /**
      * 참관 상담시간 조회
      * @param evMypageConsultRequestDto
      * @return
