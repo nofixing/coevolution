@@ -8,9 +8,9 @@ function getStock(stockCode,stockCodeName,custid,custseq,hp,eventday,stockidx,pe
     }
     var url="";
     if(isMobile == false){
-     url = "http://direct-sks.com/expo?"+"stockCode="+target+"&cust_id="+custid+"&cust_seq="+custseq+"&hp_no="+hp+"&event_day="+eventday;
+     url = "http://direct-sks.com/expo?"+"stockcode="+target+"&cust_id="+custid+"&cust_seq="+custseq+"&hp_no="+hp+"&event_day="+eventday;
     }else{
-     url = "http://m.direct-sks.com/expo?"+"stockCode="+target+"&cust_id="+custid+"&cust_seq="+custseq+"&hp_no="+hp+"&event_day="+eventday;
+     url = "http://m.direct-sks.com/expo?"+"stockcode="+target+"&cust_id="+custid+"&cust_seq="+custseq+"&hp_no="+hp+"&event_day="+eventday;
     }
 
     $('#stockCode').val(stockCode);
