@@ -20,6 +20,9 @@
     .bd-gray-200 {
       background-color : #e9ecef;
     }
+    .bd-time-color {
+      background-color : #468BD7; //#bddcff
+    }
     .yellow-200-color {
       color : #ffe69c;
     }
@@ -180,25 +183,25 @@
 
                       <div class="row m-0" style="width: 100%;">
                         <div class="border border-top-0 border-right-0 text-center pt-1 pb-1" style="width:16%;">${list.k1}</div> 
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k2_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k2_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k2_expoYn eq 'Y'}">bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k2_scheduleId}" onClick="scheduleClick('${list.k2_scheduleId}','${list.k2_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k2_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k2_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k2_expoYn eq 'Y'}">bd-time-color</c:when></c:choose>" style="width:12%;" id="div_${list.k2_scheduleId}" onClick="scheduleClick('${list.k2_scheduleId}','${list.k2_consultRsvStatCd}')">
                           <span style='<c:if test='${list.k2_consultRsvCustNm ne ""}'>cursor:pointer;</c:if>'> <c:out value="${list.k2_consultRsvCustNm}"/></span>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k3_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k3_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k3_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;<" id="div_${list.k3_scheduleId}" onClick="scheduleClick('${list.k3_scheduleId}','${list.k3_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k3_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k3_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k3_expoYn eq 'Y'}"> bd-time-color</c:when></c:choose>" style="width:12%;<" id="div_${list.k3_scheduleId}" onClick="scheduleClick('${list.k3_scheduleId}','${list.k3_consultRsvStatCd}')">
                          <span style='<c:if test='${list.k3_consultRsvCustNm ne ""}'>cursor:pointer;</c:if>'> <c:out value="${list.k3_consultRsvCustNm}"/></span>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k4_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k4_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k4_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k4_scheduleId}" onClick="scheduleClick('${list.k4_scheduleId}','${list.k4_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k4_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k4_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k4_expoYn eq 'Y'}"> bd-time-color</c:when></c:choose>" style="width:12%;" id="div_${list.k4_scheduleId}" onClick="scheduleClick('${list.k4_scheduleId}','${list.k4_consultRsvStatCd}')">
                           <span style='<c:if test='${list.k4_consultRsvCustNm ne ""}'>cursor:pointer;</c:if>'> <c:out value="${list.k4_consultRsvCustNm}"/></span>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k5_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k5_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k5_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k5_scheduleId}" onClick="scheduleClick('${list.k5_scheduleId}','${list.k5_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k5_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k5_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k5_expoYn eq 'Y'}"> bd-time-color</c:when></c:choose>" style="width:12%;" id="div_${list.k5_scheduleId}" onClick="scheduleClick('${list.k5_scheduleId}','${list.k5_consultRsvStatCd}')">
                           <span style='<c:if test='${list.k5_consultRsvCustNm ne ""}'>cursor:pointer;</c:if>'> <c:out value="${list.k5_consultRsvCustNm}"/></span>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k6_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k6_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k6_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k6_scheduleId}" onClick="scheduleClick('${list.k6_scheduleId}','${list.k6_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k6_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k6_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k6_expoYn eq 'Y'}"> bd-time-color</c:when></c:choose>" style="width:12%;" id="div_${list.k6_scheduleId}" onClick="scheduleClick('${list.k6_scheduleId}','${list.k6_consultRsvStatCd}')">
                           <span style='<c:if test='${list.k6_consultRsvCustNm ne ""}'>cursor:pointer;</c:if>'> <c:out value="${list.k6_consultRsvCustNm}"/></span>
                         </div>
-                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k7_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k7_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k7_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k7_scheduleId}" onClick="scheduleClick('${list.k7_scheduleId}','${list.k7_consultRsvStatCd}')">
+                        <div class="border border-top-0 border-right-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k7_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k7_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k7_expoYn eq 'Y'}"> bd-time-color</c:when></c:choose>" style="width:12%;" id="div_${list.k7_scheduleId}" onClick="scheduleClick('${list.k7_scheduleId}','${list.k7_consultRsvStatCd}')">
                           <span style='<c:if test='${list.k7_consultRsvCustNm ne ""}'>cursor:pointer;</c:if>'> <c:out value="${list.k7_consultRsvCustNm}"/></span>
                         </div>
-                        <div class="border border-top-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k8_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k8_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k8_expoYn eq 'Y'}"> bd-gray-200</c:when></c:choose>" style="width:12%;" id="div_${list.k8_scheduleId}" onClick="scheduleClick('${list.k8_scheduleId}','${list.k8_consultRsvStatCd}')">
+                        <div class="border border-top-0 text-center pt-1 pb-1 <c:choose><c:when test = "${list.k8_consultRsvStatCd eq '215001'}">purple-100</c:when><c:when test = "${list.k8_consultRsvStatCd eq '215002'}">yellow-200</c:when><c:when test = "${list.k8_expoYn eq 'Y'}"> bd-time-color</c:when></c:choose>" style="width:12%;" id="div_${list.k8_scheduleId}" onClick="scheduleClick('${list.k8_scheduleId}','${list.k8_consultRsvStatCd}')">
                           <span style='<c:if test='${list.k8_consultRsvCustNm ne ""}'>cursor:pointer;</c:if>'> <c:out value="${list.k8_consultRsvCustNm}"/></span>
                         </div>
                       </div>
