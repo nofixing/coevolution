@@ -66,7 +66,8 @@ $(function() {
                  location.href='/index/ieve2021';
                  return false;
                }else if(message.result_code == 100) {
-                  alert('이미 참여하였습니다. 이벤트 기간 동안 한 번만 참여 가능합니다.');
+                  //alert('이미 참여하였습니다. 이벤트 기간 동안 한 번만 참여 가능합니다.');
+				  alert('이미 이벤트에 참여하셨습니다.\r\n이벤트 기간 동안 한 번만 참여 가능합니다.\r\n당첨정보를 입력하지 않으셨다면, [마이페이지]를 이용해주세요.');
                   location.href='/index/event';
                   return false;
                }else if(message.result_code == 0) {
