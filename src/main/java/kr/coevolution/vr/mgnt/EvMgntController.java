@@ -1343,14 +1343,21 @@ public class EvMgntController {
                 Map<String, String> pMap = new HashMap<String, String>();
                 pMap.put("mgnt_id", evMgntMemberRequestDto.getMgnt_id());
                 List<Map<String,String>> listPrms = evMgntService.search_mgnt_prms_list(pMap);
-
-                for(int i = 0; i < listPrms.size(); i++) {
-                    model.addAttribute("S"+listPrms.get(i).get("menu_id"), listPrms.get(i).get("use_yn"));
-                }
+                model.addAttribute("listPrms", listPrms);
             }
+
+            Map<String, String> map = new HashMap<>();
+
+            map.put("menu_lvel", "1");
+            List<Map> codeList1 = evMgntService.menu_level(map);
+
+            map.put("menu_lvel", "2");
+            List<Map> codeList2 = evMgntService.menu_level(map);
 
             model.addAttribute("mgnt_id", evMgntMemberRequestDto.getMgnt_id());
             model.addAttribute("page_clsf", "mgnt05");
+            model.addAttribute("codeList1", codeList1);
+            model.addAttribute("codeList2", codeList2);
             model.addAttribute("result_code", "0");
             model.addAttribute("result_msg", "성공!!");
 

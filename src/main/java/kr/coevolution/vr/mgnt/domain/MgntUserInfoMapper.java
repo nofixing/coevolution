@@ -117,6 +117,13 @@ public interface MgntUserInfoMapper {
     public List<Map<String, String>> S08_MGNT_MENU_LIST (Map<String, String> param);
 
     /**
+     * 관리자 메뉴 조회 - 레벨단위
+     * @param param
+     * @return
+     */
+    public List<Map<String, String>> S08_MENU_SET (Map<String, String> param);
+
+    /**
      * 부스 현황 (뱃지, 즐겨찾기 현황등등)
      * @param param
      * @return

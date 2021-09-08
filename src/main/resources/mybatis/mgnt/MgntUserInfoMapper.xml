@@ -235,6 +235,14 @@
 
     </select>
 
+    <select id="S08_MENU_SET" parameterType="map" resultType="map">
+        select menu_id, menu_nm, upper_menu_id, menu_lvel, menu_url, menu_on_clsf, target
+          from ev_menu_mgnt emm
+         where use_yn       = 'Y'
+           and menu_lvel    = #{menu_lvel}
+         order by menu_id asc
+    </select>
+
     <select id="S09_BOOTH_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
 
         with cust as (

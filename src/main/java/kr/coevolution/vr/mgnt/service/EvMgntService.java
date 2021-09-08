@@ -426,4 +426,13 @@ public class EvMgntService {
     public List<EvMgntExpoResponseDto> expo_all_list (EvMgntExpoRequestDto param) {
         return mgntUserInfoMapper.S15(param);
     }
+
+    /**
+     * 관리자메뉴 레벨별 조회
+     * @param param
+     * @return
+     */
+    public List<Map> menu_level (Map param) {
+        return mgntUserInfoMapper.S08_MENU_SET(param);
+    }
 }
