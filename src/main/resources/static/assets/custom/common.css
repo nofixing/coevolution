@@ -11,7 +11,7 @@
     display:none;
     position: fixed;
     top: 20%;
-    right: 15%;
+    right: 20%;
     z-index: 99;
 }
 .customModal-header{
@@ -52,6 +52,7 @@
     padding-left:15px;
 }
 .customModal-content ol li{
+	list-style: decimal;
     margin-bottom:10px;
 }
 .customModal-content ol li em{
