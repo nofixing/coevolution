@@ -24,6 +24,9 @@
                             <li>
                                 <a href="javascript:event_click()"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                             </li>
+                            <li>
+                                <a href="#!" class="foot-modal">이벤트 참여방법</a>
+                            </li>
                             </c:when>
                             </c:choose>
                         </ul>
@@ -245,6 +248,15 @@
                 } else {
                     $(this).find("span").css("transform", "rotate(0) translateY(-50%)");
                 }
+            });
+
+            // custom modal
+
+            $(".foot-modal").on("click", function(){
+                $(".customModal").fadeIn(500);
+            });
+            $(".customModal-header button").on("click", function(){
+                $(".customModal").fadeOut(500);
             });
 
         });

@@ -153,6 +153,37 @@
         </div>
     </div>
     <!-- M 메뉴 -->
+    <!-- 커스텀 모달 -->
+    <div class="customModal">
+        <div class="customModal-header">
+            <div class="customModal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="customModal-content">
+            <p><strong><sup>★</sup>이벤트 참여 방법(관심 뱃지 사용 방법 안내)</strong></p>
+            <p>본 이벤트에 참여하려면 버추얼전시회(VR) 를 관람하면서 <em>'관심 뱃지'</em> 를 사용하셔야 합니다.</p>
+            <p>관심 뱃지는 다음과 같은 방법으로 사용 할 수 있습니다.</p>
+            <ol>
+                <li>참관등록을 하고, '관심뱃지' <strong>10개</strong>를 부여받는다.</li>
+                <li>사이트 우측 상단에 있는 검색 돋보기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" id="top_corp_search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                  </svg>아이콘을 클릭하여 참여기업을 검색한다.</li>
+                <li>관심이 있는 기업의 부스를 둘러보고, 관심뱃지 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16" id="top_badge_EX210099">                 <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"></path><path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"></path></svg>아이콘을 클릭하여 <strong>3개</strong> 이상 사용한다. 
+                    <p>(관심뱃지는 각 기업에 1개씩만 부여할 수 있습니다.)</p>
+                </li>
+                <li>
+                    관심뱃지 3개 이상 사용 조건을 만족했다면?
+                    <p>이벤트 페이지(https://vrutopia.in/index/event) 에서 ‘PUSH’ 버튼을 눌러<br>
+                    <em>전기차 관련 주식 1주</em>를 추첨 받는다! </p>
+                </li>
+            </ol>
+        </div>
+    </div>
 
 
     <!-- 참여기업검색 -->

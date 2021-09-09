@@ -4,6 +4,78 @@
 .clearfix:after {clear:both;}
 /* TEST */
 
+
+/* 20210909 추가 */
+
+.customModal{
+    display:none;
+    position: fixed;
+    top: 20%;
+    right: 15%;
+    z-index: 99;
+}
+.customModal-header{
+    position:relative;
+}
+.customModal-header button{
+    padding:10px !important;
+    box-sizing:border-box;
+}
+.customModal-content{
+    background: #fff;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    border: 1px solid #dedede;
+    box-shadow:1px 1px 5px #dedede;
+}
+.customModal-content p{
+    margin-bottom:5px;
+    position:relative;
+    word-break: keep-all;
+}
+.customModal-content p strong{
+    font-size:18px;
+}
+.customModal-content p sup{
+    display: inline-block;
+    margin-top: 7px;
+    vertical-align: middle;
+
+}
+.customModal-content p em{
+    color:#0089d0;
+    font-style:normal;
+}
+.customModal-content ol{
+    margin:0;
+    margin-top:20px;
+    padding-left:15px;
+}
+.customModal-content ol li{
+    margin-bottom:10px;
+}
+.customModal-content ol li em{
+    color:#0089d0;
+    font-style:normal;
+}
+.customModal-content ol li:last-child{
+    margin-bottom:0;
+}
+.customModal-content ol li p{
+    margin-bottom:0;
+}
+
+@media (max-width:750px){
+    .customModal-content p strong{
+        font-size:16px;
+    }
+    .customModal{
+        width:calc(100% - 30px);
+        left:50%;
+        transform: translateX(-50%);
+    }
+}
+
 /* 20210903 추가 */
 .pc-topBanner{
     background:#f1f6fc;
