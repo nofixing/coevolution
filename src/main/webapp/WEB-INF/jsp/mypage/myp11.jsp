@@ -103,7 +103,7 @@
                   </table>
 
                   <div class="pt-2 d-flex justify-content-end" id="nav-tabContent">
-                      <button type="button" class="basic-btn"  id="btnSnd">당첨정보 입력하기</button>
+                      <!--button type="button" class="basic-btn"  id="btnSnd">당첨정보 입력하기</button-->
                   </div>
                 </div>
 

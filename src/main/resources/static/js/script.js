@@ -35,6 +35,12 @@ $(document).on('click', 'a[href="#"]', function(e){
 $(function() {
     $('.wrap .box .layer .btn').on('click', function() {
 
+		alert('이벤트가 종료되었습니다.');
+		$('.wrap .box').removeClass('on');
+		$('#layer-popup-01').fadeOut(150);
+
+		return false;
+
 		// PC 환경
 		var filter = "win16|win32|win64|mac";
 		if(navigator.platform){
