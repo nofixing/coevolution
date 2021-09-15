@@ -395,7 +395,7 @@
     ================================================= -->
     <nav class=" fixed-top">
         
-         <c:if test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y'}">
+         <c:if test="${sessionScope.LANG ne 'en' && vr_yn ne 'Y' && 1 ne 1}">
             <div class="pc-topBanner">
                 <div class="container">
                     <map name="t">
