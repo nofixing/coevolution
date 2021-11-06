@@ -104,7 +104,7 @@
                         <li>
                             <a href="#!"><strong><spring:message code="top.cust.search" text="참여기업검색"/></strong></a>
                             <div class="m-menu-list-sub" id="top_corp_search3">
-                                <a href="#!" data-toggle="modal" data-target="#myModal">참여기업검색</a>
+                                <a href="#!" data-toggle="modal" data-target="#myModal"><spring:message code="top.cust.search" text="참여기업검색"/></a>
                             </div>
                         </li>
                         <c:choose>
@@ -325,8 +325,6 @@
                                 <a class="collapse-btn" href="/index/ieve2021"><spring:message code="top.all.menu.Entrance" text="입장하기"/><span></span></a>
                             </li>                                                  
                         </ul>
-                        <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en'}">
                         <!--ul id="topEvent2">
                             <li>
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
@@ -343,8 +341,7 @@
                                 <a href="!#" data-toggle="modal" data-target="#myModal"><spring:message code="top.cust.search" text="참여기업검색"/></a>
                             </li>
                         </ul>
-                            </c:when>
-                        </c:choose>
+                        
                         <ul>
                             <c:choose>
                                 <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
@@ -503,8 +500,6 @@
                                     <strong><spring:message code="top.vr.exhibition.hall" text="버추얼전시관"/></strong>
                                 </a>
                             </li>
-                        <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en'}">
                             <li class="nav-item" id="top_corp_search2">
                                 <!--a href="javascript:event_click()" class="nav-link nav-item-font">
                                     <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>
@@ -513,8 +508,6 @@
                                     <strong><spring:message code="top.cust.search" text="참여기업검색"/></strong>
                                 </a>
                             </li>
-                            </c:when>
-                        </c:choose>
 
                             <c:choose>
                                 <c:when test="${empty sessionScope.login_session.cust_nm}">
