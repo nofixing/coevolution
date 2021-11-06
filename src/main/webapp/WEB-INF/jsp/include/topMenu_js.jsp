@@ -29,6 +29,22 @@ $(document).ready(function() {
 		searchCategori(1);
 	});	
 
+	$('#top_corp_search1').on('click', function () {
+		searchCategori(1);
+	});	
+
+	$('#top_corp_search2').on('click', function () {
+		searchCategori(1);
+	})
+
+	$('#top_corp_search3').on('click', function () {
+		searchCategori(1);
+	})
+
+	$('#top_corp_search4').on('click', function () {
+		searchCategori(1);
+	})
+
 	/* 카테고리 코드 조회 */
 	searchCode();
 
@@ -97,6 +113,9 @@ function searchEvent() {
 
 /* 참가기업검색 */
 function searchCategori(pCurrentPage) {
+
+	$('#menuModal').modal('hide');
+	$(".m-menu").fadeOut();
 
 	/* JSON 생성을 위해 입력*/
 	gfnPutObj("category"		, getValue("top_category"));

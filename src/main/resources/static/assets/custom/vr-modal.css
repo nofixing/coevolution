@@ -1,0 +1,93 @@
+.vr-modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    max-width:1200px;
+    height:700px;
+    overflow-y:auto;
+    width:calc(100% - 30px);
+    padding:30px;
+    background:#fff;
+    border-radius:10px;
+    box-shadow:1px 1px 5px rgba(0,0,0,0.25);
+}
+.vr-modal-btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+}
+
+.vr-modal-tit{
+    text-align:center;
+    margin-bottom:50px;
+}
+.vr-modal-tit p{
+    font-size:30px;
+    font-weight:500;
+}
+
+.vr-modal-layout{
+    width:25%;
+    padding:0 15px;
+    float:left;
+    vertical-align: top;
+    font-size:16px;
+}
+
+.vr-modal-box{
+    margin-bottom:30px;
+}
+.vr-modal-box br{
+    display:block !important;
+}
+.vr-modal-box:first-child{
+    margin-top:0;
+}
+.vr-modal-box dl dt{
+    font-size:20px;
+    font-weight:500;
+    margin-bottom:10px;
+}
+.vr-modal-box dl dd{
+    margin-top:5px;
+    padding-left:10px;
+    position:relative;
+}
+.vr-modal-box dl dd:after{
+    content:"-";
+    display:block;
+    position:absolute;
+    top:-1px;
+    left:0;
+}
+.vr-modal-box dl dd li{
+    margin-top:5px;
+    padding-left:10px;
+    position:relative;
+}
+.vr-modal-box dl dd li:after{
+    content:"";
+    display:block;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#000;
+    position:absolute;
+    top:10px;
+    left:0;
+}
+.vr-modal-box dl dd li:first-chold{
+    margin-top:0;
+}
+
+@media (max-width:991px){
+    .vr-modal{
+        height:500px;
+        overflow-y:scroll;
+        padding:30px 15px;
+    }
+    .vr-modal-layout{
+        width:100%;
+    }
+}

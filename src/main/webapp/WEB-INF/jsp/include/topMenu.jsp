@@ -95,16 +95,18 @@
                                 <a href="/index/ieve2021"><spring:message code="top.all.menu.Entrance" text="입장하기"/></a>
                             </div>
                         </li>
-                        <c:choose>
-                            <c:when test="${sessionScope.LANG ne 'en'}">
-                            <li id="topEvent1">
-                                <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
-                                <div class="m-menu-list-sub">
-                                    <a href="javascript:event_click()">이벤트 참여하기</a>
-                                </div>
-                            </li>
-                            </c:when>
-                        </c:choose>
+                        <!--li id="topEvent1">
+                            <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
+                            <div class="m-menu-list-sub">
+                                <a href="javascript:event_click()">이벤트 참여하기</a>
+                            </div>
+                        </li-->
+                        <li>
+                            <a href="#!"><strong><spring:message code="top.cust.search" text="참여기업검색"/></strong></a>
+                            <div class="m-menu-list-sub" id="top_corp_search3">
+                                <a href="#!" data-toggle="modal" data-target="#myModal">참여기업검색</a>
+                            </div>
+                        </li>
                         <c:choose>
                         <c:when test="${sessionScope.login_session.cust_clsf_cd eq '202002'}">
                         <li>
@@ -325,12 +327,20 @@
                         </ul>
                         <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                        <ul id="topEvent2">
+                        <!--ul id="topEvent2">
                             <li>
                                 <a href="#!"><strong><spring:message code="top.view.event" text="이벤트"/></strong></a>
                             </li>
                             <li>
                                 <a href="javascript:event_click()">이벤트 참여하기</a>
+                            </li>
+                        </ul-->
+                        <ul>
+                            <li>
+                                <a href="#!"><strong><spring:message code="top.cust.search" text="참여기업검색"/></strong></a>
+                            </li>
+                            <li id="top_corp_search1">
+                                <a href="!#" data-toggle="modal" data-target="#myModal"><spring:message code="top.cust.search" text="참여기업검색"/></a>
                             </li>
                         </ul>
                             </c:when>
@@ -495,9 +505,12 @@
                             </li>
                         <c:choose>
                             <c:when test="${sessionScope.LANG ne 'en'}">
-                            <li class="nav-item" id="topEvent3">
-                                <a href="javascript:event_click()" class="nav-link nav-item-font">
+                            <li class="nav-item" id="top_corp_search2">
+                                <!--a href="javascript:event_click()" class="nav-link nav-item-font">
                                     <strong><spring:message code="top.vr.exhibition.event" text="이벤트"/></strong>
+                                </a-->
+                                <a href="!#" data-toggle="modal" data-target="#myModal" class="nav-link nav-item-font">
+                                    <strong><spring:message code="top.cust.search" text="참여기업검색"/></strong>
                                 </a>
                             </li>
                             </c:when>
@@ -557,9 +570,9 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" id="top_corp_search4">
                                 <a href="#!" class="nav-link nav-item-svg" data-toggle="modal" data-target="#myModal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" id="top_corp_search" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                       </svg>
                                 </a>

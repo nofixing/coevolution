@@ -1258,4 +1258,23 @@ public class EvHomeController {
 
         return resposeResult;
     }
+
+    /**
+     * 참가업체 팝업
+     * @param model
+     * @return
+     */
+    @RequestMapping("/index/vr_exhibitors")
+    public String index_vr_exhibitors(Model model, HttpServletRequest request) {
+        String returnUrl = "/vr/vr_exhibitors";
+
+        HttpSession httpSession = request.getSession();
+        String lang = String.valueOf(httpSession.getAttribute("LANG"));
+
+        if(lang.equals("en")) {
+            returnUrl = "/vr/vr_exhibitors_en";
+        }
+
+        return returnUrl;
+    }
 }
