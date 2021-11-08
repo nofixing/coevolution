@@ -29,24 +29,31 @@
                 <div class="vr-modal-box">
                     <dl>
                         <dt>
-                            <a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">ICC Hall<br>Components</a>
+                            <a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">ICC Hall</a>
                         </dt>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">Danfoss Korea</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">Grinergy</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">BOE Varitronix Limited</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">LUBCHEM CO.LTD.</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">SONG I TEXTILE CO., LTD</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">ChangRim ENG. Inc.</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">MOTREX</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">NMC</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">Myung-jin Precision Ind. Co., Ltd.</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">AG Optics CO., LTD</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">DONGJIN SEMICHEM CO., LTD.</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">EVolution Co., Ltd.</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">HUBIS. Co.,Ltd.</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">YM Tech Co., LTD.</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">KUKDO Chemical</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106015" target="_top">INNOTIONTECH CO.,Ltd.</a></dd>
+                    </dl>
+                </div>  
+                <div class="vr-modal-box">
+                    <dl>
+                        <dt>
+                            <a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">Components</a>
+                        </dt>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">Danfoss Korea</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">Grinergy</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">BOE Varitronix Limited</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">LUBCHEM CO.LTD.</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">SONG I TEXTILE CO., LTD</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">ChangRim ENG. Inc.</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">MOTREX</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">NMC</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">Myung-jin Precision Ind. Co., Ltd.</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">AG Optics CO., LTD</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">DONGJIN SEMICHEM CO., LTD.</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">EVolution Co., Ltd.</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">HUBIS. Co.,Ltd.</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">YM Tech Co., LTD.</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">KUKDO Chemical</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106016" target="_top">INNOTIONTECH CO.,Ltd.</a></dd>
                     </dl>
                 </div>
                 <div class="vr-modal-box">

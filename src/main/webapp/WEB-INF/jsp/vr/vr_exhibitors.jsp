@@ -29,24 +29,31 @@
                 <div class="vr-modal-box">
                     <dl>
                         <dt>
-                            <a href="https://vrutopia.in/index/ieve2021?c= 106002" target="_top">ICC 로비홀<br>Components</a>
+                            <a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">ICC 로비홀</a>
                         </dt>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">㈜댄포스코리아</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">그리너지㈜</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">BOE Varitronix Limited</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">㈜루브캠코리아</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">㈜송이실업</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">㈜창림이엔지</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">모트렉스</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">NMC</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">명진정공</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">에이지광학</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">㈜동진쎄미캠</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">㈜이볼루션</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">주식회사 휴비스</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">와이엠텍㈜</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">국도화학</a></dd>
-                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106002" target="_top">주식회사 이노션테크</a></dd>
+                    </dl>
+                </div>            
+                <div class="vr-modal-box">
+                    <dl>
+                        <dt>
+                            <a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">Components</a>
+                        </dt>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">㈜댄포스코리아</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">그리너지㈜</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">BOE Varitronix Limited</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">㈜루브캠코리아</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">㈜송이실업</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">㈜창림이엔지</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">모트렉스</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">NMC</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">명진정공</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">에이지광학</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">㈜동진쎄미캠</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">㈜이볼루션</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">주식회사 휴비스</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">와이엠텍㈜</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">국도화학</a></dd>
+                        <dd><a href="https://vrutopia.in/index/ieve2021?c=106003" target="_top">주식회사 이노션테크</a></dd>
                     </dl>
                 </div>
                 <div class="vr-modal-box">
