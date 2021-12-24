@@ -22,40 +22,9 @@
     <!-- top Menu -->
     <jsp:include page="/WEB-INF/jsp/include/mTopMenu.jsp"></jsp:include>
 
-    <!-- BREADCRUMB
-    ================================================== -->
-    <nav class="breadcrumb" style="width:100%">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col">
-            
-            <!-- Heading -->
-            <h5 class="breadcrumb-heading">
-              접속현황
-            </h5>
-
-          </div>
-          <div class="col-auto">
-
-            <!-- Breadcrumb -->
-            <span class="breadcrumb-item">
-              <a href="/index">Home</a>
-            </span>
-            <span class="breadcrumb-item active">
-              관리자페이지
-            </span>
-            <span class="breadcrumb-item active">
-              접속현황
-            </span>            
-          
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
-    </nav>
-    
     <!-- CONTENT
     ================================================== -->
-    <section class="section pt-0 pl-5 pr-5">
+    <section class="section pt-7 pl-5 pr-5">
       <div class="container_fluid">
 
         <div class="row">

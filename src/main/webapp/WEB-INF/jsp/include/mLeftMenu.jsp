@@ -4,17 +4,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
-  <!-- Title -->
-  <div class="bg-light p-4 member-info">
-    <h6 class="text-center member-name"><strong>${sessionScope.login_mgnt_session.cust_nm}</strong>님</h6>
-    <dl>
-      <dt>아이디</dt>
-      <dd>${sessionScope.login_mgnt_session.cust_id}</dd>
-    </dl>                            
-  </div>
-
   <!-- List -->
-  <ul class="list-unstyled sidenav-list">
+  <ul class="list-unstyled sidenav-list pt-4">
 
     <c:forEach var="list1" items="${sessionScope.MGNT_MENU_LEVL1}">
         <li class="text-xs text-uppercase border p-2">
