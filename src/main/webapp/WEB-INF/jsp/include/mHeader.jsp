@@ -8,10 +8,6 @@
     <!--link rel="stylesheet" href="/assets/mgnt/css/reset.css" -->
     <link rel="stylesheet" href="/assets/mgnt/css/style.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/custom/common.css">
-    <link rel="stylesheet" href="/assets/custom/form.css">
-
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/assets/libs/flickity/dist/flickity.min.css">
@@ -29,3 +25,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FH0GW643X0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>    
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/custom/common_mgnt.css">
+    <link rel="stylesheet" href="/assets/custom/form.css">

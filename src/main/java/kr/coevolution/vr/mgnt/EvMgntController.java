@@ -142,6 +142,12 @@ public class EvMgntController {
                     pMap.put("menu_lvel", "2"); //메뉴레벨2
                     List<Map<String, String>> userMenuList2 = evMgntService.mgnt_user_menu_list(pMap);
                     session.setAttribute("MGNT_MENU_LEVL2", userMenuList2);
+                    
+                    //관리자 top 메뉴 조회
+                    pMap = new HashMap<String, String>();
+                    pMap.put("mgnt_id", evMemberLoginInfoDtoList.get(0).getMgnt_id());
+                    List<Map<String, String>> topMenuList = evMgntService.search_mgnt_top_menu_list(pMap);
+                    session.setAttribute("MGNT_TOP_MENU", topMenuList);
 
                     resposeResult.put("cust_clsf_cd", evMemberLoginInfoDtoList.get(0).getCust_clsf_cd());
                     resposeResult.put("result_code", "0");

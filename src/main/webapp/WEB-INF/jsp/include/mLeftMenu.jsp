@@ -24,11 +24,16 @@
 
           <c:if test="${list1.cnt ne '0'}">
             <a href="#MENU_${list1.menu_id}" data-toggle="collapse"><strong>${list1.menu_nm}</strong></a>
-            <div id="MENU_${list1.menu_id}" class="collapse show pl-3">
+            <div id="MENU_${list1.menu_id}" class="collapse pl-3">
               <ul class="list-group">
                 <c:forEach var="list2" items="${sessionScope.MGNT_MENU_LEVL2}">
                   <c:if test="${list1.menu_id eq list2.upper_menu_id}">
                     <li class="list-group"><a href="${list2.menu_url}" <c:if test="${list2.target ne ''}">target="${list2.target}"</c:if> <c:if test="${list2.menu_on_clsf eq page_clsf}">class="on"</c:if>><strong>${list2.menu_nm}</strong></a></li>
+                    <c:if test="${list2.menu_on_clsf eq page_clsf}">
+                      <script>
+                        $("#MENU_${list1.menu_id}").addClass("show");
+                      </script>
+                    </c:if>
                   </c:if>
                 </c:forEach>
               </ul>
@@ -37,48 +42,3 @@
 
         </li>
     </c:forEach>
-
-
-<!--li class="text-xs text-uppercase border p-2">
-  <!a href="#agree" data-toggle="collapse" <c:if test="${page_clsf eq ''}">class="on"</c:if> ><strong>회원동의관리-3순위</strong></a>
-  <div id="agree" class="collapse show pl-3">
-    <ul class="list-group">
-      <li class="list-group"><a href="#" <c:if test="${page_clsf eq ''}">class="on"</c:if>><strong>개인정보처리방침</strong></a></li>
-      <li class="list-group"><a href="#" <c:if test="${page_clsf eq ''}">class="on"</c:if>><strong>이용약관-보류</strong></a></li>
-      <li class="list-group"><a href="#" <c:if test="${page_clsf eq ''}">class="on"</c:if>><strong>마케팅활용동의</strong></a></li>
-    </ul>
-  </div>      
-</li--> 
-
-<!--li class="list-group"><a href="#" <c:if test="${page_clsf eq ''}">class="on"</c:if>><strong>휴면회원-4순위</strong></a></li-->
-<!--li class="list-group"><a href="#" <c:if test="${page_clsf eq ''}">class="on"</c:if>><strong>탈퇴회원-3순위</strong></a></li-->
-
-<!--
-<aside>
-    <div class="aside-nav">
-        <ul>
-
-          <c:forEach var="list1" items="${sessionScope.MGNT_MENU_LEVL1}">
-              <li>
-                <c:if test="${list1.cnt eq '0'}">
-                <a href="${list1.menu_url}" <c:if test="${list1.menu_on_clsf eq page_clsf}">class="on"</c:if>>${list1.menu_nm}<i class="bi bi-chevron-compact-down"></i></a>
-                </c:if>
-
-                <c:if test="${list1.cnt ne '0'}">
-                  <a href="#MENU_${list1.menu_id}" data-toggle="collapse">${list1.menu_nm}<i class="bi bi-chevron-compact-down"></i></a>
-                  <div id="MENU_${list1.menu_id}" class="aside-nav-item">
-                      <c:forEach var="list2" items="${sessionScope.MGNT_MENU_LEVL2}">
-                        <c:if test="${list1.menu_id eq list2.upper_menu_id}">
-                          <a href="${list2.menu_url}" <c:if test="${list2.target ne ''}">target="${list2.target}"</c:if> <c:if test="${list2.menu_on_clsf eq page_clsf}">class="on"</c:if>>${list2.menu_nm}</a>
-                        </c:if>
-                      </c:forEach>
-                  </div>  
-                </c:if>
-
-              </li>
-          </c:forEach>
-
-        </ul>
-    </div>
-</aside>
--->

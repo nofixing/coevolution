@@ -248,4 +248,10 @@ public interface MgntUserInfoMapper {
      */
     public List<EvMgntExpoResponseDto> S15(EvMgntExpoRequestDto param);
 
+    /**
+     * 관리자 권한별 메뉴 조회
+     * @return
+     */
+    public List<Map<String, String>> S16(Map<String, String> param);
+
 }

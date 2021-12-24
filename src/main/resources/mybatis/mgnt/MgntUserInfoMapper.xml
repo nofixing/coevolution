@@ -672,4 +672,29 @@
 
     </select>
 
+    <select id="S16" parameterType="map" resultType="map">
+        SELECT A.menu_id
+            , A.menu_url
+            , A.menu_nm
+            , A.upper_menu_nm
+            FROM (
+                    SELECT rank() over (PARTITION BY emm.upper_menu_id ORDER BY emm.menu_id) AS rn
+                        , emm.menu_id
+                        , emm.menu_url
+                        , emm.menu_nm
+                        , (SELECT menu_nm from ev_menu_mgnt WHERE menu_id = emm.upper_menu_id) AS upper_menu_nm
+                    FROM ev_menu_mgnt emm
+                       , ev_menu_prms emp
+                    WHERE emm.menu_id = emp.menu_id
+                    and emm.use_yn = 'Y'
+                    and emp.use_yn = 'Y'
+                    AND emp.del_yn = 'N'
+                    AND emp.mgnt_id = #{mgnt_id}
+                GROUP BY emm.menu_id, emm.menu_url, emm.menu_nm, emm.upper_menu_id
+                ORDER BY emm.menu_id
+                ) A
+        WHERE A.rn = 1
+          AND nvl(A.menu_url,'') != ''
+    </select>
+
 </mapper>

@@ -435,4 +435,13 @@ public class EvMgntService {
     public List<Map> menu_level (Map param) {
         return mgntUserInfoMapper.S08_MENU_SET(param);
     }
+
+    /**
+     * 관리자 top 메뉴
+     * @param param
+     * @return
+     */
+    public List<Map<String, String>> search_mgnt_top_menu_list(Map<String, String> param) {
+        return mgntUserInfoMapper.S16(param);
+    }
 }
