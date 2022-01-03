@@ -10,6 +10,11 @@
 <html lang="ko">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/mHeader.jsp"></jsp:include>
+    <style>
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
+    </style>
   </head>
   <body>
 
@@ -36,7 +41,7 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  참가회원
+                  기업회원
                 </strong>
               </h3>
 
@@ -79,44 +84,45 @@
                       </div>                       
                   </div>                  
 
-                </form>            
-                <div class="table-responsive" style="overflow-x: auto; white-space:nowrap">
-                  <table class="table table-striped table-hover table-sm border-bottom" style="width: 910px;table-layout: fixed;" id="tableList">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-left" style="width:50px">번호</th>
-                        <th scope="col" class="text-left" style="width:120px">아이디</th>
-                        <th scope="col" class="text-left" style="width:80px">VR_ID</th>
-                        <th scope="col" class="text-left" style="width:300px">참가업체명</th>
-                        <!--th scope="col" class="text-left">이메일</th-->
-                        <th scope="col" class="text-left" style="width:180px">가입일자</th>
-                        <th scope="col" class="text-left" style="width:180px">최종로그인</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <c:forEach var="list" items="${list}">
-                      <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-left"><a href="javascript:doDetail('${list.cust_id}')">${list.cust_id}</a></td>
-                        <td class="text-left">${list.vr_cust_id}</td>
-                        <td class="text-left" style="white-space:pre-line;word-break: break-all;">${list.cust_nm}</td>
-                        <!--td class="text-left">${list.email_id}</td-->
-                        <td class="text-left">${list.ins_dtm}</td>
-                        <td class="text-left">${list.login_dtm}</td>
-                      </tr>   
-                      </c:forEach>
-                      <c:if test="${fn:length(list) == 0}">
-                      <tr>
-                        <th scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</th>
-                      </tr>
-                      </c:if>                                                                                                                                                                                                                             
-                    </tbody>
-                  </table>
-                </div>
+                </form>   
+
+                <article>     
+                  <div class="board-list">
+                    <table class="board-table" id="tableList">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="text-left">번호</th>
+                          <th scope="col" class="text-left">아이디</th>
+                          <th scope="col" class="text-left">VR_ID</th>
+                          <th scope="col" class="text-left">참가업체명</th>
+                          <th scope="col" class="text-left">가입일자</th>
+                          <th scope="col" class="text-left">최종로그인</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <c:forEach var="list" items="${list}">
+                        <tr>
+                          <td class="text-center">${list.rn}</td>
+                          <td class="text-left"><a href="javascript:doDetail('${list.cust_id}')">${list.cust_id}</a></td>
+                          <td class="text-left">${list.vr_cust_id}</td>
+                          <td class="text-left" style="white-space:pre-line;word-break: break-all;">${list.cust_nm}</td>
+                          <td class="text-left">${list.ins_dtm}</td>
+                          <td class="text-left">${list.login_dtm}</td>
+                        </tr>   
+                        </c:forEach>
+                        <c:if test="${fn:length(list) == 0}">
+                        <tr>
+                          <td scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</td>
+                        </tr>
+                        </c:if>                                                                                                                                                                                                                             
+                      </tbody>
+                    </table>
+                  </div>
+                </article>
 
                 <!-- paging -->
                 <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
+                  <nav aria-label="Page navigation" class="d-flex justify-content-center">
                     <ul class="pagination pt-3" id="pagingList"></ul>
                   </nav>
                 </div>

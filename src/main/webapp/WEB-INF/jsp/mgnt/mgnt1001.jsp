@@ -14,6 +14,11 @@
       .form_height1 {
         height:calc(1.9rem + 2px);
       }
+
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
+      
     </style>
 
   </head>
@@ -62,7 +67,8 @@
                     <div class="col">
                       <div class="form-inline">
                           <select id="use_yn" name="use_yn" class="form-control form-control-sm mb-2" style="width:5rem">
-                            <option value="Y" <c:if test="${'N' ne use_yn}">selected</c:if>>Y</option>
+                            <option value=""  <c:if test="${''  eq use_yn}">selected</c:if>>전체</option>
+                            <option value="Y" <c:if test="${'Y' eq use_yn}">selected</c:if>>Y</option>
                             <option value="N" <c:if test="${'N' eq use_yn}">selected</c:if>>N</option>
                           </select>
                       </div>
@@ -85,48 +91,49 @@
                     </div>
                 </div>                  
 
+                <article>
+                  <div class="board-list">
+                    <table class="board-table" id="tableList">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="text-center">번호</th>
+                          <th scope="col" class="text-left">엑스포명</th>
+                          <th scope="col" class="text-center">접수시작일</th>
+                          <th scope="col" class="text-center">접수종료일</th>
+                          <th scope="col" class="text-center">엑스포시작일</th>
+                          <th scope="col" class="text-center">엑스포종료일</th>
+                          <th scope="col" class="text-center">사용여부</th>
+                        </tr>               
+                      </thead>
+                      <tbody id="codeList">
 
-                <div class="table-responsive pt-3" style="overflow-x: auto; white-space:nowrap">
-                  <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-left">엑스포명</th>
-                        <th scope="col" class="text-center">접수시작일</th>
-                        <th scope="col" class="text-center">접수종료일</th>
-                        <th scope="col" class="text-center">엑스포시작일</th>
-                        <th scope="col" class="text-center">엑스포종료일</th>
-                        <th scope="col" class="text-center">사용여부</th>
-                      </tr>               
-                    </thead>
-                    <tbody id="codeList">
+                        <c:forEach var="list" items="${list}" varStatus="status">
 
-                      <c:forEach var="list" items="${list}" varStatus="status">
+                        <tr>
+                          <td class="text-center">${list.rn}</td>
+                          <td class="text-left"><a href="javascript:doDetail('${list.ev_expo_id}')">${list.ev_expo_nm}</a></td>
+                          <td class="text-center">${list.apct_prod_from_dt}</td>
+                          <td class="text-center">${list.apct_prod_to_dt}</td>
+                          <td class="text-center">${list.expo_from_dtm}</td>
+                          <td class="text-center">${list.expo_to_dtm}</td>
+                          <td class="text-center">${list.use_yn}</td>
+                        </tr>   
 
-                      <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-left"><a href="javascript:doDetail('${list.ev_expo_id}')">${list.ev_expo_nm}</a></td>
-                        <td class="text-center">${list.apct_prod_from_dt}</td>
-                        <td class="text-center">${list.apct_prod_to_dt}</td>
-                        <td class="text-center">${list.expo_from_dtm}</td>
-                        <td class="text-center">${list.expo_to_dtm}</td>
-                        <td class="text-center">${list.use_yn}</td>
-                      </tr>   
+                        </c:forEach>
 
-                      </c:forEach>
-
-                      <c:if test="${fn:length(list) == 0}">
-                      <tr>
-                        <td scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</td>
-                      </tr>
-                      </c:if> 
-                    </tbody>
-                  </table>
-                </div>
+                        <c:if test="${fn:length(list) == 0}">
+                        <tr>
+                          <td scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</td>
+                        </tr>
+                        </c:if> 
+                      </tbody>
+                    </table>
+                  </div>
+                </article>
 
                 <!-- paging -->
                 <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
+                  <nav aria-label="Page navigation" class="d-flex justify-content-center">
                     <ul class="pagination pt-3" id="pagingList"></ul>
                   </nav>
                 </div>                

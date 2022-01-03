@@ -10,6 +10,13 @@
 <html lang="ko">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/mHeader.jsp"></jsp:include>
+
+    <style>
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
+    </style>
+
   </head>
   <body>
 
@@ -111,81 +118,84 @@
                       </div>                        
                   </div>                  
 
-                </form>            
-                <div class="table-responsive" style="overflow-x: auto; white-space:nowrap">
-                <table class="table table-striped table-hover table-sm border-bottom">
-                  <c:if test="${cust_clsf_sh eq '' || cust_clsf_sh eq '202001'}">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-center" style="width:50px">번호</th>
-                        <th scope="col" class="text-left"   style="width:110px">회원명</th>
-                        <th scope="col" class="text-center" style="width:80px">뱃지지급</th>
-                        <th scope="col" class="text-center" style="width:80px">사용뱃지</th>
-                        <th scope="col" class="text-center" style="width:80px">잔여뱃지</th>
-                        <th scope="col" class="text-center" style="width:80px">피추천수</th>
-                        <th scope="col" class="text-left"   style="width:200px">사용기간</th>
-                        <th scope="col" class="text-left"   style="width:80px">부여일</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <c:forEach var="list" items="${list}">
-                      <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-left" style="white-space:pre-line;word-break: break-all;">${list.cust_nm}</td>
-                        <td class="text-center">${list.tot_badge_paid_cnt}</td>
-                        <td class="text-center">${list.tot_badge_use_cnt}</td>
-                        <td class="text-center">${list.tot_badge_rmin_cnt}</td>
-                        <td class="text-center">${list.tot_badge_rcmd_cnt}</td>
-                        <td class="text-left">${list.expo_consult_prod}</td>
-                        <td class="text-left">${list.ins_dt}</td>
-                      </tr>   
-                      </c:forEach>
-                      <c:if test="${fn:length(list) == 0}">
-                      <tr>
-                        <th scope="row" class="text-center" colspan="8">조회된 내용이 없습니다.</th>
-                      </tr>
-                      </c:if>                                                                                                                                                                                                                 
-                    </tbody>
-                  </c:if>
+                </form>     
+                       
+                <article>
+                  <div class="board-list">
+                    <table class="board-table">
+                      <c:if test="${cust_clsf_sh eq '' || cust_clsf_sh eq '202001'}">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="text-center" style="width:50px">번호</th>
+                            <th scope="col" class="text-left"   style="width:110px">회원명</th>
+                            <th scope="col" class="text-center" style="width:80px">뱃지지급</th>
+                            <th scope="col" class="text-center" style="width:80px">사용뱃지</th>
+                            <th scope="col" class="text-center" style="width:80px">잔여뱃지</th>
+                            <th scope="col" class="text-center" style="width:80px">피추천수</th>
+                            <th scope="col" class="text-left"   style="width:200px">사용기간</th>
+                            <th scope="col" class="text-left"   style="width:80px">부여일</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <c:forEach var="list" items="${list}">
+                          <tr>
+                            <td class="text-center">${list.rn}</td>
+                            <td class="text-left" style="white-space:pre-line;word-break: break-all;">${list.cust_nm}</td>
+                            <td class="text-center">${list.tot_badge_paid_cnt}</td>
+                            <td class="text-center">${list.tot_badge_use_cnt}</td>
+                            <td class="text-center">${list.tot_badge_rmin_cnt}</td>
+                            <td class="text-center">${list.tot_badge_rcmd_cnt}</td>
+                            <td class="text-left">${list.expo_consult_prod}</td>
+                            <td class="text-left">${list.ins_dt}</td>
+                          </tr>   
+                          </c:forEach>
+                          <c:if test="${fn:length(list) == 0}">
+                          <tr>
+                            <td scope="row" class="text-center" colspan="8">조회된 내용이 없습니다.</td>
+                          </tr>
+                          </c:if>                                                                                                                                                                                                                 
+                        </tbody>
+                      </c:if>
 
-                  <c:if test="${cust_clsf_sh eq '202002'}">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-left">회원명</th>
-                        <th scope="col" class="text-center">총뱃지</th>
-                        <th scope="col" class="text-center">뱃지부여</th>
-                        <th scope="col" class="text-center">뱃지회수</th>
-                        <th scope="col" class="text-left"   style="width:200px">사용기간</th>
-                        <th scope="col" class="text-left">부여일</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <c:forEach var="list" items="${list}">
-                      <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-left" style="white-space:pre-line;word-break: break-all;">${list.cust_nm}</td>
-                        <td class="text-center">${list.tot_badge}</td>
-                        <td class="text-center">${list.tot_rcv}</td>
-                        <td class="text-center">${list.tot_recall}</td>
-                        <td class="text-left">${list.expo_consult_prod}</td>
-                        <td class="text-left">${list.ins_dt}</td>
-                      </tr>   
-                      </c:forEach>
-                      <c:if test="${fn:length(list) == 0}">
-                      <tr>
-                        <th scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</th>
-                      </tr>
-                      </c:if>                                                                                                                                                                                                                 
-                    </tbody>
-                  </c:if>
+                      <c:if test="${cust_clsf_sh eq '202002'}">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="text-center">번호</th>
+                            <th scope="col" class="text-left">회원명</th>
+                            <th scope="col" class="text-center">총뱃지</th>
+                            <th scope="col" class="text-center">뱃지부여</th>
+                            <th scope="col" class="text-center">뱃지회수</th>
+                            <th scope="col" class="text-left"   style="width:200px">사용기간</th>
+                            <th scope="col" class="text-left">부여일</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <c:forEach var="list" items="${list}">
+                          <tr>
+                            <td class="text-center">${list.rn}</td>
+                            <td class="text-left" style="white-space:pre-line;word-break: break-all;">${list.cust_nm}</td>
+                            <td class="text-center">${list.tot_badge}</td>
+                            <td class="text-center">${list.tot_rcv}</td>
+                            <td class="text-center">${list.tot_recall}</td>
+                            <td class="text-left">${list.expo_consult_prod}</td>
+                            <td class="text-left">${list.ins_dt}</td>
+                          </tr>   
+                          </c:forEach>
+                          <c:if test="${fn:length(list) == 0}">
+                          <tr>
+                            <th scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</th>
+                          </tr>
+                          </c:if>                                                                                                                                                                                                                 
+                        </tbody>
+                      </c:if>
 
-                </table>
-                </div>
+                    </table>
+                  </div>
+                </article>
 
                 <!-- paging -->
                 <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
+                  <nav aria-label="Page navigation" class="d-flex justify-content-center">
                     <ul class="pagination pt-3" id="pagingList"></ul>
                   </nav>
                 </div>

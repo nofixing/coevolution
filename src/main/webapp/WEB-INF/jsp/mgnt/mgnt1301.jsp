@@ -9,6 +9,13 @@
 <html lang="en">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/mHeader.jsp"></jsp:include>
+
+    <style>
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
+    </style>
+
   </head>
   <body>
 

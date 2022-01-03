@@ -30,7 +30,7 @@ $(document).ready(function() {
 	});	
 
 	$('#btnList').on('click', function () {
-		document.location.href="/mgnt/m_member_search";
+		document.location.href="/mgnt/m_member_search?cls=${cls}";
 	});
 
 	fnSearch();

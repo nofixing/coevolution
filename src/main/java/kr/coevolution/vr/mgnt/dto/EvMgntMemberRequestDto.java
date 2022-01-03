@@ -33,4 +33,5 @@ public class EvMgntMemberRequestDto {
     private String bf_user_pw;
     private String tobe_passwd1;
     private String tobe_passwd2;
+    private String cls; /*10302 개인회원, 10303 SNS회원, 10304 휴면회원, 10305 탈퇴회원*/
 }

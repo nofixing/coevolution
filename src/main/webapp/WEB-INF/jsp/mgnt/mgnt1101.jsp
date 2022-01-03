@@ -14,6 +14,11 @@
       .form_height1 {
         height:calc(1.9rem + 2px);
       }
+
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
+
     </style>
 
   </head>
@@ -127,7 +132,7 @@
 
                 <!-- paging -->
                 <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
+                  <nav aria-label="Page navigation" class="d-flex justify-content-center">
                     <ul class="pagination pt-3" id="pagingList"></ul>
                   </nav>
                 </div>                

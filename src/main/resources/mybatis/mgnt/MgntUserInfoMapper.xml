@@ -30,8 +30,21 @@
             , (SELECT max(DATE_FORMAT(login_dtm, '%Y-%m-%d %H:%i:%s')) FROM ev_cust_login_log WHERE cust_id = a.cust_id) AS login_dtm
             , '' as vr_cust_id
         FROM 	ev_cust_mst a
-        WHERE   cust_sts_cd     = '105001'          /* 정상 */
-        AND 	cust_clsf_cd	= #{cust_clsf_cd}#  /* 202001:참관 202002:참가 */
+        WHERE 1 = 1
+        AND     cust_sts_cd     = CASE WHEN #{cls} in ('10302','10303') THEN  '105001' /* 정상 */
+                                       WHEN #{cls} = '10304' THEN '105002' /* 휴명고객 */
+                                       WHEN #{cls} = '10305' THEN '105003' /* 탈퇴고객 */
+                                  END
+
+        <if test="cls == '10302'">
+            and NVL(A.reg_provider,'X') = 'X'
+        </if>
+
+        <if test="cls == '10303'">
+            and NVL(A.reg_provider,'X') != 'X'
+        </if>
+
+        AND 	cust_clsf_cd	= #{cust_clsf_cd}  /* 202001:참관 202002:참가 */
         AND 	date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
         and     (cust_id like concat('%',#{keyword},'%') or cust_nm like concat('%',#{keyword},'%') or rep_nm like concat('%',#{keyword},'%'))
 
@@ -44,7 +57,19 @@
         /* 고객조회건수 */
         SELECT COUNT(*) AS row_count
         FROM 	ev_cust_mst a
-        WHERE   cust_sts_cd     = '105001'          /* 정상 */
+        WHERE 1 = 1
+        AND     cust_sts_cd     = CASE WHEN #{cls} in ('10302','10303') THEN  '105001' /* 정상 */
+                                        WHEN #{cls} = '10304' THEN '105002' /* 휴명고객 */
+                                        WHEN #{cls} = '10305' THEN '105003' /* 탈퇴고객 */
+                                    END
+
+        <if test="cls == '10302'">
+            and NVL(A.reg_provider,'X') = 'X'
+        </if>
+
+        <if test="cls == '10303'">
+            and NVL(A.reg_provider,'X') != 'X'
+        </if>
         AND 	cust_clsf_cd	= #{cust_clsf_cd}  /* 202001:참관 202002:참가 */
         AND 	date_format(ins_dtm,'%Y-%m-%d') BETWEEN #{ins_dt_fr} AND #{ins_dt_to}
         and     (cust_id like concat('%',#{keyword},'%') or cust_nm like concat('%',#{keyword},'%') or rep_nm like concat('%',#{keyword},'%'))
@@ -496,7 +521,7 @@
 
     <select id="S12_EXPO_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntExpoRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntExpoResponseDto">
 
-            select ROW_NUMBER() OVER(order by expo_from_dt asc) as rn
+            select ROW_NUMBER() OVER(order by expo_from_dt desc) as rn
                 , ev_expo_id
                 , ev_expo_nm
                 , apct_prod_from_dt

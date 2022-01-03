@@ -1117,7 +1117,16 @@ public class EvMgntController {
 
             Long page_row_cnt = StringUtils.page_tot(row_count);
 
-            model.addAttribute("page_clsf", "mgnt0401");
+            if("10302".equals(evMgntMemberRequestDto.getCls())) {
+                model.addAttribute("page_clsf", "mgnt040101");
+            } else if("10303".equals(evMgntMemberRequestDto.getCls())) {
+                model.addAttribute("page_clsf", "mgnt040102");
+            } else if("10304".equals(evMgntMemberRequestDto.getCls())) {
+                model.addAttribute("page_clsf", "mgnt040103");
+            } else if("10305".equals(evMgntMemberRequestDto.getCls())) {
+                model.addAttribute("page_clsf", "mgnt040104");
+            }
+
             model.addAttribute("list", list);
             model.addAttribute("row_count", row_count); /* 총건수 */
             model.addAttribute("page_row_cnt", evMgntMemberRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
@@ -1127,6 +1136,7 @@ public class EvMgntController {
             model.addAttribute("ins_dt_fr", evMgntMemberRequestDto.getIns_dt_fr());
             model.addAttribute("ins_dt_to", evMgntMemberRequestDto.getIns_dt_to());
             model.addAttribute("keyword", evMgntMemberRequestDto.getKeyword());
+            model.addAttribute("cls", evMgntMemberRequestDto.getCls());
 
             model.addAttribute("result_code", "0");
             model.addAttribute("result_msg", "성공!!");
@@ -1149,7 +1159,19 @@ public class EvMgntController {
 
         try {
             model.addAttribute("cust_id", evMgntMemberRequestDto.getCust_id());
-            model.addAttribute("page_clsf", "mgnt0401");
+
+            if("10302".equals(evMgntMemberRequestDto.getCls())) {
+                model.addAttribute("page_clsf", "mgnt040101");
+            } else if("10303".equals(evMgntMemberRequestDto.getCls())) {
+                model.addAttribute("page_clsf", "mgnt040102");
+            } else if("10304".equals(evMgntMemberRequestDto.getCls())) {
+                model.addAttribute("page_clsf", "mgnt040103");
+            } else if("10305".equals(evMgntMemberRequestDto.getCls())) {
+                model.addAttribute("page_clsf", "mgnt040104");
+            }
+
+            model.addAttribute("cls", evMgntMemberRequestDto.getCls());
+
             model.addAttribute("result_code", "0");
             model.addAttribute("result_msg", "성공!!");
 
@@ -2353,6 +2375,7 @@ public class EvMgntController {
 
             if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getPage_current(),""))) {
                 evMgntExpoRequestDto.setPage_current(1L);
+                evMgntExpoRequestDto.setUse_yn("Y");
             }
 
             model.addAttribute("page_current", String.valueOf(evMgntExpoRequestDto.getPage_current()));  /* 현재페이지 */
@@ -2370,9 +2393,11 @@ public class EvMgntController {
                 evMgntExpoRequestDto.setExpo_dt_to(yyyy + "-12-31");
             }
 
+            /*
             if("".equals(StringUtils.nvl(evMgntExpoRequestDto.getUse_yn(),""))) {
                 evMgntExpoRequestDto.setUse_yn("Y");
             }
+            */
 
             /* 뱃지 리스트 조회 */
             List<EvMgntExpoResponseDto> list = null;

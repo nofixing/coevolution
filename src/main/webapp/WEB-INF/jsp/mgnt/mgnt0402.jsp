@@ -36,12 +36,24 @@
                 <!-- Heading -->
                 <h3 class="mt-4 mb-4">
                     <strong>
-                    참관회원
+                  <c:if test="${cls eq '10302'}">
+                    개인회원
+                  </c:if>
+                  <c:if test="${cls eq '10303'}">
+                    SNS회원
+                  </c:if>
+                  <c:if test="${cls eq '10304'}">
+                    휴면회원관리
+                  </c:if>
+                  <c:if test="${cls eq '10305'}">
+                    탈퇴회원관리
+                  </c:if>
                     </strong>
                 </h3>
                 <div class="form_inner member page-area">
                     <div class="join-form-area">
                       <form action="">
+                        <input type="hidden" id="cls" name="cls" value="${cls}"/>
                           <table class="basic-table">
                             <tr>
                                 <th>아이디</th>

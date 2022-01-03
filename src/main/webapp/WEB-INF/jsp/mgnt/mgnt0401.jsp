@@ -10,6 +10,11 @@
 <html lang="ko">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/mHeader.jsp"></jsp:include>
+    <style>
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
+    </style>
   </head>
   <body>
 
@@ -36,7 +41,18 @@
               <!-- Heading -->
               <h3 class="mt-4 mb-4">
                 <strong>
-                  참관회원
+                  <c:if test="${cls eq '10302'}">
+                    개인회원
+                  </c:if>
+                  <c:if test="${cls eq '10303'}">
+                    SNS회원
+                  </c:if>
+                  <c:if test="${cls eq '10304'}">
+                    휴면회원관리
+                  </c:if>
+                  <c:if test="${cls eq '10305'}">
+                    탈퇴회원관리
+                  </c:if>
                 </strong>
               </h3>
 
@@ -48,6 +64,7 @@
                 <form class="pt-4 pb-3" onsubmit="return false">
                   <input type="hidden" id="cust_id" name="cust_id"/>
                   <input type="hidden" id="page_current" name="page_current"/>
+                  <input type="hidden" id="cls" name="cls" value="${cls}"/>
                   <div class="form-row align-items-center pb-2">
                       <div class="col-2 text-center form-control-sm">
                         가입일
@@ -72,42 +89,45 @@
                       </div>           
                   </div>                  
 
-                </form>            
-                <div class="table-responsive" style="overflow-x: auto; white-space:nowrap">
-                  <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-center">회원명</th>
-                        <th scope="col" class="text-center">아이디</th>
-                        <th scope="col" class="text-center">이메일</th>
-                        <th scope="col" class="text-center">가입일자</th>
-                        <th scope="col" class="text-center">최종로그인</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <c:forEach var="list" items="${list}">
-                      <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-center">${list.cust_nm}</td>
-                        <td class="text-center"><a href="javascript:doDetail('${list.cust_id}')">${list.cust_id}</a></td>
-                        <td class="text-center">${list.email_id}</td>
-                        <td class="text-center">${list.ins_dtm}</td>
-                        <td class="text-center">${list.login_dtm}</td>
-                      </tr>   
-                      </c:forEach>
-                      <c:if test="${fn:length(list) == 0}">
-                      <tr>
-                        <th scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</th>
-                      </tr>
-                      </c:if>                                                                                                                                                                                                                             
-                    </tbody>
-                  </table>
-                </div>
+                </form>      
+
+                <article>      
+                  <div class="board-list">
+                    <table class="board-table" id="tableList">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="text-center">번호</th>
+                          <th scope="col" class="text-center">회원명</th>
+                          <th scope="col" class="text-center">아이디</th>
+                          <th scope="col" class="text-center">이메일</th>
+                          <th scope="col" class="text-center">가입일자</th>
+                          <th scope="col" class="text-center">최종로그인</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <c:forEach var="list" items="${list}">
+                        <tr>
+                          <td class="text-center">${list.rn}</td>
+                          <td class="text-center">${list.cust_nm}</td>
+                          <td class="text-center"><a href="javascript:doDetail('${list.cust_id}')">${list.cust_id}</a></td>
+                          <td class="text-center">${list.email_id}</td>
+                          <td class="text-center">${list.ins_dtm}</td>
+                          <td class="text-center">${list.login_dtm}</td>
+                        </tr>   
+                        </c:forEach>
+                        <c:if test="${fn:length(list) == 0}">
+                        <tr>
+                          <td scope="row" class="text-center" colspan="6">조회된 내용이 없습니다.</td>
+                        </tr>
+                        </c:if>                                                                                                                                                                                                                             
+                      </tbody>
+                    </table>
+                  </div>
+                </article>
 
                 <!-- paging -->
                 <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
+                  <nav aria-label="Page navigation" class="d-flex justify-content-center">
                     <ul class="pagination pt-3" id="pagingList"></ul>
                   </nav>
                 </div>
