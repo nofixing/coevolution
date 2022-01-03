@@ -37,11 +37,11 @@
                                   END
 
         <if test="cls == '10302'">
-            and NVL(A.reg_provider,'X') = 'X'
+            and NVL(a.reg_provider,'X') = 'X'
         </if>
 
         <if test="cls == '10303'">
-            and NVL(A.reg_provider,'X') != 'X'
+            and NVL(a.reg_provider,'X') != 'X'
         </if>
 
         AND 	cust_clsf_cd	= #{cust_clsf_cd}  /* 202001:참관 202002:참가 */
