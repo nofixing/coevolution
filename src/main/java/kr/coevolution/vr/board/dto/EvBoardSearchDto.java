@@ -49,4 +49,6 @@ public class EvBoardSearchDto {
     private String ins_dt_fr;
     private String ins_dt_to;
 
+    private String ev_expo_id;
+
 }

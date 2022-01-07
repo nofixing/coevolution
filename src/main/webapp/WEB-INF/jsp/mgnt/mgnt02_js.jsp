@@ -55,9 +55,12 @@ function fnSearchMgnt02(pPageCurrent) {
 
 /* 상세이동 */
 function doDetail(pId) {
+
+	setValue("board_id", pId);
+
 	var frm = document.forms[0];
 	frm.method = "post";
-	frm.action = "/mgnt/conslt_dtl?board_id="+pId;
+	frm.action = "/mgnt/conslt_dtl";
 	frm.submit();
 }
 

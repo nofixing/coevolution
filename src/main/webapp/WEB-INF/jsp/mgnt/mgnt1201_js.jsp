@@ -13,51 +13,38 @@ $(document).ready(function() {
 	var yyyyMMdd = lComm.getToday("-");
 
 	/* 목록이동 */
-	$('#btnList').on('click', function () {
-		document.location.href="/mgnt/expo";
+	$('#btnSearch').on('click', function () {
+		fnSearchMgnt12("1");
 	});
 
-	//저장 
-	$('#btnUpdate').on('click', function () {
-		fnUpdate();
-	});
+	/* 총건수, 현재이지, view row, 호출할 function */
+	var pageHtml = setPaging("${row_count}", "${page_current}", "${page_row_cnt}", "fnSearchMgnt12");	
+	$('#pagingList').html(pageHtml);
 
 });
 
+function fnSearchMgnt12(pPageCurrent) {
 
-/* 엑스포정보수정 */
-function fnUpdate() {
+	setValue("page_current", pPageCurrent);
 
-	/* form값 global 변수에 입력 */
-	gfnGetFormJSON();
+	/* 필수항목 체크 */
+	var chk = '['
+		+ '  {"id":"consult_dt_fr","name":"검색 시작일자"} '
+		+ ', {"id":"consult_dt_to","name":"검색 종료일자"} ';
+	chk += ']';
 
-	/* global 변수 json으로 변환 */
-	var pParamJson = gfnGetJson();
+	var jsonCheck = JSON.parse(chk);
 
-	sendForm("POST", "/mgnt/expo_cust_mgnt", "application/json; charset=utf-8", "json", pParamJson, function(message) {
+	if(!lComm.fnRequiredItems(jsonCheck)) {
+		return false;
+	}
 
-		if(message == "parsererror") {
-			alert("로그아웃되었습니다.");
-			document.location.href="/m.do";
-		} else if(message.result_code == 0) {
-			var msg = "참가업체를 등록하였습니다.";
-            alert(msg);
-	
-			var frm = document.forms[0];
-			frm.method = "post";
-			frm.action = "/mgnt/expo_exhibitors_dtl";
-			frm.submit();
+	var frm = document.forms[0];
+	frm.method = "post";
+	frm.action = "/mgnt/conslt_list";
+	frm.submit();
 
-		} else {
-			if(message.result_code == undefined || message.session_yn == "N") {
-				alert("로그아웃되었습니다.");	
-				document.location.href="/index";
-			} else {
-				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
-			}
-		}
-
-	});	
 }
+
 
 </script>

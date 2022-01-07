@@ -4,46 +4,50 @@
 
     <select id="S01_CONSULT_LIST" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntConsultRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntConsultResposeDto">
 
-        select ROW_NUMBER() OVER(ORDER BY ecm.cust_nm, rsvecm.cust_nm) 				as rn
-            , ecs.ev_expo_id
-            , ecs.consult_time_id
-            , ecm.cust_id 															as exhibitors_cust_id
-            , rsvecm.cust_id 														as consult_rsv_cust_id
-            , ecm.cust_nm 															as exhibitors_cust_nm
-            , rsvecm.cust_nm 														as consult_rsv_cust_nm
-            , sum(case when ecs.consult_rsv_stat_cd = '215001' then 1 else 0 end) 	as s215001_cnt
-            , sum(case when ecs.consult_rsv_stat_cd = '215002' then 1 else 0 end) 	as s215002_cnt
-            , sum(case when ecs.consult_rsv_stat_cd = '215003' then 1 else 0 end) 	as s215003_cnt
-            , sum(case when ecs.consult_rsv_stat_cd = '215004' then 1 else 0 end) 	as s215004_cnt
-        from ev_consult_schedule ecs
-            , ev_consult_time ect
-            , ev_cust_mst ecm
-            , ev_cust_mst rsvecm
-        where ecs.consult_time_id = ect.consult_time_id
-          and ect.cust_id = ecm.cust_id
-          and ecs.consult_rsv_cust_id = rsvecm.cust_id
-          and ecs.ev_expo_id = #{ev_expo_id}
-          and ecs.del_yn = 'N'
-          and consult_rsv_cust_id is not null
-          and consult_rsv_cust_id != ''
+        select a.*
+          from (
+            select ROW_NUMBER() OVER(ORDER BY ecm.cust_nm, rsvecm.cust_nm) 				as rn
+                , ecs.ev_expo_id
+                , ecs.consult_time_id
+                , ecm.cust_id 															as exhibitors_cust_id
+                , rsvecm.cust_id 														as consult_rsv_cust_id
+                , ecm.cust_nm 															as exhibitors_cust_nm
+                , rsvecm.cust_nm 														as consult_rsv_cust_nm
+                , sum(case when ecs.consult_rsv_stat_cd = '215001' then 1 else 0 end) 	as s215001_cnt
+                , sum(case when ecs.consult_rsv_stat_cd = '215002' then 1 else 0 end) 	as s215002_cnt
+                , sum(case when ecs.consult_rsv_stat_cd = '215003' then 1 else 0 end) 	as s215003_cnt
+                , sum(case when ecs.consult_rsv_stat_cd = '215004' then 1 else 0 end) 	as s215004_cnt
+            from ev_consult_schedule ecs
+                , ev_consult_time ect
+                , ev_cust_mst ecm
+                , ev_cust_mst rsvecm
+            where ecs.consult_time_id = ect.consult_time_id
+              and ect.cust_id = ecm.cust_id
+              and ecs.consult_rsv_cust_id = rsvecm.cust_id
+              and ecs.ev_expo_id = #{ev_expo_id}
+              and ecs.del_yn = 'N'
+              and consult_rsv_cust_id is not null
+              and consult_rsv_cust_id != ''
 
-        <if test="exhibitors_cust_nm != null and exhibitors_cust_nm != ''">
-            and ecm.cust_nm like concat('%',#{exhibitors_cust_nm},'%')
-        </if>
+            <if test="exhibitors_cust_nm != null and exhibitors_cust_nm != ''">
+                and ecm.cust_nm like concat('%',#{exhibitors_cust_nm},'%')
+            </if>
 
-        <if test="consult_rsv_cust_nm != null and consult_rsv_cust_nm != ''">
-            and rsvecm.cust_nm like concat('%',#{consult_rsv_cust_nm},'%')
-        </if>
+            <if test="consult_rsv_cust_nm != null and consult_rsv_cust_nm != ''">
+                and rsvecm.cust_nm like concat('%',#{consult_rsv_cust_nm},'%')
+            </if>
 
-        <if test="consult_dt_fr != null and consult_dt_fr != ''">
-            and date_format(ecs.ins_dtm,'%Y-%m-%d') >= #{consult_dt_fr}
-        </if>
+            <if test="consult_dt_fr != null and consult_dt_fr != ''">
+                and date_format(ecs.ins_dtm,'%Y-%m-%d') >= #{consult_dt_fr}
+            </if>
 
-        <if test="consult_dt_to != null and consult_dt_to != ''">
-            and date_format(ecs.ins_dtm,'%Y-%m-%d') <![CDATA[ <= ]]> #{consult_dt_to}
-        </if>
+            <if test="consult_dt_to != null and consult_dt_to != ''">
+                and date_format(ecs.ins_dtm,'%Y-%m-%d') <![CDATA[ <= ]]> #{consult_dt_to}
+            </if>
 
-        group by ecs.ev_expo_id, ecs.consult_time_id, ecm.cust_nm, rsvecm.cust_nm
+            group by ecs.ev_expo_id, ecs.consult_time_id, ecm.cust_nm, rsvecm.cust_nm
+            order by ecm.cust_nm, rsvecm.cust_nm
+        ) a
 
         LIMIT #{page_row_start}, #{page_row_cnt}
 

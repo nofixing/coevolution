@@ -13,12 +13,15 @@ $(document).ready(function() {
 	//초기 값 설정
 	lComm = new gfnComm();
 
+	setValue("ev_expo_id", "${ev_expo_id}");
+	setValue("board_stat_cd", "${board_stat_cd}");
+	setValue("keyword_clsf_cd", "${keyword_clsf_cd}");
+	setValue("keyword", "${keyword}");
+	setValue("ins_dt_fr", "${ins_dt_fr}");
+	setValue("ins_dt_to", "${ins_dt_to}");
+
 	$('#btnList').on('click', function () {
-		//목록
-		var frm = document.forms[0];
-		frm.method = "post";
-		frm.action = "/mgnt/conslt";
-		frm.submit();
+		fn_list();
 	});	
 
 	$('#btnSave').on('click', function () {
@@ -37,7 +40,7 @@ $(document).ready(function() {
 				document.location.href="/m.do";
 			} else if(message.result_code == 0) {
 				alert("상담문의내역 답변이 등록되었습니다.");
-				document.location.href="/mgnt/conslt";
+				fn_list();
 			} else {
 				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
 			}
@@ -61,7 +64,7 @@ $(document).ready(function() {
 				document.location.href="/m.do";
 			} else if(message.result_code == 0) {
 				alert("상담문의내역을 삭제하였습니다.");
-				document.location.href="/mgnt/conslt";
+				fn_list();
 			} else {
 				alert("서버 오류입니다.\r\n잠시 후 다시 진행하시기 바랍니다.");
 			}
@@ -73,6 +76,14 @@ $(document).ready(function() {
 	fnInit();
 
 });
+
+function fn_list() {
+	//목록
+	var frm = document.forms[0];
+	frm.method = "post";
+	frm.action = "/mgnt/conslt";
+	frm.submit();
+}
 
 /* 데이터 조회 */
 function fnInit() {

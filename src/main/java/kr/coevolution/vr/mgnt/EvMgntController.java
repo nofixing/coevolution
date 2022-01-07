@@ -488,10 +488,20 @@ public class EvMgntController {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+            EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
+
+            /* 콤보용엑스포리스트 */
+            EvMgntExpoRequestDto evMgntExpoRequestDto = new EvMgntExpoRequestDto();
+            List<EvMgntExpoResponseDto> expoCdList = evMgntService.expo_all_list(evMgntExpoRequestDto);
 
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date nDt = new Date();
 
+            System.out.println("evBoardSearchDto.getEv_expo_id() : " + evBoardSearchDto.getEv_expo_id());
+
+            if("".equals(StringUtils.nvl(evBoardSearchDto.getEv_expo_id(),""))) {
+                evBoardSearchDto.setEv_expo_id(String.valueOf(expoInfoList.getEv_expo_id()));
+            }
 
             /* 최초 날짜가 null 인경우 */
             if("".equals(StringUtils.nvl(evBoardSearchDto.getIns_dt_fr(),""))) {
@@ -527,8 +537,10 @@ public class EvMgntController {
             model.addAttribute("row_count", row_count); /* 총 개수 */
             model.addAttribute("page_row_cnt", evBoardSearchDto.getPage_row_cnt());    /* 페이지 row 개수 */
             model.addAttribute("page_current", evBoardSearchDto.getPage_current());    /* 현재페이지 */
+            model.addAttribute("expoCdList", expoCdList);
 
             /* 검색조건 */
+            model.addAttribute("expo_id", evBoardSearchDto.getEv_expo_id());
             model.addAttribute("board_stat_cd", evBoardSearchDto.getBoard_stat_cd());
             model.addAttribute("keyword_clsf_cd", evBoardSearchDto.getKeyword_clsf_cd());
             model.addAttribute("keyword", evBoardSearchDto.getKeyword());
@@ -568,6 +580,14 @@ public class EvMgntController {
             model.addAttribute("page_clsf", "mgnt02");
             model.addAttribute("result_code", "0");
             model.addAttribute("result_msg", "성공!!");
+
+            /* 검색조건 */
+            model.addAttribute("ev_expo_id", evBoardSearchDto.getEv_expo_id());
+            model.addAttribute("board_stat_cd", evBoardSearchDto.getBoard_stat_cd());
+            model.addAttribute("keyword_clsf_cd", evBoardSearchDto.getKeyword_clsf_cd());
+            model.addAttribute("keyword", evBoardSearchDto.getKeyword());
+            model.addAttribute("ins_dt_fr", evBoardSearchDto.getIns_dt_fr());
+            model.addAttribute("ins_dt_to", evBoardSearchDto.getIns_dt_to());
 
         } catch (Exception e) {
 
@@ -2744,6 +2764,14 @@ public class EvMgntController {
             evMgntConsultRequestDto.setUser_id(loginInfoDto.getCust_id());
             evMgntConsultRequestDto.setCust_id(loginInfoDto.getCust_id());
 
+            if("0".equals(StringUtils.nvl(evMgntConsultRequestDto.getEv_expo_id(),"0"))) {
+                evMgntConsultRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
+            }
+
+            /* 콤보용엑스포리스트 */
+            EvMgntExpoRequestDto evMgntExpoRequestDto = new EvMgntExpoRequestDto();
+            List<EvMgntExpoResponseDto> expoCdList = evMgntService.expo_all_list(evMgntExpoRequestDto);
+
             /* row 개수 */
             evMgntConsultRequestDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
             Long page_row_start = StringUtils.page_start_row(evMgntConsultRequestDto.getPage_current(), StringUtils.page_row_cnt);
@@ -2774,8 +2802,6 @@ public class EvMgntController {
             List<EvMgntConsultResposeDto> list = null;
             List<EvMgntConsultResposeDto> listCnt = null;
 
-            evMgntConsultRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
-
             list = evMgntConsultService.consult_list(evMgntConsultRequestDto);
             listCnt = evMgntConsultService.consult_list_count(evMgntConsultRequestDto);
 
@@ -2789,6 +2815,8 @@ public class EvMgntController {
             model.addAttribute("row_count", row_count); /* 총 개수 */
             model.addAttribute("page_row_cnt", evMgntConsultRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
             model.addAttribute("page_current", evMgntConsultRequestDto.getPage_current());    /* 현재페이지 */
+            model.addAttribute("expoCdList", expoCdList);
+            model.addAttribute("expo_id", evMgntConsultRequestDto.getEv_expo_id());
 
             /* 검색조건 */
             model.addAttribute("consult_dt_fr", evMgntConsultRequestDto.getConsult_dt_fr());

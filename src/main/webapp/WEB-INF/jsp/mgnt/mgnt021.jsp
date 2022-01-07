@@ -40,6 +40,14 @@
               </h3>
 
               <form class="form-styled">
+
+                <input type="hidden" id="ev_expo_id" name="ev_expo_id">
+                <input type="hidden" id="board_stat_cd" name="board_stat_cd">
+                <input type="hidden" id="keyword_clsf_cd" name="keyword_clsf_cd">
+                <input type="hidden" id="keyword" name="keyword">
+                <input type="hidden" id="ins_dt_fr" name="ins_dt_fr">
+                <input type="hidden" id="ins_dt_to" name="ins_dt_to">
+
                 <div class="form-row col-sm-12 pt-2 pl-2" style="border-bottom: solid 1px;">
                   <div class="col-sm-12"> <span id="board_subject"></span> </div>
                 </div>

@@ -299,6 +299,27 @@
             and a.board_stat_cd = #{board_stat_cd}
         </if>
 
+        <if test="ins_dt_fr != null and ins_dt_fr != ''">
+            and a.reg_dt >= #{ins_dt_fr}
+        </if>
+
+        <if test="ins_dt_to != null and ins_dt_to != ''">
+            and #{ins_dt_to} >= a.reg_dt
+        </if>
+
+        <if test="ev_expo_id != null and ev_expo_id != ''">
+            and exists (
+                    select 1
+                        from ev_board x
+                         where x.board_clsf_cd = a.board_clsf_cd
+                         and x.conslt_cust_id in (
+                                                     select cust_id
+                                                         from ev_expo_customer
+                                                       where ev_expo_id = #{ev_expo_id}
+                                                )
+                    )
+        </if>
+
         LIMIT #{page_row_start}, #{page_row_cnt}
 
     </select>
@@ -332,6 +353,27 @@
 
         <if test="board_stat_cd != null and board_stat_cd != ''">
             and a.board_stat_cd = #{board_stat_cd}
+        </if>
+
+        <if test="ins_dt_fr != null and ins_dt_fr != ''">
+            and a.reg_dt >= #{ins_dt_fr}
+        </if>
+
+        <if test="ins_dt_to != null and ins_dt_to != ''">
+            and #{ins_dt_to} >= a.reg_dt
+        </if>
+
+        <if test="ev_expo_id != null and ev_expo_id != ''">
+            and exists (
+                        select 1
+                            from ev_board x
+                            where x.board_clsf_cd = a.board_clsf_cd
+                            and x.conslt_cust_id in (
+                                                        select cust_id
+                                                        from ev_expo_customer
+                                                        where ev_expo_id = #{ev_expo_id}
+                                                    )
+                        )
         </if>
 
     </select>
