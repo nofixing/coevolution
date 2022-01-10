@@ -10,6 +10,14 @@
 <html lang="ko">
   <head>
     <jsp:include page="/WEB-INF/jsp/include/mHeader.jsp"></jsp:include>
+
+    <style>
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
+
+    </style>
+
   </head>
   <body>
 
@@ -73,45 +81,50 @@
                   </div>                      
            
 
-                </form>            
-                <div class="table-responsive" style="overflow-x: auto; white-space:nowrap">
-                  <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-center">아이디</th>
-                        <th scope="col" class="text-center">담당자명</th>
-                        <th scope="col" class="text-center">이메일</th>
-                        <th scope="col" class="text-center">부서</th>
-                        <th scope="col" class="text-center">사용여부</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <c:forEach var="list" items="${list}">
-                      <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-center"><a href="javascript:doDetail('${list.mgnt_id}')">${list.mgnt_id}</a></td>
-                        <td class="text-center">${list.mgnt_nm}</td>
-                        <td class="text-center">${list.email_id}</td>
-                        <td class="text-center">${list.dept_nm}</td>
-                        <td class="text-center">${list.use_yn}</td>
-                      </tr>   
-                      </c:forEach>
-                      <c:if test="${fn:length(list) == 0}">
-                      <tr>
-                        <th scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</th>
-                      </tr>
-                      </c:if>                                                                                                                                                                                                                             
-                    </tbody>
-                  </table>
-                </div>
+                </form>       
 
-                <!-- paging -->
-                <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3" id="pagingList"></ul>
-                  </nav>
-                </div>
+                  <article>
+
+                    <div class="board-list">
+                      <table class="board-table">
+                        <thead class="table-light">
+                          <tr>
+                            <th scope="col" class="text-center">번호</th>
+                            <th scope="col" class="text-center">아이디</th>
+                            <th scope="col" class="text-center">담당자명</th>
+                            <th scope="col" class="text-center">이메일</th>
+                            <th scope="col" class="text-center">부서</th>
+                            <th scope="col" class="text-center">사용여부</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <c:forEach var="list" items="${list}">
+                          <tr>
+                            <td class="text-center">${list.rn}</td>
+                            <td class="text-center"><a href="javascript:doDetail('${list.mgnt_id}')">${list.mgnt_id}</a></td>
+                            <td class="text-center">${list.mgnt_nm}</td>
+                            <td class="text-center">${list.email_id}</td>
+                            <td class="text-center">${list.dept_nm}</td>
+                            <td class="text-center">${list.use_yn}</td>
+                          </tr>   
+                          </c:forEach>
+                          <c:if test="${fn:length(list) == 0}">
+                          <td>
+                            <th scope="row" class="text-center" colspan="7">조회된 내용이 없습니다.</th>
+                          </td>
+                          </c:if>                                                                                                                                                                                                                             
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <!-- paging -->
+                    <div class="table-responsive d-flex justify-content-center">
+                      <nav aria-label="Page navigation" class="d-flex justify-content-center">
+                        <ul class="pagination pt-3" id="pagingList"></ul>
+                      </nav>
+                    </div>
+
+                  </article>
 
               </div>
 

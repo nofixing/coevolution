@@ -969,10 +969,13 @@ public class EvHomeController {
         Map resposeResult = new HashMap();
 
         try {
+
             /* 카테고리조회 */
             EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
             evCommCodeRequestDto.setUpper_cd_id(param.get("UPPER_CD"));
             evCommCodeRequestDto.setUse_yn("Y");
+            evCommCodeRequestDto.setCd_val1(StringUtils.nvl(param.get("CD_VAL1"),""));
+            evCommCodeRequestDto.setCd_val2(StringUtils.nvl(param.get("CD_VAL2"),""));
             List<EvCommCodeResponseDto> category = evCommCodeService.comm_code_search(evCommCodeRequestDto);
             resposeResult.put("C"+param.get("UPPER_CD"), category);
 

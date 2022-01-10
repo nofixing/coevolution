@@ -14,6 +14,10 @@
       .form_height1 {
         height:calc(1.9rem + 2px);
       }
+
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
     </style>
 
   </head>
@@ -50,43 +54,45 @@
                       <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnUpdate">등록</button>
                 </div> 
 
-                <div class="table-responsive pt-3" style="overflow-x: auto; white-space:nowrap">
-                  <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-left">최근등록일</th>
-                        <th scope="col" class="text-center">등록자</th>
-                      </tr>
-                    </thead>
-                    <tbody id="codeList">
+                <article>
 
-                      <c:forEach var="list" items="${termslist}" varStatus="status">
+                    <div class="board-list">
+                      <table class="board-table">
+                        <thead class="table-light">
+                          <tr>
+                            <th scope="col" class="text-center">번호</th>
+                            <th scope="col" class="text-left">최근등록일</th>
+                            <th scope="col" class="text-center">등록자</th>
+                          </tr>
+                        </thead>
+                        <tbody id="codeList">
 
-                      <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-left">${list.ins_dtm}</td>
-                        <td class="text-center">${list.ins_user}</td>
-                      </tr>   
+                          <c:forEach var="list" items="${termslist}" varStatus="status">
 
-                      </c:forEach>
+                          <tr>
+                            <td class="text-center">${list.rn}</td>
+                            <td class="text-left">${list.ins_dtm}</td>
+                            <td class="text-center">${list.ins_user}</td>
+                          </tr>   
 
-                      <c:if test="${fn:length(termslist) == 0}">
-                      <tr>
-                        <td scope="row" class="text-center" colspan="3">조회된 내용이 없습니다.</td>
-                      </tr>
-                      </c:if> 
-                    </tbody>
-                  </table>
-                </div>
+                          </c:forEach>
 
-                <!-- paging -->
-                <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3" id="pagingList"></ul>
-                  </nav>
-                </div>                
+                          <c:if test="${fn:length(termslist) == 0}">
+                          <tr>
+                            <td scope="row" class="text-center" colspan="3">조회된 내용이 없습니다.</td>
+                          </tr>
+                          </c:if> 
+                        </tbody>
+                      </table>
+                    </div>
 
+                    <!-- paging -->
+                    <div class="table-responsive d-flex justify-content-center">
+                      <nav aria-label="Page navigation" class="d-flex justify-content-center">
+                        <ul class="pagination pt-3" id="pagingList"></ul>
+                      </nav>
+                    </div>                
+                 </article>
             </form>
             
           </div>

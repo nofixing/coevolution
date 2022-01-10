@@ -26,6 +26,14 @@
                 and 1 != 1
             </if>
 
+            <if test="cd_val1 != null and cd_val1 != ''">
+                and cd_val1 = #{cd_val1}
+            </if>
+
+            <if test="cd_val2 != null and cd_val2 != ''">
+                and cd_val2 = #{cd_val2}
+            </if>
+
         </where>
 
         order by nvl(priority,0) asc, cd_id asc

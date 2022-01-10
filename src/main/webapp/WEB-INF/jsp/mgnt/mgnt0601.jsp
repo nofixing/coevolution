@@ -14,6 +14,10 @@
       .form_height1 {
         height:calc(1.9rem + 2px);
       }
+
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
     </style>
 
   </head>
@@ -88,52 +92,56 @@
                 </div>
                 
 
-                <div class="table-responsive pt-3" style="overflow-x: auto; white-space:nowrap">
-                  <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-center">코드</th>
-                        <th scope="col" class="text-left">코드명</th>
-                        <th scope="col" class="text-left">코드명(영문)</th>
-                        <th scope="col" class="text-center">상위코드</th>
-                        <th scope="col" class="text-center">값1</th>
-                        <th scope="col" class="text-center">값2</th>
-                        <th scope="col" class="text-center">값3</th>
-                        <th scope="col" class="text-center">순번</th>
-                        <th scope="col" class="text-center">사용<br>여부</th>
-                      </tr>
-                    </thead>
-                    <tbody id="codeList">
-                      <input type="hidden" name="tot_cnt" id="tot_cnt" value="${fn:length(codelist)}"/>
-                      <c:forEach var="list" items="${codelist}" varStatus="status">
-                      <tr>
-                        <td class="text-center">
-                          <input type="hidden" id="cd_id_${status.index}" value="${list.cd_id}"/>
-                          ${list.cd_id}
-                        </td>
-                        <td class="text-left"><input type="text"  class="form-control-sm" value="${list.cd_nm}" id="cd_nm_${list.cd_id}" name="cd_nm_${list.cd_id}" style="min-width:200px;"/></td>
-                        <td class="text-left"><input type="text"  class="form-control-sm" value="${list.cd_nm_en}" id="cd_nm_en_${list.cd_id}" name="cd_nm_en_${list.cd_id}" style="min-width:200px;"/></td>
-                        <td class="text-center"><input type="text"  maxlength="6" class="form-control-sm" value="${list.upper_cd_id}" id="upper_cd_id_${list.cd_id}" name="upper_cd_id_${list.cd_id}" readonly style="min-width:60px;max-width:80px;"/></td>
-                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val1}" id="cd_val1_${list.cd_id}" name="cd_val1_${list.cd_id}" style="min-width:60px;"/></td>
-                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val2}" id="cd_val2_${list.cd_id}" name="cd_val2_${list.cd_id}" style="min-width:60px;"/></td>
-                        <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val3}" id="cd_val3_${list.cd_id}" name="cd_val3_${list.cd_id}" style="min-width:60px;"/></td>
-                        <td class="text-center"><input type="number"  class="form-control-sm" value="${list.priority}" id="priority_${list.cd_id}" name="priority_${list.cd_id}" style="min-width:60px;max-width:80px;"/></td>
-                        <td class="text-center">
-                          <select class="form-control-sm" id="use_yn_${list.cd_id}" style="min-width:60px;max-width:80px;">
-                            <option value="Y" <c:if test="${list.use_yn eq 'Y'}">selected</c:if>>Y</option>
-                            <option value="N" <c:if test="${list.use_yn eq 'N'}">selected</c:if>>N</option>
-                          </select>
-                        </td>
-                      </tr>   
-                      </c:forEach>
-                      <c:if test="${fn:length(codelist) == 0}">
-                      <tr>
-                        <td scope="row" class="text-center" colspan="8">조회된 내용이 없습니다.</td>
-                      </tr>
-                      </c:if> 
-                    </tbody>
-                  </table>
-                </div>
+                <article>
+
+                    <div class="board-list">
+                      <table class="board-table">
+                        <thead class="table-light">
+                          <tr>
+                            <th scope="col" class="text-center">코드</th>
+                            <th scope="col" class="text-left">코드명</th>
+                            <th scope="col" class="text-left">코드명(영문)</th>
+                            <th scope="col" class="text-center">상위코드</th>
+                            <th scope="col" class="text-center">값1</th>
+                            <th scope="col" class="text-center">값2</th>
+                            <th scope="col" class="text-center">값3</th>
+                            <th scope="col" class="text-center">순번</th>
+                            <th scope="col" class="text-center">사용<br>여부</th>
+                          </tr>
+                        </thead>
+                        <tbody id="codeList">
+                          <input type="hidden" name="tot_cnt" id="tot_cnt" value="${fn:length(codelist)}"/>
+                          <c:forEach var="list" items="${codelist}" varStatus="status">
+                          <tr>
+                            <td class="text-center">
+                              <input type="hidden" id="cd_id_${status.index}" value="${list.cd_id}"/>
+                              ${list.cd_id}
+                            </td>
+                            <td class="text-left"><input type="text"  class="form-control-sm" value="${list.cd_nm}" id="cd_nm_${list.cd_id}" name="cd_nm_${list.cd_id}" style="min-width:200px;"/></td>
+                            <td class="text-left"><input type="text"  class="form-control-sm" value="${list.cd_nm_en}" id="cd_nm_en_${list.cd_id}" name="cd_nm_en_${list.cd_id}" style="min-width:200px;"/></td>
+                            <td class="text-center"><input type="text"  maxlength="6" class="form-control-sm" value="${list.upper_cd_id}" id="upper_cd_id_${list.cd_id}" name="upper_cd_id_${list.cd_id}" readonly style="min-width:60px;max-width:80px;"/></td>
+                            <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val1}" id="cd_val1_${list.cd_id}" name="cd_val1_${list.cd_id}" style="min-width:60px;"/></td>
+                            <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val2}" id="cd_val2_${list.cd_id}" name="cd_val2_${list.cd_id}" style="min-width:60px;"/></td>
+                            <td class="text-center"><input type="text"  class="form-control-sm" value="${list.cd_val3}" id="cd_val3_${list.cd_id}" name="cd_val3_${list.cd_id}" style="min-width:60px;"/></td>
+                            <td class="text-center"><input type="number"  class="form-control-sm" value="${list.priority}" id="priority_${list.cd_id}" name="priority_${list.cd_id}" style="min-width:60px;max-width:80px;"/></td>
+                            <td class="text-center">
+                              <select class="form-control-sm" id="use_yn_${list.cd_id}" style="min-width:60px;max-width:80px;">
+                                <option value="Y" <c:if test="${list.use_yn eq 'Y'}">selected</c:if>>Y</option>
+                                <option value="N" <c:if test="${list.use_yn eq 'N'}">selected</c:if>>N</option>
+                              </select>
+                            </td>
+                          </tr>   
+                          </c:forEach>
+                          <c:if test="${fn:length(codelist) == 0}">
+                          <tr>
+                            <td scope="row" class="text-center" colspan="9">조회된 내용이 없습니다.</td>
+                          </tr>
+                          </c:if> 
+                        </tbody>
+                      </table>
+                    </div>
+
+                </article>
 
             </form>
             

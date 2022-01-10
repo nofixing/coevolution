@@ -1939,15 +1939,24 @@ public class EvMgntController {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
-
             EvExpoResponseDto expoInfoList = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
 
             evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            if("0".equals(StringUtils.nvl(evMgntMemberRequestDto.getEv_expo_id(),"0")) ||
+                    "".equals(StringUtils.nvl(evMgntMemberRequestDto.getEv_expo_id(),""))) {
+                evMgntMemberRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
+            }
+
+            /* 콤보용엑스포리스트 */
+            EvMgntExpoRequestDto evMgntExpoRequestDto = new EvMgntExpoRequestDto();
+            List<EvMgntExpoResponseDto> expoCdList = evMgntService.expo_all_list(evMgntExpoRequestDto);
 
             /* 공통코드조회 - 부스 */
             EvCommCodeRequestDto evCommCodeRequestDto = new EvCommCodeRequestDto();
             evCommCodeRequestDto.setUpper_cd_id("106000");
             evCommCodeRequestDto.setUse_yn("Y");
+            evCommCodeRequestDto.setCd_val2(String.valueOf(evMgntMemberRequestDto.getEv_expo_id()));
             List<EvCommCodeResponseDto> category = evCommCodeService.comm_code_search(evCommCodeRequestDto);
 
             model.addAttribute("category", category);
@@ -1978,8 +1987,6 @@ public class EvMgntController {
                 evMgntMemberRequestDto.setIns_dt_to(strDt);
             }
 
-            evMgntMemberRequestDto.setEv_expo_id(expoInfoList.getEv_expo_id());
-
             /* 부스 리스트 조회 */
             List<EvMgntMemberResponseDto> listCnt = evMgntService.mgnt_booth_list_count(evMgntMemberRequestDto);
             List<EvMgntMemberResponseDto> list = evMgntService.mgnt_booth_list(evMgntMemberRequestDto);
@@ -1996,6 +2003,8 @@ public class EvMgntController {
             model.addAttribute("row_count", row_count); /* 총 개수 */
             model.addAttribute("page_row_cnt", evMgntMemberRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
             model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
+            model.addAttribute("expo_id", evMgntMemberRequestDto.getEv_expo_id());
+            model.addAttribute("expoCdList", expoCdList);
 
             /* 검색조건 */
             model.addAttribute("ins_dt_fr", evMgntMemberRequestDto.getIns_dt_fr());

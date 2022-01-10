@@ -14,6 +14,11 @@
       .form_height1 {
         height:calc(1.9rem + 2px);
       }
+
+      .page-item a {
+        padding: 0.75rem 0.75rem;
+      }
+
     </style>
 
   </head>
@@ -79,55 +84,56 @@
                           <input type="date" class="form-control form-control-sm mb-2" id="ins_dt_to" name="ins_dt_to" value="${ins_dt_to}">
                         </div>
                       </div>
-                      <div class="col-2">
-                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 6rem;" id="btnSearch">조회</button>
-                      </div>
-                      <div class="col-2">
-                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2" style="width: 7rem;" id="btnExcel">액셀 다운로드</button>
+                      <div class="col-4 col-4 d-flex justify-content-end">
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2 mr-1" style="width: 6rem;" id="btnSearch">조회</button>
+                        <button type="button" class="btn-outline-primary form-control form-control-sm mb-2 ml-1" style="width: 7rem;" id="btnExcel">액셀 다운로드</button>
                       </div>
                   </div>                  
 
+                  <article>
 
-                <div class="table-responsive pt-3" style="overflow-x: auto; white-space:nowrap">
-                  <table class="table table-striped table-hover table-sm border-bottom" id="tableList">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col" class="text-center">번호</th>
-                        <th scope="col" class="text-left">접속자명</th>
-                        <th scope="col" class="text-left">접속ID</th>
-                        <th scope="col" class="text-center">접속IP</th>
-                        <th scope="col" class="text-center">접속일시</th>
-                      </tr>               
-                    </thead>
-                    <tbody id="codeList">
+                    <div class="board-list">
+                      <table class="board-table">
+                        <thead class="table-light">
+                          <tr>
+                            <th scope="col" class="text-center">번호</th>
+                            <th scope="col" class="text-left">접속자명</th>
+                            <th scope="col" class="text-left">접속ID</th>
+                            <th scope="col" class="text-center">접속IP</th>
+                            <th scope="col" class="text-center">접속일시</th>
+                          </tr>               
+                        </thead>
+                        <tbody id="codeList">
 
-                      <c:forEach var="list" items="${list}" varStatus="status">
+                          <c:forEach var="list" items="${list}" varStatus="status">
 
-                      <tr>
-                        <td class="text-center">${list.rn}</td>
-                        <td class="text-left">${list.cust_nm}</td>
-                        <td class="text-left">${list.cust_id}</td>
-                        <td class="text-center">${list.ip}</td>
-                        <td class="text-center">${list.login_dtm}</td>
-                      </tr>   
+                          <tr>
+                            <td class="text-center">${list.rn}</td>
+                            <td class="text-left">${list.cust_nm}</td>
+                            <td class="text-left">${list.cust_id}</td>
+                            <td class="text-center">${list.ip}</td>
+                            <td class="text-center">${list.login_dtm}</td>
+                          </tr>   
 
-                      </c:forEach>
+                          </c:forEach>
 
-                      <c:if test="${fn:length(list) == 0}">
-                      <tr>
-                        <td scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</td>
-                      </tr>
-                      </c:if> 
-                    </tbody>
-                  </table>
-                </div>
+                          <c:if test="${fn:length(list) == 0}">
+                          <tr>
+                            <td scope="row" class="text-center" colspan="5">조회된 내용이 없습니다.</td>
+                          </tr>
+                          </c:if> 
+                        </tbody>
+                      </table>
+                    </div>
 
-                <!-- paging -->
-                <div class="table-responsive d-flex justify-content-center">
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination pt-3" id="pagingList"></ul>
-                  </nav>
-                </div>                
+                    <!-- paging -->
+                    <div class="table-responsive d-flex justify-content-center">
+                      <nav aria-label="Page navigation" class="d-flex justify-content-center">
+                        <ul class="pagination pt-3" id="pagingList"></ul>
+                      </nav>
+                    </div>     
+
+                  </article>           
 
             </form>
             
