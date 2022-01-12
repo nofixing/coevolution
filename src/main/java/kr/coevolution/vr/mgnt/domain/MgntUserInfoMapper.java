@@ -254,4 +254,18 @@ public interface MgntUserInfoMapper {
      */
     public List<Map<String, String>> S16(Map<String, String> param);
 
+    /**
+     * 조회현황
+     * @param param
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> S17(EvMgntMemberRequestDto param);
+
+    /**
+     * 조회현황
+     * @param param
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> S17_COUNT(EvMgntMemberRequestDto param);
+
 }

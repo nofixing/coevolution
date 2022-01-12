@@ -74,4 +74,5 @@ public class EvMgntMemberResponseDto {
     private int access15_cnt;
     private String ip;
     private String vr_cust_id; /* vr용 cust_seq */
+    private String menu_nm;
 }

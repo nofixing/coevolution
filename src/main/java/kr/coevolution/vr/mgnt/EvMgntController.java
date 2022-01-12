@@ -3244,4 +3244,167 @@ public class EvMgntController {
 
         return resposeResult;
     }
+
+    /**
+     * 조회현황
+     * @param evMgntMemberRequestDto
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mgnt/msearch")
+    public String mgnt_menu_search_list(EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletRequest request, Model model) {
+
+        String returnUrl = "/mgnt/mgnt1401";
+
+        try {
+            /* 로그인정보 */
+            HttpSession httpSession = request.getSession();
+            EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+
+            evMgntMemberRequestDto.setUser_id(loginInfoDto.getCust_id());
+
+            /* row 개수 */
+            evMgntMemberRequestDto.setPage_row_cnt((long) StringUtils.page_row_cnt);
+            Long page_row_start = StringUtils.page_start_row(evMgntMemberRequestDto.getPage_current(), StringUtils.page_row_cnt);
+            evMgntMemberRequestDto.setPage_row_start(page_row_start);
+
+            String searchYn = "Y";
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getPage_current(),""))) {
+                evMgntMemberRequestDto.setPage_current(1L);
+                searchYn = "N";
+            }
+
+            model.addAttribute("page_current", String.valueOf(evMgntMemberRequestDto.getPage_current()));  /* 현재페이지 */
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            Date nDt = new Date();
+
+            /* 최초 날짜가 null 인경우 */
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_fr(),""))) {
+                String strDt = sf.format(nDt);
+                evMgntMemberRequestDto.setIns_dt_fr(strDt);
+            }
+
+            if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_to(),""))) {
+                String strDt = sf.format(nDt);
+                evMgntMemberRequestDto.setIns_dt_to(strDt);
+            }
+
+            /* 조회현황 리스트 조회 */
+            List<EvMgntMemberResponseDto> list = null;
+            List<EvMgntMemberResponseDto> listCnt = null;
+
+            if(searchYn.equals("Y")) {
+                list = evMgntService.mgnt_menu_search_list(evMgntMemberRequestDto);
+                listCnt = evMgntService.mgnt_menu_search_list_count(evMgntMemberRequestDto);
+            }
+
+            Long row_count = 0L;
+
+            if(listCnt != null && listCnt.size() > 0) {
+                row_count = listCnt.get(0).getRow_count();
+            }
+
+            model.addAttribute("page_clsf", "mgnt14");
+            model.addAttribute("list", list);
+            model.addAttribute("row_count", row_count); /* 총 개수 */
+            model.addAttribute("page_row_cnt", evMgntMemberRequestDto.getPage_row_cnt());    /* 페이지 row 개수 */
+            model.addAttribute("page_current", evMgntMemberRequestDto.getPage_current());    /* 현재페이지 */
+
+            /* 검색조건 */
+            model.addAttribute("ins_dt_fr", evMgntMemberRequestDto.getIns_dt_fr());
+            model.addAttribute("ins_dt_to", evMgntMemberRequestDto.getIns_dt_to());
+            model.addAttribute("access_nm", evMgntMemberRequestDto.getAccess_nm());
+            model.addAttribute("access_id", evMgntMemberRequestDto.getAccess_id());
+
+            model.addAttribute("result_code", "0");
+            model.addAttribute("result_msg", "성공!!");
+
+        } catch (Exception e) {
+
+            model.addAttribute("result_code", "-99");
+            model.addAttribute("result_msg", "조회실패!!");
+
+            e.printStackTrace();
+        }
+
+        return returnUrl;
+
+    }
+
+
+    @RequestMapping("/mgnt/msearch_xlsx")
+    public void menuSearchexcelDownload(EvMgntMemberRequestDto evMgntMemberRequestDto, HttpServletResponse response) throws IOException {
+
+        evMgntMemberRequestDto.setPage_row_cnt(100000L);
+        evMgntMemberRequestDto.setPage_row_start(0L);
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Date nDt = new Date();
+
+        /* 최초 날짜가 null 인경우 */
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_fr(),""))) {
+            Date ftDt = StringUtils.addMonth(nDt,-1);
+            String strDt = sf.format(ftDt);
+            evMgntMemberRequestDto.setIns_dt_fr(strDt);
+        }
+
+        if("".equals(StringUtils.nvl(evMgntMemberRequestDto.getIns_dt_to(),""))) {
+            String strDt = sf.format(nDt);
+            evMgntMemberRequestDto.setIns_dt_to(strDt);
+        }
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell = row.createCell(1);
+        cell.setCellValue("접속자명");
+        cell = row.createCell(2);
+        cell.setCellValue("접속ID");
+        cell = row.createCell(3);
+        cell.setCellValue("접속IP");
+        cell = row.createCell(4);
+        cell.setCellValue("접속일시");
+        cell = row.createCell(5);
+        cell.setCellValue("메뉴");
+
+        /* 접속현황 리스트 조회 */
+        List<EvMgntMemberResponseDto> list = evMgntService.mgnt_menu_search_list(evMgntMemberRequestDto);
+
+        // Body
+        for (int i=0; i < list.size(); i++) {
+            EvMgntMemberResponseDto dto = list.get(i);
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(dto.getRn());
+            cell = row.createCell(1);
+            cell.setCellValue(dto.getCust_nm());
+            cell = row.createCell(2);
+            cell.setCellValue(dto.getCust_id());
+            cell = row.createCell(3);
+            cell.setCellValue(dto.getIp());
+            cell = row.createCell(4);
+            cell.setCellValue(dto.getIns_dtm());
+            cell = row.createCell(5);
+            cell.setCellValue(dto.getMenu_nm());
+        }
+
+        String strDt = sf.format(nDt);
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=access_log_"+strDt+".xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
 }

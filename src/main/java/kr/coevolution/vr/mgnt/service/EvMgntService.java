@@ -444,4 +444,22 @@ public class EvMgntService {
     public List<Map<String, String>> search_mgnt_top_menu_list(Map<String, String> param) {
         return mgntUserInfoMapper.S16(param);
     }
+
+    /**
+     * 조회현황
+     * @param evMgntMemberRequestDto
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> mgnt_menu_search_list (EvMgntMemberRequestDto evMgntMemberRequestDto) {
+        return mgntUserInfoMapper.S17(evMgntMemberRequestDto);
+    }
+
+    /**
+     * 조회현황
+     * @param evMgntMemberRequestDto
+     * @return
+     */
+    public List<EvMgntMemberResponseDto> mgnt_menu_search_list_count (EvMgntMemberRequestDto evMgntMemberRequestDto) {
+        return mgntUserInfoMapper.S17_COUNT(evMgntMemberRequestDto);
+    }
 }

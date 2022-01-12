@@ -722,4 +722,76 @@
           AND nvl(A.menu_url,'') != ''
     </select>
 
+    <select id="S17" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        /* 조회현황 */
+        with smenu as (
+            select emu.mgnt_nm  as cust_nm
+                , emu.mgnt_id   as cust_id
+                , al.access_ip  as ip
+                , DATE_FORMAT(al.access_dtm, '%Y-%m-%d %H:%i:%s') as login_dtm
+                , (
+                    select max(menu_nm)
+                    from ev_menu_mgnt emm
+                    where use_yn = 'Y'
+                    and nvl(menu_url,'') != ''
+                    and replace(replace(replace(al.access_info,'[',''),']',''),'?','') like concat('%',replace(emm.menu_url,'?',''),'%')
+                    ) as menu_nm
+                , al.access_info
+            from access_log al
+                , ev_mgnt_user emu
+            where al.access_user = emu.mgnt_id
+            and al.access_dtm between #{ins_dt_fr} AND DATE_FORMAT(DATE_ADD(str_to_date(#{ins_dt_to}, '%Y-%m-%d') , interval 1 day),'%Y-%m-%d')
+
+                <if test="access_nm != null and access_nm != ''">
+                    and al.access_user like concat('%',#{access_nm},'%')
+                </if>
+
+                <if test="access_id != null and access_id != ''">
+                    and al.mgnt_id like concat('%',#{access_id},'%')
+                </if>
+        )
+        select ROW_NUMBER() OVER(ORDER BY login_dtm desc) as rn
+             , cust_nm, cust_id, ip, login_dtm, menu_nm
+        from smenu
+        where nvl(menu_nm,'') != ''
+
+        LIMIT #{page_row_start}, #{page_row_cnt}
+
+    </select>
+
+    <select id="S17_COUNT" parameterType="kr.coevolution.vr.mgnt.dto.EvMgntMemberRequestDto" resultType="kr.coevolution.vr.mgnt.dto.EvMgntMemberResponseDto">
+
+        /* 조회현황건수 */
+        with smenu as (
+        select emu.mgnt_nm  as cust_nm
+        , emu.mgnt_id   as cust_id
+        , al.access_ip  as ip
+        , DATE_FORMAT(al.access_dtm, '%Y-%m-%d %H:%i:%s') as login_dtm
+        , (
+        select max(menu_nm)
+        from ev_menu_mgnt emm
+        where use_yn = 'Y'
+        and nvl(menu_url,'') != ''
+        and replace(replace(replace(al.access_info,'[',''),']',''),'?','') like concat('%',replace(emm.menu_url,'?',''),'%')
+        ) as menu_nm
+        , al.access_info
+        from access_log al
+        , ev_mgnt_user emu
+        where al.access_user = emu.mgnt_id
+        and al.access_dtm between #{ins_dt_fr} AND DATE_FORMAT(DATE_ADD(str_to_date(#{ins_dt_to}, '%Y-%m-%d') , interval 1 day),'%Y-%m-%d')
+
+        <if test="access_nm != null and access_nm != ''">
+            and al.access_user like concat('%',#{access_nm},'%')
+        </if>
+
+        <if test="access_id != null and access_id != ''">
+            and al.mgnt_id like concat('%',#{access_id},'%')
+        </if>
+        )
+        select count(*) as row_count
+        from smenu
+        where nvl(menu_nm,'') != ''
+
+    </select>
 </mapper>

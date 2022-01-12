@@ -41,10 +41,14 @@ public class CoevolutionLogInterceptor implements HandlerInterceptor {
             /* 172.31.*.* aws 서버 */
             if(!ip.startsWith("172.31")) {
                 EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+                EvMemberLoginInfoDto loginInfoMgntDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_mgnt_session);
+
                 Map<String, String> vMap = new HashMap<String, String>();
 
                 if(loginInfoDto != null && !"".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
                     vMap.put("access_user", loginInfoDto.getCust_id());
+                } else if(loginInfoMgntDto != null && !"".equals(StringUtils.nvl(loginInfoMgntDto.getCust_id(),""))) {
+                    vMap.put("access_user", loginInfoMgntDto.getCust_id());
                 }
 
                 vMap.put("access_ip", ip);
