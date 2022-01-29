@@ -304,6 +304,7 @@ public class EvMypageConsltController {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)httpSession.getAttribute(StringUtils.expo_info_session);
 
             if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
                 returnUrl = "/member/login_form";
@@ -320,6 +321,7 @@ public class EvMypageConsltController {
             /* Expo 정보조회 (예약가능일자조회) */
             EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
             evExpoRequestDtoDto.setCust_id(loginInfoDto.getCust_id());
+            evExpoRequestDtoDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
             List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search(evExpoRequestDtoDto);
             String consultFromDt = "";
             String consultToDt = "";
@@ -721,6 +723,8 @@ public class EvMypageConsltController {
             /* 로그인정보 */
             HttpSession httpSession = request.getSession();
             EvMemberLoginInfoDto loginInfoDto = (EvMemberLoginInfoDto)httpSession.getAttribute(StringUtils.login_session);
+            EvExpoResponseDto evExpoResponseDto = (EvExpoResponseDto)request.getSession().getAttribute(StringUtils.expo_info_session);
+            evMypageConsultRequestDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
 
             if(loginInfoDto == null || "".equals(StringUtils.nvl(loginInfoDto.getCust_id(),""))) {
                 returnUrl = "/member/login_form";
@@ -740,6 +744,7 @@ public class EvMypageConsltController {
             /* Expo 정보조회 (예약가능일자조회) */
             EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
             evExpoRequestDtoDto.setCust_id(loginInfoDto.getCust_id());
+            evExpoRequestDtoDto.setEv_expo_id(evExpoResponseDto.getEv_expo_id());
             List<EvExpoResponseDto> expoInfo = evExpoService.expo_info_search(evExpoRequestDtoDto);
             String consultFromDt = "";
             String consultToDt = "";

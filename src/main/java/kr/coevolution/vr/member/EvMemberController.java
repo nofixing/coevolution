@@ -370,6 +370,7 @@ public class EvMemberController {
                 /* sesstion 정보 입력 expo 정보*/
                 EvExpoRequestDto evExpoRequestDtoDto = new EvExpoRequestDto();
                 evExpoRequestDtoDto.setCust_id(evMemberLoginInfoDtoList.get(0).getCust_id());
+                evExpoRequestDtoDto.setCust_clsf_cd(evMemberLoginInfoDtoList.get(0).getCust_clsf_cd());
                 List<EvExpoResponseDto> expoInfoList =  evExpoService.expo_info_search(evExpoRequestDtoDto);
 
                 session.setAttribute(StringUtils.expo_info_session, expoInfoList.get(0));

@@ -9,7 +9,16 @@
             select nvl(max(cd_val1),'0')  as cd_val1
               from ev_consult_time ect
                  , ev_comm_code ecc
-            where ev_expo_id = (select ev_expo_id from ev_expo where use_yn = 'Y')
+            where 1 = 1
+
+            <if test="ev_expo_id == '' or ev_expo_id == null">
+                  and ev_expo_id = (select ev_expo_id from ev_expo where use_yn = 'Y')
+            </if>
+
+            <if test="ev_expo_id != '' and ev_expo_id != null">
+                and ev_expo_id = #{ev_expo_id}
+            </if>
+
               and ect.tiemzone_cd  = ecc.cd_id
               and cust_id = #{cust_id}
         )
@@ -25,7 +34,23 @@
             , (select count(*) from ev_expo where use_yn = 'Y') as cnt
             , date_format(str_to_date(expo_consult_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_consult_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
         FROM ev_expo, cd
-        WHERE use_yn = 'Y'
+        WHERE 1 = 1
+
+        <if test="ev_expo_id == '' or ev_expo_id == null">
+            <if test="cust_clsf_cd == '202002'">
+                and ev_expo.ev_expo_id = (select ifnull(max(ev_expo_id), (select ev_expo_id from ev_expo where use_yn = 'Y'))
+                                            from ev_expo_customer eec
+                                            where eec.cust_id = #{cust_id})
+            </if>
+
+            <if test="cust_clsf_cd != '202002'">
+                and use_yn = 'Y'
+            </if>
+        </if>
+
+        <if test="ev_expo_id != '' and ev_expo_id != null">
+            and ev_expo_id = #{ev_expo_id}
+        </if>
 
     </select>
 
@@ -50,7 +75,23 @@
             , (select count(*) from ev_expo where use_yn = 'Y') as cnt
             , date_format(str_to_date(expo_consult_from_dt,'%Y-%m-%d') - (date_format(str_to_date(expo_consult_from_dt,'%Y-%m-%d'),'%w')),'%Y-%m-%d') as sunday
         FROM ev_expo, cd
-        WHERE use_yn = 'Y'
+        WHERE 1 = 1
+
+        <if test="ev_expo_id == '' or ev_expo_id == null">
+            <if test="cust_clsf_cd == '202002'">
+                and ev_expo.ev_expo_id = (select ifnull(max(ev_expo_id), (select ev_expo_id from ev_expo where use_yn = 'Y'))
+                from ev_expo_customer eec
+                where eec.cust_id = #{cust_id})
+            </if>
+
+            <if test="cust_clsf_cd != '202002'">
+                and use_yn = 'Y'
+            </if>
+        </if>
+
+        <if test="ev_expo_id != '' and ev_expo_id != null">
+            and ev_expo_id = #{ev_expo_id}
+        </if>
 
     </select>
 

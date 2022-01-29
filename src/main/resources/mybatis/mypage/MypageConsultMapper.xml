@@ -838,7 +838,15 @@
             select DATE_ADD(STR_TO_DATE(expo_consult_from_dt, '%Y-%m-%d'), INTERVAL DATE_FORMAT(STR_TO_DATE(expo_consult_from_dt, '%Y-%m-%d'),'%w') * -1 DAY) as ST_DT
                  , expo_consult_to_dt as END_DT
               from ev_expo
-             where use_yn = 'Y'
+             where 1 = 1
+        <if test="ev_expo_id != '' and ev_expo_id != null">
+            and ev_expo_id = #{ev_expo_id}
+        </if>
+
+        <if test="ev_expo_id == '' or ev_expo_id == null">
+            and use_yn = 'Y'
+        </if>
+
         )
         , DT_TABLE AS (
             SELECT DATE_FORMAT(STDT.ST_DT,'%m/%d (%a)') dt, STDT.ST_DT, 1 lv FROM STDT
